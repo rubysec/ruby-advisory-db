@@ -1,6 +1,6 @@
-# Ruby Advisory db
+# Ruby Advisory Database
 
-The Ruby Advisory db is a database of advisories pertaining to Ruby libraries.
+The Ruby advisory database is an attempt to compile all advisories relevant to Ruby libraries.
 
 ## Directory Structure
 
