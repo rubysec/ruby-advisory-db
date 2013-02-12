@@ -42,7 +42,7 @@ Each advisory file contains the advisory information in [YAML] format:
 * `title` \[String\]: The title of the advisory.
 * `description` \[String\]: Multi-paragraph description of the vulnerability.
 * `cvss_v2` \[Float\]: The [CVSSv2] score for the vulnerability.
-* `patched_versions` \[Array<String>\]: The version requirements for the
+* `patched_versions` \[Array\<String\>\]: The version requirements for the
   patched versions of the Ruby library.
 
 [rubygems.org]: https://rubygems.org/
