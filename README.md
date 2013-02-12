@@ -1,10 +1,10 @@
-# Ruby Advisory DB
+# Ruby Advisory db
 
-The Ruby Advisory DB is a "Database" of Advisories pertaining to Ruby libraries.
+The Ruby Advisory db is a database of advisories pertaining to Ruby libraries.
 
 ## Directory Structure
 
-The "Database" consists of directories that correlate to Ruby libraries on
+The database is a list of directories that match the names of Ruby libraries on
 [rubygems.org]. Within each directory are one or more advisory files
 for the Ruby library. These advisory files are typically named using
 the advisories [CVE] identifier number.
