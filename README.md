@@ -47,4 +47,5 @@ Each advisory file contains the advisory information in [YAML] format:
 
 [rubygems.org]: https://rubygems.org/
 [CVE]: http://cve.mitre.org/
+[CVSSv2]: http://www.first.org/cvss/cvss-guide.html
 [YAML]: http://www.yaml.org/
