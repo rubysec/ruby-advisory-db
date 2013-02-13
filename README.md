@@ -46,6 +46,11 @@ Each advisory file contains the advisory information in [YAML] format:
 * `patched_versions` \[Array\<String\>\]: The version requirements for the
   patched versions of the Ruby library.
 
+## Obtaining a CVE
+
+If you have prepared an advisory but do not have a CVE, simply email
+[cve-assign@mitre.org](mailto:cve-assign@mitre.org).
+
 ## Credits
 
 * [Postmodern](https://github.com/postmodern/)
