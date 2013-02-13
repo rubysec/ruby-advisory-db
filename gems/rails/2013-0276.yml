@@ -1,6 +1,6 @@
 --- 
-gem_name: rails
-cve_id: 2013-0276
+gem: rails
+cve: 2013-0276
 url: http://direct.osvdb.org/show/osvdb/90072
 title: Ruby on Rails Active Record attr_protected Method Bypass
 description: |

@@ -1,6 +1,6 @@
 --- 
-gem_name: rails
-cve_id: 2013-0277
+gem: rails
+cve: 2013-0277
 url: http://direct.osvdb.org/show/osvdb/90073
 title: |
   Ruby on Rails Active Record +serialize+ Helper YAML Attribute Handling Remote

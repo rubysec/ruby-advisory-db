@@ -1,6 +1,6 @@
 --- 
-gem_name: rails
-cve_id: 2012-3465
+gem: rails
+cve: 2012-3465
 url: http://www.osvdb.org/show/osvdb/84513
 title: Ruby on Rails strip_tags Helper Method XSS
 description: |

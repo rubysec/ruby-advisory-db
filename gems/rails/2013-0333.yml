@@ -1,6 +1,6 @@
 --- 
-gem_name: rails
-cve_id: 2013-0333
+gem: rails
+cve: 2013-0333
 url: http://osvdb.org/show/osvdb/89594
 title: |
   Ruby on Rails JSON Parser Crafted Payload YAML Subset Decoding Remote Code

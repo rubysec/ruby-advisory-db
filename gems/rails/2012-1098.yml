@@ -1,6 +1,6 @@
 --- 
-gem_name: rails
-cve_id: 2012-1098
+gem: rails
+cve: 2012-1098
 url: http://osvdb.org/79726
 title: Ruby on Rails SafeBuffer Object [] Direct Manipulation XSS
 description: |

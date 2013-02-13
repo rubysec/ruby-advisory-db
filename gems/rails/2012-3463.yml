@@ -1,6 +1,6 @@
 --- 
-gem_name: rails
-cve_id: 2012-3463
+gem: rails
+cve: 2012-3463
 url: http://osvdb.org/84515
 title: Ruby on Rails select_tag Helper Method prompt Value XSS
 description: |

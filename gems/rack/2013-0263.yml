@@ -1,6 +1,6 @@
 --- 
-gem_name: rack
-cve_id: 2013-0263
+gem: rack
+cve: 2013-0263
 url: http://osvdb.org/show/osvdb/89939
 title: |
   Rack Rack::Session::Cookie Function Timing Attack Remote Code Execution 

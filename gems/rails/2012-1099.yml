@@ -1,6 +1,6 @@
 --- 
-gem_name: rails
-cve_id: 2012-1099
+gem: rails
+cve: 2012-1099
 url: http://www.osvdb.org/show/osvdb/79727
 title: Ruby on Rails actionpack/lib/action_view/helpers/form_options_helper.rb Manually Generated Select Tag Options XSS
 description: |

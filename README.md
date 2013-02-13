@@ -18,8 +18,8 @@ the advisories [CVE] identifier number.
 Each advisory file contains the advisory information in [YAML] format:
 
     ---
-    gem_name: rails
-    cve_id: 2013-0156
+    gem: rails
+    cve: 2013-0156
     url: http://osvdb.org/show/osvdb/89026
     title: |
       Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
@@ -41,8 +41,8 @@ Each advisory file contains the advisory information in [YAML] format:
 
 ### Schema
 
-* `gem_name` \[String\]: Name of the affected gem.
-* `cve_id` \[String\]: CVE id
+* `gem` \[String\]: Name of the affected gem.
+* `cve` \[String\]: CVE id
 * `url` \[String\]: The URL to the full advisory.
 * `title` \[String\]: The title of the advisory.
 * `description` \[String\]: Multi-paragraph description of the vulnerability.

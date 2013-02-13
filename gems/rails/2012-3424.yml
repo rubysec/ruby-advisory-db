@@ -1,6 +1,6 @@
 --- 
-gem_name: rails
-cve_id: 2012-3424
+gem: rails
+cve: 2012-3424
 url: http://www.osvdb.org/show/osvdb/84243
 title: Ruby on Rails actionpack/lib/action_controller/metal/http_authentication.rb with_http_digest Helper Method Remote DoS
 description: |

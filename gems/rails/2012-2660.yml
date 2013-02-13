@@ -1,6 +1,6 @@
 --- 
-gem_name: rails
-cve_id: 2012-2660
+gem: rails
+cve: 2012-2660
 url: http://www.osvdb.org/show/osvdb/82610
 title: Ruby on Rails ActiveRecord Class Rack Query Parameter Parsing SQL Query Arbitrary IS NULL Clause Injection
 description: |

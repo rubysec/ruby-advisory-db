@@ -1,6 +1,6 @@
 --- 
-gem_name: mail
-cve_id: 2011-0739
+gem: mail
+cve: 2011-0739
 url: http://www.osvdb.org/show/osvdb/70667
 title: |
   Mail Gem for Ruby lib/mail/network/delivery_methods/sendmail.rb Email From:

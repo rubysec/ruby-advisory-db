@@ -1,6 +1,6 @@
 --- 
-gem_name: json
-cve_id: 2013-0269
+gem: json
+cve: 2013-0269
 url: http://direct.osvdb.org/show/osvdb/90074
 title: Ruby on Rails JSON Gem Arbitrary Symbol Creation Remote DoS
 description: |
