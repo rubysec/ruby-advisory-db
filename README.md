@@ -46,6 +46,11 @@ Each advisory file contains the advisory information in [YAML] format:
 * `patched_versions` \[Array\<String\>\]: The version requirements for the
   patched versions of the Ruby library.
 
+## Credits
+
+* [Postmodern](https://github.com/postmodern/)
+* [Max Veytsman](https://github.com/mveytsman)
+
 [rubygems.org]: https://rubygems.org/
 [CVE]: http://cve.mitre.org/
 [CVSSv2]: http://www.first.org/cvss/cvss-guide.html
