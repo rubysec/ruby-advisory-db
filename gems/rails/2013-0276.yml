@@ -1,7 +1,8 @@
----
+--- 
+gem_name: rails
+cve_id: 2013-0276
 url: http://direct.osvdb.org/show/osvdb/90072
-title: Ruby on Rails Active Record attr_protected Method Bypass 
-
+title: Ruby on Rails Active Record attr_protected Method Bypass
 description: |
   Ruby on Rails contains a flaw in the attr_protected method of the
   Active Record. The issue is triggered during the handling of a specially
@@ -9,8 +10,7 @@ description: |
   mechanisms and alter values that would otherwise be protected.
 
 cvss_v2: 5.0
-
-patched_versions:
-  - ~> 2.3.17
-  - ~> 3.1.11
-  - ">= 3.2.12"
+patched_versions: 
+- ~> 2.3.17
+- ~> 3.1.11
+- ">= 3.2.12"

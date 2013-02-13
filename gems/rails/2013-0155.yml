@@ -1,4 +1,6 @@
----
+--- 
+gem_name: rails
+cve_id: 2013-0155
 url: http://osvdb.org/show/osvdb/89025
 title: |
   Ruby on Rails Active Record JSON Parameter Parsing Query Bypass 
@@ -12,8 +14,7 @@ description: |
   for NULL or eliminate a WHERE clause.
 
 cvss_v2: 10.0
-
-patched_versions:
-  - ~> 3.0.19
-  - ~> 3.1.10
-  - ">= 3.2.11"
+patched_versions: 
+- ~> 3.0.19
+- ~> 3.1.10
+- ">= 3.2.11"

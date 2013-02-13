@@ -1,4 +1,6 @@
----
+--- 
+gem_name: rack
+cve_id: 2013-0263
 url: http://osvdb.org/show/osvdb/89939
 title: |
   Rack Rack::Session::Cookie Function Timing Attack Remote Code Execution 
@@ -11,10 +13,9 @@ description: |
   latencies are sufficiently low to make the attack viable.
 
 cvss_v2: 7.6
-
-patched_versions:
-  - ~> 1.1.6
-  - ~> 1.2.8
-  - ~> 1.3.10
-  - ~> 1.4.5
-  - ">= 1.5.2"
+patched_versions: 
+- ~> 1.1.6
+- ~> 1.2.8
+- ~> 1.3.10
+- ~> 1.4.5
+- ">= 1.5.2"
