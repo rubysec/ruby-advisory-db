@@ -1,6 +1,6 @@
 # Ruby Advisory Database
 
-The Ruby advisory database is an attempt to compile all advisories relevant to Ruby libraries.
+The Ruby advisory database seeks to compile all advisories relevant to Ruby libraries.
 
 ## Directory Structure
 
@@ -9,8 +9,9 @@ The database is a list of directories that match the names of Ruby libraries on
 for the Ruby library. These advisory files are typically named using
 the advisories [CVE] identifier number.
 
-    rails/:
-    2012-1098.yml  2012-2660.yml  2012-2661.yml  2012-3463.yml
+    gems/:
+      rails/:
+        2012-1098.yml  2012-2660.yml  2012-2661.yml  2012-3463.yml
 
 ## Format
 
@@ -44,6 +45,16 @@ Each advisory file contains the advisory information in [YAML] format:
 * `cvss_v2` \[Float\]: The [CVSSv2] score for the vulnerability.
 * `patched_versions` \[Array\<String\>\]: The version requirements for the
   patched versions of the Ruby library.
+
+## Obtaining a CVE
+
+If you have prepared an advisory but do not have a CVE, simply email
+[cve-assign@mitre.org](mailto:cve-assign@mitre.org).
+
+## Credits
+
+* [Postmodern](https://github.com/postmodern/)
+* [Max Veytsman](https://github.com/mveytsman)
 
 [rubygems.org]: https://rubygems.org/
 [CVE]: http://cve.mitre.org/
