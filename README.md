@@ -1,6 +1,6 @@
 # Ruby Advisory Database
 
-The Ruby advisory database is an attempt to compile all advisories relevant to Ruby libraries.
+The Ruby advisory database seeks to compile all advisories relevant to Ruby libraries.
 
 ## Directory Structure
 
@@ -9,8 +9,9 @@ The database is a list of directories that match the names of Ruby libraries on
 for the Ruby library. These advisory files are typically named using
 the advisories [CVE] identifier number.
 
-    rails/:
-    2012-1098.yml  2012-2660.yml  2012-2661.yml  2012-3463.yml
+    gems/:
+      rails/:
+        2012-1098.yml  2012-2660.yml  2012-2661.yml  2012-3463.yml
 
 ## Format
 
