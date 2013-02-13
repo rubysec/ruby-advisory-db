@@ -58,7 +58,7 @@ If you have prepared an advisory but do not have a CVE, simply email
 ## Credits
 
 * [Postmodern](https://github.com/postmodern/)
-* [Max Veytsman](https://github.com/mveytsman)
+* [Max Veytsman](https://twitter.com/mveytsman)
 
 [rubygems.org]: https://rubygems.org/
 [CVE]: http://cve.mitre.org/
