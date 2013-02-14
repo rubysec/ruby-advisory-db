@@ -13,6 +13,7 @@ the advisories [CVE] identifier number.
       rails/:
         2012-1098.yml  2012-2660.yml  2012-2661.yml  2012-3463.yml
 
+If an advisory does not yet have a [CVE], [requesting a CVE][1] is easy.
 ## Format
 
 Each advisory file contains the advisory information in [YAML] format:
@@ -50,11 +51,6 @@ Each advisory file contains the advisory information in [YAML] format:
 * `patched_versions` \[Array\<String\>\]: The version requirements for the
   patched versions of the Ruby library.
 
-## Obtaining a CVE
-
-If you have prepared an advisory but do not have a CVE, simply email
-[cve-assign@mitre.org](mailto:cve-assign@mitre.org).
-
 ## Credits
 
 * [Postmodern](https://github.com/postmodern/)
@@ -64,3 +60,5 @@ If you have prepared an advisory but do not have a CVE, simply email
 [CVE]: http://cve.mitre.org/
 [CVSSv2]: http://www.first.org/cvss/cvss-guide.html
 [YAML]: http://www.yaml.org/
+
+[1]: http://people.redhat.com/kseifrie/CVE-OpenSource-Request-HOWTO.html
