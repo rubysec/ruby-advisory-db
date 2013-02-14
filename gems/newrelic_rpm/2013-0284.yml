@@ -1,0 +1,11 @@
+---
+gem: newrelic_rpm
+cve: 2013-0284
+url: https://newrelic.com/docs/ruby/ruby-agent-security-notification
+title: Ruby on Rails newrelic_rpm Gem Discloses Sensitive Information
+description: |
+  A bug in the Ruby agent causes database connection information and raw SQL statements to be transmitted to New Relic servers. The database connection information includes the database IP address, username, and password
+
+cvss_v2:
+patched_versions: 
+- ">= 3.5.3.25"
