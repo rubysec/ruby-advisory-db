@@ -1,5 +1,5 @@
 --- 
-gem: rails
+gem: activerecord
 cve: 2013-0277
 url: http://direct.osvdb.org/show/osvdb/90073
 title: |

@@ -1,5 +1,5 @@
 --- 
-gem: rails
+gem: actionpack
 cve: 2013-0156
 url: http://osvdb.org/show/osvdb/89026
 title: |

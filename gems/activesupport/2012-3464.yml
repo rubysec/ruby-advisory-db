@@ -1,5 +1,5 @@
 --- 
-gem: rails
+gem: activesupport
 cve: 2012-3464
 url: http://www.osvdb.org/show/osvdb/84516
 title: Ruby on Rails HTML Escaping Code XSS

@@ -1,5 +1,5 @@
 --- 
-gem: rails
+gem: activerecord
 cve: 2013-0155
 url: http://osvdb.org/show/osvdb/89025
 title: |

@@ -1,5 +1,5 @@
 --- 
-gem: rails
+gem: activerecord
 cve: 2012-2661
 url: http://www.osvdb.org/show/osvdb/82403
 title: Ruby on Rails where Method ActiveRecord Class SQL Injection
