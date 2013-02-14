@@ -2,7 +2,7 @@
 gem: activesupport
 cve: 2013-0333
 url: http://osvdb.org/show/osvdb/89594
-title: |
+title:
   Ruby on Rails JSON Parser Crafted Payload YAML Subset Decoding Remote Code
   Execution 
 
@@ -16,6 +16,7 @@ description: |
   a Rails application.
 
 cvss_v2: 9.3
+
 patched_versions: 
-- ~> 2.3.16
-- ">= 3.0.20"
+  - ~> 2.3.16
+  - ">= 3.0.20"

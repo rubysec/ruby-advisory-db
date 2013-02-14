@@ -3,9 +3,13 @@ gem: nori
 cve: 2013-0285
 url: https://github.com/savonrb/nori/commit/818f5263b1d597b603d46cbe1702cd2717259e32
 title: Ruby Gem nori Parameter Parsing Remote Code Execution
+
 description: |
-  The Ruby Gem nori has a parameter parsing error that may allow an attacker to execute arbitrary code. This vulnerability has to do with type casting during parsing, and is related to CVE-2013-0156.
+  The Ruby Gem nori has a parameter parsing error that may allow an attacker
+  to execute arbitrary code. This vulnerability has to do with type casting
+  during parsing, and is related to CVE-2013-0156.
 
 cvss_v2:
+
 patched_versions:
-- ">=2.0.2"
+  - ">=2.0.2"

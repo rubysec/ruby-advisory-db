@@ -2,8 +2,7 @@
 gem: devise
 cve: 2013-0233
 url: http://osvdb.org/show/osvdb/89642
-title: |
-  Devise Database Type Conversion Crafted Request Parsing Security Bypass
+title: Devise Database Type Conversion Crafted Request Parsing Security Bypass
 
 description: |
   Devise contains a flaw that is triggered during when a type conversion error

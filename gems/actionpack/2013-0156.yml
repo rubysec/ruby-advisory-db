@@ -2,7 +2,7 @@
 gem: actionpack
 cve: 2013-0156
 url: http://osvdb.org/show/osvdb/89026
-title: |
+title:
   Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
   Remote Code Execution 
 
@@ -13,8 +13,9 @@ description: |
   arbitrary code.
 
 cvss_v2: 10.0
+
 patched_versions: 
-- ~> 2.3.15
-- ~> 3.0.19
-- ~> 3.1.10
-- ">= 3.2.11"
+  - ~> 2.3.15
+  - ~> 3.0.19
+  - ~> 3.1.10
+  - ">= 3.2.11"

@@ -2,8 +2,7 @@
 gem: multi_xml
 cve: 2013-0175
 url: http://osvdb.org/show/osvdb/89148
-title: |
-  multi_xml Gem for Ruby XML Parameter Parsing Remote Command Execution 
+title: multi_xml Gem for Ruby XML Parameter Parsing Remote Command Execution 
 
 description: |
   The multi_xml Gem for Ruby contains a flaw that is triggered when an error
