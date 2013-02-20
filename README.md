@@ -14,6 +14,7 @@ the advisories [CVE] identifier number.
         2012-1098.yml  2012-2660.yml  2012-2661.yml  2012-3463.yml
 
 If an advisory does not yet have a [CVE], [requesting a CVE][1] is easy.
+
 ## Format
 
 Each advisory file contains the advisory information in [YAML] format:
