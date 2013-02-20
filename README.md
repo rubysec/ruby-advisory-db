@@ -2,6 +2,13 @@
 
 The Ruby advisory database seeks to compile all advisories relevant to Ruby libraries.
 
+## Goals
+
+1. Provide advisory **metadata** in a **simple** yet **structured** [YAML]
+   schema for automated tools to consume.
+2. Avoid reinventing [CVE]s.
+3. Avoid duplicating the efforts of [OSVDB].
+
 ## Directory Structure
 
 The database is a list of directories that match the names of Ruby libraries on
@@ -60,6 +67,7 @@ Each advisory file contains the advisory information in [YAML] format:
 [rubygems.org]: https://rubygems.org/
 [CVE]: http://cve.mitre.org/
 [CVSSv2]: http://www.first.org/cvss/cvss-guide.html
+[OSVDB]: http://www.osvdb.org/
 [YAML]: http://www.yaml.org/
 
 [1]: http://people.redhat.com/kseifrie/CVE-OpenSource-Request-HOWTO.html
