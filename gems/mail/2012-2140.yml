@@ -4,7 +4,9 @@ cve: 2012-2140
 url: http://www.osvdb.org/show/osvdb/81632
 title: Mail Gem for Ruby Multiple Delivery Method Remote Shell Command Execution
 description: |
-  Mail Gem for Ruby contains a flaw that occurs within the sendmail and exim delivery methods, which may allow an attacker to execute arbitrary shell commands..
+  Mail Gem for Ruby contains a flaw that occurs within the sendmail and exim
+  delivery methods, which may allow an attacker to execute arbitrary shell
+  commands..
 
 cvss_v2: 7.5
 patched_versions: 
