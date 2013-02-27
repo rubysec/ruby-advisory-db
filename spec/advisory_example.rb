@@ -15,6 +15,14 @@ shared_examples_for 'Advisory' do |path|
       it { should == gem }
     end
 
+    describe "framework" do
+      subject { advisory['framework'] }
+
+      it "may be nil or a String" do
+        [NilClass, String].should include(subject.class)
+      end
+    end
+
     describe "cve" do
       subject { advisory['cve'] }
 
@@ -72,6 +80,29 @@ shared_examples_for 'Advisory' do |path|
             lambda {
               Gem::Requirement.new(version)
             }.should_not raise_error(ArgumentError)
+          end
+        end
+      end
+    end
+
+    describe "unaffected_versions" do
+      subject { advisory['unaffected_versions'] }
+
+      it "may be nil or a Array" do
+        [NilClass, Array].should include(subject.class)
+      end
+
+      case advisory['unaffected_versions']
+      when Array
+        advisory['unaffected_versions'].each do |version|
+          describe version do
+            subject { version.split(', ') }
+            
+            it "should contain valid RubyGem version requirements" do
+              lambda {
+                Gem::Requirement.new(version)
+              }.should_not raise_error(ArgumentError)
+            end
           end
         end
       end
