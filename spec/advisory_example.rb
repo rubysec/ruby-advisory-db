@@ -88,7 +88,7 @@ shared_examples_for 'Advisory' do |path|
     describe "unaffected_versions" do
       subject { advisory['unaffected_versions'] }
 
-      it "may be nil or a Array" do
+      it "may be nil or an Array" do
         [NilClass, Array].should include(subject.class)
       end
 
