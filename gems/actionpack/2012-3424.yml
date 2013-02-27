@@ -15,7 +15,11 @@ description: |
 
 cvss_v2: 4.3
 
+unaffected_versions:
+  - ~> 2.3.5
+
 patched_versions: 
   - ~> 3.0.16
   - ~> 3.1.7
   - ">= 3.2.7"
+
