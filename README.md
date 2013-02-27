@@ -64,7 +64,9 @@ Each advisory file contains the advisory information in [YAML] format:
   patched versions of the Ruby library.
 
 ## Credits
-This database includes data from the [Open Source Vulnerability Database](http://www.osvdb.org/) developed by the Open Security Foundation (OSF) and its contributors.
+
+This database includes data from the [Open Source Vulnerability Database][OSVDB]
+developed by the Open Security Foundation (OSF) and its contributors.
 
 [rubygems.org]: https://rubygems.org/
 [CVE]: http://cve.mitre.org/
