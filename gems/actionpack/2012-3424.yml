@@ -1,5 +1,6 @@
 --- 
 gem: actionpack
+framework: rails
 cve: 2012-3424
 url: http://www.osvdb.org/show/osvdb/84243
 title: 

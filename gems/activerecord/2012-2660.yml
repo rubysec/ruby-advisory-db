@@ -1,5 +1,6 @@
 --- 
 gem: activerecord
+framework: rails
 cve: 2012-2660
 url: http://www.osvdb.org/show/osvdb/82610
 title:

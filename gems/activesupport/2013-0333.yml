@@ -1,5 +1,6 @@
 --- 
 gem: activesupport
+framework: rails
 cve: 2013-0333
 url: http://osvdb.org/show/osvdb/89594
 title:

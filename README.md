@@ -27,7 +27,8 @@ If an advisory does not yet have a [CVE], [requesting a CVE][1] is easy.
 Each advisory file contains the advisory information in [YAML] format:
 
     ---
-    gem: rails
+    gem: actionpack
+    framework: rails
     cve: 2013-0156
     url: http://osvdb.org/show/osvdb/89026
     title: |
@@ -51,12 +52,13 @@ Each advisory file contains the advisory information in [YAML] format:
 ### Schema
 
 * `gem` \[String\]: Name of the affected gem.
+* `framework` \[String\] (optional): Name of framework gem belongs to.
 * `cve` \[String\]: CVE id
 * `url` \[String\]: The URL to the full advisory.
 * `title` \[String\]: The title of the advisory.
 * `description` \[String\]: Multi-paragraph description of the vulnerability.
 * `cvss_v2` \[Float\]: The [CVSSv2] score for the vulnerability.
-* `unaffected_versions` \[Array\<String\>\]: The version requirements for the
+* `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\]: The version requirements for the
   patched versions of the Ruby library.

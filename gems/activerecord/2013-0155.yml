@@ -1,5 +1,6 @@
 --- 
 gem: activerecord
+framework: rails
 cve: 2013-0155
 url: http://osvdb.org/show/osvdb/89025
 title: Ruby on Rails Active Record JSON Parameter Parsing Query Bypass 
