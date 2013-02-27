@@ -1,0 +1,17 @@
+--- 
+gem: dragonfly
+cve: 2013-1756
+url: https://groups.google.com/forum/?fromgroups=#!topic/dragonfly-users/3c3WIU3VQTo
+title: Dragonfly Gem Remote Code Execution
+
+description: |
+  The Dragonfly gem contains a flaw that allows an attacker to run arbitrary code
+  on a host machine using carefully crafted requests.
+
+cvss_v2: 
+
+patched_versions: 
+  - ">= 0.9.13"
+
+unaffected_versions:
+  - "< 0.7.0"
