@@ -1,13 +1,13 @@
 # Ruby Advisory Database
 
-The Ruby advisory database seeks to compile all advisories relevant to Ruby libraries.
+The Ruby Advisory Database aims to compile all advisories that are relevant to Ruby libraries.
 
 ## Goals
 
 1. Provide advisory **metadata** in a **simple** yet **structured** [YAML]
    schema for automated tools to consume.
 2. Avoid reinventing [CVE]s.
-3. Avoid duplicating the efforts of [OSVDB].
+3. Avoid duplicating the efforts of the [OSVDB].
 
 ## Directory Structure
 
@@ -62,9 +62,7 @@ Each advisory file contains the advisory information in [YAML] format:
   patched versions of the Ruby library.
 
 ## Credits
-
-* [Postmodern](https://github.com/postmodern/)
-* [Max Veytsman](https://twitter.com/mveytsman)
+This database includes data from the [Open Source Vulnerability Database](http://www.osvdb.org/) developed by the Open Security Foundation (OSF) and its contributors.
 
 [rubygems.org]: https://rubygems.org/
 [CVE]: http://cve.mitre.org/
