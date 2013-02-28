@@ -65,7 +65,7 @@ Each advisory file contains the advisory information in [YAML] format:
 
 ## Credits
 
-Please see [CONTRIBUTORS.md]
+Please see [CONTRIBUTORS.md].
 
 This database also includes data from the [Open Source Vulnerability Database][OSVDB]
 developed by the Open Security Foundation (OSF) and its contributors.
