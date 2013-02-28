@@ -65,7 +65,9 @@ Each advisory file contains the advisory information in [YAML] format:
 
 ## Credits
 
-This database includes data from the [Open Source Vulnerability Database][OSVDB]
+Please see [CONTRIBUTORS.md]
+
+This database also includes data from the [Open Source Vulnerability Database][OSVDB]
 developed by the Open Security Foundation (OSF) and its contributors.
 
 [rubygems.org]: https://rubygems.org/
@@ -73,5 +75,6 @@ developed by the Open Security Foundation (OSF) and its contributors.
 [CVSSv2]: http://www.first.org/cvss/cvss-guide.html
 [OSVDB]: http://www.osvdb.org/
 [YAML]: http://www.yaml.org/
+[CONTRIBUTORS.md]: https://github.com/rubysec/ruby-advisory-db/blob/master/CONTRIBUTORS.md
 
 [1]: http://people.redhat.com/kseifrie/CVE-OpenSource-Request-HOWTO.html
