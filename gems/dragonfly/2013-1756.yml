@@ -1,7 +1,7 @@
 --- 
 gem: dragonfly
 cve: 2013-1756
-url: https://groups.google.com/forum/?fromgroups=#!topic/dragonfly-users/3c3WIU3VQTo
+url: http://www.osvdb.com/show/osvdb/90647
 title: Dragonfly Gem Remote Code Execution
 
 description: |
