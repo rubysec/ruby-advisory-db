@@ -15,9 +15,6 @@ description: |
 
 cvss_v2: 10.0
 
-unaffected_versions:
-  - ">= 2.0.0, <= 2.3.15"
-
 patched_versions: 
   - ~> 2.3.16
   - ~> 3.0.19
