@@ -23,6 +23,14 @@ shared_examples_for 'Advisory' do |path|
       end
     end
 
+    describe "platform" do
+      subject { advisory['platform'] }
+
+      it "may be nil or a String" do
+        [NilClass, String].should include(subject.class)
+      end
+    end
+
     describe "cve" do
       subject { advisory['cve'] }
 
