@@ -1,0 +1,26 @@
+--- 
+gem: activesupport
+framework: rails
+platform: jruby
+cve: 2013-1856
+url: https://groups.google.com/forum/?fromgroups=#!topic/rubyonrails-security/KZwsQbYsOiI
+title: XML Parsing Vulnerability affecting JRuby users
+
+description: | 
+ The ActiveSupport XML parsing functionality supports multiple
+ pluggable backends. One backend supported for JRuby users is
+ ActiveSupport::XmlMini_JDOM which makes use of the
+ javax.xml.parsers.DocumentBuilder class. In some JVM configurations
+ the default settings of that class can allow an attacker to construct
+ XML which, when parsed, will contain the contents of arbitrary URLs
+ including files from the application server. They may also allow for
+ various denial of service attacks. Action Pack
+
+cvss_v2: 
+
+unaffected_versions:
+  - ~> 2.3.0
+
+patched_versions:   
+  - ~> 3.1.12
+  - ">= 3.2.13"
