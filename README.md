@@ -17,8 +17,10 @@ for the Ruby library. These advisory files are typically named using
 the advisories [CVE] identifier number.
 
     gems/:
-      rails/:
-        2012-1098.yml  2012-2660.yml  2012-2661.yml  2012-3463.yml
+      actionpack/:
+        CVE-2012-1099.yml  CVE-2012-3463.yml  CVE-2013-0156.yml
+        CVE-2013-1857.yml  CVE-2012-3424.yml  CVE-2012-3465.yml
+        CVE-2013-1855.yml
 
 If an advisory does not yet have a [CVE], [requesting a CVE][1] is easy.
 
