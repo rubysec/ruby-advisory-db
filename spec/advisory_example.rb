@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'yaml'
-require 'pry'
 
 shared_examples_for 'Advisory' do |path|
   advisory = YAML.load_file(path)
@@ -69,7 +68,7 @@ shared_examples_for 'Advisory' do |path|
       end
        it "should be id in filename if filename is OSVDB-XXX" do
         if filename_osvdb
-          should == fileme_osvdb
+          should == filename_osvdb.to_i
         end
       end
     end
