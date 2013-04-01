@@ -32,6 +32,7 @@ Each advisory file contains the advisory information in [YAML] format:
     gem: actionpack
     framework: rails
     cve: 2013-0156
+    osvdb: 89026
     url: http://osvdb.org/show/osvdb/89026
     title: |
       Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
@@ -57,6 +58,7 @@ Each advisory file contains the advisory information in [YAML] format:
 * `framework` \[String\] (optional): Name of framework gem belongs to.
 * `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. JRuby)
 * `cve` \[String\]: CVE id
+* `osvdb` \[Fixnum\]: OSVDB id
 * `url` \[String\]: The URL to the full advisory.
 * `title` \[String\]: The title of the advisory.
 * `description` \[String\]: Multi-paragraph description of the vulnerability.

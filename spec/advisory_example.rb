@@ -1,12 +1,30 @@
 require 'spec_helper'
 require 'yaml'
+require 'pry'
 
 shared_examples_for 'Advisory' do |path|
   advisory = YAML.load_file(path)
 
   describe path do
     let(:gem) { File.basename(File.dirname(path)) }
-    let(:cve) { File.basename(path).chomp('.yml') }
+    let(:filename_cve) do
+      if File.basename(path).start_with?('CVE-')
+        File.basename(path).gsub('CVE-','').chomp('.yml')
+      else
+        nil
+      end
+    end
+    let(:filename_osvdb) do
+      if File.basename(path).start_with?('OSVDB-')
+        File.basename(path).gsub('OSVDB-','').chomp('.yml')
+      else
+        nil
+      end
+    end
+
+    it "should have CVE or OSVDB" do
+      (advisory['cve'] || advisory['osvdb']).should_not be_nil
+    end
 
     describe "gem" do
       subject { advisory['gem'] }
@@ -34,8 +52,26 @@ shared_examples_for 'Advisory' do |path|
     describe "cve" do
       subject { advisory['cve'] }
 
-      it { should be_kind_of(String) }
-      it { should == cve }
+      it "may be nil or a String" do
+        [NilClass, String].should include(subject.class)
+      end
+      it "should be id in filename if filename is CVE-XXX" do
+        if filename_cve
+          should == filename_cve
+        end
+      end
+    end
+
+    describe "osvdb" do
+      subject { advisory['osvdb'] }
+      it "may be nil or a Fixnum" do
+        [NilClass, Fixnum].should include(subject.class)
+      end
+       it "should be id in filename if filename is OSVDB-XXX" do
+        if filename_osvdb
+          should == fileme_osvdb
+        end
+      end
     end
 
     describe "url" do
