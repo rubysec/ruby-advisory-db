@@ -88,6 +88,12 @@ shared_examples_for 'Advisory' do |path|
       it { should_not be_empty }
     end
 
+    describe "date" do
+      subject { advisory['date'] }
+
+      it { should be_kind_of(Date) }
+    end
+
     describe "description" do
       subject { advisory['description'] }
 
