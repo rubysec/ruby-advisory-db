@@ -1,3 +1,5 @@
+require 'yaml'
+
 begin
   gem 'rspec', '~> 2.4'
   require 'rspec/core/rake_task'
@@ -10,3 +12,15 @@ rescue LoadError => e
 end
 task :test    => :spec
 task :default => :spec
+
+namespace :lint do
+  task :cve do
+    Dir.glob('gems/*/*.yml') do |path|
+      advisory = YAML.load_file(path)
+
+      unless advisory['cve']
+        puts "Missing CVE: #{path}"
+      end
+    end
+  end
+end
