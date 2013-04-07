@@ -18,6 +18,6 @@ description: |
 cvss_v2: 9.0
 
 patched_versions: 
-  - ~> 1.5.4
-  - ~> 1.6.7
+  - ~> 1.5.5
+  - ~> 1.6.8
   - ">= 1.7.7"
