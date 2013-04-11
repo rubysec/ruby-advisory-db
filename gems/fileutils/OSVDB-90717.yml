@@ -14,5 +14,3 @@ description: |
 	execute arbitrary commands.
 cvss_v2: 10.0
 
-patched_versions: 
-  - "Unknown"
