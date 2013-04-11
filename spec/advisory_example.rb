@@ -118,17 +118,22 @@ shared_examples_for 'Advisory' do |path|
     describe "patched_versions" do
       subject { advisory['patched_versions'] }
 
-      it { should be_kind_of(Array) }
-      it { should_not be_empty }
+      it "may be nil or an Array" do
+        [NilClass, Array].should include(subject.class)
+      end
 
-      advisory['patched_versions'].each do |version|
-        describe version do
-          subject { version.split(', ') }
-
-          it "should contain valid RubyGem version requirements" do
-            lambda {
-              Gem::Requirement.new(*subject)
-            }.should_not raise_error(ArgumentError)
+      describe "each patched version" do
+        if advisory['patched_versions']
+          advisory['patched_versions'].each do |version|
+            describe version do
+              subject { version.split(', ') }
+              
+              it "should contain valid RubyGem version requirements" do
+                lambda {
+                Gem::Requirement.new(*subject)
+                }.should_not raise_error(ArgumentError)
+              end
+            end
           end
         end
       end
