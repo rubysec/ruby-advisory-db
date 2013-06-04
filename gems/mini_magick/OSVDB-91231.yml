@@ -1,6 +1,6 @@
 ---
 gem: mini_magick
-cve: 2013-1877
+cve: 2013-2616
 osvdb: 91231
 url: http://osvdb.org/show/osvdb/91231
 title: MiniMagick Gem for Ruby URI Handling Arbitrary Command Injection
