@@ -1,6 +1,6 @@
 --- 
 gem: rack-cache
-cve: 2012-267
+cve: 2012-2671
 osvdb: 83077
 url: http://osvdb.org/83077
 title: rack-cache Rubygem Sensitive HTTP Header Caching Weakness
