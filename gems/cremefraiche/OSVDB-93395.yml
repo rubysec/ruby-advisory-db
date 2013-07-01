@@ -8,3 +8,4 @@ date: 2013-05-14
 description: Creme Fraiche Gem for Ruby contains a flaw that is due to the program failing to properly sanitize input in file names. With a specially crafted file name that contains shell metacharacters, a context-dependent attacker can execute arbitrary commands
 cvss_v2: 
 patched_versions: 
+  - ">= 0.6.1"
