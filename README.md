@@ -14,15 +14,12 @@ The Ruby Advisory Database aims to compile all advisories that are relevant to R
 The database is a list of directories that match the names of Ruby libraries on
 [rubygems.org]. Within each directory are one or more advisory files
 for the Ruby library. These advisory files are typically named using
-the advisories [CVE] identifier number.
+the advisories [OSVDB] identifier number.
 
     gems/:
       actionpack/:
-        CVE-2012-1099.yml  CVE-2012-3463.yml  CVE-2013-0156.yml
-        CVE-2013-1857.yml  CVE-2012-3424.yml  CVE-2012-3465.yml
-        CVE-2013-1855.yml
-
-If an advisory does not yet have a [CVE], [requesting a CVE][1] is easy.
+        OSVDB-79727.yml  OSVDB-84513.yml  OSVDB-89026.yml  OSVDB-91454.yml
+        OSVDB-84243.yml  OSVDB-84515.yml  OSVDB-91452.yml
 
 ## Format
 
@@ -78,9 +75,8 @@ developed by the Open Security Foundation (OSF) and its contributors.
 
 [rubygems.org]: https://rubygems.org/
 [CVE]: http://cve.mitre.org/
+[OSVDB]: http://www.osvdb.org/
 [CVSSv2]: http://www.first.org/cvss/cvss-guide.html
 [OSVDB]: http://www.osvdb.org/
 [YAML]: http://www.yaml.org/
 [CONTRIBUTORS.md]: https://github.com/rubysec/ruby-advisory-db/blob/master/CONTRIBUTORS.md
-
-[1]: http://people.redhat.com/kseifrie/CVE-OpenSource-Request-HOWTO.html
