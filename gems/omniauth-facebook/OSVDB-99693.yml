@@ -18,3 +18,5 @@ cvss_v2: 6.8
 
 patched_versions:
   - ">= 1.5.0"
+unaffected_versions:
+  - "<= 1.4.0"
