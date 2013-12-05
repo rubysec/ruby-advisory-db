@@ -2,7 +2,7 @@
 gem: actionpack
 framework: rails
 cve: 2013-6415
-osvdb: 
+osvdb: 100524
 url: https://groups.google.com/forum/#!topic/ruby-security-ann/9WiRn2nhfq0
 title: XSS Vulnerability in number_to_currency
 date: 2013-12-03
