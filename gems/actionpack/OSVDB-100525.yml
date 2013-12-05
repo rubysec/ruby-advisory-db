@@ -2,7 +2,7 @@
 gem: actionpack
 framework: rails
 cve: 2013-6414
-osvdb: 
+osvdb: 100525
 url: https://groups.google.com/forum/#!topic/ruby-security-ann/A-ebV4WxzKg
 title: Denial of Service Vulnerability in Action View
 date: 2013-12-03

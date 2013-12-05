@@ -2,7 +2,7 @@
 gem: actionpack
 framework: rails
 cve: 2013-4491
-osvdb: 
+osvdb: 100528
 url: https://groups.google.com/forum/#!topic/ruby-security-ann/pLrh6DUw998
 title: Reflective XSS Vulnerability in Ruby on Rails
 date: 2013-12-03

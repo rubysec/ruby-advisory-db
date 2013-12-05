@@ -2,7 +2,7 @@
 gem: actionpack
 framework: rails
 cve: 2013-6417
-osvdb: 
+osvdb: 100527
 url: https://groups.google.com/forum/#!topic/ruby-security-ann/niK4drpSHT4
 title: Incomplete fix to CVE-2013-0155 (Unsafe Query Generation Risk)
 date: 2013-12-03

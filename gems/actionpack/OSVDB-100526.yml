@@ -2,7 +2,7 @@
 gem: actionpack
 framework: rails
 cve: 2013-6416
-osvdb: 
+osvdb: 100526
 url: https://groups.google.com/forum/#!topic/ruby-security-ann/5ZI1-H5OoIM
 title: XSS Vulnerability in simple_format helper
 date: 2013-12-03
