@@ -1,0 +1,10 @@
+---
+gem: will_paginate
+cve: ""
+url: https://groups.google.com/forum/#!topic/will_paginate/Dguinf-5Sbw
+title: will_paginate v3.0.5 fixes a security vulnerability in Rails apps
+date: 2013-09-19
+description: important security fix that prevents XSS in generated pagination
+  links
+patched_versions:
+  - ">= 3.0.5"
