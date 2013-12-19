@@ -10,7 +10,7 @@ description: |
   context-dependent attacker to potentially execute arbitrary code.
 date: 2013-01-09
 
-cvss_v2: 9.3
+cvss_v2: 7.5
 
 patched_versions:
   - ">= 0.3.2"
