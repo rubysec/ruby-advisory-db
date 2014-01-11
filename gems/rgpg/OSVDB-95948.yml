@@ -1,6 +1,7 @@
 --- 
 gem: rgpg
 osvdb: 95948
+cve: 2013-4203
 url: http://www.osvdb.org/show/osvdb/95948
 title: Ruby rgpg Gem Shell Command Injection Vulnerabilities
 date: 2013-08-02
@@ -8,6 +9,6 @@ description: |
   rgpg Gem for Ruby contains a flaw in the GpgHelper module (lib/rgpg/gpg_helper.rb).
   The issue is due to the program failing to properly sanitize user-supplied input before being used in the system() function for execution.
   This may allow a remote attacker to execute arbitrary commands.
-cvss_v2:
+cvss_v2: 7.5
 patched_versions: 
   - ">= 0.2.3"
