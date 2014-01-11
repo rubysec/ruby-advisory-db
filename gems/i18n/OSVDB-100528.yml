@@ -10,7 +10,7 @@ description: |
   The HTML exception message raised by I18n::MissingTranslation fails
   to escape the keys.
 
-cvss_v2: 
+cvss_v2: 4.3
 
 patched_versions:
   - ~> 0.5.1
