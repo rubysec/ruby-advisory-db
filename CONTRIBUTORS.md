@@ -12,3 +12,6 @@ Thanks,
 * [Larry W. Cashdollar](http://vapid.dhs.org/)
 * [Michael Grosser](https://github.com/grosser)
 * [Sascha Korth](https://github.com/skorth)
+* [David Radcliffe](https://github.com/dwradcliffe)
+* [Jörg Schiller](https://github.com/joergschiller)
+* [Derek Prior](https://github.com/derekprior)
