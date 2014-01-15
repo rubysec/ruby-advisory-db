@@ -11,7 +11,7 @@ description: |
   to execute arbitrary code. This vulnerability has to do with type casting
   during parsing, and is related to CVE-2013-0156.
 
-cvss_v2: 10.0
+cvss_v2: 7.5
 
 patched_versions:
   - ~> 1.0.3
