@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2012-5371
 osvdb: 87280
 url: http://www.osvdb.org/show/osvdb/87280

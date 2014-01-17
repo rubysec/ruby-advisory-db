@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2004-2770
 osvdb: 74829
 url: http://www.osvdb.org/show/osvdb/74829

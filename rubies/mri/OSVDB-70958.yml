@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2011-1004
 osvdb: 70958
 url: http://www.osvdb.org/show/osvdb/70958

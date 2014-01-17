@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2009-1904
 osvdb: 55031
 url: http://www.osvdb.org/show/osvdb/55031

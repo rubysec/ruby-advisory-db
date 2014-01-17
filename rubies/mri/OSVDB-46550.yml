@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2008-2662
 osvdb: 46550
 url: http://www.osvdb.org/show/osvdb/46550

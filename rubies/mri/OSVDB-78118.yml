@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2011-4815
 osvdb: 78118
 url: http://www.osvdb.org/show/osvdb/78118

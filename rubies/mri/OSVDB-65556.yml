@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2010-0541
 osvdb: 65556
 url: http://www.osvdb.org/show/osvdb/65556

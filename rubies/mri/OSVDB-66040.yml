@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2010-2489
 osvdb: 66040
 url: http://www.osvdb.org/show/osvdb/66040

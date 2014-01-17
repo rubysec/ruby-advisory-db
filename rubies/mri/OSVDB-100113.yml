@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2013-4164
 osvdb: 100113
 url: http://www.osvdb.org/show/osvdb/100113

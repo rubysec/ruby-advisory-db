@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2009-4492
 osvdb: 61774
 url: http://www.osvdb.org/show/osvdb/61774
