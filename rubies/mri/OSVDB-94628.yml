@@ -1,5 +1,5 @@
 ---
-platform: mri
+engine: ruby
 cve: 2013-4073
 osvdb: 94628
 url: http://www.osvdb.org/show/osvdb/94628
