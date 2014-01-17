@@ -10,7 +10,7 @@ description: |
   Ruby contains a flaw that is triggered when the Fiddle and DL modules
   fail to properly verify the $SAFE level when handling certain objects. This may
   allow a remote attacker to inject tainted strings into a system call.
-cvss_v2:
+cvss_v2: 6.4
 # ruby 1.8.X unaffected
 patched_versions:
   - ~> 1.8.0

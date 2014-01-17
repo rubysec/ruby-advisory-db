@@ -14,7 +14,7 @@ description: |
   cache poisoning) to spoof the SSL server via an arbitrary certificate that appears
   valid. Such an attack would allow for the interception of sensitive traffic, and
   potentially allow for the injection of content into the SSL stream.
-cvss_v2:
+cvss_v2: 6.8
 patched_versions:
   - ~> 1.8.7.373
   - ~> 1.9.3.447
