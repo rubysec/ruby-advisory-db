@@ -131,7 +131,7 @@ shared_examples_for 'Advisory' do |path|
               it "should contain valid RubyGem version requirements" do
                 lambda {
                 Gem::Requirement.new(*subject)
-                }.should_not raise_error(ArgumentError)
+                }.should_not raise_error
               end
             end
           end
@@ -155,7 +155,7 @@ shared_examples_for 'Advisory' do |path|
             it "should contain valid RubyGem version requirements" do
               lambda {
                 Gem::Requirement.new(*subject)
-              }.should_not raise_error(ArgumentError)
+              }.should_not raise_error
             end
           end
         end
