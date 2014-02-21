@@ -15,7 +15,8 @@ description: |
 cvss_v2: 
 
 unaffected_versions:
-  - "< 4.0.0.beta1"
+  - "< 3.2.0"
+  - ~> 3.2.0
 
 patched_versions:
   - ~> 4.0.3
