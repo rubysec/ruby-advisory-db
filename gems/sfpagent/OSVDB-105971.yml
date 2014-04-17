@@ -1,0 +1,13 @@
+---
+gem: sfpagent
+cve:
+osvdb: 105971
+url: http://www.osvdb.org/show/osvdb/105971
+title: sfpagent Gem for Ruby Remote Command Injection
+date: 2014-04-16
+description: sfpagent Gem for Ruby contains a flaw that is triggered as JSON[body]
+  input is not properly sanitized when handling module names with shell metacharacters.
+  This may allow a context-dependent attacker to execute arbitrary commands.
+cvss_v2:
+patched_versions:
+  - ">= 0.4.15"
