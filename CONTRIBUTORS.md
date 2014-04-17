@@ -18,7 +18,6 @@ Thanks,
 * [Joel Chippindale](https://github.com/mocoso)
 * [Josef Šimánek](https://github.com/simi)
 * [Amiel Martin](https://github.com/amiel)
-* [Eric Hodel](https://github.com/drbrain)
 * [Jeremy Olliver](https://github.com/jeremyolliver)
 * [Vasily Vasinov](https://github.com/vasinov)
 * [Phill MV](https://twitter.com/phillmv)
