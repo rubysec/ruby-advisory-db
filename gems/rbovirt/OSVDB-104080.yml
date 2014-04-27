@@ -14,7 +14,7 @@ description: |
   valid. Such an attack would allow for the interception of sensitive traffic,
   and potentially allow for the injection of content into the SSL stream.
 
-cvss_v2:
+cvss_v2: 6.8
 
 patched_versions:
   - '>= 0.0.24'
