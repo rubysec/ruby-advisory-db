@@ -29,7 +29,9 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['gem'] }
 
       it { should be_kind_of(String) }
-      it { should == gem }
+      it "should be equal to filename (case-insensitive)" do
+        subject.downcase.should == gem.downcase
+      end
     end
 
     describe "framework" do
