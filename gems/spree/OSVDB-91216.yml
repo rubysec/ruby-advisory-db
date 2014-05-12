@@ -2,10 +2,14 @@
 gem: spree
 cve: 2013-1656
 osvdb: 91216
-url: http://osvdb.org/show/osvdb/91216
-title: Spree promotion_actions_controller.rb promotion_action Parameter Arbitrary Ruby Object Instantiation Command Execution
+url: http://spreecommerce.com/blog/multiple-security-vulnerabilities-fixed
+title: Spree Gem Contains Arbitrary Ruby Object Instantiation Command Execution in Admin View
 date: 2013-02-21
-description: Spree contains a flaw that is triggered when handling input passed via the 'promotion_action' parameter to promotion_actions_controller.rb. This may allow a remote authenticated attacker to instantiate arbitrary Ruby objects and potentially execute arbitrary commands.
+description: >  
+  Spree contains several instances of passing user controlled
+  parameters to String#constantize. This may allow an attacker to
+  instantiate arbitrary Ruby objects and potentially execute arbitrary
+  commands. This flaw exists in the admin-accessible controllers.
 cvss_v2: 4.3
 patched_versions:
   - ">= 2.0.0"
