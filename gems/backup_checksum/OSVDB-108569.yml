@@ -5,7 +5,7 @@ url: http://osvdb.org/show/osvdb/108569
 title: Gain access to password information
 date: 2014-06-30
 description: backup_checksum Gem for Ruby contains a flaw in /lib/backup/cli/utility.rb
-that is triggered as the program displays password information in plaintext in the process list.
-This may allow a local attacker to gain access to password information.
+  that is triggered as the program displays password information in plaintext in the process list.
+  This may allow a local attacker to gain access to password information.
 cvss_v2:
 patched_versions:
