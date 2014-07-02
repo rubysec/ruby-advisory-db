@@ -5,6 +5,6 @@ url: http://osvdb.org/show/osvdb/108530
 title: Arbitrary code execution
 date: 2014-06-30
 description: kajam Gem for Ruby contains a flaw in /dataset/lib/dataset/database/postgresql.rb that is
-triggered when handling metacharacters. This may allow a remote attacker to execute arbitrary commands.
+  triggered when handling metacharacters. This may allow a remote attacker to execute arbitrary commands.
 cvss_v2:
 patched_versions:
