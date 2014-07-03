@@ -10,7 +10,7 @@ date: 2014-07-02
 description: |
   Ruby on Rails contains a flaw that may allow carrying out an SQL injection attack.
   The issue is due to the PostgreSQL adapter for Active Record not properly
-  sanitizing user-supplied input when quoting ranges. This may allow a remote
+  sanitizing user-supplied input when quoting bitstring. This may allow a remote
   attacker to inject or manipulate SQL queries in the back-end database,
   allowing for the manipulation or disclosure of arbitrary data.
 
