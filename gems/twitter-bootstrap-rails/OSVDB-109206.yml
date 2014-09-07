@@ -19,4 +19,4 @@ description: |
 cvss_v2: 
 
 patched_versions:
-  - >= 3.2.0
+  - ">= 3.2.0"
