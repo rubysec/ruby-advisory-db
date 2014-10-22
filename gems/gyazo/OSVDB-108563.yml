@@ -1,5 +1,6 @@
 ---
 gem: gyazo
+cve: 2014-4994
 osvdb: 108563
 url: http://osvdb.org/show/osvdb/108563
 title: Arbitrary code execution

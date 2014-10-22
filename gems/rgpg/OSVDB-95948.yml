@@ -1,4 +1,4 @@
---- 
+---
 gem: rgpg
 osvdb: 95948
 cve: 2013-4203
@@ -10,5 +10,5 @@ description: |
   The issue is due to the program failing to properly sanitize user-supplied input before being used in the system() function for execution.
   This may allow a remote attacker to execute arbitrary commands.
 cvss_v2: 7.5
-patched_versions: 
+patched_versions:
   - ">= 0.2.3"
