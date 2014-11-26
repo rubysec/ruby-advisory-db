@@ -13,7 +13,7 @@ description: |
   handling MIME types that are converted to symbols. This may allow a
   remote attacker to cause a denial of service.
 
-cvss_v2: 
+cvss_v2: 5.0
 
 unaffected_versions:
   - ~> 4.0.0

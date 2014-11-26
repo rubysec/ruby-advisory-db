@@ -1,4 +1,4 @@
---- 
+---
 gem: actionpack
 framework: rails
 cve: 2013-1857
@@ -7,7 +7,7 @@ url: http://osvdb.org/show/osvdb/91454
 title: XSS Vulnerability in the `sanitize` helper of Ruby on Rails
 date: 2013-03-19
 
-description: | 
+description: |
   The sanitize helper in Ruby on Rails is designed to
   filter HTML and remove all tags and attributes which could be
   malicious. The code which ensured that URLs only contain supported
@@ -15,9 +15,9 @@ description: |
   embed a tag containing a URL which executes arbitrary javascript
   code.
 
-cvss_v2: 4.0
+cvss_v2: 4.3
 
-patched_versions: 
+patched_versions:
   - ~> 2.3.18
   - ~> 3.1.12
   - ">= 3.2.13"
