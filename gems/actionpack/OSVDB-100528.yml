@@ -11,11 +11,11 @@ description: |
   There is a vulnerability in the internationalization component of Ruby on
   Rails. Under certain common configurations an attacker can provide specially
   crafted input which will execute a reflective XSS attack.
-  
+
   The root cause of this issue is a vulnerability in the i18n gem which has
   been assigned the identifier CVE-2013-4492.
 
-cvss_v2: 
+cvss_v2: 4.3
 
 patched_versions:
   - ~> 3.2.16

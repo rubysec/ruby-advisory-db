@@ -8,10 +8,10 @@ title: Denial of Service Vulnerability in Action View
 date: 2013-12-03
 
 description: |
-  There is a denial of service vulnerability in the header handling component of 
+  There is a denial of service vulnerability in the header handling component of
   Action View.
 
-cvss_v2: 
+cvss_v2: 5.0
 
 unaffected_versions:
   - ~> 2.3.0

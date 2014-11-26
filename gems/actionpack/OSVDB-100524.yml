@@ -13,7 +13,7 @@ description: |
   of the parameters to the helper (unit) is not escaped correctly.  Applications
   which pass user controlled data as the unit parameter are vulnerable to an XSS attack.
 
-cvss_v2: 
+cvss_v2: 4.3
 
 patched_versions:
   - ~> 3.2.16

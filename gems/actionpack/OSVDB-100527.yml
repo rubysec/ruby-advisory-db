@@ -15,9 +15,9 @@ description: |
   parameters insecurely and store them in the same key that Rails uses
   for its own parameters.  In the event that happens the application
   will receive unsafe parameters and could be vulnerable to the earlier
-  vulnerability. 
+  vulnerability.
 
-cvss_v2: 
+cvss_v2: 6.4
 
 patched_versions:
   - ~> 3.2.16

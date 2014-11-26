@@ -1,10 +1,10 @@
---- 
+---
 gem: actionpack
 framework: rails
 cve: 2012-3424
 osvdb: 84243
 url: http://www.osvdb.org/show/osvdb/84243
-title: 
+title:
   Ruby on Rails actionpack/lib/action_controller/metal/http_authentication.rb
   with_http_digest Helper Method Remote DoS
 date: 2012-07-26
@@ -16,12 +16,12 @@ description: |
   with_http_digest helper method is being used. This may allow a remote
   attacker to cause a loss of availability for the program.
 
-cvss_v2: 4.3
+cvss_v2: 5.0
 
 unaffected_versions:
   - ">= 2.3.5, <= 2.3.14"
 
-patched_versions: 
+patched_versions:
   - ~> 3.0.16
   - ~> 3.1.7
   - ">= 3.2.7"

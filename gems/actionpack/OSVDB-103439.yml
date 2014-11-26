@@ -16,7 +16,7 @@ description: |
   script code in a user's browser session within the trust relationship between
   their browser and the server.
 
-cvss_v2: 
+cvss_v2: 4.3
 
 patched_versions:
   - ~> 3.2.17
