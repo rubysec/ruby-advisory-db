@@ -14,4 +14,4 @@ description: |
 
 patched_versions:
   - ~> 2.2.5
-  - ">= 3.01"
+  - ">= 3.0.1"
