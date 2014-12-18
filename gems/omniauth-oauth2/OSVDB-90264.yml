@@ -2,7 +2,7 @@
 gem: omniauth-oauth2
 cve: 2012-6134
 osvdb: 90264
-url: http://www.osvdb.org/show/osvdb/90264
+url: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2012-6134
 title: Ruby on Rails omniauth-oauth2 Gem CSRF vulnerability
 date: 2012-09-08
 
@@ -13,4 +13,4 @@ description: |
 cvss_v2: 6.8
 
 patched_versions:
-  - ">= 1.1.1"
+  - "> 1.1.1"
