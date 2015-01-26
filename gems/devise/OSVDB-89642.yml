@@ -11,7 +11,7 @@ description: |
   occurs during the parsing of a malformed request. With a specially crafted
   request, a remote attacker can bypass security restrictions.
 
-cvss_v2: 10.0
+cvss_v2: 6.8
 
 patched_versions:
   - ~> 1.5.4
