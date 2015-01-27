@@ -1,19 +1,15 @@
---- 
+---
 gem: dragonfly
 cve: 2013-1756
 osvdb: 90647
 url: http://www.osvdb.com/show/osvdb/90647
 title: Dragonfly Gem Remote Code Execution
 date: 2013-02-19
-
 description: |
   The Dragonfly gem contains a flaw that allows an attacker to run arbitrary code
   on a host machine using carefully crafted requests.
-
-cvss_v2: 
-
-patched_versions: 
+cvss_v2: 7.5
+patched_versions:
   - ">= 0.9.13"
-
 unaffected_versions:
   - "< 0.7.0"

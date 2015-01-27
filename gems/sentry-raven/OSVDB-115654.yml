@@ -8,6 +8,6 @@ description: Sentry raven-ruby contains a flaw in the lib/raven/okjson.rb script
   that is triggered when large numeric values are stored as an exponent or in
   scientific notation. With a specially crafted request, an attacker can cause
   the software to consume excessive resources resulting in a denial of service.
-cvss_v2:
+cvss_v2: 5.0
 patched_versions:
   - ">= 0.12.2"

@@ -1,6 +1,7 @@
 ---
 gem: webbynode
 osvdb: 100920
+cve: 2013-7086
 url: http://osvdb.org/show/osvdb/100920
 title: Webbynode Gem for Ruby contains a flaw
 date: 2013-12-12
