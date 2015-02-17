@@ -5,7 +5,6 @@ osvdb: 104734
 url: http://osvdb.org/show/osvdb/104734
 title: rack-ssl Gem for Ruby contains a flaw
 date: 2013-07-09
-
 description: |
   rack-ssl Gem for Ruby contains a flaw that allows a reflected cross-site
   scripting (XSS) attack. This flaw exists because the program does not
@@ -13,7 +12,6 @@ description: |
   This may allow a context-dependent attacker to create a specially crafted
   request that would execute arbitrary script code in a user's browser
   session within the trust relationship between their browser and the server.
-
-cvss_v2:
-
+cvss_v2: 4.3
 patched_versions:
+  - ">= 1.4.1"
