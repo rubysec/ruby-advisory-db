@@ -1,7 +1,7 @@
 ---
 gem: doorkeeper
 osvdb: 118830
-url: http://www.osvdb.com/show/osvdb/118830
+url: http://www.osvdb.org/show/osvdb/118830
 title: |
   Doorkeeper Gem for Ruby stores sensitive information
   in production logs
