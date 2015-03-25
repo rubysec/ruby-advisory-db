@@ -1,0 +1,19 @@
+---
+gem: rest-client
+osvdb: 119878
+cve: 2015-1820
+url: http://osvdb.org/show/osvdb/119878
+title: Rest-Client Gem for Ruby allows a remote attacker to conduct a session fixation attack
+date: 2015-03-24
+description: |
+  rest-client Gem for Ruby contains a flaw in abstract_response.rb related to
+  the handling of set-cookie headers in redirection responses that allows a
+  remote, user-assisted attacker to conduct a session fixation attack. This
+  flaw exists because the application, when establishing a new session, does
+  not invalidate an existing session identifier and assign a new one. With
+  a specially crafted request fixating the session identifier, a context-
+  dependent attacker can ensure a user authenticates with the known
+  session identifier, allowing the session to be subsequently hijacked.
+cvss_v2:
+patched_versions:
+  - ">= 1.8.0"
