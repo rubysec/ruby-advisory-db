@@ -2,7 +2,7 @@
 gem: dragonfly
 cve: 2013-1756
 osvdb: 90647
-url: http://www.osvdb.com/show/osvdb/90647
+url: http://www.osvdb.org/show/osvdb/90647
 title: Dragonfly Gem Remote Code Execution
 date: 2013-02-19
 description: |

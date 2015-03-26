@@ -9,3 +9,4 @@ description: Rest-Client Ruby Gem contains a flaw that is due to the application
   to gain access to password information.
 cvss_v2:
 patched_versions:
+  - ">= 1.7.3"
