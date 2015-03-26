@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
-gem 'pry'
-gem 'mechanize'
+ruby '2.2.0'
+
+gem 'rspec'
