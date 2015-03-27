@@ -1,16 +1,18 @@
 # Contributing Guidelines
 
-## Style
+* All text must be within 80 columns.
+* YAML must be indented by 2 spaces.
+* Have any questions? Feel free to open an issue.
+* Prior to submitting a pull request, run the tests:
 
-1. All text must be within 80 columns.
-2. YAML must be indented by 2 spaces.
-3. Have any questions? Feel free to open an issue.
-4. Prior to submitting a pull request, run the tests:
-    bundle install
-    bundle exec rspec
+```
+bundle install
+bundle exec rspec
+```
 
-5. Follow the schema. Here is a sample advisory:
+* Follow the schema. Here is a sample advisory:
 
+```yaml
     ---
     gem: activerecord
     framework: rails
@@ -34,7 +36,7 @@
     patched_versions:
       - ~> 4.0.9 
       - ">= 4.1.5"
-
+```
 ### Schema
 
 * `gem` \[String\]: Name of the affected gem.
