@@ -1,5 +1,6 @@
 ---
 gem: sentry-raven
+cve: 2014-9490
 osvdb: 115654
 url: http://osvdb.org/show/osvdb/115654
 title: sentry-raven Gem for Ruby contains a flaw that can result in a denial of service
