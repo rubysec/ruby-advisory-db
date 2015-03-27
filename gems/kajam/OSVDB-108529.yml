@@ -1,5 +1,6 @@
 ---
 gem: kajam
+cve: 2014-4999
 osvdb: 108529
 url: http://osvdb.org/show/osvdb/108529
 title: Gain access to password information as local attacker

@@ -1,5 +1,6 @@
 ---
 gem: echor
+cve: 2014-1834
 osvdb: 102129
 url: http://osvdb.org/show/osvdb/102129
 title: Echor Gem for Ruby Arbitrary Command Execution

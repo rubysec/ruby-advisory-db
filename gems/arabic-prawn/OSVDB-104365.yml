@@ -1,5 +1,6 @@
 ---
 gem: Arabic-Prawn
+cve: 2014-2322
 osvdb: 104365
 url: http://osvdb.org/show/osvdb/104365
 title: Arabic-Prawn Gem for Ruby contains a flaw

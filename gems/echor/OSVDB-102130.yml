@@ -1,5 +1,6 @@
 ---
 gem: echor
+cve: 2014-1835
 osvdb: 102130
 url: http://osvdb.org/show/osvdb/102130
 title: Echor Gem for Ruby Process Listing Local Plaintext Credential Disclosure 
