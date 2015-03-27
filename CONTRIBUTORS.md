@@ -1,8 +1,7 @@
 ### Acknowledgements
 
-This database would not be possible without volunteers willing to submit pull requests.
+This database would not be possible without volunteers willing to submit pull requests. In no particular order, we'd like to thank:
 
-Thanks,
 * [Postmodern](https://github.com/postmodern/)
 * [Max Veytsman](https://twitter.com/mveytsman)
 * [Pietro Monteiro](https://github.com/pietro)
@@ -21,3 +20,16 @@ Thanks,
 * [Jeremy Olliver](https://github.com/jeremyolliver)
 * [Vasily Vasinov](https://github.com/vasinov)
 * [Phill MV](https://twitter.com/phillmv)
+* [Jon Kessler](https://github.com/jonkessler)
+* [James Harton](https://github.com/jamesotron)
+* [Justin Collins](https://github.com/presidentbeef)
+* [Andy Brody](https://github.com/ab)
+* [Alexey Zapparov](https://github.com/ixti)
+* [Toni Reina](https://github.com/areina)
+* [Bernard Lambeau](https://github.com/blambeau)
+* [Don Morrison](https://github.com/elskwid)
+* [John Poulin](https://github.com/forced-request)
+* [Neal Harris](https://github.com/nealharris)
+* [Justin Bull](https://github.com/f3ndot)
+* [Andrew Selder](https://github.com/aselder)
+* [Vanessa Henderson](https://github.com/VanessaHenderson)
