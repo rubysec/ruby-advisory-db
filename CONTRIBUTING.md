@@ -5,7 +5,11 @@
 1. All text must be within 80 columns.
 2. YAML must be indented by 2 spaces.
 3. Have any questions? Feel free to open an issue.
-4. Follow the schema. Here is a sample advisory:
+4. Prior to submitting a pull request, run the tests:
+    bundle install
+    bundle exec rspec
+
+5. Follow the schema. Here is a sample advisory:
 
     ---
     gem: activerecord
