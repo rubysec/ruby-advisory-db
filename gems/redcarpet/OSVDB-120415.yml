@@ -1,7 +1,7 @@
 ---
 gem: redcarpet
 osvdb: 120415
-url: http://osvdb.org/show/osvdb/120415
+url: http://danlec.com/blog/bug-in-sundown-and-redcarpet
 title: redcarpet Gem for Ruby markdown.c parse_inline() Function XSS
 date: 2014-04-07
 description: |
