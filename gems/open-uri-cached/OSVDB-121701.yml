@@ -2,7 +2,7 @@
 gem: open-uri-cached
 cve: 2015-3649
 osvdb: 121701
-url: http://osvdb.org/show/osvdb/121701
+url: http://seclists.org/oss-sec/2015/q2/373
 title: open-uri-cached Gem for Ruby Unsafe Temporary File Creation Local Privilege Escalation
 date: 2015-05-05
 description: |
