@@ -1,6 +1,6 @@
 ---
 gem: passenger
-cve: 2012-02-01
+cve: 2012-6135
 osvdb: 90738
 url: http://old.blog.phusion.nl/2013/03/05/phusion-passenger-4-0-beta-1-and-2-arbitrary-file-deletion-vulnerability/
 title: Phusion Passenger Gem for Ruby Arbitrary File Deletion
