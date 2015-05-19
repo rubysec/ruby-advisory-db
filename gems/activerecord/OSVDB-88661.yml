@@ -1,7 +1,7 @@
 ---
 gem: activerecord
 framework: rails
-cve: CVE-2012-6496
+cve: 2012-6496
 osvdb: 88661
 url: https://groups.google.com/forum/?fromgroups=#!topic/rubyonrails-security/DCNTNp_qjFM
 title: Ruby on Rails find_by_* Methods Authlogic SQL Injection Bypass
