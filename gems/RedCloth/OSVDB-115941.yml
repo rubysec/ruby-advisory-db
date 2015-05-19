@@ -1,0 +1,16 @@
+---
+gem: RedCloth
+cve: 2012-6684
+osvdb: 115941
+url: http://www.osvdb.org/show/osvdb/115941
+title: RedCloth Gem for Ruby Textile Link Parsing XSS
+date: 2012-02-29
+description: |
+  RedCloth Gem for Ruby contains a flaw that allows a cross-site scripting (XSS)
+  attack. This flaw exists because the program does not validate input when
+  parsing textile links before returning it to users. This may allow a remote
+  attacker to create a specially crafted request that would execute arbitrary
+  script code in a user's browser session within the trust relationship between
+  their browser and the server.
+cvss_v2: 4.3
+patched_versions:
