@@ -10,6 +10,6 @@ description: libxml2 contains a flaw that may lead to unauthorized disclosure of
  expansion of XML external entities (XXE), which can be used to trigger URL's
  on an internal network and allow a remote attacker to gain access to their
  responses.
-cvss_v2: 5
+cvss_v2: 5.0
 patched_versions:
   - ">= 1.5.4"
