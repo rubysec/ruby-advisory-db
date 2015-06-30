@@ -3,7 +3,7 @@ gem: redcarpet
 osvdb: 120415
 url: http://danlec.com/blog/bug-in-sundown-and-redcarpet
 title: redcarpet Gem for Ruby markdown.c parse_inline() Function XSS
-date: 2014-04-07
+date: 2015-04-07
 description: |
   redcarpet Gem for Ruby contains a flaw that allows a cross-site scripting
   (XSS) attack. This flaw exists because the parse_inline() function in
