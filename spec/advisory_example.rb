@@ -6,18 +6,16 @@ shared_examples_for 'Advisory' do |path|
 
   describe path do
     let(:gem) { File.basename(File.dirname(path)) }
+
     let(:filename_cve) do
       if File.basename(path).start_with?('CVE-')
         File.basename(path).gsub('CVE-','').chomp('.yml')
-      else
-        nil
       end
     end
+
     let(:filename_osvdb) do
       if File.basename(path).start_with?('OSVDB-')
         File.basename(path).gsub('OSVDB-','').chomp('.yml')
-      else
-        nil
       end
     end
 
