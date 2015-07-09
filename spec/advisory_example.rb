@@ -22,15 +22,15 @@ shared_examples_for 'Advisory' do |path|
     end
 
     it "should have CVE or OSVDB" do
-      (advisory['cve'] || advisory['osvdb']).should_not be_nil
+      expect(advisory['cve'] || advisory['osvdb']).not_to be_nil
     end
 
     describe "gem" do
       subject { advisory['gem'] }
 
-      it { should be_kind_of(String) }
+      it { is_expected.to be_kind_of(String) }
       it "should be equal to filename (case-insensitive)" do
-        subject.downcase.should == gem.downcase
+        expect(subject.downcase).to eq(gem.downcase)
       end
     end
 
@@ -38,7 +38,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['framework'] }
 
       it "may be nil or a String" do
-        [NilClass, String].should include(subject.class)
+        expect([NilClass, String]).to include(subject.class)
       end
     end
 
@@ -46,7 +46,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['platform'] }
 
       it "may be nil or a String" do
-        [NilClass, String].should include(subject.class)
+        expect([NilClass, String]).to include(subject.class)
       end
     end
 
@@ -54,11 +54,11 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['cve'] }
 
       it "may be nil or a String" do
-        [NilClass, String].should include(subject.class)
+        expect([NilClass, String]).to include(subject.class)
       end
       it "should be id in filename if filename is CVE-XXX" do
         if filename_cve
-          should == filename_cve
+          is_expected.to eq(filename_cve)
         end
       end
     end
@@ -66,11 +66,11 @@ shared_examples_for 'Advisory' do |path|
     describe "osvdb" do
       subject { advisory['osvdb'] }
       it "may be nil or a Fixnum" do
-        [NilClass, Fixnum].should include(subject.class)
+        expect([NilClass, Fixnum]).to include(subject.class)
       end
        it "should be id in filename if filename is OSVDB-XXX" do
         if filename_osvdb
-          should == filename_osvdb.to_i
+          is_expected.to eq(filename_osvdb.to_i)
         end
       end
     end
@@ -78,41 +78,41 @@ shared_examples_for 'Advisory' do |path|
     describe "url" do
       subject { advisory['url'] }
 
-      it { should be_kind_of(String) }
-      it { should_not be_empty }
+      it { is_expected.to be_kind_of(String) }
+      it { is_expected.not_to be_empty }
     end
 
     describe "title" do
       subject { advisory['title'] }
 
-      it { should be_kind_of(String) }
-      it { should_not be_empty }
+      it { is_expected.to be_kind_of(String) }
+      it { is_expected.not_to be_empty }
     end
 
     describe "date" do
       subject { advisory['date'] }
 
-      it { should be_kind_of(Date) }
+      it { is_expected.to be_kind_of(Date) }
     end
 
     describe "description" do
       subject { advisory['description'] }
 
-      it { should be_kind_of(String) }
-      it { should_not be_empty }
+      it { is_expected.to be_kind_of(String) }
+      it { is_expected.not_to be_empty }
     end
 
     describe "cvss_v2" do
       subject { advisory['cvss_v2'] }
 
       it "may be nil or a Float" do
-        [NilClass, Float].should include(subject.class)
+        expect([NilClass, Float]).to include(subject.class)
       end
 
       case advisory['cvss_v2']
       when Float
         context "when a Float" do
-          it { ((0.0)..(10.0)).should include(subject) }
+          it { expect((0.0)..(10.0)).to include(subject) }
         end
       end
     end
@@ -121,7 +121,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['patched_versions'] }
 
       it "may be nil or an Array" do
-        [NilClass, Array].should include(subject.class)
+        expect([NilClass, Array]).to include(subject.class)
       end
 
       describe "each patched version" do
@@ -131,9 +131,9 @@ shared_examples_for 'Advisory' do |path|
               subject { version.split(', ') }
               
               it "should contain valid RubyGem version requirements" do
-                lambda {
+                expect {
                 Gem::Requirement.new(*subject)
-                }.should_not raise_error
+                }.not_to raise_error
               end
             end
           end
@@ -145,7 +145,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['unaffected_versions'] }
 
       it "may be nil or an Array" do
-        [NilClass, Array].should include(subject.class)
+        expect([NilClass, Array]).to include(subject.class)
       end
 
       case advisory['unaffected_versions']
@@ -155,9 +155,9 @@ shared_examples_for 'Advisory' do |path|
             subject { version.split(', ') }
             
             it "should contain valid RubyGem version requirements" do
-              lambda {
+              expect {
                 Gem::Requirement.new(*subject)
-              }.should_not raise_error
+              }.not_to raise_error
             end
           end
         end
