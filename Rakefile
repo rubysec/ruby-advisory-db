@@ -2,7 +2,6 @@ require 'yaml'
 
 namespace :lint do
   begin
-    gem 'rspec', '~> 2.4'
     require 'rspec/core/rake_task'
 
     RSpec::Core::RakeTask.new(:yaml)
