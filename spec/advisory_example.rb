@@ -38,7 +38,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['framework'] }
 
       it "may be nil or a String" do
-        expect([NilClass, String]).to include(subject.class)
+        expect(subject).to be_kind_of(String).or(be_nil)
       end
     end
 
@@ -46,7 +46,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['platform'] }
 
       it "may be nil or a String" do
-        expect([NilClass, String]).to include(subject.class)
+        expect(subject).to be_kind_of(String).or(be_nil)
       end
     end
 
@@ -54,7 +54,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['cve'] }
 
       it "may be nil or a String" do
-        expect([NilClass, String]).to include(subject.class)
+        expect(subject).to be_kind_of(String).or(be_nil)
       end
       it "should be id in filename if filename is CVE-XXX" do
         if filename_cve
@@ -65,9 +65,11 @@ shared_examples_for 'Advisory' do |path|
 
     describe "osvdb" do
       subject { advisory['osvdb'] }
+
       it "may be nil or a Fixnum" do
-        expect([NilClass, Fixnum]).to include(subject.class)
+        expect(subject).to be_kind_of(Fixnum).or(be_nil)
       end
+
        it "should be id in filename if filename is OSVDB-XXX" do
         if filename_osvdb
           is_expected.to eq(filename_osvdb.to_i)
@@ -106,7 +108,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['cvss_v2'] }
 
       it "may be nil or a Float" do
-        expect([NilClass, Float]).to include(subject.class)
+        expect(subject).to be_kind_of(Float).or(be_nil)
       end
 
       case advisory['cvss_v2']
@@ -121,7 +123,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['patched_versions'] }
 
       it "may be nil or an Array" do
-        expect([NilClass, Array]).to include(subject.class)
+        expect(subject).to be_kind_of(Array).or(be_nil)
       end
 
       describe "each patched version" do
@@ -145,7 +147,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['unaffected_versions'] }
 
       it "may be nil or an Array" do
-        expect([NilClass, Array]).to include(subject.class)
+        expect(subject).to be_kind_of(Array).or(be_nil)
       end
 
       case advisory['unaffected_versions']
