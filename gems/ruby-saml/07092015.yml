@@ -1,11 +1,11 @@
 ---
 gem: ruby-saml
-cve: TBD
+cve: 
 url: https://github.com/onelogin/ruby-saml/pull/247
 title: Ruby-Saml Gem is vulnerable to entity expansion attacks
 date: 2015-07-09
 description: |
   ruby-saml before 1.0.0 is vulnerable to entity expansion attacks.
-cvss_v2:
+cvss_v2: 3.9
 patched_versions:
   - ">= 1.0.0"
