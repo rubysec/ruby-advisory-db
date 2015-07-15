@@ -1,0 +1,18 @@
+language: ruby
+
+sudo: false
+
+cache: bundler
+
+deploy:
+  provider: script
+  script: scripts/post-advisories.sh
+  on:
+    branch: master
+
+notifications:
+  irc: chat.freenode.net#rubysec
+
+env:
+  global:
+    - secure: "o/aIfTQb1n8YP+Mq3be3XQfcENNmwHtjWcO2pTz6b6uQqsg1p+vPhhGQM7FJXID1rU5Nyp9hwwU/QpQAU99mx/hdAxqSl1RxYj6vknrngk00KpzC0K+1qQMuM+NFNa09FmJTn8KkC1GjNrSCR/U0o946HK+svk/aL4a05zRAA3Y="
