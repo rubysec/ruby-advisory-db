@@ -1,0 +1,8 @@
+--- 
+gem: activeresource
+framework: rails
+osvdb: 115891
+url: http://www.osvdb.org/show/osvdb/115891
+title: Active Resource (ARes) Gem for Ruby lib/active_resource/base.rb Thread Object Instantiation Unspecified Issue
+date: 2014-09-24
+description: Active Resource (ARes) Gem for Ruby contains an unspecified flaw in lib/active_resource/base.rb that is triggered when instantiating thread objects, which may allow an attacker to have an unspecified impact. No further details have been provided by the vendor.
