@@ -2,7 +2,7 @@
 gem: json
 cve: 2013-0269
 osvdb: 90074
-url: http://direct.osvdb.org/show/osvdb/90074
+url: http://osvdb.org/show/osvdb/90074
 title: Ruby on Rails JSON Gem Arbitrary Symbol Creation Remote DoS
 date: 2013-02-11
 
