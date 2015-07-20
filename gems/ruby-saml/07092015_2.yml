@@ -1,6 +1,6 @@
 ---
 gem: ruby-saml
-cve: 
+cve: TBD
 url: https://github.com/onelogin/ruby-saml/pull/225
 title: Ruby-Saml Gem is vulnerable to XPath Injection
 date: 2015-07-09
