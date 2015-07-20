@@ -3,9 +3,9 @@ gem: echor
 cve: 2014-1835
 osvdb: 102130
 url: http://osvdb.org/show/osvdb/102130
-title: Echor Gem for Ruby Process Listing Local Plaintext Credential Disclosure 
+title: echor Gem for Ruby Process Listing Local Plaintext Credential Disclosure
 date: 2014-01-14
-description: Echor Gem for Ruby contains a flaw that is due to the program exposing credential information in the
-  system process listing. This may allow a local attacker to gain access to plaintext credential information.
-cvss_v2:
-patched_versions:
+description: |
+  echor Gem for Ruby contains a flaw that is due to the program exposing
+  credential information in the system process listing. This may allow a local
+  attacker to gain access to plaintext credential information.
