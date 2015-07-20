@@ -1,22 +1,27 @@
-require 'rubygems'
-require 'bundler/setup'
-
 require 'pry'
-require 'mechanize'
+require 'nokogiri'
 require 'yaml'
 require 'date'
 
 class OSVDB
   attr_accessor :osvdb, :cve, :title, :description, :date, :cvss_v2, :gem, :url, :patched_versions, :page
-  def initialize(url)
-    self.url = url
+  def initialize(osvdb)
+    self.osvdb = osvdb
+    self.url = "http://osvdb.org/show/osvdb/#{self.osvdb}"
+    scrape!
     parse!
   end
 
-  def parse!
-    mech = Mechanize.new
-    self.page = mech.get(url)
+  def scrape!
+    html = `bash --login -c "python cf_scrape.py #{self.url}"`
+    doc = Nokogiri::XML(html) do |config|
+      config.nonet.noent
+    end
 
+    self.page = doc
+  end
+
+  def parse!
     page.search(".show_vuln_table").search("td ul li").each do |li|
       case li.children[0].text.strip
       when "CVE ID:"
@@ -29,7 +34,6 @@ class OSVDB
     self.description = page.search(".show_vuln_table").search("tr td tr .white_content p")[0].text
     self.date = page.search(".show_vuln_table").search("tr td tr .white_content tr td")[0].text
     self.title = page.search("title").text.gsub(/\d+: /, "")
-    self.osvdb = page.search("title").text.match(/\d+/)[0]
     if cvss_p = page.search(".show_vuln_table").search("tr td tr .white_content div p")[0]
       self.set_cvss(cvss_p.children[0].text)
     end
@@ -68,7 +72,8 @@ class OSVDB
       'date' => date,
       'description' => description,
       'cvss_v2' => cvss_v2,
-      'patched_versions' => patched_versions }.to_yaml
+      'patched_versions' => patched_versions
+    }.to_yaml(options = { line_width: 80 })
   end
 
   def filename
