@@ -5,8 +5,6 @@ shared_examples_for 'Advisory' do |path|
   advisory = YAML.load_file(path)
 
   describe path do
-    let(:gem) { File.basename(File.dirname(path)) }
-
     let(:filename_cve) do
       if File.basename(path).start_with?('CVE-')
         File.basename(path).gsub('CVE-','').chomp('.yml')
@@ -23,15 +21,7 @@ shared_examples_for 'Advisory' do |path|
       expect(advisory['cve'] || advisory['osvdb']).not_to be_nil
     end
 
-    describe "gem" do
-      subject { advisory['gem'] }
-
-      it { is_expected.to be_kind_of(String) }
-      it "should be equal to filename (case-insensitive)" do
-        expect(subject.downcase).to eq(gem.downcase)
-      end
-    end
-
+   
     describe "framework" do
       subject { advisory['framework'] }
 
