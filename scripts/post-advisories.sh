@@ -13,6 +13,6 @@ git clone $REPO $DIR
 cd $DIR
 
 bundle install --jobs=3 --retry=3
-bundle exec advisories
+bundle exec rake advisories
 
 git push -q
