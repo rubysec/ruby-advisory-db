@@ -3,8 +3,8 @@ gem: activerecord
 framework: rails
 cve: 2013-0277
 osvdb: 90073
-url: http://direct.osvdb.org/show/osvdb/90073
-title:
+url: http://osvdb.org/show/osvdb/90073
+title: |
   Ruby on Rails Active Record +serialize+ Helper YAML Attribute Handling Remote
   Code Execution 
 date: 2013-02-11
@@ -19,5 +19,5 @@ description: |
 cvss_v2: 10.0
 
 patched_versions: 
-  - ~> 2.3.17
+  - "~> 2.3.17"
   - ">= 3.1.0"

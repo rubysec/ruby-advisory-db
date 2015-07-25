@@ -7,4 +7,3 @@ title: ldoce Gem for Ruby MP3 URL Shell Metacharacter Injection Arbitrary Comman
 date: 2013-04-01
 description: ldoce Gem for Ruby contains a flaw that is triggered during the handling of a specially crafted URL or filename for MP3 files that have shell metacharacters injected in to it. This may allow a context-dependent attacker to execute arbitrary commands.
 cvss_v2: 6.8
-patched_versions: 
