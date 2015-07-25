@@ -1,5 +1,5 @@
 ---
-gem: fog-dragonfly
+gem: dragonfly
 cve: 2013-5671
 osvdb: 96798
 url: http://osvdb.org/show/osvdb/96798
@@ -10,3 +10,5 @@ description: |
   failing to properly sanitize input passed via the imagemagickutils.rb script.
   This may allow a remote attacker to execute arbitrary commands.
 cvss_v2: 7.5
+patched_versions:
+  - ">= 0.8.4"
