@@ -14,4 +14,4 @@ cvss_v2: 6.8
 patched_versions:
   - ~> 1.9.3.484
   - ~> 2.0.0.353
-  - ~> 2.1.0.preview2
+  - ">= 2.1.0.preview.2"
