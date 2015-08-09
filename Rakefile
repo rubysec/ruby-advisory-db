@@ -12,7 +12,7 @@ namespace :lint do
   end
 
   task :cve do
-    Dir.glob('gems/*/*.yml') do |path|
+    Dir.glob('{gems,libraries,rubies}/*/*.yml') do |path|
       advisory = YAML.load_file(path)
 
       unless advisory['cve']
