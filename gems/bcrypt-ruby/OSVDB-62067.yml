@@ -13,5 +13,7 @@ description: |
   worst case of a password consisting solely of non-US-ASCII characters,
   this would cause its hash to be equivalent to all other such passwords
   of the same length. This issue only affects the JRuby implementation.
+
+  This gem has been renamed. Please use "bcrypt" from now on.
 patched_versions:
   - ">= 2.1.4"
