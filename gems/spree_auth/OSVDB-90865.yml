@@ -14,5 +14,3 @@ description: |
   a user. This may allow a remote attacker to assign arbitrary roles and gain
   elevated administrative privileges.
 cvss_v2: 4.0
-patched_versions:
-  - ">= 1.1.6"
