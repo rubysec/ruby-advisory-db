@@ -1,0 +1,8 @@
+---
+gem: therubyracer
+url: https://github.com/cowboyd/therubyracer/pull/336
+title: TheRubyRacer Gem for Ruby Memory Leak
+date: 2015-05-06
+description: Ruby Memory Leak
+patched_versions:
+  - ">= 0.12.2"
