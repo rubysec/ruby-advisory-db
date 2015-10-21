@@ -1,0 +1,8 @@
+---
+gem: celluloid
+url: https://github.com/celluloid/celluloid/pull/678
+title: Celluloid Gem for Ruby Memory Leak
+date: 2015-09-20
+description: Ruby Memory Leak
+patched_versions:
+  - ">= 0.17.2"
