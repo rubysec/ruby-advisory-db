@@ -5,23 +5,28 @@ shared_examples_for 'Advisory' do |path|
   advisory = YAML.load_file(path)
 
   describe path do
+    let(:filename) { File.basename(path).chomp('.yml') }
+
     let(:filename_cve) do
-      if File.basename(path).start_with?('CVE-')
-        File.basename(path).gsub('CVE-','').chomp('.yml')
+      if filename.start_with?('CVE-')
+        filename.gsub('CVE-','')
       end
     end
 
     let(:filename_osvdb) do
-      if File.basename(path).start_with?('OSVDB-')
-        File.basename(path).gsub('OSVDB-','').chomp('.yml')
+      if filename.start_with?('OSVDB-')
+        filename.gsub('OSVDB-','')
       end
+    end
+
+    it "should be correctly named CVE-XXX or OSVDB-XXX" do
+      expect(filename).to match(/^(CVE-\d{4}-(0\d{3}|[1-9]\d{3,})|OSVDB-\d+)$/)
     end
 
     it "should have CVE or OSVDB" do
       expect(advisory['cve'] || advisory['osvdb']).not_to be_nil
     end
 
-   
     describe "framework" do
       subject { advisory['framework'] }
 
