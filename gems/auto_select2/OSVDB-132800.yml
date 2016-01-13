@@ -1,7 +1,7 @@
 ---
 gem: auto_select2
 osvdb: 132800
-url: http://www.openwall.com/lists/oss-security/2016/01/11/2
+url: https://github.com/Loriowar/auto_select2/issues/4
 title: |
   auto_select2 Gem for Ruby allows arbitrary search execution
 date: 2016-01-08
