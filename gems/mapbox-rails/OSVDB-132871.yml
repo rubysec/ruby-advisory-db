@@ -2,7 +2,7 @@
 gem: mapbox-rails
 osvdb: 132871
 url: https://nodesecurity.io/advisories/74
-title: mapbox-rails Content Injection via TileJSON attribute
+title: mapbox-rails Content Injection via TileJSON Name
 date: 2016-01-12
 description: |
   Mapbox.js versions 1.x prior to 1.6.6 and 2.x prior to 2.2.4 are vulnerable
