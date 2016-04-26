@@ -1,0 +1,86 @@
+ruby:
+  # TODO: from CVE DB if possible
+  url: https://www.ruby-lang.org/en/feeds/news.rss
+  entry_condition: '//item[contains(title, "CVE")]'
+  path: rubies/ruby/
+  base_attributes:
+    engine: ruby
+  attribute_conditions:
+    cve: ['title/text()', 'substring-after(substring-before(., ":"), "CVE-")']
+    url: link
+    title: ['title/text()', 'substring-after(., ": ")']
+    date: pubDate
+    description: description
+  exec: true
+
+rails_base: &rails_base
+  url: "https://groups.google.com/forum/feed/rubyonrails-security/msgs/rss.xml?num=15"
+  attribute_conditions:
+    cve: ['title/text()', 'substring-after(substring-before(., "]"), "CVE-")']
+    url: link
+    title: ['title/text()', 'substring-after(., "] ")']
+    # TODO: fix date format
+    date: pubDate
+    description: description
+  exec: false
+
+activerecord:
+  <<: *rails_base
+  entry_condition: '//item[contains(title, "Active Record")]'
+  path: gems/activerecord/
+  base_attributes:
+    # TODO: move to rails_base
+    framework: rails
+    gem: activerecord
+  exec: true
+
+actionpack:
+  <<: *rails_base
+  entry_condition: '//item[contains(title, "Action Pack")]'
+  path: gems/actionpack/
+  base_attributes:
+    # TODO: move to rails_base
+    framework: rails
+    gem: actionpack
+  exec: true
+
+actionview:
+  <<: *rails_base
+  entry_condition: '//item[contains(title, "Action View")]'
+  path: gems/actionview/
+  base_attributes:
+    # TODO: move to rails_base
+    framework: rails
+    gem: actionview
+  exec: true
+
+activesupport:
+  <<: *rails_base
+  entry_condition: '//item[contains(title, "Active Support")]'
+  path: gems/activesupport/
+  base_attributes:
+    # TODO: move to rails_base
+    framework: rails
+    gem: activesupport
+  exec: true
+
+activemodel:
+  <<: *rails_base
+  entry_condition: '//item[contains(title, "Active Model")]'
+  path: gems/activemodel/
+  base_attributes:
+    # TODO: move to rails_base
+    framework: rails
+    gem: activemodel
+  exec: true
+
+# TODO: move to actionpack
+actioncontroller:
+  <<: *rails_base
+  entry_condition: '//item[contains(title, "Action Controller")]'
+  path: gems/actionpack/
+  base_attributes:
+    # TODO: move to rails_base
+    framework: rails
+    gem: actionpack
+  exec: true
