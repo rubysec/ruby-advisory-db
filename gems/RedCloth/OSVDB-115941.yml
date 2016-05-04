@@ -14,3 +14,4 @@ description: |
   their browser and the server.
 cvss_v2: 4.3
 patched_versions:
+  - ">= 4.3.0"
