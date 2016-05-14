@@ -9,3 +9,6 @@ description: |
   the strings that are passed as arguments to the speak, save, bytes
   and bytes_wav methods in the lib/espeak/speech.rb library.
 
+patched_versions:
+  - '>= 1.0.3'
+
