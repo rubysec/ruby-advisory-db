@@ -76,7 +76,7 @@ developed by the Open Security Foundation (OSF) and its contributors.
 [rubygems.org]: https://rubygems.org/
 [CVE]: http://cve.mitre.org/
 [OSVDB]: http://www.osvdb.org/
-[CVSSv2]: http://www.first.org/cvss/cvss-guide.html
+[CVSSv2]: https://www.first.org/cvss/v2/guide
 [OSVDB]: http://www.osvdb.org/
 [YAML]: http://www.yaml.org/
 [CONTRIBUTORS.md]: https://github.com/rubysec/ruby-advisory-db/blob/master/CONTRIBUTORS.md
