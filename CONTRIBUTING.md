@@ -49,8 +49,11 @@ bundle exec rspec
 * `date` \[Date\]: Disclosure date of the advisory.
 * `description` \[String\]: Multi-paragraph description of the vulnerability.
 * `cvss_v2` \[Float\]: The [CVSSv2] score for the vulnerability.
+* `cvss_v3` \[Float\]: The [CVSSv3] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\]: The version requirements for the
   patched versions of the Ruby library.
 
+[CVSSv2]: https://www.first.org/cvss/v2/guide
+[CVSSv3]: https://www.first.org/cvss/user-guide

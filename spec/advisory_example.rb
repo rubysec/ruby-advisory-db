@@ -112,6 +112,21 @@ shared_examples_for 'Advisory' do |path|
       end
     end
 
+    describe "cvss_v3" do
+      subject { advisory['cvss_v3'] }
+
+      it "may be nil or a Float" do
+        expect(subject).to be_kind_of(Float).or(be_nil)
+      end
+
+      case advisory['cvss_v3']
+      when Float
+        context "when a Float" do
+          it { expect((0.0)..(10.0)).to include(subject) }
+        end
+      end
+    end
+
     describe "patched_versions" do
       subject { advisory['patched_versions'] }
 
