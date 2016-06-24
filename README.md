@@ -61,6 +61,7 @@ Each advisory file contains the advisory information in [YAML] format:
 * `date` \[Date\]: Disclosure date of the advisory.
 * `description` \[String\]: Multi-paragraph description of the vulnerability.
 * `cvss_v2` \[Float\]: The [CVSSv2] score for the vulnerability.
+* `cvss_v3` \[Float\]: The [CVSSv3] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\]: The version requirements for the
@@ -77,6 +78,6 @@ developed by the Open Security Foundation (OSF) and its contributors.
 [CVE]: http://cve.mitre.org/
 [OSVDB]: http://www.osvdb.org/
 [CVSSv2]: https://www.first.org/cvss/v2/guide
-[OSVDB]: http://www.osvdb.org/
+[CVSSv3]: https://www.first.org/cvss/user-guide
 [YAML]: http://www.yaml.org/
 [CONTRIBUTORS.md]: https://github.com/rubysec/ruby-advisory-db/blob/master/CONTRIBUTORS.md
