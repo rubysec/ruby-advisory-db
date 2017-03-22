@@ -18,7 +18,7 @@ bundle exec rspec
     framework: rails
     cve: 2014-3514
     url: https://groups.google.com/forum/#!msg/rubyonrails-security/M4chq5Sb540/CC1Fh0Y_NWwJ
-    title: Data Injection Vulnerability in Active Record 
+    title: Data Injection Vulnerability in Active Record
     date: 2014-08-18
 
     description: >-
@@ -27,14 +27,14 @@ bundle exec rspec
       protection. Applications which pass user-controlled values to
       create_with could allow attackers to set arbitrary attributes on
       models.
-      
+
     cvss_v2: 8.7
 
     unaffected_versions:
       - "< 4.0.0"
 
     patched_versions:
-      - ~> 4.0.9 
+      - ~> 4.0.9
       - ">= 4.1.5"
 ```
 ### Schema
@@ -43,7 +43,7 @@ bundle exec rspec
 * `framework` \[String\] (optional): Name of framework gem belongs to.
 * `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. JRuby)
 * `cve` \[String\]: CVE id.
-* `osvdb` \[Fixnum\]: OSVDB id.
+* `osvdb` \[Integer\]: OSVDB id.
 * `url` \[String\]: The URL to the full advisory.
 * `title` \[String\]: The title of the advisory.
 * `date` \[Date\]: Disclosure date of the advisory.

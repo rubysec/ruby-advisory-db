@@ -33,16 +33,16 @@ Each advisory file contains the advisory information in [YAML] format:
     url: http://osvdb.org/show/osvdb/89026
     title: |
       Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
-      Remote Code Execution 
-    
+      Remote Code Execution
+
     description: |
       Ruby on Rails contains a flaw in params_parser.rb of the Action Pack.
       The issue is triggered when a type casting error occurs during the parsing
       of parameters. This may allow a remote attacker to potentially execute
       arbitrary code.
-    
+
     cvss_v2: 10.0
-    
+
     patched_versions:
       - ~> 2.3.15
       - ~> 3.0.19
@@ -55,7 +55,7 @@ Each advisory file contains the advisory information in [YAML] format:
 * `framework` \[String\] (optional): Name of framework gem belongs to.
 * `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. JRuby)
 * `cve` \[String\]: CVE id.
-* `osvdb` \[Fixnum\]: OSVDB id.
+* `osvdb` \[Integer\]: OSVDB id.
 * `url` \[String\]: The URL to the full advisory.
 * `title` \[String\]: The title of the advisory.
 * `date` \[Date\]: Disclosure date of the advisory.

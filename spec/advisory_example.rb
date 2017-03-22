@@ -59,8 +59,8 @@ shared_examples_for 'Advisory' do |path|
     describe "osvdb" do
       subject { advisory['osvdb'] }
 
-      it "may be nil or a Fixnum" do
-        expect(subject).to be_kind_of(Fixnum).or(be_nil)
+      it "may be nil or a Integer" do
+        expect(subject).to be_kind_of(Integer).or(be_nil)
       end
 
        it "should be id in filename if filename is OSVDB-XXX" do
@@ -139,7 +139,7 @@ shared_examples_for 'Advisory' do |path|
           advisory['patched_versions'].each do |version|
             describe version do
               subject { version.split(', ') }
-              
+
               it "should contain valid RubyGem version requirements" do
                 expect {
                 Gem::Requirement.new(*subject)
@@ -163,7 +163,7 @@ shared_examples_for 'Advisory' do |path|
         advisory['unaffected_versions'].each do |version|
           describe version do
             subject { version.split(', ') }
-            
+
             it "should contain valid RubyGem version requirements" do
               expect {
                 Gem::Requirement.new(*subject)
