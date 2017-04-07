@@ -3,7 +3,7 @@ gem: twitter-bootstrap-rails
 framework: rails
 cve: 2014-4920
 osvdb: 109206
-url: http://blog.nvisium.com/2014/03/reflected-xss-vulnerability-in-twitter.html
+url: https://nvisium.com/blog/2014/03/28/reflected-xss-vulnerability-in-twitter/
 title: Reflective XSS Vulnerability in twitter-bootstrap-rails
 date: 2014-03-25
 
