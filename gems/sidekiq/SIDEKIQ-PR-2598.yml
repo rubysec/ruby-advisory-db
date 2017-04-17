@@ -1,0 +1,8 @@
+---
+gem: sidekiq
+url: https://github.com/mperham/sidekiq/pull/2598
+title: Sidekiq Gem for Ruby Leaks memory
+date: 2015-10-09
+description: Sidekiq Gem for Ruby Leaks memory
+patched_versions:
+  - ">= 3.5.1"
