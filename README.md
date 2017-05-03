@@ -21,6 +21,24 @@ the advisories [OSVDB] identifier number.
         OSVDB-79727.yml  OSVDB-84513.yml  OSVDB-89026.yml  OSVDB-91454.yml
         OSVDB-84243.yml  OSVDB-84515.yml  OSVDB-91452.yml
 
+## Rubysec IDs
+
+Rubysec maintains an id system in a similar format to CVE, `RUBYSEC-YYYY-NNNN`
+
+Before adding an advisory, reserve an id and merge/PR the change in the id registry 
+
+```bash
+rake reserve_id
+# Reserving RUBYSEC-2016-0001 for YOURNAME
+```
+
+You can also reserve an id for a previous year
+
+```bash
+rake reserve_id[2012]
+# Reserving RUBYSEC-2012-0003 for YOURNAME
+```
+
 ## Format
 
 Each advisory file contains the advisory information in [YAML] format:
