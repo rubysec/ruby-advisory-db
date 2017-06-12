@@ -1,36 +1,33 @@
 # Ruby Advisory Database
 
-The Ruby Advisory Database aims to compile all advisories that are relevant to Ruby libraries.
+The Ruby Advisory Database is a community effort to compile all security advisories that are relevant to Ruby libraries.
 
-## Goals
+You can check your own Gemfile.locks against this database by using [bundler-audit](https://github.com/rubysec/bundler-audit).
 
-1. Provide advisory **metadata** in a **simple** yet **structured** [YAML]
-   schema for automated tools to consume.
-2. Avoid reinventing [CVE]s.
-3. Avoid duplicating the efforts of the [OSVDB].
+## Support Ruby security!
+
+Do you know about a vulnerability that isn't listed in this database? Open an issue, submit a PR, or [use this form](https://rubysec.com/advisories/new) which will email the maintainers.
 
 ## Directory Structure
 
 The database is a list of directories that match the names of Ruby libraries on
 [rubygems.org]. Within each directory are one or more advisory files
-for the Ruby library. These advisory files are typically named using
-the advisories [OSVDB] identifier number.
+for the Ruby library. These advisory files are named using
+the advisories' [CVE] identifier number.
 
     gems/:
       actionpack/:
-        OSVDB-79727.yml  OSVDB-84513.yml  OSVDB-89026.yml  OSVDB-91454.yml
-        OSVDB-84243.yml  OSVDB-84515.yml  OSVDB-91452.yml
+        CVE-2014-0130.yml  CVE-2014-7818.yml  CVE-2014-7829.yml  CVE-2015-7576.yml
+        CVE-2015-7581.yml  CVE-2016-0751.yml  CVE-2016-0752.yml
 
 ## Format
 
 Each advisory file contains the advisory information in [YAML] format:
 
     ---
-    gem: actionpack
-    framework: rails
+    gem: examplegem
     cve: 2013-0156
-    osvdb: 89026
-    url: http://osvdb.org/show/osvdb/89026
+    url: https://github.com/rubysec/ruby-advisory-db/issues/123456
     title: |
       Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
       Remote Code Execution
@@ -48,6 +45,16 @@ Each advisory file contains the advisory information in [YAML] format:
       - ~> 3.0.19
       - ~> 3.1.10
       - ">= 3.2.11"
+    unaffected_versions:
+      - ~> 2.4.3
+
+    related:
+      cve:
+        - 2013-1234567
+        - 2013-1234568
+      url:
+        - https://github.com/rubysec/ruby-advisory-db/issues/123457
+
 
 ### Schema
 
@@ -66,6 +73,15 @@ Each advisory file contains the advisory information in [YAML] format:
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\]: The version requirements for the
   patched versions of the Ruby library.
+* `related` \[Hash\<Array\<String\>\>\]: Sometimes an advisory references many urls and cves. Supported keys: `cve` and `url`
+
+### Tests
+Prior to submitting a pull request, run the tests:
+
+```
+bundle install
+bundle exec rspec
+```
 
 ## Credits
 

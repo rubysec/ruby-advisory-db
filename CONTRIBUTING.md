@@ -10,32 +10,40 @@ bundle install
 bundle exec rspec
 ```
 
-* Follow the schema. Here is a sample advisory:
+* Follow the schema. Here is an example advisory:
 
 ```yaml
     ---
-    gem: activerecord
-    framework: rails
-    cve: 2014-3514
-    url: https://groups.google.com/forum/#!msg/rubyonrails-security/M4chq5Sb540/CC1Fh0Y_NWwJ
-    title: Data Injection Vulnerability in Active Record
-    date: 2014-08-18
+    gem: examplegem
+    cve: 2013-0156
+    url: https://github.com/rubysec/ruby-advisory-db/issues/123456
+    title: |
+      Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
+      Remote Code Execution
 
-    description: >-
-      The create_with functionality in Active Record was implemented
-      incorrectly and completely bypasses the strong parameters
-      protection. Applications which pass user-controlled values to
-      create_with could allow attackers to set arbitrary attributes on
-      models.
+    description: |
+      Ruby on Rails contains a flaw in params_parser.rb of the Action Pack.
+      The issue is triggered when a type casting error occurs during the parsing
+      of parameters. This may allow a remote attacker to potentially execute
+      arbitrary code.
 
-    cvss_v2: 8.7
-
-    unaffected_versions:
-      - "< 4.0.0"
+    cvss_v2: 10.0
 
     patched_versions:
-      - ~> 4.0.9
-      - ">= 4.1.5"
+      - ~> 2.3.15
+      - ~> 3.0.19
+      - ~> 3.1.10
+      - ">= 3.2.11"
+    unaffected_versions:
+      - ~> 2.4.3
+
+    related:
+      cve:
+        - 2013-1234567
+        - 2013-1234568
+      url:
+        - https://github.com/rubysec/ruby-advisory-db/issues/123457
+
 ```
 ### Schema
 
@@ -54,6 +62,8 @@ bundle exec rspec
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\]: The version requirements for the
   patched versions of the Ruby library.
+* `related` \[Hash\<Array\<String\>\>\]: Sometimes an advisory references many urls and cves. Supported keys: `cve` and `url`
+
 
 [CVSSv2]: https://www.first.org/cvss/v2/guide
 [CVSSv3]: https://www.first.org/cvss/user-guide
