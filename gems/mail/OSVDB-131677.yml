@@ -17,3 +17,7 @@ description: |
   p. 4) can be applied to the library without any modification.
 patched_versions:
 - ">= 2.5.5"
+related:
+  url: 
+    - https://hackerone.com/reports/137631
+    - https://github.com/mikel/mail/pull/1097  
