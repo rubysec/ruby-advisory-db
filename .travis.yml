@@ -4,12 +4,6 @@ sudo: false
 
 cache: bundler
 
-deploy:
-  provider: script
-  script: scripts/post-advisories.sh
-  on:
-    branch: master
-
 notifications:
   irc: chat.freenode.net#rubysec
 
