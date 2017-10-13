@@ -59,14 +59,15 @@ Each advisory file contains the advisory information in [YAML] format:
 ### Schema
 
 * `gem` \[String\]: Name of the affected gem.
-* `framework` \[String\] (optional): Name of framework gem belongs to.
-* `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. JRuby)
+* `framework` \[String\] (optional): Name of the framework which the affected
+  gem belongs to.
+* `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)
 * `cve` \[String\]: CVE id.
 * `osvdb` \[Integer\]: OSVDB id.
 * `url` \[String\]: The URL to the full advisory.
-* `title` \[String\]: The title of the advisory.
-* `date` \[Date\]: Disclosure date of the advisory.
-* `description` \[String\]: Multi-paragraph description of the vulnerability.
+* `title` \[String\]: The title of the advisory or individual vulnerability.
+* `date` \[Date\]: The public disclosure date of the advisory.
+* `description` \[String\]: One or more paragraphs describing the vulnerability.
 * `cvss_v2` \[Float\]: The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\]: The [CVSSv3] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
