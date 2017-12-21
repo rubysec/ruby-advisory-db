@@ -125,6 +125,12 @@ shared_examples_for 'Advisory' do |path|
           it { expect((0.0)..(10.0)).to include(subject) }
         end
       end
+
+      if advisory['cvss_v2']
+        it "should also provide a cvss_v2 score" do
+          expect(advisory['cvss_v2']).to_not be_nil
+        end
+      end
     end
 
     describe "patched_versions" do
