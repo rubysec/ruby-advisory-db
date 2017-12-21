@@ -18,5 +18,4 @@ shared_examples_for "Gem Advisory" do |path|
       end
     end
   end
-
 end

@@ -18,6 +18,5 @@ shared_examples_for "Rubies Advisory" do |path|
       end
     end
   end
-
 end
 
