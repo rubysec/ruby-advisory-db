@@ -14,3 +14,5 @@ description: |
 cvss_v2: 7.5
 unaffected_versions:
   - "< 0.7.0"
+patched_versions:
+  - ">= 0.9.14"

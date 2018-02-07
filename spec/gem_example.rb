@@ -3,7 +3,7 @@ require 'advisory_example'
 
 shared_examples_for "Gem Advisory" do |path|
   include_examples 'Advisory', path
-  
+
   advisory = YAML.load_file(path)
 
   describe path do
@@ -17,6 +17,21 @@ shared_examples_for "Gem Advisory" do |path|
         expect(subject.downcase).to eq(gem.downcase)
       end
     end
-  end
 
+    describe "versions" do
+      it "assumes that future versions will be patched" do
+        unaffected_versions = advisory['unaffected_versions'] || []
+        patched_versions    = advisory['patched_versions'] || []
+
+        versions = (unaffected_versions + patched_versions).sort_by do |v|
+          Gem::Version.new(v.match(/[0-9.]+\.\d+/)[0])
+        end
+
+        # If a gem is unpatched this test makes no sense
+        unless patched_versions.none?
+          expect(versions.last.match(/^>=|^>/)).to be_truthy
+        end
+      end
+    end
+  end
 end
