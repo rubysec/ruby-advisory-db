@@ -1,6 +1,6 @@
 ---
 engine: ruby
-cve: 2004-2770
+cve: 2011-3389
 osvdb: 74829
 url: http://www.osvdb.org/show/osvdb/74829
 title: SSL Chained Initialization Vector CBC Mode MiTM Weakness (BEAST)
