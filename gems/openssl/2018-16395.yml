@@ -1,0 +1,17 @@
+---
+gem: openssl
+date: 2018-10-17
+url: https://www.ruby-lang.org/en/news/2018/10/17/openssl-x509-name-equality-check-does-not-work-correctly-cve-2018-16395/
+cve: CVE-2018-16395
+title: OpenSSL::X509::Name equality check does not work correctly
+description: An instance of OpenSSL::X509::Name contains entities such as CN, C and
+  so on. Some two instances of OpenSSL::X509::Name are equal only when all entities
+  are exactly equal. However, there is a bug that the equality check is not correct
+  if the value of an entity of the argument (right-hand side) starts with the value
+  of the receiver (left-hand side). So, if a malicious X.509 certificate is passed
+  to compare with an existing certificate, there is a possibility to be judged incorrectly
+  that they are equal.
+unaffected_versions:
+- "< 2.1.2"
+patched_versions:
+- ">= 2.1.2"
