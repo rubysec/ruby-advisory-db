@@ -5,7 +5,7 @@ shared_examples_for 'Advisory' do |path|
   advisory = YAML.load_file(path)
 
   describe path do
-    let(:filename) { File.basename(path).chomp('.yml') }
+    let(:filename) { File.basename(path) }
 
     let(:filename_cve) do
       if filename.start_with?('CVE-')
@@ -20,7 +20,8 @@ shared_examples_for 'Advisory' do |path|
     end
 
     it "should be correctly named CVE-XXX or OSVDB-XXX" do
-      expect(filename).to match(/^(CVE-\d{4}-(0\d{3}|[1-9]\d{3,})|OSVDB-\d+)$/)
+      expect(filename).
+        to match(/^(CVE-\d{4}-(0\d{3}|[1-9]\d{3,})|OSVDB-\d+)\.yml$/)
     end
 
     it "should have CVE or OSVDB" do
@@ -51,7 +52,7 @@ shared_examples_for 'Advisory' do |path|
       end
       it "should be id in filename if filename is CVE-XXX" do
         if filename_cve
-          is_expected.to eq(filename_cve)
+          is_expected.to eq(filename_cve.chomp('.yml'))
         end
       end
     end
