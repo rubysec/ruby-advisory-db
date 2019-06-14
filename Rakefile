@@ -22,5 +22,11 @@ namespace :lint do
   end
 end
 
+# TODO add description
+task :sync_github_advisories do
+  require_relative "lib/github_advisory_sync"
+  GitHub::GitHubAdvisorySync.sync
+end
+
 task :lint    => ['lint:yaml', 'lint:cve']
 task :default => :lint

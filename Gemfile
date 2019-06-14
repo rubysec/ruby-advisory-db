@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rspec'
+gem 'faraday'
 gem 'rake'
+gem 'rspec'
 
 group :development do
   gem 'pry'
