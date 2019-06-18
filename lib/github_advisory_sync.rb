@@ -1,12 +1,26 @@
 require "faraday"
 require "json"
 require "yaml"
+require "open-uri"
 
 module GitHub
   class GitHubAdvisorySync
-    def self.sync
-      gh_api_client = GraphQLAPIClient.new
-      gh_advisories = gh_api_client.retrieve_all_rubygem_publishable_advisories
+
+    # Sync makes sure there are rubysec advisories for all GitHub advisories
+    # It writes a set of yaml files, one for each GitHub Advisory that
+    # is not already present in this repo
+    #
+    # The min_year argument specifies the earliest year CVE to sync
+    # There are many old CVEs in the GitHub advisory dataset that are not in here
+    # It is more important to sync the newer ones, so this allows the user to
+    # control how old of CVEs the sync should pull over
+    def self.sync(min_year: 2018)
+      gh_advisories = GraphQLAPIClient.new.retrieve_all_rubygem_publishable_advisories
+
+      gh_advisories.select! do |advisory|
+        _, cve_year = advisory.cve_id.match(/^CVE-(\d+)-\d+$/).to_a
+        cve_year.to_i >= min_year
+      end
 
       files_written = []
       gh_advisories.each do |advisory|
@@ -52,7 +66,6 @@ module GitHub
         req.body = graphql_body
       end
       puts "Got response code: #{faraday_response.status}"
-      # puts "Response body string:\n---#{faraday_response.body}\n---"
       if faraday_response.status != 200
         raise(GitHubGraphQLAPIError, "GitHub GraphQL request to #{faraday_response.env.url} failed: #{faraday_response.body}")
       end
@@ -60,11 +73,10 @@ module GitHub
       if body_obj["errors"]
         raise(GitHubGraphQLAPIError, body_obj["errors"].map { |e| e["message"] }.join(", "))
       end
-      # puts "Query was successful. Response body:\n#{JSON.pretty_generate(body_obj)}\n"
       body_obj
     end
 
-    def retrieve_all_github_advisories(max_pages = 50, page_size = 100) # up to 5K
+    def retrieve_all_github_advisories(max_pages = 10, page_size = 100)
       all_advisories = []
       variables = { "first" => page_size }
       max_pages.times do |page_num|
@@ -85,7 +97,8 @@ module GitHub
 
     def retrieve_all_rubygem_publishable_advisories
       all_advisories = retrieve_all_github_advisories
-      # remove withdrawn advisories, and remove those where there are no vulnerabilities.
+      # remove withdrawn advisories,
+      # and remove those where there are no vulnerabilities for ruby
       all_advisories.reject { |advisory| advisory.withdrawn? }
                     .select { |advisory| advisory.has_ruby_vulnerabilities? }
     end
@@ -142,7 +155,9 @@ module GitHub
   end
 
   class GitHubAdvisory
+
     attr_reader :github_advisory_graphql_object
+
     def initialize(github_advisory_graphql_object:)
       @github_advisory_graphql_object = github_advisory_graphql_object
     end
@@ -185,6 +200,12 @@ module GitHub
       rubysec_filenames.any?{|filename| !File.exist?(filename) }
     end
 
+
+    def cveproject_link
+      _, year, suffixnum = cve_id.match(/^CVE-(\d+)-(\d+)$/).to_a
+      "https://raw.githubusercontent.com/CVEProject/cvelist/master/#{year}/#{suffixnum.sub(/...$/, 'xxx')}/#{cve_id}.json"
+    end
+
     def write_files
       return [] unless cve_id
       return [] unless some_rubysec_files_do_not_exist?
@@ -195,18 +216,42 @@ module GitHub
         next if File.exist?(filename_to_write)
 
         data = {
-          gem: vulnerability["package"]["name"],
-          cve: cve_id[4..20],
-          date: github_advisory_graphql_object["publishedAt"],
-          url: external_reference,
-          title: github_advisory_graphql_object["summary"],
-          description: github_advisory_graphql_object["description"],
+          "gem" => vulnerability["package"]["name"],
+          "cve" => cve_id[4..20],
+          "date" => github_advisory_graphql_object["publishedAt"],
+          "url" => external_reference,
+          "title" => github_advisory_graphql_object["summary"],
+          "description" => github_advisory_graphql_object["description"],
+          "cvss_v3" => "<FILL IN IF AVAILABLE>",
+          "patched_versions" => [ "<FILL IN SEE BELOW>" ],
+          "unaffected_versions" => [ "<OPTIONAL: FILL IN SEE BELOW>" ]
         }
 
         dir_to_write = File.dirname(filename_to_write)
         Dir.mkdir dir_to_write unless Dir.exist?(dir_to_write)
         File.open(filename_to_write, "w") do |file|
+          # create an automatically generated advisory yaml file
           file.write data.to_yaml
+
+          # The data we just wrote is incomplete,
+          # and therefore should not be committed as is
+          # We can not directly translate from GitHub to rubysec advisory format
+          #
+          # The patched_versions field is not exactly available.
+          # - GitHub has a first_patched_version field,
+          #   but rubysec advisory needs a ruby version spec
+          #
+          # The unnaffected_versions field is similarly not directly available
+          # This optional field must be inferred from the vulnerableVersionRange
+          #
+          # To help write those fields, we put all the github data below.
+          #
+          # The second block of yaml in a .yaml file is ignored (after the second "---" line)
+          # This effectively makes this data a large comment
+          # Still it should be removed before the data goes into rubysec
+          file.write "\n\n# GitHub advisory data below - **Remove this data before committing**\n"
+          file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
+          file.write github_advisory_graphql_object.to_yaml
         end
         puts "Wrote: #{filename_to_write}"
         files_written << filename_to_write
@@ -214,6 +259,5 @@ module GitHub
 
       files_written
     end
-
   end
 end
