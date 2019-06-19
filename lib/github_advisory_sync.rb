@@ -17,6 +17,11 @@ module GitHub
     def self.sync(min_year: 2018)
       gh_advisories = GraphQLAPIClient.new.retrieve_all_rubygem_publishable_advisories
 
+      # filter out advisories with a CVE year that is before the min_year
+      # The script will write many files for years 2013, 2014 and other earlier years
+      # Since older CVEs are not as interesting, I am leaving it up to the caller to
+      # decide how older they want.  The script is really designed to keep data synced
+      # over going forward
       gh_advisories.select! do |advisory|
         _, cve_year = advisory.cve_id.match(/^CVE-(\d+)-\d+$/).to_a
         cve_year.to_i >= min_year
@@ -26,6 +31,14 @@ module GitHub
       gh_advisories.each do |advisory|
         files_written += advisory.write_files
       end
+
+      puts "\nSync completed"
+      if files_written.empty?
+        puts "Nothing to sync today! All CVEs after #{min_year} are already present"
+      else
+        puts "Wrote these files:\n#{files_written.to_yaml}"
+      end
+
       files_written
     end
   end
@@ -83,7 +96,6 @@ module GitHub
         puts "Getting page #{page_num + 1} of GitHub Advisories"
         page = github_graphql_query(:GITHUB_ADVISORIES_WITH_RUBYGEM_VULNERABILITY, variables)
         advisories_this_page = page["data"]["securityAdvisories"]["nodes"]
-        puts "found #{advisories_this_page.length} advisories on page #{page_num}"
         all_advisories += advisories_this_page
         break unless page["data"]["securityAdvisories"]["pageInfo"]["hasNextPage"] == true
         variables["after"] = page["data"]["securityAdvisories"]["pageInfo"]["endCursor"]
@@ -162,10 +174,22 @@ module GitHub
       @github_advisory_graphql_object = github_advisory_graphql_object
     end
 
+    # extract the CVE identifier from the GitHub Advisory identifier list
     def cve_id
-      cve_id_obj = github_advisory_graphql_object["identifiers"].find{ |id| id["type"] == "CVE" }
+      identifier_list = github_advisory_graphql_object["identifiers"]
+      cve_id_obj = identifier_list.find { |id| id["type"] == "CVE" }
       return nil unless cve_id_obj
+
       cve_id_obj["value"]
+    end
+
+    # return a date as a string like 2019-03-21.
+    def published_day
+      return nil unless github_advisory_graphql_object["publishedAt"]
+
+      pub_date = Date.parse(github_advisory_graphql_object["publishedAt"])
+      # pub_date.strftime("%Y-%m-%d")
+      pub_date
     end
 
     def package_names
@@ -200,12 +224,6 @@ module GitHub
       rubysec_filenames.any?{|filename| !File.exist?(filename) }
     end
 
-
-    def cveproject_link
-      _, year, suffixnum = cve_id.match(/^CVE-(\d+)-(\d+)$/).to_a
-      "https://raw.githubusercontent.com/CVEProject/cvelist/master/#{year}/#{suffixnum.sub(/...$/, 'xxx')}/#{cve_id}.json"
-    end
-
     def write_files
       return [] unless cve_id
       return [] unless some_rubysec_files_do_not_exist?
@@ -218,7 +236,7 @@ module GitHub
         data = {
           "gem" => vulnerability["package"]["name"],
           "cve" => cve_id[4..20],
-          "date" => github_advisory_graphql_object["publishedAt"],
+          "date" => published_day,
           "url" => external_reference,
           "title" => github_advisory_graphql_object["summary"],
           "description" => github_advisory_graphql_object["description"],

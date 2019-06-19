@@ -22,7 +22,7 @@ namespace :lint do
   end
 end
 
-# TODO add description
+desc "Sync GitHub RubyGem Advisories into this project"
 task :sync_github_advisories do
   require_relative "lib/github_advisory_sync"
   GitHub::GitHubAdvisorySync.sync
