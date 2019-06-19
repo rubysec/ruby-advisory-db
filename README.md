@@ -84,6 +84,35 @@ bundle install
 bundle exec rspec
 ```
 
+### GitHub Advisory Sync
+
+There is a script that will create initial yaml files for RubyGem advisories which
+are in the [GitHub Security Advisory API](https://developer.github.com/v4/object/securityadvisory/),
+but are not already in this dataset.  This script can be periodically run to ensure
+this repo has all the data that is present in the GitHub Advisory data.
+
+The GitHub Advisory API requires a token to access it.
+- It can be a completely scopeless token (recommended), it does not require any permissions at all.
+- Get yours at https://github.com/settings/tokens
+
+To run the GitHub Advisory sync, start by executing the rake task:
+```
+GH_API_TOKEN=<your GitHub API Token> bundle exec rake sync_github_advisories
+```
+
+- The rake task will write yaml files for any missing advisories.
+- Those files must be further edited.
+  - Fill in `cvss_v3` field by following the CVE link and getting it from page
+  - Fill in `patched_versions` field, using the comments at the bottom of the file
+  - Fill in `unaffected_versions`, optional, if there are unaffected_versions
+  - delete the GitHub data at the bottom of the yaml file
+  - double check all the data, commit it, and make a PR
+    - *The GitHub Advisory data is structured opposite of RubySec unfortunately:
+       GitHub identifies version range which are vulnerable, RubySec identifies
+      version ranges which are not vulnerable.  This is why some manual
+      work to translate is needed.*
+
+
 ## Credits
 
 Please see [CONTRIBUTORS.md].
