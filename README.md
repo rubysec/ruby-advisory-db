@@ -64,6 +64,7 @@ Each advisory file contains the advisory information in [YAML] format:
 * `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)
 * `cve` \[String\]: CVE id.
 * `osvdb` \[Integer\]: OSVDB id.
+* `ghsa` \[String\]: GitHub Security Advisory ID.
 * `url` \[String\]: The URL to the full advisory.
 * `title` \[String\]: The title of the advisory or individual vulnerability.
 * `date` \[Date\]: The public disclosure date of the advisory.
