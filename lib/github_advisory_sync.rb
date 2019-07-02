@@ -23,8 +23,12 @@ module GitHub
       # decide how older they want.  The script is really designed to keep data synced
       # over going forward
       gh_advisories.select! do |advisory|
-        _, cve_year = advisory.cve_id.match(/^CVE-(\d+)-\d+$/).to_a
-        cve_year.to_i >= min_year
+        if advisory.cve_id
+          _, cve_year = advisory.cve_id.match(/^CVE-(\d+)-\d+$/).to_a
+          cve_year.to_i >= min_year
+        else
+          true # all advisories without a CVE are included too
+        end
       end
 
       files_written = []
@@ -174,13 +178,29 @@ module GitHub
       @github_advisory_graphql_object = github_advisory_graphql_object
     end
 
+    def identifier_list
+      github_advisory_graphql_object["identifiers"]
+    end
+
     # extract the CVE identifier from the GitHub Advisory identifier list
     def cve_id
-      identifier_list = github_advisory_graphql_object["identifiers"]
       cve_id_obj = identifier_list.find { |id| id["type"] == "CVE" }
       return nil unless cve_id_obj
 
       cve_id_obj["value"]
+    end
+
+    def ghsa_id
+      id_obj = identifier_list.find { |id| id["type"] == "GHSA" }
+      id_obj["value"]
+    end
+
+    # advisories should be identified by CVE ID if there is one
+    # but for maintainer submitted advisories there may not be one,
+    # so a GitHub Security Advisory ID (ghsa_id) is used instead
+    def primary_id
+      return cve_id if cve_id
+      ghsa_id
     end
 
     # return a date as a string like 2019-03-21.
@@ -225,17 +245,15 @@ module GitHub
     end
 
     def write_files
-      return [] unless cve_id
       return [] unless some_rubysec_files_do_not_exist?
 
       files_written = []
       vulnerabilities.each do |vulnerability|
-        filename_to_write = File.join("gems", vulnerability["package"]["name"], "#{cve_id}.yml")
+        filename_to_write = File.join("gems", vulnerability["package"]["name"], "#{primary_id}.yml")
         next if File.exist?(filename_to_write)
 
         data = {
           "gem" => vulnerability["package"]["name"],
-          "cve" => cve_id[4..20],
           "date" => published_day,
           "url" => external_reference,
           "title" => github_advisory_graphql_object["summary"],
@@ -244,6 +262,7 @@ module GitHub
           "patched_versions" => [ "<FILL IN SEE BELOW>" ],
           "unaffected_versions" => [ "<OPTIONAL: FILL IN SEE BELOW>" ]
         }
+        data["cve"] = cve_id[4..20] if cve_id
 
         dir_to_write = File.dirname(filename_to_write)
         Dir.mkdir dir_to_write unless Dir.exist?(dir_to_write)
