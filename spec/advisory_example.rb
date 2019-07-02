@@ -19,13 +19,13 @@ shared_examples_for 'Advisory' do |path|
       end
     end
 
-    it "should be correctly named CVE-XXX or OSVDB-XXX" do
+    it "should be correctly named CVE-XXX or OSVDB-XXX or GHSA-XXX" do
       expect(filename).
-        to match(/^(CVE-\d{4}-(0\d{3}|[1-9]\d{3,})|OSVDB-\d+)\.yml$/)
+        to match(/^(CVE-\d{4}-(0\d{3}|[1-9]\d{3,})|OSVDB-\d+|GHSA(-\w{4}){3})\.yml$/)
     end
 
-    it "should have CVE or OSVDB" do
-      expect(advisory['cve'] || advisory['osvdb']).not_to be_nil
+    it "should have CVE or OSVDB or GHSA" do
+      expect(advisory['cve'] || advisory['osvdb'] || advisory['ghsa']).not_to be_nil
     end
 
     describe "framework" do
