@@ -62,9 +62,9 @@ Each advisory file contains the advisory information in [YAML] format:
 * `framework` \[String\] (optional): Name of the framework which the affected
   gem belongs to.
 * `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)
-* `cve` \[String\]: CVE id.
-* `osvdb` \[Integer\]: OSVDB id.
-* `ghsa` \[String\]: GitHub Security Advisory ID.
+* `cve` \[String\]: Common Vulnerabilities and Exposures (CVE) ID.
+* `osvdb` \[Integer\]: Open Sourced Vulnerability Database (OSVDB) ID.
+* `ghsa` \[String\]: GitHub Security Advisory (GHSA) ID.
 * `url` \[String\]: The URL to the full advisory.
 * `title` \[String\]: The title of the advisory or individual vulnerability.
 * `date` \[Date\]: The public disclosure date of the advisory.
@@ -93,7 +93,7 @@ but are not already in this dataset.  This script can be periodically run to ens
 this repo has all the data that is present in the GitHub Advisory data.
 
 The GitHub Advisory API requires a token to access it.
-- It can be a completely scopeless token (recommended), it does not require any permissions at all.
+- It can be a completely scopeless token (recommended); it does not require any permissions at all.
 - Get yours at https://github.com/settings/tokens
 
 To run the GitHub Advisory sync, start by executing the rake task:
@@ -109,7 +109,7 @@ GH_API_TOKEN=<your GitHub API Token> bundle exec rake sync_github_advisories
   - delete the GitHub data at the bottom of the yaml file
   - double check all the data, commit it, and make a PR
     - *The GitHub Advisory data is structured opposite of RubySec unfortunately:
-       GitHub identifies version range which are vulnerable, RubySec identifies
+       GitHub identifies version range which are vulnerable; RubySec identifies
       version ranges which are not vulnerable.  This is why some manual
       work to translate is needed.*
 
@@ -118,12 +118,13 @@ GH_API_TOKEN=<your GitHub API Token> bundle exec rake sync_github_advisories
 
 Please see [CONTRIBUTORS.md].
 
-This database also includes data from the [Open Source Vulnerability Database][OSVDB]
+This database also includes data from the [Open Sourced Vulnerability Database][OSVDB]
 developed by the Open Security Foundation (OSF) and its contributors.
 
 [rubygems.org]: https://rubygems.org/
-[CVE]: http://cve.mitre.org/
+[CVE]: https://cve.mitre.org/
 [OSVDB]: http://www.osvdb.org/
+[GHSA]: https://help.github.com/en/articles/about-maintainer-security-advisories
 [CVSSv2]: https://www.first.org/cvss/v2/guide
 [CVSSv3]: https://www.first.org/cvss/user-guide
 [YAML]: http://www.yaml.org/
