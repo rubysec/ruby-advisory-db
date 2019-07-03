@@ -18,10 +18,16 @@ shared_examples_for 'Advisory' do |path|
         filename.gsub('OSVDB-','')
       end
     end
+    
+    let(:filename_ghsa) do
+      if filename.start_with?('GHSA-')
+        filename.gsub('GHSA-','')
+      end
+    end
 
     it "should be correctly named CVE-XXX or OSVDB-XXX or GHSA-XXX" do
       expect(filename).
-        to match(/^(CVE-\d{4}-(0\d{3}|[1-9]\d{3,})|OSVDB-\d+|GHSA(-\w{4}){3})\.yml$/)
+        to match(/^(CVE-\d{4}-(0\d{3}|[1-9]\d{3,})|OSVDB-\d+|GHSA(-[a-z0-9]{4}){3})\.yml$/)
     end
 
     it "should have CVE or OSVDB or GHSA" do
@@ -67,6 +73,19 @@ shared_examples_for 'Advisory' do |path|
        it "should be id in filename if filename is OSVDB-XXX" do
         if filename_osvdb
           is_expected.to eq(filename_osvdb.to_i)
+        end
+      end
+    end
+    
+    describe "ghsa" do
+      subject { advisory['ghsa'] }
+
+      it "may be nil or a String" do
+        expect(subject).to be_kind_of(String).or(be_nil)
+      end
+      it "should be id in filename if filename is GHSA-XXX" do
+        if filename_ghsa
+          is_expected.to eq(filename_ghsa.chomp('.yml'))
         end
       end
     end
@@ -192,8 +211,8 @@ shared_examples_for 'Advisory' do |path|
       when Hash
         advisory["related"].each_pair do |name, values|
           describe name do
-            it "should be either a cve, an osvdb or a url" do
-              expect(["cve", "osvdb", "url"]).to include(name)
+            it "should be either a cve, an osvdb, a ghsa, or a url" do
+              expect(["cve", "osvdb", "ghsa", "url"]).to include(name)
             end
 
             it "should always contain an array" do
