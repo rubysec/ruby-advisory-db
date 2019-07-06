@@ -13,7 +13,7 @@ module GitHub
     # The min_year argument specifies the earliest year CVE to sync.
     # It is more important to sync the newer ones, so this allows the user to
     # control how old of CVEs the sync should pull over
-    def self.sync(min_year: 2011)
+    def self.sync(min_year: 2015)
       gh_advisories = GraphQLAPIClient.new.retrieve_all_rubygem_publishable_advisories
 
       # Filter out advisories with a CVE year that is before the min_year
@@ -88,7 +88,7 @@ module GitHub
       body_obj
     end
 
-    def retrieve_all_github_advisories(max_pages = 10, page_size = 100)
+    def retrieve_all_github_advisories(max_pages = 100, page_size = 100)
       all_advisories = []
       variables = { "first" => page_size }
       max_pages.times do |page_num|
