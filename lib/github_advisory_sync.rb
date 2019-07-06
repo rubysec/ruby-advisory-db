@@ -10,18 +10,13 @@ module GitHub
     # It writes a set of yaml files, one for each GitHub Advisory that
     # is not already present in this repo
     #
-    # The min_year argument specifies the earliest year CVE to sync
-    # There are many old CVEs in the GitHub advisory dataset that are not in here
+    # The min_year argument specifies the earliest year CVE to sync.
     # It is more important to sync the newer ones, so this allows the user to
     # control how old of CVEs the sync should pull over
-    def self.sync(min_year: 2018)
+    def self.sync(min_year: 2011)
       gh_advisories = GraphQLAPIClient.new.retrieve_all_rubygem_publishable_advisories
 
-      # filter out advisories with a CVE year that is before the min_year
-      # The script will write many files for years 2013, 2014 and other earlier years
-      # Since older CVEs are not as interesting, I am leaving it up to the caller to
-      # decide how older they want.  The script is really designed to keep data synced
-      # over going forward
+      # Filter out advisories with a CVE year that is before the min_year
       gh_advisories.select! do |advisory|
         if advisory.cve_id
           _, cve_year = advisory.cve_id.match(/^CVE-(\d+)-\d+$/).to_a
@@ -38,7 +33,7 @@ module GitHub
 
       puts "\nSync completed"
       if files_written.empty?
-        puts "Nothing to sync today! All CVEs after #{min_year} are already present"
+        puts "Nothing to sync today! All CVEs starting from #{min_year} are already present"
       else
         puts "Wrote these files:\n#{files_written.to_yaml}"
       end
@@ -254,8 +249,8 @@ module GitHub
 
         data = {
           "gem" => vulnerability["package"]["name"],
-          "date" => published_day,
           "url" => external_reference,
+          "date" => published_day,
           "title" => github_advisory_graphql_object["summary"],
           "description" => github_advisory_graphql_object["description"],
           "cvss_v3" => "<FILL IN IF AVAILABLE>",
