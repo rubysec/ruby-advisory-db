@@ -1,4 +1,5 @@
 ---
+gem: rubygems-update
 library: rubygems
 cve: 2012-2125
 osvdb: 85809
