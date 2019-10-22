@@ -3,7 +3,7 @@ require 'advisory_example'
 
 shared_examples_for "Rubies Advisory" do |path|
   include_examples 'Advisory', path
-  
+
   advisory = YAML.load_file(path)
 
   describe path do
@@ -16,6 +16,13 @@ shared_examples_for "Rubies Advisory" do |path|
       it "should be equal to filename (case-insensitive)" do
         expect(subject.downcase).to eq(engine.downcase)
       end
+    end
+
+    it "should have valid schema" do
+      schema = YAML.load_file(File.join(File.dirname(__FILE__), 'schemas/ruby.yml'))
+      validator = Kwalify::Validator.new(schema)
+      errors = validator.validate(advisory)
+      expect(errors).to be_empty
     end
   end
 end

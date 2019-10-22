@@ -1,0 +1,36 @@
+type: map
+mapping:
+  "engine":
+    type: str
+    required: yes
+    enum: [jruby, rbx, ruby]
+  "cve":
+    type: str
+    pattern: /\d+-\d+/
+  "osvdb":
+    type: int
+  "url":
+    type: str
+    required: true
+    pattern: /https?:\/\//
+  "title":
+    type: str
+    required: true
+  "date":
+    type: date
+    required: true
+  "description":
+    type: str
+    required: true
+  "cvss_v2":
+    type: float
+  "cvss_v3":
+    type: float
+  "unaffected_versions":
+    type: seq
+    sequence:
+      - type: str
+  "patched_versions":
+    type: seq
+    sequence:
+      - type: str

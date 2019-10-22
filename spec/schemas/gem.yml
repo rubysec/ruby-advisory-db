@@ -1,0 +1,64 @@
+type: map
+mapping:
+  "gem":
+    type: str
+    required: yes
+  "library":
+    type: str
+  "framework":
+    type: str
+  "platform":
+    type: str
+  "cve":
+    type: str
+    pattern: /\d+-\d+/
+  "osvdb":
+    type: int
+  "ghsa":
+    type: str
+  "url":
+    type: str
+    required: true
+    pattern: /https?:\/\//
+  "title":
+    type: str
+    required: true
+  "date":
+    type: date
+    required: true
+  "description":
+    type: str
+    required: true
+  "cvss_v2":
+    type: float
+  "cvss_v3":
+    type: float
+  "unaffected_versions":
+    type: seq
+    sequence:
+      - type: str
+  "patched_versions":
+    type: seq
+    sequence:
+      - type: str
+  "vendor_patch":
+    type: seq
+    sequence:
+      - type: str
+        pattern: /https?:\/\//
+  "related":
+    type: map
+    mapping:
+      "cve":
+        type: seq
+        sequence:
+          - type: str
+      "osvdb":
+        type: seq
+        sequence:
+          - type: int
+      "url":
+        type: seq
+        sequence:
+        - type: str
+          pattern: /https?:\/\//
