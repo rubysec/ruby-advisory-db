@@ -33,5 +33,12 @@ shared_examples_for "Gem Advisory" do |path|
         end
       end
     end
+
+    it "should have valid schema" do
+      schema = YAML.load_file(File.join(File.dirname(__FILE__), 'schemas/gem.yml'))
+      validator = Kwalify::Validator.new(schema)
+      errors = validator.validate(advisory)
+      expect(errors).to be_empty
+    end
   end
 end

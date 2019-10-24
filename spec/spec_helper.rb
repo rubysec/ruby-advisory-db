@@ -1,1 +1,2 @@
+require 'kwalify'
 require 'rspec'
