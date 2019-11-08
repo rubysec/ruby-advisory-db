@@ -16,6 +16,7 @@ bundle exec rspec
     ---
     gem: examplegem
     cve: 2013-0156
+    date: 2013-05-01
     url: https://github.com/rubysec/ruby-advisory-db/issues/123456
     title: |
       Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
@@ -28,6 +29,7 @@ bundle exec rspec
       arbitrary code.
 
     cvss_v2: 10.0
+    cvss_v3: 9.8
 
     patched_versions:
       - ~> 2.3.15
@@ -47,23 +49,23 @@ bundle exec rspec
 ```
 ### Schema
 
-* `gem` \[String\]: Name of the affected gem.
-* `framework` \[String\] (optional): Name of framework gem belongs to.
-* `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. JRuby)
-* `cve` \[String\]: CVE id.
-* `osvdb` \[Integer\]: OSVDB id.
-* `url` \[String\]: The URL to the full advisory.
-* `title` \[String\]: The title of the advisory.
-* `date` \[Date\]: Disclosure date of the advisory.
-* `description` \[String\]: Multi-paragraph description of the vulnerability.
-* `cvss_v2` \[Float\]: The [CVSSv2] score for the vulnerability.
-* `cvss_v3` \[Float\]: The [CVSSv3] score for the vulnerability.
+* `gem` \[String\] (required): Name of the affected gem.
+* `framework` \[String\] (optional): Name of the framework which the affected gem belongs to.
+* `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)
+* `cve` \[String\] (optional): Common Vulnerabilities and Exposures (CVE) ID.
+* `osvdb` \[Integer\] (optional): Open Sourced Vulnerability Database (OSVDB) ID.
+* `ghsa` \[String\] (optional): GitHub Security Advisory (GHSA) ID.
+* `url` \[String\] (required): The URL to the full advisory.
+* `title` \[String\] (required): The title of the advisory or individual vulnerability.
+* `date` \[Date\] (required): The public disclosure date of the advisory.
+* `description` \[String\] (required): One or more paragraphs describing the vulnerability.
+* `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
+* `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby library.
-* `patched_versions` \[Array\<String\>\]: The version requirements for the
+* `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
   patched versions of the Ruby library.
-* `related` \[Hash\<Array\<String\>\>\]: Sometimes an advisory references many urls and cves. Supported keys: `cve` and `url`
-
+* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and cves. Supported keys: `cve` and `url`
 
 [CVSSv2]: https://www.first.org/cvss/v2/guide
 [CVSSv3]: https://www.first.org/cvss/user-guide
