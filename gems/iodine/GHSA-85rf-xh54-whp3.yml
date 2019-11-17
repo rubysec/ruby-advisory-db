@@ -1,0 +1,21 @@
+---
+gem: iodine
+ghsa: 85rf-xh54-whp3
+url: https://github.com/boazsegev/iodine/security/advisories/GHSA-85rf-xh54-whp3
+date: 2019-10-07
+title: iodine path traversal via malicious URL drafting attack
+description: |
+  Malicious URL drafting attack against iodines static file server
+  may allow path traversal
+
+  Impact:
+  A path traversal vulnerability was detected in iodine's static file service.
+
+  This vulnerability effects any application running iodine's static file server
+  on an effected iodine version.
+
+  Malicious URL drafting may cause the static file server to attempt a response
+  containing data from files that shouldn't be normally accessible from the
+  public folder.
+patched_versions:
+- ">= 0.7.34"

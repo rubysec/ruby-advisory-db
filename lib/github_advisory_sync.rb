@@ -88,7 +88,7 @@ module GitHub
       body_obj
     end
 
-    def retrieve_all_github_advisories(max_pages = 100, page_size = 100)
+    def retrieve_all_github_advisories(max_pages = 1000, page_size = 100)
       all_advisories = []
       variables = { "first" => page_size }
       max_pages.times do |page_num|
@@ -249,6 +249,7 @@ module GitHub
 
         data = {
           "gem" => vulnerability["package"]["name"],
+          "ghsa" => ghsa_id[5..],
           "url" => external_reference,
           "date" => published_day,
           "title" => github_advisory_graphql_object["summary"],
