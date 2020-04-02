@@ -2,7 +2,7 @@
 gem: sprout
 cve: 2013-6421
 osvdb: 100598
-url: http://www.osvdb.org/show/osvdb/100598
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-6421
 title: sprout Gem for Ruby archive_unpacker.rb unpack_zip() Function Multiple Parameter Arbitrary Code Execution
 date: 2013-12-02
 description: |

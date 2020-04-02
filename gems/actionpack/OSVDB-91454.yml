@@ -3,7 +3,7 @@ gem: actionpack
 framework: rails
 cve: 2013-1857
 osvdb: 91454
-url: http://osvdb.org/show/osvdb/91454
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-1857
 title: XSS Vulnerability in the `sanitize` helper of Ruby on Rails
 date: 2013-03-19
 

@@ -3,7 +3,7 @@ gem: activerecord
 framework: rails
 cve: 2014-3482
 osvdb: 108664
-url: http://osvdb.org/show/osvdb/108664
+url: https://nvd.nist.gov/vuln/detail/CVE-2014-3482
 title: SQL Injection Vulnerability in Active Record
 date: 2014-07-02
 

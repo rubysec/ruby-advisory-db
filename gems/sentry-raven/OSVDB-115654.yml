@@ -2,7 +2,7 @@
 gem: sentry-raven
 cve: 2014-9490
 osvdb: 115654
-url: http://osvdb.org/show/osvdb/115654
+url: https://nvd.nist.gov/vuln/detail/CVE-2014-9490
 title: sentry-raven Gem for Ruby contains a flaw that can result in a denial of service
 date: 2014-12-08
 description: Sentry raven-ruby contains a flaw in the lib/raven/okjson.rb script

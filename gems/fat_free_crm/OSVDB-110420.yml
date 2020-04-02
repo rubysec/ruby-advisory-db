@@ -2,7 +2,7 @@
 gem: fat_free_crm
 osvdb: 110420
 cve: 2014-5441
-url: http://osvdb.org/show/osvdb/110420
+url: https://nvd.nist.gov/vuln/detail/CVE-2014-5441
 title: Fat Free CRM Gem contains a javascript cross-site scripting (XSS)
   vulnerability
 date: 2014-08-22

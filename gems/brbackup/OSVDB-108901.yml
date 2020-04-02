@@ -2,7 +2,7 @@
 gem: brbackup
 cve: 2014-5004
 osvdb: 108901
-url: http://osvdb.org/show/osvdb/108901
+url: https://nvd.nist.gov/vuln/detail/CVE-2014-5004
 title: brbackup Gem for Ruby Process List Local Plaintext Password Disclosure
 date: 2014-07-09
 description: |

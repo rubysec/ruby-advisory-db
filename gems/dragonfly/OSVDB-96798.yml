@@ -2,7 +2,7 @@
 gem: dragonfly
 cve: 2013-5671
 osvdb: 96798
-url: http://osvdb.org/show/osvdb/96798
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-5671
 title: fog-dragonfly Gem for Ruby imagemagickutils.rb Remote Command Execution
 date: 2013-09-03
 description: |

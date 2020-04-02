@@ -2,7 +2,7 @@
 gem: rack
 cve: 2013-0262
 osvdb: 89938
-url: http://osvdb.org/show/osvdb/89938
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0262
 title: |
   Rack Rack::File Function Symlink Traversal Arbitrary File Disclosure
 date: 2013-02-07

@@ -2,7 +2,7 @@
 gem: paratrooper-newrelic
 cve: 2014-1234
 osvdb: 101839
-url: http://www.osvdb.org/show/osvdb/101839
+url: https://nvd.nist.gov/vuln/detail/CVE-2014-1234
 title: Paratrooper-newrelic Gem for Ruby Process Listing API Key Local Disclosure
 date: 2014-01-08
 description: |

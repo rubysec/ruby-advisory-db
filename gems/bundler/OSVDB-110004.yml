@@ -2,7 +2,7 @@
 gem: bundler
 cve: 2013-0334
 osvdb: 110004
-url: http://www.osvdb.org/show/osvdb/110004
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0334
 title: Bundler Gem for Ruby Multiple Top-level Source Lines Gemfile Handling Gem Installation Spoofing
 date: 2014-08-13
 description: |

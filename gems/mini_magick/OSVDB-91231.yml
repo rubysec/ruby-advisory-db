@@ -2,7 +2,7 @@
 gem: mini_magick
 cve: 2013-2616
 osvdb: 91231
-url: http://osvdb.org/show/osvdb/91231
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-2616
 title: MiniMagick Gem for Ruby URI Handling Arbitrary Command Injection
 date: 2013-03-12
 description: |

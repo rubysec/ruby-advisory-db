@@ -3,7 +3,7 @@ gem: activerecord
 framework: rails
 cve: 2012-2660
 osvdb: 82610
-url: http://www.osvdb.org/show/osvdb/82610
+url: https://nvd.nist.gov/vuln/detail/CVE-2012-2660
 title:
   Ruby on Rails ActiveRecord Class Rack Query Parameter Parsing SQL Query
   Arbitrary IS NULL Clause Injection

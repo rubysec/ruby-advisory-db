@@ -2,7 +2,7 @@
 gem: rack
 cve: 2013-0263
 osvdb: 89939
-url: http://osvdb.org/show/osvdb/89939
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0263
 title: |
   Rack Rack::Session::Cookie Function Timing Attack Remote Code Execution
 date: 2013-02-07

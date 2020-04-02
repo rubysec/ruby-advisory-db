@@ -3,7 +3,7 @@ gem: actionpack
 framework: rails
 cve: 2012-3463
 osvdb: 84515
-url: http://osvdb.org/84515
+url: https://nvd.nist.gov/vuln/detail/CVE-2012-3463
 title: Ruby on Rails select_tag Helper Method prompt Value XSS
 date: 2012-08-09
 

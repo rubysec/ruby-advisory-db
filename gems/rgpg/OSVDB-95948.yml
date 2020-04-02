@@ -2,7 +2,7 @@
 gem: rgpg
 cve: 2013-4203
 osvdb: 95948
-url: http://www.osvdb.org/show/osvdb/95948
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-4203
 title: rgpg Gem for Ruby lib/rgpg/gpg_helper.rb Remote Command Execution
 date: 2013-08-02
 description: |

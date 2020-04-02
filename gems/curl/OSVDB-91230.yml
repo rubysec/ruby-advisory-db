@@ -2,7 +2,7 @@
 gem: curl
 cve: 2013-2617
 osvdb: 91230
-url: http://osvdb.org/show/osvdb/91230
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-2617
 title: Curl Gem for Ruby URI Handling Arbitrary Command Injection
 date: 2013-03-12
 description: Curl Gem for Ruby contains a flaw that is triggered during the

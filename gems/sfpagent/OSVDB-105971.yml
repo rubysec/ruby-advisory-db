@@ -2,7 +2,7 @@
 gem: sfpagent
 cve: 2014-2888
 osvdb: 105971
-url: http://www.osvdb.org/show/osvdb/105971
+url: https://nvd.nist.gov/vuln/detail/CVE-2014-2888
 title: sfpagent Gem for Ruby JSON[body] Module Name Remote Command Execution
 date: 2014-04-16
 description: |

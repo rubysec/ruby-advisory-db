@@ -4,7 +4,7 @@ framework: rails
 platform: jruby
 cve: 2013-1856
 osvdb: 91451
-url: http://www.osvdb.org/show/osvdb/91451
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-1856
 title: XML Parsing Vulnerability affecting JRuby users
 date: 2013-03-19
 

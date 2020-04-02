@@ -2,7 +2,7 @@
 gem: devise
 cve: 2013-0233
 osvdb: 89642
-url: http://osvdb.org/show/osvdb/89642
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0233
 title: Devise Database Type Conversion Crafted Request Parsing Security Bypass
 date: 2013-01-28
 

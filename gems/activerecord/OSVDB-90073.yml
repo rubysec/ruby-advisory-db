@@ -3,7 +3,7 @@ gem: activerecord
 framework: rails
 cve: 2013-0277
 osvdb: 90073
-url: http://osvdb.org/show/osvdb/90073
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0277
 title: |
   Ruby on Rails Active Record +serialize+ Helper YAML Attribute Handling Remote
   Code Execution 

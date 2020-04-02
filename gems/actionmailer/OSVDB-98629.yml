@@ -2,7 +2,7 @@
 gem: actionmailer
 cve: 2013-4389
 osvdb: 98629
-url: http://www.osvdb.org/show/osvdb/98629
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-4389
 title: Action Mailer Gem for Ruby contains a possible DoS Vulnerability
 date: 2013-10-16
 description: Action Mailer Gem for Ruby contains a format string flaw in

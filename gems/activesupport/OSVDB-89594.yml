@@ -3,7 +3,7 @@ gem: activesupport
 framework: rails
 cve: 2013-0333
 osvdb: 89594
-url: http://osvdb.org/show/osvdb/89594
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0333
 title:
   Ruby on Rails JSON Parser Crafted Payload YAML Subset Decoding Remote Code
   Execution 

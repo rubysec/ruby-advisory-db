@@ -3,7 +3,7 @@ gem: activerecord
 framework: rails
 cve: 2013-0276
 osvdb: 90072
-url: http://osvdb.org/show/osvdb/90072
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0276
 title: Ruby on Rails Active Record attr_protected Method Bypass
 date: 2013-02-11
 

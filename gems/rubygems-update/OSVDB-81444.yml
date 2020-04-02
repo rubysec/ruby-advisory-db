@@ -3,7 +3,7 @@ gem: rubygems-update
 library: rubygems
 cve: 2012-2126
 osvdb: 81444
-url: http://www.osvdb.org/show/osvdb/81444
+url: https://nvd.nist.gov/vuln/detail/CVE-2012-2126
 title: RubyGems SSL Certificate Validation MitM Spoofing Weakness
 date: 2012-04-20
 description: |
