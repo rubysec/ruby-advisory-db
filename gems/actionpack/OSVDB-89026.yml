@@ -3,7 +3,7 @@ gem: actionpack
 framework: rails
 cve: 2013-0156
 osvdb: 89026
-url: http://osvdb.org/show/osvdb/89026
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0156
 title:
   Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
   Remote Code Execution 

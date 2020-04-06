@@ -2,7 +2,7 @@
 gem: mail
 cve: 2011-0739
 osvdb: 70667
-url: http://www.osvdb.org/show/osvdb/70667
+url: https://nvd.nist.gov/vuln/detail/CVE-2011-0739
 title: >
   Mail Gem for Ruby lib/mail/network/delivery_methods/sendmail.rb Email From:
   Address Arbitrary Shell Command Injection 

@@ -3,7 +3,7 @@ gem: rubygems-update
 library: rubygems
 cve: 2012-2125
 osvdb: 85809
-url: http://www.osvdb.org/show/osvdb/85809
+url: https://nvd.nist.gov/vuln/detail/CVE-2012-2125
 title: |
   RubyGems HTTPS to HTTP Redirection MitM Downloaded Installation File
   Manipulation

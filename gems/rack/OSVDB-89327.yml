@@ -2,7 +2,7 @@
 gem: rack
 cve: 2013-0184
 osvdb: 89327
-url: http://osvdb.org/show/osvdb/89327
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0184
 title: |
   Rack Rack::Auth::AbstractRequest Class Unspecified Remote DoS
 date: 2013-01-13

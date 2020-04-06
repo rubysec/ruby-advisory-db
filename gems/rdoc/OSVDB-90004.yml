@@ -2,7 +2,7 @@
 gem: rdoc
 cve: 2013-0256
 osvdb: 90004
-url: http://www.osvdb.org/show/osvdb/90004
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0256
 title: RDoc 2.3.0 through 3.12 XSS Exploit
 date: 2013-02-06
 

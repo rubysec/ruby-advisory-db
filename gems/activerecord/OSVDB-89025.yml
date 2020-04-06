@@ -3,7 +3,7 @@ gem: activerecord
 framework: rails
 cve: 2013-0155
 osvdb: 89025
-url: http://osvdb.org/show/osvdb/89025
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0155
 title: Ruby on Rails Active Record JSON Parameter Parsing Query Bypass 
 date: 2013-01-08
 

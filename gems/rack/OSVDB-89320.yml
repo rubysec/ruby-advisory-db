@@ -2,7 +2,7 @@
 gem: rack
 cve: 2013-0183
 osvdb: 89320
-url: http://osvdb.org/show/osvdb/89320
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-0183
 title: |
   Rack Long String Parsing Memory Consumption Remote DoS
 date: 2013-01-07

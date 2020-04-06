@@ -2,7 +2,7 @@
 gem: rack
 cve: 2011-5036
 osvdb: 78121
-url: http://osvdb.org/show/osvdb/78121
+url: https://nvd.nist.gov/vuln/detail/CVE-2011-5036
 title: |
   Rack Hash Collision Form Parameter Parsing Remote DoS
 date: 2011-12-28

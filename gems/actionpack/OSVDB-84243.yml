@@ -3,7 +3,7 @@ gem: actionpack
 framework: rails
 cve: 2012-3424
 osvdb: 84243
-url: http://www.osvdb.org/show/osvdb/84243
+url: https://nvd.nist.gov/vuln/detail/CVE-2012-3424
 title:
   Ruby on Rails actionpack/lib/action_controller/metal/http_authentication.rb
   with_http_digest Helper Method Remote DoS

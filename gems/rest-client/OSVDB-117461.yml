@@ -2,7 +2,7 @@
 gem: rest-client
 cve: 2015-3448
 osvdb: 117461
-url: http://www.osvdb.org/show/osvdb/117461
+url: https://nvd.nist.gov/vuln/detail/CVE-2015-3448
 title: Rest-Client Gem for Ruby logs password information in plaintext
 date: 2015-01-12
 description: Rest-Client Ruby Gem contains a flaw that is due to the application

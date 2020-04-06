@@ -3,7 +3,7 @@ gem: activerecord
 framework: rails
 cve: 2014-0080
 osvdb: 103438
-url: http://osvdb.org/show/osvdb/103438
+url: https://nvd.nist.gov/vuln/detail/CVE-2014-0080
 title: Data Injection Vulnerability in Active Record
 date: 2014-02-18
 

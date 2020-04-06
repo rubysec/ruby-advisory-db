@@ -2,7 +2,7 @@
 gem: fat_free_crm
 osvdb: 118465
 cve: 2015-1585
-url: http://osvdb.org/show/osvdb/118465
+url: https://nvd.nist.gov/vuln/detail/CVE-2015-1585
 title: Fat Free CRM Gem being vulnerable to CSRF-type attacks
 date: 2015-02-16
 description: |

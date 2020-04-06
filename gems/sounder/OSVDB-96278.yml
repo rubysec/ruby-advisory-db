@@ -2,7 +2,7 @@
 gem: sounder
 cve: 2013-5647
 osvdb: 96278
-url: http://www.osvdb.org/show/osvdb/96278
+url: https://nvd.nist.gov/vuln/detail/CVE-2013-5647
 title: Sounder Gem for Ruby File Name Handling Arbitrary Command Execution
 date: 2013-08-14
 description: |

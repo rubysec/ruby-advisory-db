@@ -2,7 +2,7 @@
 gem: xaviershay-dm-rails
 cve: 2015-2179
 osvdb: 118579
-url: http://osvdb.org/show/osvdb/118579
+url: https://nvd.nist.gov/vuln/detail/CVE-2015-2179
 title: |
   xaviershay-dm-rails Gem for Ruby exposes sensitive information via the process table
 date: 2015-02-17
