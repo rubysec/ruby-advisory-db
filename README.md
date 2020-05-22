@@ -77,7 +77,7 @@ Each advisory file contains the advisory information in [YAML] format:
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
   patched versions of the Ruby library.
-* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and cves. Supported keys: `cve` and `url`
+* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
 
 ### Tests
 Prior to submitting a pull request, run the tests:
