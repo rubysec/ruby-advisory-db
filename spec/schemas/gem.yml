@@ -16,6 +16,7 @@ mapping:
     type: int
   "ghsa":
     type: str
+    pattern: /[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}/
   "url":
     type: str
     required: true
@@ -53,6 +54,12 @@ mapping:
         type: seq
         sequence:
           - type: str
+            pattern: /\d+-\d+/
+      "ghsa":
+        type: seq
+        sequence:
+          - type: str
+            pattern: /[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}/
       "osvdb":
         type: seq
         sequence:
@@ -60,5 +67,5 @@ mapping:
       "url":
         type: seq
         sequence:
-        - type: str
-          pattern: /https?:\/\//
+          - type: str
+            pattern: /https?:\/\//
