@@ -9,4 +9,4 @@ description: |
   for null byte requests in certain file operations. This may allow a remote
   attacker to gain access to arbitrary files. No further details are available.
 patched_versions:
-  - ">= 1.6.2"
+- '>= 1.6.2'
