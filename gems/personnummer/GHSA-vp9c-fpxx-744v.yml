@@ -1,0 +1,24 @@
+---
+gem: personnummer
+ghsa: vp9c-fpxx-744v
+url: https://github.com/personnummer/ruby/security/advisories/GHSA-vp9c-fpxx-744v
+date: 2020-09-23
+title: Validation bypass vulnerability
+description: |
+  # Impact
+  This vulnerability impacts users who rely on the last four digits of personnummer to
+  be a _real_ personnummer.
+
+  # Workaround
+  The issue arises from the regular expression allowing the first three digits in the
+  last four digits of the personnummer to be 000, which is invalid. To mitigate this
+  without upgrading, a check on the last four digits can be made to make sure it's
+  not 000x.
+
+patched_versions:
+  - ">= 1.3.1"
+
+related:
+  url:
+    - https://github.com/personnummer/ruby/issues/9
+    - https://github.com/personnummer/ruby/pull/10
