@@ -14,7 +14,6 @@ jobs:
       matrix:
         ruby:
           - ruby
-          - jruby
     name: Ruby ${{ matrix.ruby }}
     steps:
       - uses: actions/checkout@v2
