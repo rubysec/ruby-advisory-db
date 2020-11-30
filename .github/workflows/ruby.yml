@@ -9,19 +9,14 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        ruby:
-          - ruby
-    name: Ruby ${{ matrix.ruby }}
+    name: Linter
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby }}
+          ruby-version: ruby
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
-      - name: Run tests
+      - name: Validate YAML
         run: bundle exec rake lint
