@@ -132,6 +132,10 @@ module GitHub
               summary
               description
               severity
+              cvss {
+                score
+                vectorString
+              }
               references {
                 url
               }
@@ -221,8 +225,16 @@ module GitHub
       !github_advisory_graphql_object["withdrawnAt"].nil?
     end
 
+    def cvss
+      return "<FILL IN IF AVAILABLE>" if github_advisory_graphql_object["cvss"]["vectorString"].nil?
+      github_advisory_graphql_object["cvss"]["score"].to_f
+    end
+
     def external_reference
-      github_advisory_graphql_object["references"].first["url"]
+      github_advisory_graphql_object["references"].find do |ref|
+        next if ref["url"].start_with?("https://nvd.nist.gov/vuln/detail/")
+        ref["url"]
+      end
     end
 
     def vulnerabilities
@@ -254,7 +266,7 @@ module GitHub
           "date" => published_day,
           "title" => github_advisory_graphql_object["summary"],
           "description" => github_advisory_graphql_object["description"],
-          "cvss_v3" => "<FILL IN IF AVAILABLE>",
+          "cvss_v3" => cvss,
           "patched_versions" => [ "<FILL IN SEE BELOW>" ],
           "unaffected_versions" => [ "<OPTIONAL: FILL IN SEE BELOW>" ]
         }
