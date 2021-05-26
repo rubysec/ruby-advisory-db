@@ -6,7 +6,7 @@ You can check your own Gemfile.locks against this database by using [bundler-aud
 
 ## Support Ruby security!
 
-Do you know about a vulnerability that isn't listed in this database? Open an issue, submit a PR, or [use this form](https://rubysec.com/advisories/new) which will email the maintainers.
+Do you know about a vulnerability that isn't listed in this database? Open an issue or submit a PR.
 
 ## Directory Structure
 
