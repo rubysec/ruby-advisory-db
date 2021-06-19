@@ -18,7 +18,7 @@ module GitHub
       # Filter out advisories with a CVE year that is before the min_year
       gh_advisories.select! { |v| v.cve_after_year?(min_year) }
 
-      files_written = gh_advisories.filter_map(&:write_files).flatten.compact!
+      files_written = gh_advisories.filter_map(&:sync).flatten.compact!
 
       puts "\nSync completed"
       if files_written.empty?
@@ -179,6 +179,58 @@ module GitHub
   end
 
   class GitHubAdvisory
+    class Package
+      attr_reader :name
+
+      def initialize(advisory, name)
+        @advisory = advisory
+        @name = name
+      end
+
+      def updating?
+        File.exist? filename
+      end
+
+      def filename
+        File.join("gems", name, "#{@advisory.primary_id}.yml")
+      end
+
+      def framework
+        case name
+        when %w[
+          actioncable actionmailbox actionmailer actionpack actiontext 
+          actionview activejob activemodel activerecord activestorage
+          activesupport railties
+        ]
+          "rails"
+        end
+      end
+
+      def to_h
+        {
+          "gem" => name,
+          "framework" => framework,
+        }.merge(@advisory.to_h)
+      end
+
+      def merge_data(saved_data)
+        data = {}
+
+        # Creating the hash like this makes the key insert order consistent so
+        # the output should always be the same for the same data
+        KEYS.each do |key|
+          data[key] = saved_data[key] || to_h[key]
+        end
+
+        data.compact!
+      end
+
+      KEYS = %w[
+        gem framework platform cve osvdb ghsa url title date description 
+        cvss_v2 cvss_v3 unaffected_versions patched_versions related
+      ].freeze
+    end
+
     attr_reader :advisory, :vulnerabilities
 
     def initialize(advisory)
@@ -226,7 +278,7 @@ module GitHub
     end
 
     def cvss
-      return "<FILL IN IF AVAILABLE>" if advisory["cvss"]["vectorString"].nil?
+      return if advisory["cvss"]["vectorString"].nil?
 
       advisory["cvss"]["score"].to_f
     end
@@ -237,64 +289,86 @@ module GitHub
       end
     end
 
-    def package_names
-      vulnerabilities.map { |v| v["package"]["name"] }.uniq
-    end
-
-    def filename_for(package_name)
-      File.join("gems", package_name, "#{primary_id}.yml")
-    end
-
-    def write_files
-      packages_to_write = package_names.filter { |name| !File.exist?(filename_for(name)) }
-
-      return if packages_to_write.empty?
-
-      packages_to_write.map do |package_name|
-        filename_to_write = filename_for(package_name)
-
-        data = {
-          "gem" => package_name,
-          "ghsa" => ghsa_id[5..],
-          "url" => external_reference,
-          "date" => published_day,
-          "title" => advisory["summary"],
-          "description" => advisory["description"],
-          "cvss_v3" => cvss,
-          "patched_versions" => ["<FILL IN SEE BELOW>"],
-          "unaffected_versions" => ["<OPTIONAL: FILL IN SEE BELOW>"]
-        }
-        data["cve"] = cve_id[4..20] if cve_id
-
-        dir_to_write = File.dirname(filename_to_write)
-        Dir.mkdir dir_to_write unless Dir.exist?(dir_to_write)
-        File.open(filename_to_write, "w") do |file|
-          # create an automatically generated advisory yaml file
-          file.write data.to_yaml
-
-          # The data we just wrote is incomplete,
-          # and therefore should not be committed as is
-          # We can not directly translate from GitHub to rubysec advisory format
-          #
-          # The patched_versions field is not exactly available.
-          # - GitHub has a first_patched_version field,
-          #   but rubysec advisory needs a ruby version spec
-          #
-          # The unaffected_versions field is similarly not directly available
-          # This optional field must be inferred from the vulnerableVersionRange
-          #
-          # To help write those fields, we put all the github data below.
-          #
-          # The second block of yaml in a .yaml file is ignored (after the second "---" line)
-          # This effectively makes this data a large comment
-          # Still it should be removed before the data goes into rubysec
-          file.write "\n\n# GitHub advisory data below - **Remove this data before committing**\n"
-          file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
-          file.write advisory.merge({ "vulnerabilities" => vulnerabilities }).to_yaml
-        end
-        puts "Wrote: #{filename_to_write}"
-        filename_to_write
+    def packages
+      vulnerabilities.map { |v| v["package"]["name"] }.uniq.map do |name|
+        Package.new(self, name)
       end
+    end
+
+    def to_h
+      {
+        "cve" => (cve_id[4..20] if cve_id),
+        "date" => published_day,
+        "ghsa" => ghsa_id[5..],
+        "url" => external_reference,
+        "title" => advisory["summary"],
+        "description" => advisory["description"],
+        "cvss_v3" => cvss,
+      }.compact
+    end
+
+    def sync
+      packages.map do |package|
+        if package.updating?
+          update(package)
+        else
+          create(package)
+        end
+      end
+    end
+
+    def update(package)
+      saved_data = YAML.load_file(package.filename)
+      new_data = package.merge_data(saved_data)
+
+      return if saved_data == new_data
+
+      File.open(package.filename, 'w') do |file|
+        file.write YAML.dump(new_data)
+      end
+
+      puts "Updated: #{package.filename}"
+
+      package.filename
+    end
+
+    def create(package)
+      filename_to_write = package.filename
+
+      new_data = package.merge_data({
+        "cvss_v3": ("<FILL IN IF AVAILABLE>" unless cvss),
+        "patched_versions" => [ "<FILL IN SEE BELOW>" ],
+        "unaffected_versions" => [ "<OPTIONAL: FILL IN SEE BELOW>" ]
+      })
+
+      dir_to_write = File.dirname(filename_to_write)
+      Dir.mkdir dir_to_write unless Dir.exist?(dir_to_write)
+      File.open(filename_to_write, "w") do |file|
+        # create an automatically generated advisory yaml file
+        file.write new_data.to_yaml
+
+        # The data we just wrote is incomplete,
+        # and therefore should not be committed as is
+        # We can not directly translate from GitHub to rubysec advisory format
+        #
+        # The patched_versions field is not exactly available.
+        # - GitHub has a first_patched_version field,
+        #   but rubysec advisory needs a ruby version spec
+        #
+        # The unaffected_versions field is similarly not directly available
+        # This optional field must be inferred from the vulnerableVersionRange
+        #
+        # To help write those fields, we put all the github data below.
+        #
+        # The second block of yaml in a .yaml file is ignored (after the second "---" line)
+        # This effectively makes this data a large comment
+        # Still it should be removed before the data goes into rubysec
+        file.write "\n\n# GitHub advisory data below - **Remove this data before committing**\n"
+        file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
+        file.write advisory.merge({ "vulnerabilities" => vulnerabilities }).to_yaml
+      end
+      puts "Wrote: #{filename_to_write}"
+      filename_to_write
     end
 
     def cve_after_year?(year)
