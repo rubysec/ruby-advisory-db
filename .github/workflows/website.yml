@@ -1,0 +1,16 @@
+name: Notify RubySec website of change
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Repository Dispatch event
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: rubysec/rubysec.github.io
+          event-type: changed
