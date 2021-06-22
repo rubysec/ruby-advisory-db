@@ -7,11 +7,11 @@ date: 2015-07-21
 description: |
 
   The upstream library for the Ruby uglifier gem, UglifyJS, is
-  affected by a vulnerability that allows a specially crafted 
+  affected by a vulnerability that allows a specially crafted
   Javascript file to have altered functionality after minification.
 
   This bug, found in UglifyJS versions 2.4.23 and earlier, was demonstrated
-  to allow potentially malicious code to be hidden within secure code, 
+  to allow potentially malicious code to be hidden within secure code,
   and activated by the minification process.
 
   For more information, consult: https://zyan.scripts.mit.edu/blog/backdooring-js/

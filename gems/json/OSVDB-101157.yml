@@ -1,4 +1,4 @@
---- 
+---
 gem: json
 osvdb: 101157
 url: http://osvdb.org/show/osvdb/101157
@@ -10,5 +10,5 @@ description: |
   data. This may allow a remote attacker to cause a stack-based buffer
   overflow, resulting in a denial of service or potentially allowing the
   execution of arbitrary code.
-patched_versions: 
+patched_versions:
   - ">= 1.1.0"
