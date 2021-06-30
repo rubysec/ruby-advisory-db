@@ -18,4 +18,4 @@ description: |
 cvss_v2: 5.0
 
 patched_versions:
-  - ">=  0.4.6"
+  - ">= 0.4.6"
