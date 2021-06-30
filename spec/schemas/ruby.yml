@@ -1,8 +1,9 @@
+---
 type: map
 mapping:
   "engine":
     type: str
-    required: yes
+    required: true
     enum: [jruby, rbx, ruby]
   "cve":
     type: str

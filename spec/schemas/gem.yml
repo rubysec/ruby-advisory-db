@@ -1,8 +1,9 @@
+---
 type: map
 mapping:
   "gem":
     type: str
-    required: yes
+    required: true
   "library":
     type: str
   "framework":
