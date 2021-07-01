@@ -6,6 +6,7 @@ on:
 
 jobs:
   notify:
+    if: github.repository_owner == 'rubysec'
     runs-on: ubuntu-latest
     steps:
       - name: Send Repository Dispatch event
