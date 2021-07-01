@@ -61,6 +61,7 @@ Each advisory file contains the advisory information in [YAML] format:
 ### Schema
 
 * `gem` \[String\] (required): Name of the affected gem.
+* `library` \[String\] (optional): Name of the ruby library which the affected gem belongs to.
 * `framework` \[String\] (optional): Name of the framework which the affected
   gem belongs to.
 * `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)

@@ -43,11 +43,6 @@ mapping:
     type: seq
     sequence:
       - type: str
-  "vendor_patch":
-    type: seq
-    sequence:
-      - type: str
-        pattern: /https?:\/\//
   "related":
     type: map
     mapping:

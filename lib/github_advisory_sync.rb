@@ -1,3 +1,5 @@
+require "active_support"
+require "active_support/core_ext/enumerable"
 require "faraday"
 require "json"
 require "yaml"
@@ -198,7 +200,7 @@ module GitHub
       def framework
         case name
         when %w[
-          actioncable actionmailbox actionmailer actionpack actiontext 
+          actioncable actionmailbox actionmailer actionpack actiontext
           actionview activejob activemodel activerecord activestorage
           activesupport railties
         ]
@@ -226,7 +228,7 @@ module GitHub
       end
 
       KEYS = %w[
-        gem framework platform cve osvdb ghsa url title date description 
+        gem library framework platform cve osvdb ghsa url title date description
         cvss_v2 cvss_v3 unaffected_versions patched_versions related
       ].freeze
     end
