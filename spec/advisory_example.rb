@@ -231,6 +231,13 @@ shared_examples_for 'Advisory' do |path|
       end
     end
 
+    describe "notes" do
+      subject { advisory['notes'] }
+
+      it "may be nil or a String" do
+        expect(subject).to be_kind_of(String).or(be_nil)
+      end
+    end
 
   end
 end

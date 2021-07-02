@@ -65,3 +65,5 @@ mapping:
         sequence:
           - type: str
             pattern: /https?:\/\//
+  "notes":
+    type: str

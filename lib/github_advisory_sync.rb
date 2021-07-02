@@ -229,7 +229,7 @@ module GitHub
 
       KEYS = %w[
         gem library framework platform cve osvdb ghsa url title date description
-        cvss_v2 cvss_v3 unaffected_versions patched_versions related
+        cvss_v2 cvss_v3 unaffected_versions patched_versions related notes
       ].freeze
     end
 
