@@ -11,6 +11,6 @@ description: |
   to execute arbitrary shell commands.
 cvss_v2:
 unaffected_versions:
-  - "< 0.5.0"
+- < 0.5.0
 patched_versions:
-  - '>= 0.5.4'
+- '>= 0.5.4'

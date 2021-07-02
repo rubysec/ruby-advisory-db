@@ -116,8 +116,6 @@ description: |
   Verified that the fix commit first appears in v2.9.11. It seems possible that this issue would be present in programs using Nokogiri < v1.11.4, however Nokogiri's default parse options prevent the attack from succeeding (it is necessary to opt into `DTDLOAD` which is off by default).
 
   For more details supporting this analysis of this CVE, please visit #2233.
-
 cvss_v3: 7.5
-
 patched_versions:
-  - ">= 1.11.4"
+- '>= 1.11.4'

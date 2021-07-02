@@ -8,7 +8,7 @@ title: |
 date: 2015-06-04
 description: XSS via queue name in Sidekiq::Web
 patched_versions:
-  - ">= 3.4.0"
+- '>= 3.4.0'
 related:
   osvdb:
-    - 125677
+  - 125677

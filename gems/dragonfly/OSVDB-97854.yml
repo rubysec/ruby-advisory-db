@@ -9,4 +9,4 @@ description: |
   properly escape a shell that contains injected characters. This may allow a
   context-dependent attacker to potentially execute arbitrary commands.
 patched_versions:
-  - ">= 0.9.6"
+- '>= 0.9.6'

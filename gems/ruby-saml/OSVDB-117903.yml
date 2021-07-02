@@ -10,4 +10,4 @@ description: |
   attacker to execute arbitrary shell commands on the host machine.
 cvss_v2:
 patched_versions:
-  - ">= 0.8.2"
+- '>= 0.8.2'

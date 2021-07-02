@@ -15,5 +15,5 @@ description: |
   user visits a crafted website.
 cvss_v2: 5.0
 patched_versions:
-  - ~> 0.11.2
-  - ">= 0.30.0"
+- ~> 0.11.2
+- '>= 0.30.0'

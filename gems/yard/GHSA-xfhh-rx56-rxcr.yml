@@ -9,4 +9,4 @@ description: A path traversal vulnerability was discovered in YARD <= 0.9.19 whe
   requests to access arbitrary files on the machine of a yard server host under certain
   conditions.
 patched_versions:
-  - ">= 0.9.20"
+- '>= 0.9.20'

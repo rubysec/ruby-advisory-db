@@ -14,11 +14,10 @@ description: |
   last four digits of the personnummer to be 000, which is invalid. To mitigate this
   without upgrading, a check on the last four digits can be made to make sure it's
   not 000x.
-
 patched_versions:
-  - ">= 1.3.1"
+- '>= 1.3.1'
 
 related:
   url:
-    - https://github.com/personnummer/ruby/issues/9
-    - https://github.com/personnummer/ruby/pull/10
+  - https://github.com/personnummer/ruby/issues/9
+  - https://github.com/personnummer/ruby/pull/10

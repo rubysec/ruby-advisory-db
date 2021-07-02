@@ -10,4 +10,4 @@ description: |
   method with that name. With a specially crafted file, a context-dependent
   attacker can call private methods and manipulate data.
 patched_versions:
-  - ">= 2.1.2"
+- '>= 2.1.2'

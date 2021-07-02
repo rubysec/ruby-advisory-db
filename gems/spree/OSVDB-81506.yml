@@ -13,4 +13,4 @@ description: |
   more easily bypass cryptographic protection.
 cvss_v2: 5.0
 patched_versions:
-  - ">= 0.3.0"
+- '>= 0.3.0'

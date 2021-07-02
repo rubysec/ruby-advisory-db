@@ -14,4 +14,4 @@ description: |
   and potentially execute arbitrary commands.
 cvss_v2: 4.3
 patched_versions:
-  - ">= 2.0.0"
+- '>= 2.0.0'

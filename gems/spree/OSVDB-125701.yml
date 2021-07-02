@@ -11,7 +11,7 @@ description: |
   for execution arbitrary files on the host system, as well as disclosing the
   existence of files on the system.
 patched_versions:
-  - ~> 2.2.12
-  - ~> 2.3.11
-  - ~> 2.4.8
-  - ">= 3.0.2"
+- ~> 2.2.12
+- ~> 2.3.11
+- ~> 2.4.8
+- '>= 3.0.2'

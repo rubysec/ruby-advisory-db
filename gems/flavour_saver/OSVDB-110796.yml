@@ -11,4 +11,4 @@ description: |
   within the template context first.  This allows expressions such as
   {{system "ls"}} or {{eval "puts 1 + 1"}} to be executed.
 patched_versions:
-  - ">= 0.3.3"
+- '>= 0.3.3'

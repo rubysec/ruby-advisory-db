@@ -9,7 +9,7 @@ description: |
   The issue is triggered when handling exec commands called via send(). This may allow a
   remote attacker to execute arbitrary commands.
 patched_versions:
-  - ">= 1.3.1"
-  - "~> 1.2.2"
-  - "~> 1.1.1"
-  - "~> 1.0.4"
+- '>= 1.3.1'
+- ~> 1.2.2
+- ~> 1.1.1
+- ~> 1.0.4

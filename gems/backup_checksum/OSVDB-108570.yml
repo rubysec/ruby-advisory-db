@@ -2,7 +2,8 @@
 gem: backup_checksum
 osvdb: 108570
 url: http://osvdb.org/show/osvdb/108570
-title: backup_checksum Gem for Ruby /lib/backup/cli/utility.rb Metacharacter Handling Remote Command Execution
+title: backup_checksum Gem for Ruby /lib/backup/cli/utility.rb Metacharacter Handling
+  Remote Command Execution
 date: 2014-06-30
 description: |
   backup_checksum Gem for Ruby contains a flaw in /lib/backup/cli/utility.rb

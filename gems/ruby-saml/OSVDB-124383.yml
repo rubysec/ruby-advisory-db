@@ -8,4 +8,4 @@ description: |
   ruby-saml before 1.0.0 is vulnerable to entity expansion attacks.
 cvss_v2: 3.9
 patched_versions:
-  - ">= 1.0.0"
+- '>= 1.0.0'

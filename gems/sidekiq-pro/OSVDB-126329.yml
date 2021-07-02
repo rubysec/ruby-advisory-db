@@ -9,4 +9,4 @@ date: 2015-05-11
 description: |
   XSS via batch failure error_class and error_message in Sidekiq::Web
 patched_versions:
-  - ">= 2.0.2"
+- '>= 2.0.2'

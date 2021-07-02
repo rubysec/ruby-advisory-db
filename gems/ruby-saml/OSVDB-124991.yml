@@ -10,4 +10,4 @@ description: |
   arbitrary code execution
 cvss_v2: 6.7
 patched_versions:
-  - ">= 1.0.0"
+- '>= 1.0.0'

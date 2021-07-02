@@ -3,7 +3,8 @@ gem: bcrypt
 platform: jruby
 osvdb: 62067
 url: http://www.mindrot.org/files/jBCrypt/internat.adv
-title: bcrypt-ruby Gem for Ruby incorrect encoding of non US-ASCII characters (JRuby only)
+title: bcrypt-ruby Gem for Ruby incorrect encoding of non US-ASCII characters (JRuby
+  only)
 date: 2010-02-01
 description: |
   bcrypt-ruby Gem for Ruby suffered from a bug related to character
@@ -14,4 +15,4 @@ description: |
   this would cause its hash to be equivalent to all other such passwords
   of the same length. This issue only affects the JRuby implementation.
 patched_versions:
-  - ">= 2.1.4"
+- '>= 2.1.4'

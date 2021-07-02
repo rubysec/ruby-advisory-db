@@ -8,4 +8,4 @@ description: |
   Spree Gem for Ruby would allow a user to request a specially crafted URL and
   expose arbitrary files on the server
 patched_versions:
-  - ">= 0.50.1"
+- '>= 0.50.1'

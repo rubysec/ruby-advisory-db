@@ -12,7 +12,7 @@ description: |
   existence of files on the system. This is a different issue than
   OSVDB-125701.
 patched_versions:
-  - ~> 2.2.13
-  - ~> 2.3.12
-  - ~> 2.4.9
-  - ">= 3.0.3"
+- ~> 2.2.13
+- ~> 2.3.12
+- ~> 2.4.9
+- '>= 3.0.3'

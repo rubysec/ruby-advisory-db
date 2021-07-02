@@ -12,4 +12,4 @@ description: |
   queries in the back-end database, allowing for the manipulation or disclosure
   of arbitrary data.
 patched_versions:
-  - ">= 1.1.8"
+- '>= 1.1.8'

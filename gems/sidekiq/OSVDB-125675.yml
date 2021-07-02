@@ -6,4 +6,4 @@ title: Sidekiq Gem for Ruby Multiple Unspecified CSRF
 date: 2015-07-06
 description: Sidekiq::Web lacks CSRF protection
 patched_versions:
-  - ">= 3.4.2"
+- '>= 3.4.2'

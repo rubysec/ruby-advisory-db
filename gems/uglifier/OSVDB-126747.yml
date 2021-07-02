@@ -4,7 +4,7 @@ osvdb: 126747
 url: https://github.com/mishoo/UglifyJS2/issues/751
 title: uglifier incorrectly handles non-boolean comparisons during minification
 date: 2015-07-21
-description: |
+description: |2
 
   The upstream library for the Ruby uglifier gem, UglifyJS, is
   affected by a vulnerability that allows a specially crafted
@@ -16,4 +16,4 @@ description: |
 
   For more information, consult: https://zyan.scripts.mit.edu/blog/backdooring-js/
 patched_versions:
-  - ">= 2.7.2"
+- '>= 2.7.2'

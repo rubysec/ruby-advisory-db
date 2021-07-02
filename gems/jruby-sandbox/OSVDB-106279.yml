@@ -9,4 +9,4 @@ description: |
   jruby-sandbox contains a flaw that is triggered when importing Java Classes.
   This may allow a remote attacker to bypass the sandbox for code execution.
 patched_versions:
-  - ">= 0.2.3"
+- '>= 0.2.3'

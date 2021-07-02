@@ -20,7 +20,6 @@ description: |
 
   * the map does not use a share control (L.mapbox.sharecontrol)
   * only trusted TileJSON content is loaded
-
 patched_versions:
-  - '~> 1.6.6'
-  - '>= 2.2.4'
+- ~> 1.6.6
+- '>= 2.2.4'

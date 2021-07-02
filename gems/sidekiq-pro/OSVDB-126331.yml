@@ -8,7 +8,7 @@ description: |
   Sidekiq::Web job filtering lacks CSRF protection. This issue
   is related to OSVDB-125675.
 patched_versions:
-  - ">= 2.0.6"
+- '>= 2.0.6'
 related:
   osvdb:
-    - 125675
+  - 125675

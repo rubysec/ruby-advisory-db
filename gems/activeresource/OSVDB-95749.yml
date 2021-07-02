@@ -2,7 +2,8 @@
 gem: activeresource
 osvdb: 95749
 url: http://osvdb.org/show/osvdb/95749
-title: activeresource Gem for Ruby lib/active_resource/connection.rb request Function Multiple Variable Format String
+title: activeresource Gem for Ruby lib/active_resource/connection.rb request Function
+  Multiple Variable Format String
 date: 2008-08-15
 description: |
   activeresource contains a format string flaw in the request function of
@@ -12,4 +13,4 @@ description: |
   allow a remote attacker to cause a denial of service or potentially execute
   arbitrary code.
 patched_versions:
-  - ">= 2.2.0"
+- '>= 2.2.0'

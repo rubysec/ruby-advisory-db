@@ -19,7 +19,6 @@ description: |
   * only trusted TileJSON content is loaded
   * TileJSON content comes only from mapbox.com URLs
   * a Mapbox map ID is supplied, rather than a TileJSON URL
-
 patched_versions:
-  - '~> 1.6.5'
-  - '>= 2.1.7'
+- ~> 1.6.5
+- '>= 2.1.7'

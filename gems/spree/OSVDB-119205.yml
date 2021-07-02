@@ -12,7 +12,7 @@ description: |
   (CSRF / XSRF) attack causing the victim to disclose potentially sensitive
   information to attackers.
 patched_versions:
-  - ~> 2.2.10
-  - ~> 2.3.8
-  - ~> 2.4.5
-  - ">= 3.0.0.rc4"
+- ~> 2.2.10
+- ~> 2.3.8
+- ~> 2.4.5
+- '>= 3.0.0.rc4'

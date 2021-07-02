@@ -13,5 +13,5 @@ description: |
   sensitive information.
 cvss_v2:
 patched_versions:
-  - "~> 1.4.2"
-  - ">= 2.1.2"
+- ~> 1.4.2
+- '>= 2.1.2'

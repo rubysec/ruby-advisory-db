@@ -13,4 +13,4 @@ description: |
   relationship between their browser and the server.
 cvss_v2:
 patched_versions:
-  - ">= 3.2.3"
+- '>= 3.2.3'

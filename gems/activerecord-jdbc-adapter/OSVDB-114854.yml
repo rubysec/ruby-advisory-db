@@ -15,6 +15,6 @@ description: |
   manipulate SQL queries in the back-end database, allowing for the
   manipulation or disclosure of arbitrary data.
 unaffected_versions:
-  - "< 1.2.6"
+- < 1.2.6
 patched_versions:
-  - ">= 1.2.8"
+- '>= 1.2.8'

@@ -9,4 +9,4 @@ description: The Web Console Gem for Ruby on Rails contains an unspecified flaw 
   provided by the vendor.
 cvss_v2:
 patched_versions:
-  - ">= 2.0.0.beta4"
+- '>= 2.0.0.beta4'

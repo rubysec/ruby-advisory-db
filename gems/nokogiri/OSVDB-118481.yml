@@ -12,4 +12,4 @@ description: |
   element in an XML document. This may allow a remote attacker to cause a
   consumption of memory resources.
 patched_versions:
-  - ">= 1.6.3"
+- '>= 1.6.3'

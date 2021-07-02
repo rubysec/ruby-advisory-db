@@ -10,4 +10,4 @@ description: |
   This may allow a remote attacker to gain read/write access to the filesystem
   and execute arbitrary commands.
 patched_versions:
-  - ">= 1.0.7"
+- '>= 1.0.7'

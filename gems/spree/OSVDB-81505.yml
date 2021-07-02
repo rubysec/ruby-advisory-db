@@ -11,4 +11,4 @@ description: |
   modified URL. This may allow an attacker to manipulate order state values.
 cvss_v2: 5.0
 patched_versions:
-  - ">= 0.3.0"
+- '>= 0.3.0'

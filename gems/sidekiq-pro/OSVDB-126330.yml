@@ -7,4 +7,4 @@ title: |
 date: 2014-10-13
 description: XSS via batch description in Sidekiq::Web
 patched_versions:
-  - ">= 1.9.1"
+- '>= 1.9.1'
