@@ -11,7 +11,6 @@ description: |
   The issue is due to the program storing sensitive information in
   production logs. This may allow a local attacker to gain access to
   sensitive information.
-cvss_v2:
 patched_versions:
 - ~> 1.4.2
 - '>= 2.1.2'
