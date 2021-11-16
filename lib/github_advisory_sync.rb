@@ -286,9 +286,11 @@ module GitHub
     end
 
     def external_reference
-      advisory["references"].find do |ref|
+      ref_obj = advisory["references"].find do |ref|
         !ref["url"].start_with?("https://nvd.nist.gov/vuln/detail/")
       end
+
+      ref_obj["url"]
     end
 
     def packages
