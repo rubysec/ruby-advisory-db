@@ -1,0 +1,30 @@
+---
+gem: solidus-core
+ghsa: 5629-8855-gf4g
+url: https://github.com/solidusio/solidus/security/advisories/GHSA-5629-8855-gf4g
+title: Authentication Bypass by CSRF Weakness
+date: 2021-11-18
+description: |
+  ### Impact
+  The actual vulnerability has been discovered on `solidus_auth_devise`. See
+  [GHSA-xm34-v85h-9pg2](https://github.com/solidusio/solidus_auth_devise/security/advisories/GHSA-xm34-v85h-9pg2)
+  for details.
+
+  The security advisory here exists to provide an extra layer of security in the
+  form of a monkey patch for users who don't update `solidus_auth_devise`. For
+  this reason, it has been marked as low impact on this end.
+
+  ### Patches
+  For extra security, update `solidus_core` to versions `3.1.3`, `3.0.3` or `2.11.12`.
+
+  ### Workarounds
+  Look at the workarounds described at
+  [GHSA-xm34-v85h-9pg2](https://github.com/solidusio/solidus_auth_devise/security/advisories/GHSA-xm34-v85h-9pg2).
+cvss_v3: 9.3
+patched_versions:
+- ">= 3.1.3"
+- "~> 3.0.3"
+- "~> 2.11.12"
+related:
+  ghsa:
+  - xm34-v85h-9pg2
