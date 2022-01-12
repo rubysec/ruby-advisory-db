@@ -1,5 +1,6 @@
 require "active_support"
 require "active_support/core_ext/enumerable"
+require "date"
 require "faraday"
 require "json"
 require "yaml"
@@ -322,7 +323,7 @@ module GitHub
     end
 
     def update(package)
-      saved_data = YAML.load_file(package.filename)
+      saved_data = YAML.safe_load_file(package.filename, permitted_classes: [Date])
       new_data = package.merge_data(saved_data)
 
       return if saved_data == new_data

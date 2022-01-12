@@ -4,7 +4,7 @@ require 'advisory_example'
 shared_examples_for "Libraries Advisory" do |path|
   include_examples 'Advisory', path
 
-  advisory = YAML.load_file(path)
+  advisory = YAML.safe_load_file(path)
 
   describe path do
     let(:library) { File.basename(File.dirname(path)) }

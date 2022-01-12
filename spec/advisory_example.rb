@@ -2,7 +2,7 @@ load File.join(File.dirname(__FILE__), 'spec_helper.rb')
 require 'yaml'
 
 shared_examples_for 'Advisory' do |path|
-  advisory = YAML.load_file(path)
+  advisory = YAML.safe_load_file(path, permitted_classes: [Date])
 
   describe path do
     let(:filename) { File.basename(path) }

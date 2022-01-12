@@ -4,7 +4,7 @@ require 'advisory_example'
 shared_examples_for "Rubies Advisory" do |path|
   include_examples 'Advisory', path
 
-  advisory = YAML.load_file(path)
+  advisory = YAML.safe_load_file(path, permitted_classes: [Date])
 
   describe path do
     let(:engine) { File.basename(File.dirname(path)) }
@@ -19,7 +19,7 @@ shared_examples_for "Rubies Advisory" do |path|
     end
 
     it "should have valid schema" do
-      schema = YAML.load_file(File.join(File.dirname(__FILE__), 'schemas/ruby.yml'))
+      schema = YAML.safe_load_file(File.join(File.dirname(__FILE__), 'schemas/ruby.yml'))
       validator = Kwalify::Validator.new(schema)
       errors = validator.validate(advisory)
       expect(errors).to be_empty
