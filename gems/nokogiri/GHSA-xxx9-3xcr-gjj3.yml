@@ -1,0 +1,43 @@
+---
+gem: nokogiri
+platform: jruby
+cve: 2022-23437
+ghsa: xxx9-3xcr-gjj3
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-xxx9-3xcr-gjj3
+title: XML Injection in Xerces Java affects Nokogiri
+date: 2022-04-11
+description: |+
+  ## Summary
+
+  Nokogiri v1.13.4 updates the vendored `xerces:xercesImpl` from 2.12.0 to
+  2.12.2, which addresses [CVE-2022-23437](https://nvd.nist.gov/vuln/detail/CVE-2022-23437).
+  That CVE is scored as CVSS 6.5 "Medium" on the NVD record.
+
+  Please note that this advisory only applies to the **JRuby** implementation
+  of Nokogiri `< 1.13.4`.
+
+  ## Mitigation
+
+  Upgrade to Nokogiri `>= v1.13.4`.
+
+  ## Impact
+
+  ### [CVE-2022-23437](https://nvd.nist.gov/vuln/detail/CVE-2022-23437) in xerces-J
+
+  - **Severity**: Medium
+  - **Type**: [CWE-91](https://cwe.mitre.org/data/definitions/91.html) XML Injection (aka Blind XPath Injection)
+  - **Description**: There's a vulnerability within the Apache Xerces Java
+    (XercesJ) XML parser when handling specially crafted XML document payloads.
+    This causes, the XercesJ XML parser to wait in an infinite loop, which may
+    sometimes consume system resources for prolonged duration. This vulnerability
+    is present within XercesJ version 2.12.1 and the previous versions.
+  - **See also**: https://github.com/advisories/GHSA-h65f-jvqw-m9fj
+cvss_v3: 6.5
+patched_versions:
+- ">= 1.13.4"
+related:
+  ghsa:
+  - h65f-jvqw-m9fj
+  url:
+  - https://github.com/sparklemotion/nokogiri/releases/tag/v1.13.4
+  - https://groups.google.com/g/ruby-security-ann/c/vX7qSjsvWis/m/TJWN4oOKBwAJ
