@@ -122,12 +122,12 @@ GH_API_TOKEN=<your GitHub API Token> bundle exec rake sync_github_advisories
 
 Please see [CONTRIBUTORS.md].
 
-This database also includes data from the [Google's Open Source Vulnerability Database][OSVDB]
+This database also includes data from the [Open Sourced Vulnerability Database][OSVDB]
 developed by the Open Security Foundation (OSF) and its contributors.
 
 [rubygems.org]: https://rubygems.org/
 [CVE]: https://cve.mitre.org/
-[OSVDB]: https://osv.dev/
+[OSVDB]: https://en.wikipedia.org/wiki/Open_Source_Vulnerability_Database
 [GHSA]: https://help.github.com/en/articles/about-maintainer-security-advisories
 [CVSSv2]: https://www.first.org/cvss/v2/guide
 [CVSSv3]: https://www.first.org/cvss/user-guide
