@@ -127,7 +127,7 @@ developed by the Open Security Foundation (OSF) and its contributors.
 
 [rubygems.org]: https://rubygems.org/
 [CVE]: https://cve.mitre.org/
-[OSVDB]: http://www.osvdb.org/
+[OSVDB]: https://en.wikipedia.org/wiki/Open_Source_Vulnerability_Database
 [GHSA]: https://help.github.com/en/articles/about-maintainer-security-advisories
 [CVSSv2]: https://www.first.org/cvss/v2/guide
 [CVSSv3]: https://www.first.org/cvss/user-guide
