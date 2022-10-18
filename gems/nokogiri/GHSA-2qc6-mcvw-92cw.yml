@@ -77,7 +77,7 @@ description: |
 
   See https://gitlab.gnome.org/GNOME/libxml2/-/commit/c846986356fc149915a74972bf198abc266bc2c0
 patched_versions:
-- ">= 1.13.19"
+- ">= 1.13.9"
 related:
   url:
   - https://gitlab.gnome.org/GNOME/libxml2/-/releases
