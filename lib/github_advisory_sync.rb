@@ -15,8 +15,8 @@ module GitHub
     # The min_year argument specifies the earliest year CVE to sync.
     # It is more important to sync the newer ones, so this allows the user to
     # control how old of CVEs the sync should pull over
-    def self.sync(min_year: 2015)
-      gh_advisories = GraphQLAPIClient.new.all_rubygem_advisories
+    def self.sync(min_year: 2015, gem_name: nil)
+      gh_advisories = GraphQLAPIClient.new.all_rubygem_advisories(gem_name: gem_name)
 
       # Filter out advisories with a CVE year that is before the min_year
       gh_advisories.select! { |v| v.cve_after_year?(min_year) }
@@ -89,10 +89,10 @@ module GitHub
       body_obj
     end
 
-    def all_rubygem_advisories
+    def all_rubygem_advisories(gem_name: nil)
       advisories = {}
 
-      retrieve_all_rubygem_vulnerabilities.each do |vulnerability|
+      retrieve_all_rubygem_vulnerabilities(gem_name: gem_name).each do |vulnerability|
         advisory = GitHubAdvisory.new(vulnerability["advisory"])
 
         next if advisory.withdrawn?
@@ -105,9 +105,9 @@ module GitHub
       advisories.values
     end
 
-    def retrieve_all_rubygem_vulnerabilities(max_pages = 1000, page_size = 100)
+    def retrieve_all_rubygem_vulnerabilities(max_pages = 1000, page_size = 100, gem_name: nil)
       all_vulnerabilities = []
-      variables = { "first" => page_size }
+      variables = { "first" => page_size, "gem_name" => gem_name }
       max_pages.times do |page_num|
         puts "Getting page #{page_num + 1} of GitHub Vulnerabilities"
 
@@ -126,8 +126,8 @@ module GitHub
 
     module GraphQLQueries
       RUBYGEM_VULNERABILITIES_WITH_GITHUB_ADVISORIES = <<-GRAPHQL.freeze
-        query($first: Int, $after: String) {
-          securityVulnerabilities(first: $first, after: $after, ecosystem:RUBYGEMS) {
+        query($first: Int, $after: String, $gem_name: String) {
+          securityVulnerabilities(first: $first, after: $after, ecosystem:RUBYGEMS, package: $gem_name) {
             pageInfo {
               endCursor
               hasNextPage

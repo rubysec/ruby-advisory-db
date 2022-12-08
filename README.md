@@ -100,9 +100,16 @@ The GitHub Advisory API requires a token to access it.
 - It can be a completely scopeless token (recommended); it does not require any permissions at all.
 - Get yours at https://github.com/settings/tokens
 
-To run the GitHub Advisory sync, start by executing the rake task:
+To run the GitHub Advisory sync to retrieve all advisories, start by executing the rake task:
+
 ```
 GH_API_TOKEN=<your GitHub API Token> bundle exec rake sync_github_advisories
+```
+
+Or, to only retrieve advisories for a single gem:
+
+```
+GH_API_TOKEN=<your GitHub API Token> bundle exec rake sync_github_advisories[gem_name]
 ```
 
 - The rake task will write yaml files for any missing advisories.
