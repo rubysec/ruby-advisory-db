@@ -1,0 +1,40 @@
+gem: nokogiri
+cve: 2022-23476
+ghsa: qv4q-mr5r-qprj
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-qv4q-mr5r-qprj
+title: "Unchecked return value from xmlTextReaderExpand"
+date: 2022-12-07
+description: |
+  ## Summary
+
+  Nokogiri `1.13.8, 1.13.9` fails to check the return value from `xmlTextReaderExpand` in the method `Nokogiri::XML::Reader#attribute_hash`. This can lead to a null pointer exception when invalid markup is being parsed.
+
+  For applications using `XML::Reader` to parse untrusted inputs, this may potentially be a vector for a denial of service attack.
+
+
+  ## Mitigation
+
+  Upgrade to Nokogiri `>= 1.13.10`.
+
+  Users may be able to search their code for calls to either `XML::Reader#attributes` or `XML::Reader#attribute_hash` to determine if they are affected.
+
+
+  ## Severity
+
+  The Nokogiri maintainers have evaluated this as [High Severity 7.5 (CVSS3.1)](https://www.first.org/cvss/calculator/3.1#CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H).
+
+
+  ## References
+
+  - [CWE - CWE-252: Unchecked Return Value (4.9)](https://cwe.mitre.org/data/definitions/252.html)
+  - [CWE - CWE-476: NULL Pointer Dereference (4.9)](https://cwe.mitre.org/data/definitions/476.html)
+
+
+  ## Credit
+
+  This vulnerability was responsibly reported by @davidwilemski.
+cvss_v3: 7.5
+unaffected_versions:
+  - "<= 1.13.7"
+patched_versions:
+  - ">= 1.13.10"
