@@ -1,3 +1,4 @@
 _site
 .bundle
+.DS_Store
 vendor
