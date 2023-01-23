@@ -1,0 +1,23 @@
+---
+gem: exiftool_vendored
+ghsa: q95h-cqrv-8jv5
+url: https://github.com/exiftool-rb/exiftool_vendored.rb/security/advisories/GHSA-q95h-cqrv-8jv5
+title: ExifTool vulnerable to arbitrary code execution
+date: 2023-01-20
+description: |-
+  ### Impact
+  Arbitrary code execution can occur when running `exiftool` against files with hostile metadata payloads
+
+  ### Patches
+  ExifTool has already been patched in version 12.24. `exiftool_vendored.rb`, which vendors ExifTool, includes this patch in [v12.25.0](https://github.com/exiftool-rb/exiftool_vendored.rb/releases/tag/v12.25.0).
+
+  ### Workarounds
+  No
+cvss_v3: 7.8
+patched_versions:
+- ">= 12.25.0"
+related:
+  url:
+  - https://twitter.com/wcbowling/status/1385803927321415687
+  cve:
+  - 2021-22204
