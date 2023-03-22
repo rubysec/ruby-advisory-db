@@ -37,5 +37,6 @@ This database would not be possible without volunteers willing to submit pull re
 * [ecneladis](https://github.com/ecneladis)
 * [Brendan Coles](https://github.com/bcoles)
 * [Florian Wininger](https://github.com/fwininger)
+* [Al Snow](https://github.com/jasnow)
 
 The rubysec.com domain was graciously donated by [Jordi Massaguer](https://github.com/jordimassaguerpla).
