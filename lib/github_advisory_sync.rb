@@ -341,7 +341,7 @@ module GitHub
       filename_to_write = package.filename
 
       new_data = package.merge_data({
-        "cvss_v3": ("<FILL IN IF AVAILABLE>" unless cvss),
+        "cvss_v3" =>  ("<FILL IN IF AVAILABLE>" unless cvss),
         "patched_versions" => [ "<FILL IN SEE BELOW>" ],
         "unaffected_versions" => [ "<OPTIONAL: FILL IN SEE BELOW>" ]
       })
