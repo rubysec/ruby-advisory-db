@@ -340,20 +340,22 @@ module GitHub
     def create(package)
       filename_to_write = package.filename
 
-      new_data = package.merge_data({
+      new_data = package.merge_data(
         "cvss_v3" =>  ("<FILL IN IF AVAILABLE>" unless cvss),
         "patched_versions" => [ "<FILL IN SEE BELOW>" ],
         "unaffected_versions" => [ "<OPTIONAL: FILL IN SEE BELOW>" ]
-      })
+      )
 
       dir_to_write = File.dirname(filename_to_write)
       Dir.mkdir dir_to_write unless Dir.exist?(dir_to_write)
       File.open(filename_to_write, "w") do |file|
         # create an automatically generated advisory yaml file
         file.write new_data.merge(
-          { "patched_versions" => vulnerabilities,
-            "related" => { "url"  => advisory["references"] }
-          } ).to_yaml
+          "patched_versions" => vulnerabilities,
+          "related" => {
+            "url"  => advisory["references"]
+          }
+        ).to_yaml
 
         # The data we just wrote is incomplete,
         # and therefore should not be committed as is
@@ -373,7 +375,7 @@ module GitHub
         # Still it should be removed before the data goes into rubysec
         file.write "\n\n# GitHub advisory data below - **Remove this data before committing**\n"
         file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
-        file.write advisory.merge({ "vulnerabilities" => vulnerabilities }).to_yaml
+        file.write advisory.merge("vulnerabilities" => vulnerabilities).to_yaml
       end
       puts "Wrote: #{filename_to_write}"
       filename_to_write
