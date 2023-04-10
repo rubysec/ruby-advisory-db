@@ -350,7 +350,10 @@ module GitHub
       Dir.mkdir dir_to_write unless Dir.exist?(dir_to_write)
       File.open(filename_to_write, "w") do |file|
         # create an automatically generated advisory yaml file
-        file.write new_data.to_yaml
+        file.write new_data.merge(
+          { "patched_versions" => vulnerabilities,
+            "related" => { "url"  => advisory["references"] }
+          } ).to_yaml
 
         # The data we just wrote is incomplete,
         # and therefore should not be committed as is
