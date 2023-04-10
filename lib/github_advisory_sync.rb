@@ -352,7 +352,7 @@ module GitHub
         # create an automatically generated advisory yaml file
         file.write new_data.merge(
           { "patched_versions" => vulnerabilities },
-          { "related:\nurl:"  => advisory["references"] }
+          { "related" => { "url"  => advisory["references"] } }
         ).to_yaml
 
         # The data we just wrote is incomplete,
