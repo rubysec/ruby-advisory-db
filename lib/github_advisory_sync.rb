@@ -3,6 +3,7 @@ require "active_support/core_ext/enumerable"
 require "date"
 require "faraday"
 require "json"
+require 'fileutils'
 require "yaml"
 require "open-uri"
 
@@ -346,8 +347,7 @@ module GitHub
         "unaffected_versions" => ["<OPTIONAL: FILL IN SEE BELOW>"]
       )
 
-      dir_to_write = File.dirname(filename_to_write)
-      Dir.mkdir dir_to_write unless Dir.exist?(dir_to_write)
+      FileUtils.mkdir_p(File.dirname(filename_to_write))
       File.open(filename_to_write, "w") do |file|
         # create an automatically generated advisory yaml file
         file.write new_data.merge(
