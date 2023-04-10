@@ -302,13 +302,13 @@ module GitHub
 
     def to_h
       {
-        "cve" => (cve_id[4..20] if cve_id),
-        "date" => published_day,
-        "ghsa" => ghsa_id[5..],
-        "url" => external_reference,
-        "title" => advisory["summary"],
+        "cve"         => (cve_id[4..20] if cve_id),
+        "date"        => published_day,
+        "ghsa"        => ghsa_id[5..],
+        "url"         => external_reference,
+        "title"       => advisory["summary"],
         "description" => advisory["description"],
-        "cvss_v3" => cvss,
+        "cvss_v3"     => cvss,
       }.compact
     end
 
@@ -341,9 +341,9 @@ module GitHub
       filename_to_write = package.filename
 
       new_data = package.merge_data(
-        "cvss_v3" =>  ("<FILL IN IF AVAILABLE>" unless cvss),
-        "patched_versions" => [ "<FILL IN SEE BELOW>" ],
-        "unaffected_versions" => [ "<OPTIONAL: FILL IN SEE BELOW>" ]
+        "cvss_v3"             => ("<FILL IN IF AVAILABLE>" unless cvss),
+        "patched_versions"    => ["<FILL IN SEE BELOW>"],
+        "unaffected_versions" => ["<OPTIONAL: FILL IN SEE BELOW>"]
       )
 
       dir_to_write = File.dirname(filename_to_write)
