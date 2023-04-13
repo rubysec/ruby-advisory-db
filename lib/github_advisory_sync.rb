@@ -308,7 +308,7 @@ module GitHub
         "ghsa"        => ghsa_id[5..],
         "url"         => external_reference,
         "title"       => advisory["summary"],
-        "description" => advisory["description"],
+        "description" => advisory["description"].gsub(/description: (.*)/, 'description: |\n\1'),
         "cvss_v3"     => cvss,
       }.compact
     end
@@ -342,9 +342,10 @@ module GitHub
       filename_to_write = package.filename
 
       new_data = package.merge_data(
-        "cvss_v3"             => ("<FILL IN IF AVAILABLE>" unless cvss),
-        "patched_versions"    => ["<FILL IN SEE BELOW>"],
-        "unaffected_versions" => ["<OPTIONAL: FILL IN SEE BELOW>"]
+        "cvss_v3"             => (nil unless cvss),
+#HID        "cvss_v3"             => ("<FILL IN IF AVAILABLE>" unless cvss),
+#HID        "patched_versions"    => ["<FILL IN SEE BELOW>"],
+#HID        "unaffected_versions" => ["<OPTIONAL: FILL IN SEE BELOW>"]
       )
 
       FileUtils.mkdir_p(File.dirname(filename_to_write))
@@ -353,7 +354,7 @@ module GitHub
         file.write new_data.merge(
           "patched_versions" => vulnerabilities,
           "related" => {
-            "url"  => advisory["references"]
+            "url"  => advisory["references"].map! { |url| url['url'] }
           }
         ).to_yaml
 
@@ -373,9 +374,9 @@ module GitHub
         # The second block of yaml in a .yaml file is ignored (after the second "---" line)
         # This effectively makes this data a large comment
         # Still it should be removed before the data goes into rubysec
-        file.write "\n\n# GitHub advisory data below - **Remove this data before committing**\n"
-        file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
-        file.write advisory.merge("vulnerabilities" => vulnerabilities).to_yaml
+#HID        file.write "\n\n# GitHub advisory data below - **Remove this data before committing**\n"
+#HID        file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
+#HID        file.write advisory.merge("vulnerabilities" => vulnerabilities).to_yaml
       end
       puts "Wrote: #{filename_to_write}"
       filename_to_write
