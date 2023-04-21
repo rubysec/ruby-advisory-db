@@ -3,7 +3,7 @@ gem: activerecord-jdbc-adapter
 platform: jruby
 osvdb: 114854
 url: http://osvdb.org/show/osvdb/114854
-title: |
+title:
   ActiveRecord-JDBC-Adapter (AR-JDBC) lib/arjdbc/jdbc/adapter.rb sql.gsub()
   Function SQL Injection
 date: 2013-02-25

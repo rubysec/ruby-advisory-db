@@ -2,7 +2,7 @@
 gem: spree
 osvdb: 76011
 url: https://spreecommerce.com/blog/remote-command-product-group
-title: |
+title:
   Spree Search ProductScope Class search[send][] Parameter Arbitrary Command
   Execution
 date: 2011-10-05

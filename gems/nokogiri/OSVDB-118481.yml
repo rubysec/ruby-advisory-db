@@ -3,7 +3,7 @@ gem: nokogiri
 platform: jruby
 osvdb: 118481
 url: https://github.com/sparklemotion/nokogiri/pull/1087
-title: |
+title:
   Nokogiri Gem for JRuby XML Document Root Element Handling Memory Consumption
   Remote DoS
 date: 2014-04-30

@@ -2,8 +2,7 @@
 gem: spree
 osvdb: 125713
 url: https://spreecommerce.com/blog/security-issue-all-versions
-title: |
-  Potential XSS vulnerability related to the analytics dashboard
+title: Potential XSS vulnerability related to the analytics dashboard
 date: 2012-07-02
 description: |
   Spree has a flaw in its analytics dashboard where keywords are not escaped,

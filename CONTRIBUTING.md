@@ -18,7 +18,7 @@ bundle exec rspec
     cve: 2013-0156
     date: 2013-05-01
     url: https://github.com/rubysec/ruby-advisory-db/issues/123456
-    title: |
+    title:
       Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
       Remote Code Execution
 

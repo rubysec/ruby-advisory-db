@@ -110,6 +110,10 @@ shared_examples_for 'Advisory' do |path|
 
       it { is_expected.to be_kind_of(String) }
       it { is_expected.not_to be_empty }
+
+      it "must be one line" do
+        is_expected.to_not include("\n")
+      end
     end
 
     describe "date" do

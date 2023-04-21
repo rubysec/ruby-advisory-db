@@ -2,8 +2,7 @@
 gem: auto_awesomplete
 osvdb: 132800
 url: https://github.com/Tab10id/auto_awesomplete/issues/2
-title: |
-  auto_awesomplete Gem for Ruby allows arbitrary search execution
+title: auto_awesomplete Gem for Ruby allows arbitrary search execution
 date: 2016-01-08
 description: |
   auto_awesomplete Gem for Ruby contains a flaw that is triggered when handling the

@@ -29,7 +29,7 @@ Each advisory file contains the advisory information in [YAML] format:
     cve: 2013-0156
     date: 2013-05-01
     url: https://github.com/rubysec/ruby-advisory-db/issues/123456
-    title: |
+    title:
       Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
       Remote Code Execution
 
@@ -69,9 +69,9 @@ Each advisory file contains the advisory information in [YAML] format:
 * `osvdb` \[Integer\] (optional): Open Sourced Vulnerability Database (OSVDB) ID.
 * `ghsa` \[String\] (optional): GitHub Security Advisory (GHSA) ID.
 * `url` \[String\] (required): The URL to the full advisory.
-* `title` \[String\] (required): The title of the advisory or individual vulnerability.
+* `title` \[String\] (required): The title of the advisory or individual vulnerability. It must be a single line sentence.
 * `date` \[Date\] (required): The public disclosure date of the advisory.
-* `description` \[String\] (required): One or more paragraphs describing the vulnerability.
+* `description` \[String\] (required): One or more paragraphs describing the vulnerability. It may contain multiple paragraphs.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the

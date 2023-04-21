@@ -2,7 +2,7 @@
 gem: spree
 osvdb: 125701
 url: https://spreecommerce.com/blog/security-updates-2015-7-20
-title: |
+title:
   Spree RABL templates rendering allows Arbitrary Code Execution and File
   Disclosure
 date: 2015-07-20

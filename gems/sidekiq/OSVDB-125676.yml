@@ -2,7 +2,7 @@
 gem: sidekiq
 osvdb: 125676
 url: https://github.com/mperham/sidekiq/issues/2330
-title: |
+title:
   Sidekiq Gem for Ruby web/views/queue.erb CurrentMessagesInQueue Element
   Reflected XSS
 date: 2015-06-04

@@ -2,8 +2,7 @@
 gem: flavour_saver
 osvdb: 110796
 url: http://osvdb.org/show/osvdb/110796
-title: |
-  FlavourSaver handlebars helper remote code execution.
+title: FlavourSaver handlebars helper remote code execution.
 date: 2014-09-04
 description: |
   FlavourSaver contains a flaw in helper method dispatch where it uses
