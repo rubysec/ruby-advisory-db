@@ -13,4 +13,3 @@ describe "rubies" do
     include_examples 'Rubies Advisory', path
   end
 end
-
