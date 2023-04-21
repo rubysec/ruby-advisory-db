@@ -1,6 +1,6 @@
 load File.join(File.dirname(__FILE__), 'spec_helper.rb')
-require 'gem_example'
-require 'ruby_example'
+require 'gem_advisory_example'
+require 'ruby_advisory_example'
 
 describe "gems" do
   Dir.glob(File.join(File.dirname(__FILE__), '../gems/*/*')) do |path|
