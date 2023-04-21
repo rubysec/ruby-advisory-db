@@ -2,7 +2,7 @@
 gem: sidekiq-pro
 osvdb: 126329
 url: https://github.com/mperham/sidekiq/commit/a695ff347ae50f641dfc35189131b232ea0aa1db
-title: |
+title:
   Sidekiq Pro Gem for Ruby web/views/batch.erb Class and ErrorMessage Elements
   Reflected XSS
 date: 2015-05-11

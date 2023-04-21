@@ -2,7 +2,7 @@
 gem: rack-attack
 osvdb: 132234
 url: https://github.com/kickstarter/rack-attack/releases/tag/v4.3.1
-title: |
+title:
   rack-attack Gem for Ruby missing normalization before request path
   processing
 date: 2015-12-18

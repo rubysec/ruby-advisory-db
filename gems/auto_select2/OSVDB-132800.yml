@@ -2,8 +2,7 @@
 gem: auto_select2
 osvdb: 132800
 url: https://github.com/Loriowar/auto_select2/issues/4
-title: |
-  auto_select2 Gem for Ruby allows arbitrary search execution
+title: auto_select2 Gem for Ruby allows arbitrary search execution
 date: 2016-01-08
 description: |
   auto_select2 Gem for Ruby contains a flaw that is triggered when handling the
