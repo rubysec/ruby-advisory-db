@@ -4,12 +4,15 @@ mapping:
   "engine":
     type: str
     required: true
-    enum: [jruby, rbx, ruby]
+    enum: [jruby, rbx, ruby, mruby]
   "cve":
     type: str
     pattern: /\d+-\d+/
   "osvdb":
     type: int
+  "ghsa":
+    type: str
+    pattern: /[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}/
   "url":
     type: str
     required: true
@@ -35,3 +38,11 @@ mapping:
     type: seq
     sequence:
       - type: str
+  "related":
+    type: map
+    mapping:
+      "url":
+        type: seq
+        sequence:
+          - type: str
+            pattern: /https?:\/\//
