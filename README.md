@@ -22,8 +22,10 @@ the advisories' [CVE] identifier number.
 
 ## Format
 
-Each advisory file contains the advisory information in [YAML] format:
+Each advisory file contains the advisory information in [YAML] format.
+Follow the schema. Here is an example advisory:
 
+```yaml
     ---
     gem: examplegem
     cve: 2013-0156
@@ -57,13 +59,12 @@ Each advisory file contains the advisory information in [YAML] format:
       url:
         - https://github.com/rubysec/ruby-advisory-db/issues/123457
 
-
+```
 ### Schema
 
 * `gem` \[String\] (required): Name of the affected gem.
 * `library` \[String\] (optional): Name of the ruby library which the affected gem belongs to.
-* `framework` \[String\] (optional): Name of the framework which the affected
-  gem belongs to.
+* `framework` \[String\] (optional): Name of the framework which the affected gem belongs to.
 * `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)
 * `cve` \[String\] (optional): Common Vulnerabilities and Exposures (CVE) ID.
 * `osvdb` \[Integer\] (optional): Open Sourced Vulnerability Database (OSVDB) ID.
@@ -80,6 +81,10 @@ Each advisory file contains the advisory information in [YAML] format:
   patched versions of the Ruby library.
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
+
+[CVSSv2]: https://www.first.org/cvss/v2/guide
+[CVSSv3]: https://www.first.org/cvss/user-guide
+```
 
 ### Tests
 Prior to submitting a pull request, run the tests:

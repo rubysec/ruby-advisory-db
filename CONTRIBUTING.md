@@ -50,22 +50,24 @@ bundle exec rspec
 ### Schema
 
 * `gem` \[String\] (required): Name of the affected gem.
+* `library` \[String\] (optional): Name of the ruby library which the affected gem belongs to.
 * `framework` \[String\] (optional): Name of the framework which the affected gem belongs to.
 * `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)
 * `cve` \[String\] (optional): Common Vulnerabilities and Exposures (CVE) ID.
 * `osvdb` \[Integer\] (optional): Open Sourced Vulnerability Database (OSVDB) ID.
 * `ghsa` \[String\] (optional): GitHub Security Advisory (GHSA) ID.
 * `url` \[String\] (required): The URL to the full advisory.
-* `title` \[String\] (required): The title of the advisory or individual vulnerability.
+* `title` \[String\] (required): The title of the advisory or individual vulnerability. It must be a single line sentence.
 * `date` \[Date\] (required): The public disclosure date of the advisory.
-* `description` \[String\] (required): One or more paragraphs describing the vulnerability.
+* `description` \[String\] (required): One or more paragraphs describing the vulnerability. It may contain multiple paragraphs.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
   patched versions of the Ruby library.
-* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and cves. Supported keys: `cve` and `url`
+* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
+* `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
 
 [CVSSv2]: https://www.first.org/cvss/v2/guide
 [CVSSv3]: https://www.first.org/cvss/user-guide
