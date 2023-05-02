@@ -32,4 +32,3 @@ related:
     - https://github.com/alphagov/tech-docs-gem/pull/323
     - https://github.com/alphagov/tech-docs-gem/releases/tag/v3.3.1
     - https://github.com/advisories/GHSA-x2xw-hw8g-6773
-notes: 'vulnerableVersionRange: ">= 2.0.2, < 3.3.1";   firstPatchedVersion: 3.3.1'

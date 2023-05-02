@@ -34,4 +34,3 @@ related:
     - https://github.com/collectiveidea/audited/pull/669
     - https://github.com/collectiveidea/audited/pull/671
     - https://github.com/advisories/GHSA-hjp3-5g2q-7jww
-notes: 'vulnerableVersionRange: ">= 4.0.0, < 5.3.3";   firstPatchedVersion: 5.3.3'
