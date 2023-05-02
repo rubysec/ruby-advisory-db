@@ -5,7 +5,7 @@ url: https://github.com/alphagov/tech-docs-gem/security/advisories/GHSA-x2xw-hw8
 title: govuk_tech_docs vulnerable to unescaped HTML on search results page
 date: 2023-04-11
 description: |-
-  'Impact
+  Impact
     Pages that are indexed in search results have their entire contents
     indexed, including any HTML code snippets. These HTML snippets would
     appear in the search results unsanitised, so it was possible to render
@@ -21,7 +21,7 @@ description: |-
     users could be tricked into clicking on through social engineering.
 
   Patches
-    This has been fixed in v3.3.1. HTML is now sanitised in search results.'
+    This has been fixed in v3.3.1. HTML is now sanitised in search results.
 unaffected_versions:
   - '< 2.0.2'
 patched_versions:
