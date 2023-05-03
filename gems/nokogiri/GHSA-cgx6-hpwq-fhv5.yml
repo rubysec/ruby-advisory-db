@@ -51,9 +51,9 @@ description: |+
 
 cvss_v3: 8.6
 patched_versions:
-- ">= 1.13.5"
+  - ">= 1.13.5"
 related:
   url:
-  - https://gitlab.gnome.org/GNOME/libxml2/-/releases/v2.9.14
+    - https://gitlab.gnome.org/GNOME/libxml2/-/releases/v2.9.14
   cve:
-  - 2022-29824
+    - 2022-29824

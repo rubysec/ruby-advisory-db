@@ -34,10 +34,10 @@ description: |+
   - **See also**: https://github.com/advisories/GHSA-h65f-jvqw-m9fj
 cvss_v3: 6.5
 patched_versions:
-- ">= 1.13.4"
+  - ">= 1.13.4"
 related:
   ghsa:
-  - h65f-jvqw-m9fj
+    - h65f-jvqw-m9fj
   url:
-  - https://github.com/sparklemotion/nokogiri/releases/tag/v1.13.4
-  - https://groups.google.com/g/ruby-security-ann/c/vX7qSjsvWis/m/TJWN4oOKBwAJ
+    - https://github.com/sparklemotion/nokogiri/releases/tag/v1.13.4
+    - https://groups.google.com/g/ruby-security-ann/c/vX7qSjsvWis/m/TJWN4oOKBwAJ

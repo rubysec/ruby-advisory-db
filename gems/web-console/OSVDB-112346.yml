@@ -8,4 +8,4 @@ description: The Web Console Gem for Ruby on Rails contains an unspecified flaw 
   may allow an attacker to have an unspecified impact. No further details have been
   provided by the vendor.
 patched_versions:
-- '>= 2.0.0.beta4'
+  - '>= 2.0.0.beta4'

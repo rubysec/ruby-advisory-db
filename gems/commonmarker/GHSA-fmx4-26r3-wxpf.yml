@@ -27,9 +27,9 @@ description: |-
   table extension will prevent this vulnerability from being triggered.
 cvss_v3: 8.8
 patched_versions:
-- ">= 0.23.4"
+  - ">= 0.23.4"
 related:
   ghsa:
-  - mc3g-88wq-6f4x
+    - mc3g-88wq-6f4x
   url:
-  - https://github.com/gjtorikian/commonmarker/commit/ab4504fd17460627a6ab255bc3c63e8e5fc6aed3
+    - https://github.com/gjtorikian/commonmarker/commit/ab4504fd17460627a6ab255bc3c63e8e5fc6aed3

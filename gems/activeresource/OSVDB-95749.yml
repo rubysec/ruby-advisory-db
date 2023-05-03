@@ -13,4 +13,4 @@ description: |
   allow a remote attacker to cause a denial of service or potentially execute
   arbitrary code.
 patched_versions:
-- '>= 2.2.0'
+  - '>= 2.2.0'

@@ -45,10 +45,10 @@ description: |
   - [\[CVE-2023-28484\] Fix null deref in xmlSchemaFixupComplexType (647e072e)](https://gitlab.gnome.org/GNOME/libxml2/-/commit/647e072ea0a2f12687fa05c172f4c4713fdb0c4f)
   - [schemas: Fix null-pointer-deref in xmlSchemaCheckCOSSTDerivedOK (4c6922f7)](https://gitlab.gnome.org/GNOME/libxml2/-/commit/4c6922f763ad958c48ff66f82823ae21f2e92ee6)
 patched_versions:
-- ">= 1.14.3"
+  - ">= 1.14.3"
 related:
   url:
-  - https://gitlab.gnome.org/GNOME/libxml2/-/releases/v2.10.4
+    - https://gitlab.gnome.org/GNOME/libxml2/-/releases/v2.10.4
   cve:
-  - 2023-29469
-  - 2023-28484
+    - 2023-29469
+    - 2023-28484
