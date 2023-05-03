@@ -11,5 +11,5 @@ description: |
   If an attacker has knowledge of said token, a specially crafted request can
   be made to it, allowing the attacker to conduct CSRF attacks.
 patched_versions:
-- ~> 2.2.5
-- '>= 3.0.1'
+  - ~> 2.2.5
+  - '>= 3.0.1'

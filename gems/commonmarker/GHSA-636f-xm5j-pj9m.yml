@@ -24,15 +24,15 @@ description: |-
 
   Users are advised to upgrade to commonmarker version [`0.23.7`](https://rubygems.org/gems/commonmarker/versions/0.23.7).
 patched_versions:
-- ">= 0.23.7"
+  - ">= 0.23.7"
 related:
   cve:
-  - 2023-22483
-  - 2023-22484
-  - 2023-22485
-  - 2023-22486
+    - 2023-22483
+    - 2023-22484
+    - 2023-22485
+    - 2023-22486
   ghsa:
-  - 29g3-96g3-jg6c
-  - 24f7-9frr-5h2r
-  - c944-cv5f-hpvr
-  - r572-jvj2-3m8p
+    - 29g3-96g3-jg6c
+    - 24f7-9frr-5h2r
+    - c944-cv5f-hpvr
+    - r572-jvj2-3m8p

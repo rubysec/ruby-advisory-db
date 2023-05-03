@@ -11,4 +11,4 @@ description: |
   overflow, resulting in a denial of service or potentially allowing the
   execution of arbitrary code.
 patched_versions:
-- '>= 1.1.0'
+  - '>= 1.1.0'

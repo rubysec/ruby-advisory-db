@@ -26,8 +26,8 @@ description: |
 
   Upgrade to version 15.7.1 or 14.5.2 of the `pageflow` gem.
 patched_versions:
-- "~> 14.5.2"
-- ">= 15.7.1"
+  - "~> 14.5.2"
+  - ">= 15.7.1"
 related:
   url:
-  - https://github.com/codevise/pageflow/pull/1862
+    - https://github.com/codevise/pageflow/pull/1862

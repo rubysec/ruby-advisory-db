@@ -23,4 +23,4 @@ description: |
   would not match a request to '/login/', though Rails would route
   '/login/' to the same '/login' action.
 patched_versions:
-- '>= 4.3.1'
+  - '>= 4.3.1'

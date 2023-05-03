@@ -15,9 +15,9 @@ description: |-
   No
 cvss_v3: 7.8
 patched_versions:
-- ">= 12.25.0"
+  - ">= 12.25.0"
 related:
   url:
-  - https://twitter.com/wcbowling/status/1385803927321415687
+    - https://twitter.com/wcbowling/status/1385803927321415687
   cve:
-  - 2021-22204
+    - 2021-22204

@@ -10,4 +10,4 @@ description: |
   credential information in plaintext in the install command process listing.
   This may allow a local attacker to gain access to credential information.
 patched_versions:
-- '>= 1.1.rc'
+  - '>= 1.1.rc'

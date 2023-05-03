@@ -118,4 +118,4 @@ description: |
   For more details supporting this analysis of this CVE, please visit #2233.
 cvss_v3: 7.5
 patched_versions:
-- '>= 1.11.4'
+  - '>= 1.11.4'

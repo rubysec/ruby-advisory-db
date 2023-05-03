@@ -10,5 +10,5 @@ description: |
   production logs. This may allow a local attacker to gain access to
   sensitive information.
 patched_versions:
-- ~> 1.4.2
-- '>= 2.1.2'
+  - ~> 1.4.2
+  - '>= 2.1.2'

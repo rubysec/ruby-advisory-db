@@ -15,4 +15,4 @@ description: |
   this would cause its hash to be equivalent to all other such passwords
   of the same length. This issue only affects the JRuby implementation.
 patched_versions:
-- '>= 2.1.4'
+  - '>= 2.1.4'

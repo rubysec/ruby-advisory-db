@@ -10,6 +10,6 @@ description: |
   'image' is the name of the attachment. This may allow a remote attacker
   to execute arbitrary shell commands.
 unaffected_versions:
-- < 0.5.0
+  - < 0.5.0
 patched_versions:
-- '>= 0.5.4'
+  - '>= 0.5.4'

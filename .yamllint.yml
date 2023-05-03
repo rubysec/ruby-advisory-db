@@ -3,4 +3,5 @@ extends: default
 rules:
   line-length: disable
   indentation:
+    spaces: 2
     indent-sequences: consistent

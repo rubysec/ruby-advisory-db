@@ -25,10 +25,10 @@ description: |
   ### References
   https://en.wikipedia.org/wiki/Time_complexity
 patched_versions:
-- ">= 0.23.6"
+  - ">= 0.23.6"
 related:
   url:
-  - https://github.com/gjtorikian/commonmarker/pull/190
-  - https://github.com/gjtorikian/commonmarker/releases/tag/v0.23.6
+    - https://github.com/gjtorikian/commonmarker/pull/190
+    - https://github.com/gjtorikian/commonmarker/releases/tag/v0.23.6
   ghsa:
-  - cgh3-p57x-9q7q
+    - cgh3-p57x-9q7q

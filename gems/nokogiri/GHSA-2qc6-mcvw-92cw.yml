@@ -77,11 +77,11 @@ description: |
 
   See https://gitlab.gnome.org/GNOME/libxml2/-/commit/c846986356fc149915a74972bf198abc266bc2c0
 patched_versions:
-- ">= 1.13.9"
+  - ">= 1.13.9"
 related:
   url:
-  - https://gitlab.gnome.org/GNOME/libxml2/-/releases
+    - https://gitlab.gnome.org/GNOME/libxml2/-/releases
   cve:
-  - 2022-2309
-  - 2022-40304
-  - 2022-40303
+    - 2022-2309
+    - 2022-40304
+    - 2022-40303
