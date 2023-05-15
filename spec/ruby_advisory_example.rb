@@ -1,4 +1,4 @@
-load File.join(File.dirname(__FILE__), 'spec_helper.rb')
+require 'spec_helper'
 require 'advisory_example'
 
 shared_examples_for "Rubies Advisory" do |path|

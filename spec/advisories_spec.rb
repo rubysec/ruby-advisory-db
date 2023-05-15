@@ -1,4 +1,4 @@
-load File.join(File.dirname(__FILE__), 'spec_helper.rb')
+require 'spec_helper'
 require 'gem_advisory_example'
 require 'ruby_advisory_example'
 
