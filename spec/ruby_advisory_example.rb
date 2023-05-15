@@ -18,8 +18,10 @@ shared_examples_for "Rubies Advisory" do |path|
       end
     end
 
+    let(:schema_file) { File.join(__dir__, 'schemas/ruby.yml') }
+
     it "should have valid schema" do
-      schema = YAML.safe_load_file(File.join(__dir__, 'schemas/ruby.yml'))
+      schema = YAML.safe_load_file(schema_file)
       validator = Kwalify::Validator.new(schema)
       errors = validator.validate(advisory)
       expect(errors).to be_empty
