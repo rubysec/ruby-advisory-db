@@ -13,6 +13,7 @@ shared_examples_for "Gem Advisory" do |path|
       subject { advisory['gem'] }
 
       it { is_expected.to be_kind_of(String) }
+
       it "should be equal to filename (case-insensitive)" do
         expect(subject.downcase).to eq(gem.downcase)
       end

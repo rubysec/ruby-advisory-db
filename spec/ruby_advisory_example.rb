@@ -13,6 +13,7 @@ shared_examples_for "Rubies Advisory" do |path|
       subject { advisory['engine'] }
 
       it { is_expected.to be_kind_of(String) }
+
       it "should be equal to filename (case-insensitive)" do
         expect(subject.downcase).to eq(engine.downcase)
       end
