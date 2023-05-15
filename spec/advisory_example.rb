@@ -1,4 +1,4 @@
-load File.join(File.dirname(__FILE__), 'spec_helper.rb')
+require 'spec_helper'
 require 'yaml'
 
 shared_examples_for 'Advisory' do |path|
@@ -242,6 +242,5 @@ shared_examples_for 'Advisory' do |path|
         expect(subject).to be_kind_of(String).or(be_nil)
       end
     end
-
   end
 end
