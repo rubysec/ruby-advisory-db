@@ -6,6 +6,25 @@ describe "gems" do
   Dir.glob(File.join(ROOT,'gems/*/*')) do |path|
     include_examples 'Gem Advisory', path
   end
+
+  let(:dir)           { File.join(ROOT,'gems') }
+  let(:advisory_dirs) { Dir.glob('*', base: dir) }
+
+  it "must not have any case-insensitive conflicting directory names" do
+    case_sensitive_dirs = advisory_dirs.grep(/[A-Z]/)
+
+    case_insensitive_mapping = case_sensitive_dirs.to_h { |dir|
+                                 [dir, dir.downcase]
+                               }
+
+    conflicting_dirs = case_insensitive_mapping.select { |dir,lowercase_dir|
+                         advisory_dirs.include?(lowercase_dir)
+                       }
+
+    expect(conflicting_dirs).to be_empty, -> {
+      "#{conflicting_dirs.keys.join(', ')} conflicts with #{conflicting_dirs.values.join(', ')}"
+    }
+  end
 end
 
 describe "rubies" do
