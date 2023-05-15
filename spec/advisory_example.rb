@@ -242,6 +242,5 @@ shared_examples_for 'Advisory' do |path|
         expect(subject).to be_kind_of(String).or(be_nil)
       end
     end
-
   end
 end
