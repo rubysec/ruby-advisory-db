@@ -125,6 +125,10 @@ shared_examples_for 'Advisory' do |path|
     describe "description" do
       subject { advisory['description'] }
 
+      it "must not be one line" do
+        is_expected.to include("\n")
+      end
+
       it { is_expected.to be_kind_of(String) }
       it { is_expected.not_to be_empty }
     end

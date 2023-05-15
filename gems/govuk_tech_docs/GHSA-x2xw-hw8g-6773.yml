@@ -4,7 +4,7 @@ ghsa: x2xw-hw8g-6773
 url: https://github.com/alphagov/tech-docs-gem/security/advisories/GHSA-x2xw-hw8g-6773
 title: govuk_tech_docs vulnerable to unescaped HTML on search results page
 date: 2023-04-11
-description: |-
+description: |
   Impact
     Pages that are indexed in search results have their entire contents
     indexed, including any HTML code snippets. These HTML snippets would

@@ -4,7 +4,7 @@ ghsa: q95h-cqrv-8jv5
 url: https://github.com/exiftool-rb/exiftool_vendored.rb/security/advisories/GHSA-q95h-cqrv-8jv5
 title: ExifTool vulnerable to arbitrary code execution
 date: 2023-01-20
-description: |-
+description: |
   ### Impact
   Arbitrary code execution can occur when running `exiftool` against files with hostile metadata payloads
 

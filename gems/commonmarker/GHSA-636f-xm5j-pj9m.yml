@@ -4,7 +4,7 @@ ghsa: 636f-xm5j-pj9m
 url: https://github.com/gjtorikian/commonmarker/security/advisories/GHSA-636f-xm5j-pj9m
 title: Several quadratic complexity bugs may lead to denial of service in Commonmarker
 date: 2023-01-24
-description: |-
+description: |
   ## Impact
 
   Several quadratic complexity bugs in commonmarker's underlying [`cmark-gfm`](https://github.com/github/cmark-gfm)

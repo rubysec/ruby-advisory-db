@@ -4,7 +4,7 @@ ghsa: cgx6-hpwq-fhv5
 url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-cgx6-hpwq-fhv5
 title: Integer Overflow or Wraparound in libxml2 affects Nokogiri
 date: 2022-05-18
-description: |+
+description: |
   ### Summary
 
   Nokogiri v1.13.5 upgrades the packaged version of its dependency libxml2 from
