@@ -4,7 +4,7 @@ ghsa: mgvv-5mxp-xq67
 url: https://github.com/sparklemotion/sqlite3-ruby/security/advisories/GHSA-mgvv-5mxp-xq67
 title: SQLite3 addresses vulnerability in packaged version of libsqlite
 date: 2022-10-03
-description: |-
+description: |
   ### Summary
 
   The rubygem sqlite3 v1.5.1 upgrades the packaged version of libsqlite from

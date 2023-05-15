@@ -6,7 +6,7 @@ ghsa: xxx9-3xcr-gjj3
 url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-xxx9-3xcr-gjj3
 title: XML Injection in Xerces Java affects Nokogiri
 date: 2022-04-11
-description: |+
+description: |
   ## Summary
 
   Nokogiri v1.13.4 updates the vendored `xerces:xercesImpl` from 2.12.0 to
