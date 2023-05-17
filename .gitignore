@@ -1,4 +1,4 @@
 /Gemfile.lock
 .bundle
 .DS_Store
-vendor
+/vendor
