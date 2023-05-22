@@ -58,8 +58,8 @@ Follow the schema. Here is an example advisory:
         - 2013-1234568
       url:
         - https://github.com/rubysec/ruby-advisory-db/issues/123457
-
 ```
+
 ### Schema
 
 * `gem` \[String\] (required): Name of the affected gem.
@@ -84,9 +84,9 @@ Follow the schema. Here is an example advisory:
 
 [CVSSv2]: https://www.first.org/cvss/v2/guide
 [CVSSv3]: https://www.first.org/cvss/user-guide
-```
 
 ### Tests
+
 Prior to submitting a pull request, run the tests:
 
 ```
