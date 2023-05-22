@@ -15,10 +15,12 @@ The database is a list of directories that match the names of Ruby libraries on
 for the Ruby library. These advisory files are named using
 the advisories' [CVE] identifier number.
 
-    gems/:
-      actionpack/:
-        CVE-2014-0130.yml  CVE-2014-7818.yml  CVE-2014-7829.yml  CVE-2015-7576.yml
-        CVE-2015-7581.yml  CVE-2016-0751.yml  CVE-2016-0752.yml
+```
+gems/:
+  actionpack/:
+    CVE-2014-0130.yml  CVE-2014-7818.yml  CVE-2014-7829.yml  CVE-2015-7576.yml
+    CVE-2015-7581.yml  CVE-2016-0751.yml  CVE-2016-0752.yml
+```
 
 ## Format
 
@@ -26,38 +28,38 @@ Each advisory file contains the advisory information in [YAML] format.
 Follow the schema. Here is an example advisory:
 
 ```yaml
-    ---
-    gem: examplegem
-    cve: 2013-0156
-    date: 2013-05-01
-    url: https://github.com/rubysec/ruby-advisory-db/issues/123456
-    title:
-      Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
-      Remote Code Execution
+---
+gem: examplegem
+cve: 2013-0156
+date: 2013-05-01
+url: https://github.com/rubysec/ruby-advisory-db/issues/123456
+title:
+  Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
+  Remote Code Execution
 
-    description: |
-      Ruby on Rails contains a flaw in params_parser.rb of the Action Pack.
-      The issue is triggered when a type casting error occurs during the parsing
-      of parameters. This may allow a remote attacker to potentially execute
-      arbitrary code.
+description: |
+  Ruby on Rails contains a flaw in params_parser.rb of the Action Pack.
+  The issue is triggered when a type casting error occurs during the parsing
+  of parameters. This may allow a remote attacker to potentially execute
+  arbitrary code.
 
-    cvss_v2: 10.0
-    cvss_v3: 9.8
+cvss_v2: 10.0
+cvss_v3: 9.8
 
-    patched_versions:
-      - ~> 2.3.15
-      - ~> 3.0.19
-      - ~> 3.1.10
-      - ">= 3.2.11"
-    unaffected_versions:
-      - ~> 2.4.3
+patched_versions:
+  - ~> 2.3.15
+  - ~> 3.0.19
+  - ~> 3.1.10
+  - ">= 3.2.11"
+unaffected_versions:
+  - ~> 2.4.3
 
-    related:
-      cve:
-        - 2013-1234567
-        - 2013-1234568
-      url:
-        - https://github.com/rubysec/ruby-advisory-db/issues/123457
+related:
+  cve:
+    - 2013-1234567
+    - 2013-1234568
+  url:
+    - https://github.com/rubysec/ruby-advisory-db/issues/123457
 ```
 
 ### Schema
