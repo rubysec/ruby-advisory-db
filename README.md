@@ -20,49 +20,105 @@ gems/:
   actionpack/:
     CVE-2014-0130.yml  CVE-2014-7818.yml  CVE-2014-7829.yml  CVE-2015-7576.yml
     CVE-2015-7581.yml  CVE-2016-0751.yml  CVE-2016-0752.yml
+rubies/:
+  jruby/:
+    ...
+  mruby/:
+    ...
+  ruby/:
+    ...
 ```
+
+### `gems/`
+
+The `gems/` directory contains sub-directories that match the names of the Ruby
+libraries on [rubygems.org]. Within each directory are one or more advisory
+files for the Ruby library. These advisory files are named using the
+advisories' [CVE] or [GHSA] ID.
+
+### `rubies/`
+
+The `rubies/` directory contains sub-directories for each Ruby implementation.
+Within each directory are one or more advisory files for the Ruby
+implementation. These advisory files are named using the advisories' [CVE]
+or [GHSA] ID.
 
 ## Format
 
 Each advisory file contains the advisory information in [YAML] format.
-Follow the schema. Here is an example advisory:
+Here are some example advisories:
+
+### `gems/actionpack/CVE-2023-22797.yml`
 
 ```yaml
 ---
-gem: examplegem
-cve: 2013-0156
-date: 2013-05-01
-url: https://github.com/rubysec/ruby-advisory-db/issues/123456
-title:
-  Ruby on Rails params_parser.rb Action Pack Type Casting Parameter Parsing
-  Remote Code Execution
-
+gem: actionpack
+cve: 2023-22797
+ghsa: 9445-4cr6-336r
+url: https://github.com/rails/rails/releases/tag/v7.0.4.1
+title: Open Redirect Vulnerability in Action Pack
+date: 2023-01-18
 description: |
-  Ruby on Rails contains a flaw in params_parser.rb of the Action Pack.
-  The issue is triggered when a type casting error occurs during the parsing
-  of parameters. This may allow a remote attacker to potentially execute
-  arbitrary code.
+  There is a vulnerability in Action Controller’s redirect_to. This
+  vulnerability has been assigned the CVE identifier CVE-2023-22797.
 
-cvss_v2: 10.0
-cvss_v3: 9.8
+  Versions Affected: >= 7.0.0
+  Not affected: < 7.0.0
+  Fixed Versions: 7.0.4.1
 
-patched_versions:
-  - ~> 2.3.15
-  - ~> 3.0.19
-  - ~> 3.1.10
-  - ">= 3.2.11"
+  # Impact
+
+  There is a possible open redirect when using the redirect_to helper with
+  untrusted user input.
+
+  Vulnerable code will look like this:
+  ```
+  redirect_to(params[:some_param])
+  ```
+
+  Rails 7.0 introduced protection against open redirects from calling
+  redirect_to with untrusted user input. In prior versions the developer was
+  fully responsible for only providing trusted input. However the check
+  introduced could be bypassed by a carefully crafted URL.
+
+  All users running an affected release should either upgrade or use one of
+  the workarounds immediately.
+
+  # Workarounds
+
+  There are no feasible workarounds for this issue.
+cvss_v3: 6.1
 unaffected_versions:
-  - ~> 2.4.3
-
-related:
-  cve:
-    - 2013-1234567
-    - 2013-1234568
-  url:
-    - https://github.com/rubysec/ruby-advisory-db/issues/123457
+  - "< 7.0.0"
+patched_versions:
+  - ">= 7.0.4.1"
 ```
 
-### Schema
+### `rubies/ruby/CVE-2022-28739.yml`
+
+```
+---
+engine: ruby
+cve: 2022-28739
+url: https://www.ruby-lang.org/en/news/2022/04/12/buffer-overrun-in-string-to-float-cve-2022-28739/
+title: Buffer overrun in String-to-Float conversion
+date: 2022-04-12
+description: |
+  A buffer-overrun vulnerability is discovered in a conversion algorithm from a String to a Float. This vulnerability has been assigned the CVE identifier CVE-2022-28739. We strongly recommend upgrading Ruby.
+
+  Due to a bug in an internal function that converts a String to a Float, some convertion methods like Kernel#Float and String#to_f could cause buffer over-read. A typical consequence is a process termination due to segmentation fault, but in a limited circumstances, it may be exploitable for illegal memory read.
+
+  Please update Ruby to 2.6.10, 2.7.6, 3.0.4, or 3.1.2.
+patched_versions:
+  - ~> 2.6.10
+  - ~> 2.7.6
+  - ~> 3.0.4
+  - '>= 3.1.2'
+```
+
+## Schema
+
+### `gems`
 
 * `gem` \[String\] (required): Name of the affected gem.
 * `library` \[String\] (optional): Name of the ruby library which the affected gem belongs to.
@@ -81,6 +137,26 @@ related:
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
   patched versions of the Ruby library.
+* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
+* `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
+
+### `rubies`
+
+* `engine` \[`ruby` | `mruby` | `jruby` | `truffleruby`\] (required): Name of the affected Ruby implementation.
+* `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)
+* `cve` \[String\] (optional): Common Vulnerabilities and Exposures (CVE) ID.
+* `osvdb` \[Integer\] (optional): Open Sourced Vulnerability Database (OSVDB) ID.
+* `ghsa` \[String\] (optional): GitHub Security Advisory (GHSA) ID.
+* `url` \[String\] (required): The URL to the full advisory.
+* `title` \[String\] (required): The title of the advisory or individual vulnerability. It must be a single line sentence.
+* `date` \[Date\] (required): The public disclosure date of the advisory.
+* `description` \[String\] (required): One or more paragraphs describing the vulnerability. It may contain multiple paragraphs.
+* `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
+* `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
+* `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
+  unaffected versions of the Ruby implementation.
+* `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
+  patched versions of the Ruby implementation.
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
 
