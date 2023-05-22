@@ -72,9 +72,9 @@ description: |
   untrusted user input.
 
   Vulnerable code will look like this:
-  ```
+  \`\`\`
   redirect_to(params[:some_param])
-  ```
+  \`\`\`
 
   Rails 7.0 introduced protection against open redirects from calling
   redirect_to with untrusted user input. In prior versions the developer was
