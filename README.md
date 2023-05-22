@@ -48,49 +48,45 @@ or [GHSA] ID.
 Each advisory file contains the advisory information in [YAML] format.
 Here are some example advisories:
 
-### `gems/actionpack/CVE-2023-22797.yml`
+### `gems/actionpack/CVE-2023-22795.yml`
 
 ```yaml
 ---
 gem: actionpack
-cve: 2023-22797
-ghsa: 9445-4cr6-336r
+cve: 2023-22795
+ghsa: 8xww-x3g3-6jcv
 url: https://github.com/rails/rails/releases/tag/v7.0.4.1
-title: Open Redirect Vulnerability in Action Pack
+title: ReDoS based DoS vulnerability in Action Dispatch
 date: 2023-01-18
 description: |
-  There is a vulnerability in Action Controller’s redirect_to. This
-  vulnerability has been assigned the CVE identifier CVE-2023-22797.
+  There is a possible regular expression based DoS vulnerability in Action
+  Dispatch related to the If-None-Match header. This vulnerability has been
+  assigned the CVE identifier CVE-2023-22795.
 
-  Versions Affected: >= 7.0.0
-  Not affected: < 7.0.0
-  Fixed Versions: 7.0.4.1
+  Versions Affected: All
+  Not affected: None
+  Fixed Versions: 5.2.8.15 (Rails LTS), 6.1.7.1, 7.0.4.1
 
   # Impact
 
-  There is a possible open redirect when using the redirect_to helper with
-  untrusted user input.
-
-  Vulnerable code will look like this:
-  \`\`\`
-  redirect_to(params[:some_param])
-  \`\`\`
-
-  Rails 7.0 introduced protection against open redirects from calling
-  redirect_to with untrusted user input. In prior versions the developer was
-  fully responsible for only providing trusted input. However the check
-  introduced could be bypassed by a carefully crafted URL.
-
-  All users running an affected release should either upgrade or use one of
-  the workarounds immediately.
+  A specially crafted HTTP If-None-Match header can cause the regular
+  expression engine to enter a state of catastrophic backtracking, when on a
+  version of Ruby below 3.2.0. This can cause the process to use large amounts
+  of CPU and memory, leading to a possible DoS vulnerability All users running
+  an affected release should either upgrade or use one of the workarounds
+  immediately.
 
   # Workarounds
 
-  There are no feasible workarounds for this issue.
-cvss_v3: 6.1
-unaffected_versions:
-  - "< 7.0.0"
+  We recommend that all users upgrade to one of the FIXED versions. In the
+  meantime, users can mitigate this vulnerability by using a load balancer or
+  other device to filter out malicious If-None-Match headers before they reach
+  the application.
+
+  Users on Ruby 3.2.0 or greater are not affected by this vulnerability.
 patched_versions:
+  - "~> 5.2.8, >= 5.2.8.15"  # Rails LTS
+  - "~> 6.1.7, >= 6.1.7.1"
   - ">= 7.0.4.1"
 ```
 
