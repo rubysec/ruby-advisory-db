@@ -92,7 +92,7 @@ patched_versions:
 
 ### `rubies/ruby/CVE-2022-28739.yml`
 
-```
+```yaml
 ---
 engine: ruby
 cve: 2022-28739
