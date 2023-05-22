@@ -34,22 +34,6 @@ shared_examples_for 'Advisory' do |path|
       expect(advisory['cve'] || advisory['osvdb'] || advisory['ghsa']).not_to be_nil
     end
 
-    describe "library" do
-      subject { advisory['library'] }
-
-      it "may be nil or a String" do
-        expect(subject).to be_kind_of(String).or(be_nil)
-      end
-    end
-
-    describe "framework" do
-      subject { advisory['framework'] }
-
-      it "may be nil or a String" do
-        expect(subject).to be_kind_of(String).or(be_nil)
-      end
-    end
-
     describe "platform" do
       subject { advisory['platform'] }
 

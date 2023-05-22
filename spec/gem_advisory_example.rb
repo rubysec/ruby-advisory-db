@@ -19,6 +19,22 @@ shared_examples_for "Gem Advisory" do |path|
       end
     end
 
+    describe "library" do
+      subject { advisory['library'] }
+
+      it "may be nil or a String" do
+        expect(subject).to be_kind_of(String).or(be_nil)
+      end
+    end
+
+    describe "framework" do
+      subject { advisory['framework'] }
+
+      it "may be nil or a String" do
+        expect(subject).to be_kind_of(String).or(be_nil)
+      end
+    end
+
     describe "versions" do
       it "assumes that future versions will be patched" do
         unaffected_versions = advisory['unaffected_versions'] || []
