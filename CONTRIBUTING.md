@@ -2,7 +2,7 @@
 
 * All text must be within 80 columns.
 * YAML must be indented by 2 spaces.
-* `summary:` must be a single sentence/line.
+* `title:` must be a single sentence/line.
 * `description: |` must contain more than one sentence/line.
 * `patched_versions`/`unaffected_versions` version ranges must be quoted
   (ex: `">= 1.2.3"`).
