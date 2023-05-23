@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-* All text must be within 80 columns.
+* Try to keep all text within 80 columns.
 * YAML must be indented by 2 spaces.
 * `title:` must be a single sentence/line.
 * `description: |` must contain more than one sentence/line.
