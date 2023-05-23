@@ -26,8 +26,15 @@ shared_examples_for 'Advisory' do |path|
     end
 
     it "should be correctly named CVE-XXX or OSVDB-XXX or GHSA-XXX" do
-      expect(filename).
-        to match(/^(CVE-\d{4}-(0\d{3}|[1-9]\d{3,})|OSVDB-\d+|GHSA(-[a-z0-9]{4}){3})\.yml$/)
+      expect(filename).to match(
+        /\A
+          (?:
+             CVE-\d{4}-(?:0\d{3}|[1-9]\d{3,})|
+             OSVDB-\d+|
+             GHSA(-[a-z0-9]{4}){3}
+          )\.yml\z
+        /x
+      )
     end
 
     it "should have CVE or OSVDB or GHSA" do
@@ -48,9 +55,10 @@ shared_examples_for 'Advisory' do |path|
       it "may be nil or a String" do
         expect(subject).to be_kind_of(String).or(be_nil)
       end
+
       it "should be id in filename if filename is CVE-XXX" do
         if filename_cve
-          is_expected.to eq(filename_cve.chomp('.yml'))
+          expect(subject).to eq(filename_cve.chomp('.yml'))
         end
       end
     end
@@ -64,7 +72,7 @@ shared_examples_for 'Advisory' do |path|
 
        it "should be id in filename if filename is OSVDB-XXX" do
         if filename_osvdb
-          is_expected.to eq(filename_osvdb.to_i)
+          expect(subject).to eq(filename_osvdb.to_i)
         end
       end
     end
@@ -77,7 +85,7 @@ shared_examples_for 'Advisory' do |path|
       end
       it "should be id in filename if filename is GHSA-XXX" do
         if filename_ghsa
-          is_expected.to eq(filename_ghsa.chomp('.yml'))
+          expect(subject).to eq(filename_ghsa.chomp('.yml'))
         end
       end
     end
@@ -85,36 +93,36 @@ shared_examples_for 'Advisory' do |path|
     describe "url" do
       subject { advisory['url'] }
 
-      it { is_expected.to be_kind_of(String) }
-      it { is_expected.not_to be_empty }
+      it { expect(subject).to be_kind_of(String) }
+      it { expect(subject).not_to be_empty }
     end
 
     describe "title" do
       subject { advisory['title'] }
 
-      it { is_expected.to be_kind_of(String) }
-      it { is_expected.not_to be_empty }
+      it { expect(subject).to be_kind_of(String) }
+      it { expect(subject).not_to be_empty }
 
       it "must be one line" do
-        is_expected.to_not include("\n")
+        expect(subject).to_not include("\n")
       end
     end
 
     describe "date" do
       subject { advisory['date'] }
 
-      it { is_expected.to be_kind_of(Date) }
+      it { expect(subject).to be_kind_of(Date) }
     end
 
     describe "description" do
       subject { advisory['description'] }
 
       it "must not be one line" do
-        is_expected.to include("\n")
+        expect(subject).to include("\n")
       end
 
-      it { is_expected.to be_kind_of(String) }
-      it { is_expected.not_to be_empty }
+      it { expect(subject).to be_kind_of(String) }
+      it { expect(subject).not_to be_empty }
     end
 
     describe "cvss_v2" do
@@ -127,7 +135,7 @@ shared_examples_for 'Advisory' do |path|
       case advisory['cvss_v2']
       when Float
         context "when a Float" do
-          it { expect((0.0)..(10.0)).to include(subject) }
+          it { expect(subject).to be_between(0.0, 10.0) }
         end
       end
     end
@@ -142,7 +150,7 @@ shared_examples_for 'Advisory' do |path|
       case advisory['cvss_v3']
       when Float
         context "when a Float" do
-          it { expect((0.0)..(10.0)).to include(subject) }
+          it { expect(subject).to be_between(0.0, 10.0) }
         end
       end
 
@@ -163,7 +171,7 @@ shared_examples_for 'Advisory' do |path|
       describe "each patched version" do
         if advisory['patched_versions']
           advisory['patched_versions'].each do |version|
-            describe version do
+            describe(version) do
               subject { version.split(', ') }
 
               it "should contain valid RubyGem version requirements" do
@@ -209,8 +217,8 @@ shared_examples_for 'Advisory' do |path|
 
       case advisory["related"]
       when Hash
-        advisory["related"].each_pair do |name, values|
-          describe name do
+        advisory["related"].each_pair do |name,values|
+          describe(name) do
             it "should be either a cve, an osvdb, a ghsa, or a url" do
               expect(["cve", "osvdb", "ghsa", "url"]).to include(name)
             end
