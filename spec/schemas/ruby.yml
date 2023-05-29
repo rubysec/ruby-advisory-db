@@ -5,6 +5,8 @@ mapping:
     type: str
     required: true
     enum: [jruby, rbx, ruby, mruby]
+  "platform":
+    type: str
   "cve":
     type: str
     pattern: /\d+-\d+/
@@ -41,8 +43,24 @@ mapping:
   "related":
     type: map
     mapping:
+      "cve":
+        type: seq
+        sequence:
+          - type: str
+            pattern: /\d+-\d+/
+      "ghsa":
+        type: seq
+        sequence:
+          - type: str
+            pattern: /[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}/
+      "osvdb":
+        type: seq
+        sequence:
+          - type: int
       "url":
         type: seq
         sequence:
           - type: str
             pattern: /https?:\/\//
+  "notes":
+    type: str
