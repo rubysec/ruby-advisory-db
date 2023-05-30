@@ -1,0 +1,17 @@
+---
+gem: activemodel
+framework: rails
+osvdb: 96396
+url: https://github.com/rails/rails/pull/8122
+title: Don't allow confirmation to pass if confirmation value is nil and doesn't match value.
+date: 2012-05-11
+description: |
+  Don't allow confirmation to pass if confirmation value is
+  nil and doesn't match value.
+notes: "Never patched; PR#8122 is closed but not merged"
+related:
+  url:
+    - https://github.com/rails/rails/pull/8122
+    - https://github.com/rails/rails/pull/8122/commits/e8a50aa1c1f9d04c21b54e983f9a090d4b42c8eb
+    - https://github.com/rails/rails/commit/e8a50aa1c1f9d04c21b54e983f9a090d4b42c8eb
+    - https://github.com/rubysec/ruby-advisory-db/issues/178
