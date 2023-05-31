@@ -1,11 +1,16 @@
 ---
 gem: screen_capture
 osvdb: 107783
-url: http://osvdb.org/show/osvdb/107783
-title: Screen Capture Gem for Ruby screen_capture.rb URL Handling Arbitrary Command
-  Execution
+url: https://github.com/jamster/screen_capture/blob/master/lib/screen_capture.rb
+title: Screen Capture Gem for Ruby screen_capture.rb
+  URL Handling Arbitrary Command Execution
 date: 2014-06-07
 description: |
   Screen Capture Gem for Ruby contains a flaw in screen_capture.rb that
-  is triggered when handling input passed via the URL. This may allow a context-dependent
-  attacker to execute arbitrary commands.
+  is triggered when handling input passed via the URL. This may allow
+  a context-dependent attacker to execute arbitrary commands.
+notes: "Never patched"
+related:
+  url:
+    - https://github.com/jamster/screen_capture/blob/master/lib/screen_capture.rb
+    - http://osvdb.org/show/osvdb/107783

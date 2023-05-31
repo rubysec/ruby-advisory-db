@@ -2,7 +2,7 @@
 gem: activerecord-jdbc-adapter
 platform: jruby
 osvdb: 114854
-url: http://osvdb.org/show/osvdb/114854
+url: https://github.com/jruby/activerecord-jdbc-adapter/issues/322
 title:
   ActiveRecord-JDBC-Adapter (AR-JDBC) lib/arjdbc/jdbc/adapter.rb sql.gsub()
   Function SQL Injection
@@ -15,6 +15,13 @@ description: |
   manipulate SQL queries in the back-end database, allowing for the
   manipulation or disclosure of arbitrary data.
 unaffected_versions:
-  - < 1.2.6
+  - "< 1.2.6"
 patched_versions:
-  - '>= 1.2.8'
+  - ">= 1.2.8"
+related:
+  url:
+    - https://github.com/jruby/activerecord-jdbc-adapter/issues/322
+    - https://github.com/jruby/activerecord-jdbc-adapter/blob/master/lib/arjdbc/jdbc/adapter.rb
+    - https://security.snyk.io/vuln/SNYK-RUBY-ACTIVERECORDJDBCADAPTER-20076
+    - https://my.diffend.io/gems/activerecord-jdbc-adapter/1.2.5/1.2.8
+    - http://osvdb.org/show/osvdb/114854

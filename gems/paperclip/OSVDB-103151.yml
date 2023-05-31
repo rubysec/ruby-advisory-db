@@ -1,8 +1,8 @@
 ---
 gem: paperclip
 osvdb: 103151
-url: http://osvdb.org/show/osvdb/103151
-title: Paperclip Gem for Ruby contains a flaw
+url: https://security.snyk.io/vuln/SNYK-RUBY-PAPERCLIP-20144
+title: "Paperclip: Access Restriction Bypass"
 date: 2014-01-31
 description: |
   Paperclip Gem for Ruby contains a flaw that is due to the application
@@ -10,4 +10,10 @@ description: |
   header during file uploads. This may allow a remote attacker to bypass restrictions
   on file types for uploaded files by spoofing the content-type.
 patched_versions:
-  - '>= 4.0.0'
+  - ">= 4.0.0"
+related:
+  url:
+    - https://thoughtbot.com/blog/prevent-spoofing-with-paperclip
+    - https://www.theregister.com/2014/02/09/content_type_spoofing_bug_in_ror_paperclip
+    - https://security.snyk.io/vuln/SNYK-RUBY-PAPERCLIP-20144
+    - http://osvdb.org/show/osvdb/103151

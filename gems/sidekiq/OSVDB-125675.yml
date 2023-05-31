@@ -1,10 +1,16 @@
 ---
 gem: sidekiq
 osvdb: 125675
-url: https://github.com/mperham/sidekiq/pull/2422
+url: https://seclists.org/oss-sec/2015/q3/267
 title: Sidekiq Gem for Ruby Multiple Unspecified CSRF
 date: 2015-07-06
 description: |
   Sidekiq::Web lacks CSRF protection
 patched_versions:
-  - '>= 3.4.2'
+  - ">= 3.4.2"
+related:
+  url:
+    - https://seclists.org/oss-sec/2015/q3/267
+    - https://github.com/mperham/sidekiq/pull/2422
+    - https://github.com/sidekiq/sidekiq/commit/cf3c43b2410c4573e05ac119494e41115f4140ad
+    - https://security.snyk.io/vuln/SNYK-RUBY-SIDEKIQ-20233

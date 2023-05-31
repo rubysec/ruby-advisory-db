@@ -12,4 +12,14 @@ description: |
   execute arbitrary script code in a user's browser session within the trust
   relationship between their browser and the server.
 patched_versions:
-  - '>= 3.2.3'
+  - ">= 3.2.3"
+related:
+  url:
+    - https://github.com/vmg/redcarpet/releases/tag/v3.2.3
+    - http://danlec.com/blog/bug-in-sundown-and-redcarpet
+    - https://hackerone.com/reports/46916
+    - https://github.com/vmg/redcarpet/blob/master/ext/redcarpet/markdown.c
+    - https://github.com/Homebrew/brew.sh/issues/75
+    - https://git.revreso.de/gigadoc2/diaspora/-/tags/v0.4.1.3
+    - https://www.rapid7.com/db/vulnerabilities/freebsd-vid-c368155a-fa83-11e4-bc58-001e67150279
+    - https://www.mend.io/vulnerability-database/WS-2015-0038

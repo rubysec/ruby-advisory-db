@@ -1,10 +1,16 @@
 ---
 gem: as
 osvdb: 112683
-url: http://osvdb.org/show/osvdb/112683
+url: https://security.snyk.io/vuln/SNYK-RUBY-AS-20195
 title: as Gem for Ruby Process List Local Plaintext Credentials Disclosure
 date: 2014-09-25
 description: |
   as Gem for Ruby contains a flaw that is due to the program displaying
   credential information in plaintext in the process list. This may
   allow a local attacker to gain access to credential information.
+notes: "Never patched"
+related:
+  url:
+    - https://security.snyk.io/vuln/SNYK-RUBY-AS-20195
+    - http://osvdb.org/show/osvdb/112683
+# FYI: rubygem.org Homepage is 404"

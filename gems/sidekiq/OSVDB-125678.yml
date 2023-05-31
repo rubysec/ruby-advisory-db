@@ -7,4 +7,9 @@ date: 2015-04-21
 description: |
   XSS via job arguments display class in Sidekiq::Web
 patched_versions:
-  - '>= 3.4.0'
+  - ">= 3.4.0"
+related:
+  url:
+    - https://seclists.org/oss-sec/2015/q3/267
+    - https://github.com/mperham/sidekiq/pull/2309
+    - https://github.com/sidekiq/sidekiq/commit/54766f336620ca0ce3b0b87a7a56382496e64b61

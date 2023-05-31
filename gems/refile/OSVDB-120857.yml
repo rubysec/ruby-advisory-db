@@ -1,7 +1,7 @@
 ---
 gem: refile
 osvdb: 120857
-url: https://groups.google.com/forum/#!topic/ruby-security-ann/VIfMO2LvzNs
+url: https://groups.google.com/g/ruby-security-ann/c/VIfMO2LvzNs
 title: refile Gem for Ruby contains a remote code execution vulnerability
 date: 2015-04-15
 description: |
@@ -10,6 +10,9 @@ description: |
   'image' is the name of the attachment. This may allow a remote attacker
   to execute arbitrary shell commands.
 unaffected_versions:
-  - < 0.5.0
+  - "< 0.5.0"
 patched_versions:
-  - '>= 0.5.4'
+  - ">= 0.5.4"
+related:
+  url:
+    - https://groups.google.com/g/ruby-security-ann/c/VIfMO2LvzNs

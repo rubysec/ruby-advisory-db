@@ -1,15 +1,21 @@
 ---
 gem: sidekiq
 osvdb: 125676
-url: https://github.com/mperham/sidekiq/issues/2330
+url: https://seclists.org/oss-sec/2015/q3/267
 title:
-  Sidekiq Gem for Ruby web/views/queue.erb CurrentMessagesInQueue Element
-  Reflected XSS
+  Sidekiq Gem for Ruby web/views/queue.erb Element Reflected XSS
 date: 2015-06-04
 description: |
-  XSS via queue name in Sidekiq::Web
+  Sidekiq Gem for Ruby web/views/queue.erb [CurrentMessagesInQueue,
+  AreYouSureDeleteQueue] Element Reflected XSS
 patched_versions:
-  - '>= 3.4.0'
+  - ">= 3.4.0"
 related:
   osvdb:
     - 125677
+  url:
+    - https://seclists.org/oss-sec/2015/q3/267
+    - https://github.com/mperham/sidekiq/issues/2330
+    - https://github.com/sidekiq/sidekiq/commit/2178d66b6686fbf4430223c34c184a64c9906828
+    - https://github.com/rubysec/ruby-advisory-db/pull/196
+    - https://github.com/rubysec/ruby-advisory-db/commit/19a8fc075a6cc0702f978219c88d97c666fecdbd

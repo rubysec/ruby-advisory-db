@@ -1,7 +1,7 @@
 ---
 engine: jruby
 osvdb: 94644
-url: http://www.osvdb.org/show/osvdb/94644
+url: https://www.jruby.org/2011/05/24/jruby-1-6-2.html
 title: JRuby Null Byte Request Arbitrary File Access
 date: 2010-05-26
 description: |
@@ -9,4 +9,8 @@ description: |
   for null byte requests in certain file operations. This may allow a remote
   attacker to gain access to arbitrary files. No further details are available.
 patched_versions:
-  - '>= 1.6.2'
+  - ">= 1.6.2"
+related:
+  url:
+    - https://www.jruby.org/2011/05/24/jruby-1-6-2.html
+    - http://www.osvdb.org/show/osvdb/94644

@@ -1,15 +1,21 @@
 ---
 gem: fog-dragonfly
 osvdb: 110439
-url: http://osvdb.org/show/osvdb/110439
+url: https://github.com/markevans/dragonfly/compare/v0.8.3...v0.8.4
 title: Dragonfly Gem for Ruby Image Uploading & Processing Remote Command Execution
-date: 2014-08-25
+date: 2010-04-27
 description: |
-  Dragonfly Gem for Ruby contains a flaw in Uploading & Processing that is due
-  to the gem failing to restrict arbitrary commands to imagemagicks convert.
-  This may allow a remote attacker to gain read/write access to the filesystem
-  and execute arbitrary commands.
+  Dragonfly Gem for Ruby contains a flaw in Uploading & Processing
+  that is due to the gem failing to restrict arbitrary commands to
+  imagemagicks convert. This may allow a remote attacker to gain
+  read/write access to the filesystem and execute arbitrary commands.
 
   This gem has been renamed. Please use "dragonfly" from now on.
 patched_versions:
-  - '>= 0.8.4'
+  - ">= 0.8.4"
+related:
+  url:
+    - https://github.com/markevans/dragonfly/compare/v0.8.3...v0.8.4
+    - https://security.snyk.io/vuln/SNYK-RUBY-DRAGONFLY-20193
+    - https://www.mend.io/vulnerability-database/WS-2014-0016
+    - http://osvdb.org/show/osvdb/110439

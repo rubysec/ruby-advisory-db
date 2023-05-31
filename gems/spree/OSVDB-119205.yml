@@ -1,18 +1,26 @@
 ---
 gem: spree
 osvdb: 119205
-url: https://spreecommerce.com/blog/security-updates-2015-3-3
+url: https://web.archive.org/web/20150920092934/https://spreecommerce.com/blog/security-updates-2015-3-3
 title: Spree API Information Disclosure CSRF
 date: 2015-03-05
 description: |
-  Spree contains a flaw in the API as HTTP requests do not require multiple
-  steps, explicit confirmation, or a unique token when performing certain
-  sensitive actions. By tricking a user into following a specially crafted
-  link, a context-dependent attacker can perform a Cross-Site Request Forgery
-  (CSRF / XSRF) attack causing the victim to disclose potentially sensitive
-  information to attackers.
+  Spree contains a flaw in the API as HTTP requests do not require
+  multiple steps, explicit confirmation, or a unique token when
+  performing certain sensitive actions. By tricking a user into
+  following a specially crafted link, a context-dependent attacker
+  can perform a Cross-Site Request Forgery (CSRF / XSRF) attack
+  causing the victim to disclose potentially sensitive information
+  to attackers.
 patched_versions:
-  - ~> 2.2.10
-  - ~> 2.3.8
-  - ~> 2.4.5
-  - '>= 3.0.0.rc4'
+  - "~> 2.2.10"
+  - "~> 2.3.8"
+  - "~> 2.4.5"
+  - ">= 3.0.0.rc4"
+related:
+  url:
+    - https://web.archive.org/web/20150920092934/https://spreecommerce.com/blog/security-updates-2015-3-3
+    - https://seclists.org/oss-sec/2015/q3/275
+    - https://github.com/spree/spree/commit/bfb5f907219d6f8f879ca940882befe89b58a1a4
+    - https://security.snyk.io/vuln/SNYK-RUBY-SPREE-20360
+    - https://github.com/rubysec/bundler-audit/issues/106

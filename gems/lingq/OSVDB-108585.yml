@@ -1,9 +1,16 @@
 ---
 gem: lingq
 osvdb: 108585
-url: http://osvdb.org/show/osvdb/108585
-title: lingq Gem for Ruby client.rb Metacharacter Handling Remote Command Execution
+url: https://www.versioneye.com/Ruby/lingq/0.3.1
+title: lingq Gem for Ruby client.rb Metacharacter
+  Handling Remote Command Execution
 date: 2014-06-30
 description: |
-  lingq Gem for Ruby contains a flaw in client.rb that is triggered when
-  handling metacharacters. This may allow a remote attacker to execute arbitrary commands.
+  lingq Gem for Ruby contains a flaw in client.rb that is triggered
+  when handling metacharacters. This may allow a remote attacker
+  to execute arbitrary commands.
+notes: "Never patched"
+related:
+  url:
+    - https://www.versioneye.com/Ruby/lingq/0.3.1
+    - http://osvdb.org/show/osvdb/108585

@@ -7,14 +7,24 @@ title: bcrypt-ruby Gem for Ruby incorrect encoding of non US-ASCII characters (J
   only)
 date: 2010-02-01
 description: |
+  In https://security.snyk.io/vuln/SNYK-RUBY-BCRYPT-20009, found
+  "The advisory has been revoked - it doesn't affect any version of package bcrypt"
+
   bcrypt-ruby Gem for Ruby suffered from a bug related to character
   encoding that substantially reduced the entropy of hashed passwords
   containing non US-ASCII characters. An incorrect encoding step
-  transparently replaced such characters by '?' prior to hashing. In the
-  worst case of a password consisting solely of non-US-ASCII characters,
-  this would cause its hash to be equivalent to all other such passwords
-  of the same length. This issue only affects the JRuby implementation.
+  transparently replaced such characters by '?' prior to hashing.
+  In the worst case of a password consisting solely of non-US-ASCII
+  characters, this would cause its hash to be equivalent to all other
+  such passwords of the same length.
+
+  This issue only affects the JRuby implementation.
 
   This gem has been renamed. Please use "bcrypt" from now on.
 patched_versions:
-  - '>= 2.1.4'
+  - ">= 2.1.4"
+related:
+  url:
+    - https://github.com/jeremyh/jBCrypt
+    - http://www.mindrot.org/files/jBCrypt/internat.adv
+    - https://github.com/bcrypt-ruby/bcrypt-ruby/blob/master/ext/jruby/bcrypt_jruby/BCrypt.java

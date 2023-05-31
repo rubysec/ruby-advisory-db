@@ -1,12 +1,20 @@
 ---
 gem: auto_select2
 osvdb: 132800
-url: https://github.com/Loriowar/auto_select2/issues/4
+url: https://www.openwall.com/lists/oss-security/2016/01/11/2
 title: auto_select2 Gem for Ruby allows arbitrary search execution
 date: 2016-01-08
 description: |
-  auto_select2 Gem for Ruby contains a flaw that is triggered when handling the
-  'params[:default_class_name]' option. This allows users to search any object
-  of all given ActiveRecord classes.
+  auto_select2 Gem for Ruby contains a flaw that is triggered
+  when handling the 'params[:default_class_name]' option. This
+  allows users to search any object of all given ActiveRecord classes.
 patched_versions:
-  - '>= 0.5.0'
+  - ">= 0.5.0"
+related:
+  url:
+    - https://www.openwall.com/lists/oss-security/2016/01/11/2
+    - https://github.com/Loriowar/auto_select2/issues/4
+    - https://github.com/bkocherov/auto_select2/commit/c283ba5b2ad828c3b7414565ae66cd0d86f5a5df
+    - https://github.com/rubysec/ruby-advisory-db/issues/224
+    - https://github.com/rubysec/ruby-advisory-db/pull/227
+    - https://github.com/Tab10id/auto_awesomplete/issues/2

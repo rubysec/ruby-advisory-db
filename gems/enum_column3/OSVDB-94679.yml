@@ -1,10 +1,15 @@
 ---
 gem: enum_column3
 osvdb: 94679
-url: http://osvdb.org/show/osvdb/94679
+url: https://security.snyk.io/vuln/SNYK-RUBY-ENUMCOLUMN3-20100
 title: enum_column3 Gem for Ruby Symbol Creation Remote DoS
 date: 2013-06-26
 description: |
   The enum_column3 Gem for Ruby contains a flaw that may allow a remote
-  denial of service. The issue is due to the program typecasting unexpected strings
-  to symbols. This may allow a remote attacker to crash the program.
+  denial of service. The issue is due to the program typecasting unexpected
+  strings to symbols. This may allow a remote attacker to crash the program.
+related:
+  url:
+    - https://security.snyk.io/vuln/SNYK-RUBY-ENUMCOLUMN3-20100
+    - http://osvdb.org/show/osvdb/94679
+notes: "Never patched"
