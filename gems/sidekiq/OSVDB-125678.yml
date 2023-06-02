@@ -1,7 +1,7 @@
 ---
 gem: sidekiq
 osvdb: 125678
-url: https://github.com/mperham/sidekiq/pull/2309
+url: https://seclists.org/oss-sec/2015/q3/267
 title: Sidekiq Gem for Ruby web/views/queue.erb msg.display_class Element XSS
 date: 2015-04-21
 description: |
