@@ -1,7 +1,7 @@
 ---
 gem: dragonfly
 osvdb: 97854
-url: https://github.com/markevans/dragonfly/blob/master/spec/dragonfly/shell_spec.rb#L26
+url: https://security.snyk.io/vuln/SNYK-RUBY-DRAGONFLY-20016
 title: Dragonfly Gem for Ruby on Windows Shell Escaping Weakness
 date: 2011-09-01
 description: |

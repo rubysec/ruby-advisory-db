@@ -1,7 +1,7 @@
 ---
 gem: loofah
 osvdb: 90945
-url: https://github.com/flavorjones/loofah/compare/v0.4.5...v0.4.6
+url: https://security.snyk.io/vuln/SNYK-RUBY-LOOFAH-20039
 title: Loofah HTML and XSS injection vulnerability
 date: 2012-09-08
 description: |
@@ -19,7 +19,7 @@ patched_versions:
 related:
   url:
     - https://github.com/flavorjones/loofah/compare/v0.4.5...v0.4.6
+    - https://security.snyk.io/vuln/SNYK-RUBY-LOOFAH-20039
     - https://www.versioneye.com/Ruby/loofah/0.4.2
     - https://www.mend.io/vulnerability-database/WS-2012-0023
-    - https://security.snyk.io/vuln/SNYK-RUBY-LOOFAH-20039
     - http://www.osvdb.org/show/osvdb/90945

@@ -1,7 +1,7 @@
 ---
 gem: fog-dragonfly
 osvdb: 110439
-url: https://github.com/markevans/dragonfly/compare/v0.8.3...v0.8.4
+url: https://security.snyk.io/vuln/SNYK-RUBY-DRAGONFLY-20193
 title: Dragonfly Gem for Ruby Image Uploading & Processing Remote Command Execution
 date: 2010-04-27
 description: |

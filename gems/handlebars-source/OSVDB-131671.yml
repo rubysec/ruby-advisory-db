@@ -1,7 +1,7 @@
 ---
 gem: handlebars-source
 osvdb: 131671
-url: https://github.com/handlebars-lang/handlebars.js/compare/v3.0.8...v4.0.0
+url: https://security.snyk.io/vuln/SNYK-RUBY-HANDLEBARSSOURCE-20238
 title: handlebars.js - quoteless attributes in templates can lead to XSS
 date: 2015-08-24
 description: |
@@ -20,6 +20,7 @@ related:
     - 9prh-257w-9277
   url:
     - https://github.com/handlebars-lang/handlebars.js
+    - https://github.com/handlebars-lang/handlebars.js/compare/v3.0.8...v4.0.0
     - https://security.snyk.io/vuln/SNYK-RUBY-HANDLEBARSSOURCE-20238
     - https://github.com/rubysec/bundler-audit/issues/185
     - https://www.veracode.com/blog/research/handlebarsjs-vulnerability-impact-study

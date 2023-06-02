@@ -2,7 +2,7 @@
 gem: jruby-sandbox
 platform: jruby
 osvdb: 106279
-url: https://www.exploit-db.com/exploits/33028
+url: https://security.snyk.io/vuln/SNYK-RUBY-JRUBYSANDBOX-20156
 title: jruby-sandbox Java Class Importation Sandbox Bypass
 date: 2014-04-24
 description: |

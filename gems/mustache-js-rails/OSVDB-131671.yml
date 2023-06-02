@@ -1,7 +1,7 @@
 ---
 gem: mustache-js-rails
 osvdb: 131671
-url: https://github.com/janl/mustache.js/pull/530
+url: https://security.snyk.io/vuln/SNYK-RUBY-MUSTACHEJSRAILS-20242
 title: mustache.js - quoteless attributes in templates can lead to XSS
 date: 2015-11-17
 description: |

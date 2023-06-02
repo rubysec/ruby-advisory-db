@@ -1,7 +1,7 @@
 ---
 gem: flavour_saver
 osvdb: 110796
-url: https://github.com/FlavourSaver/FlavourSaver/compare/v0.3.2...v0.3.3
+url: https://security.snyk.io/vuln/SNYK-RUBY-FLAVOURSAVER-5457859
 title: FlavourSaver handlebars helper remote code execution.
 date: 2014-09-04
 description: |
