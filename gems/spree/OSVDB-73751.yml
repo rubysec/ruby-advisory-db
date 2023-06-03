@@ -1,11 +1,16 @@
 ---
 gem: spree
 osvdb: 73751
-url: https://spreecommerce.com/blog/security-fixes
+url: https://web.archive.org/web/20160331142302/https://spreecommerce.com/blog/security-fixes
 title: Spree Content Controller Unspecified Arbitrary File Disclosure
 date: 2011-04-19
 description: |
   Spree Gem for Ruby would allow a user to request a specially crafted URL and
   expose arbitrary files on the server
 patched_versions:
-  - '>= 0.50.1'
+  - ">= 0.50.1"
+related:
+  url:
+    - https://web.archive.org/web/20160331142302/https://spreecommerce.com/blog/security-fixes
+    - https://seclists.org/oss-sec/2015/q3/275
+    - https://github.com/spree/spree/commit/0a2ee5fc68b22b8257e8a6cf1811598293416d33

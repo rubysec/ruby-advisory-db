@@ -11,5 +11,12 @@ description: |
   If an attacker has knowledge of said token, a specially crafted request can
   be made to it, allowing the attacker to conduct CSRF attacks.
 patched_versions:
-  - ~> 2.2.5
-  - '>= 3.0.1'
+  - "~> 2.2.5"
+  - ">= 3.0.1"
+related:
+  url:
+    - http://blog.plataformatec.com.br/2013/08/csrf-token-fixation-attacks-in-devise
+    - https://github.com/heartcombo/devise/commit/747751a20f50aa8814dcd3eb9a3648f00ab6a707
+    - https://github.com/heartcombo/devise/compare/v3.0.0...v3.0.1
+    - https://my.diffend.io/gems/devise/3.0.0/3.0.1
+    - https://security.snyk.io/vuln/SNYK-RUBY-DEVISE-20103

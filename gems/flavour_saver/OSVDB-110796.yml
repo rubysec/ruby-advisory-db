@@ -1,7 +1,7 @@
 ---
 gem: flavour_saver
 osvdb: 110796
-url: http://osvdb.org/show/osvdb/110796
+url: https://security.snyk.io/vuln/SNYK-RUBY-FLAVOURSAVER-5457859
 title: FlavourSaver handlebars helper remote code execution.
 date: 2014-09-04
 description: |
@@ -10,4 +10,12 @@ description: |
   within the template context first.  This allows expressions such as
   {{system "ls"}} or {{eval "puts 1 + 1"}} to be executed.
 patched_versions:
-  - '>= 0.3.3'
+  - ">= 0.3.3"
+related:
+  url:
+    - https://github.com/FlavourSaver/FlavourSaver/compare/v0.3.2...v0.3.3
+    - https://github.com/FlavourSaver/FlavourSaver/commit/04a8ff444a9a9668a75b01b20b4974d398087a64
+    - https://raw.githubusercontent.com/codesake/codesake-dawn/master/Roadmap.md
+    - https://github.com/slowmistio/dawnscanner-analysis-security-scanner-for-ruby-/blob/master/Roadmap.md
+    - https://security.snyk.io/vuln/SNYK-RUBY-FLAVOURSAVER-5457859
+    - http://osvdb.org/show/osvdb/110796

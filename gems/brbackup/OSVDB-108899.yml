@@ -1,7 +1,7 @@
 ---
 gem: brbackup
 osvdb: 108899
-url: http://osvdb.org/show/osvdb/108899
+url: https://www.openwall.com/lists/oss-security/2014/07/10/6
 title: brbackup Gem for Ruby /lib/brbackup.rb name Parameter SQL Injection
 date: 2014-07-09
 description: |
@@ -10,3 +10,10 @@ description: |
   properly sanitizing user-supplied input to the 'name' parameter. This may
   allow a remote attacker to inject or manipulate SQL queries in the back-end
   database, allowing for the manipulation or disclosure of arbitrary data.
+notes: "Never patched"
+related:
+  url:
+    - https://www.openwall.com/lists/oss-security/2014/07/10/6
+    - https://raw.githubusercontent.com/codesake/codesake-dawn/master/Roadmap.md
+    - https://github.com/tongueroo/brbackup/blob/master/lib/brbackup.rb
+    - http://osvdb.org/show/osvdb/108899

@@ -1,7 +1,7 @@
 ---
 gem: spree
 osvdb: 76011
-url: https://spreecommerce.com/blog/remote-command-product-group
+url: https://web.archive.org/web/20121124215359/https://spreecommerce.com/blog/remote-command-product-group
 title:
   Spree Search ProductScope Class search[send][] Parameter Arbitrary Command
   Execution
@@ -12,4 +12,7 @@ description: |
   specially crafted request, a remote attacker can potentially cause arbitrary
   command execution.
 patched_versions:
-  - '>= 0.60.2'
+  - ">= 0.60.2"
+related:
+  url:
+    - https://web.archive.org/web/20121124215359/https://spreecommerce.com/blog/remote-command-product-group

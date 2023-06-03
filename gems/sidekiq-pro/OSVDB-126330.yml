@@ -1,10 +1,14 @@
 ---
 gem: sidekiq-pro
 osvdb: 126330
-url: https://github.com/mperham/sidekiq/commit/99b12fb50fe244c5a317f03f1bed9b333ec56ebe
+url: https://security.snyk.io/vuln/SNYK-RUBY-SIDEKIQPRO-20197
 title: Sidekiq Pro Gem for Ruby web/views/batch{,es}.erb Description Element XSS
 date: 2014-10-13
 description: |
   XSS via batch description in Sidekiq::Web
 patched_versions:
-  - '>= 1.9.1'
+  - ">= 1.9.1"
+related:
+  url:
+    - https://github.com/mperham/sidekiq/commit/99b12fb50fe244c5a317f03f1bed9b333ec56ebe
+    - https://security.snyk.io/vuln/SNYK-RUBY-SIDEKIQPRO-20197

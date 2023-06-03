@@ -1,7 +1,7 @@
 ---
 gem: json
 osvdb: 101157
-url: http://osvdb.org/show/osvdb/101157
+url: https://security.snyk.io/vuln/SNYK-RUBY-JSON-20000
 title: json Gem for Ruby Data Handling Stack Buffer Overflow
 date: 2007-05-21
 description: |
@@ -11,4 +11,8 @@ description: |
   overflow, resulting in a denial of service or potentially allowing the
   execution of arbitrary code.
 patched_versions:
-  - '>= 1.1.0'
+  - ">= 1.1.0"
+related:
+  url:
+    - https://security.snyk.io/vuln/SNYK-RUBY-JSON-20000
+    - http://osvdb.org/show/osvdb/101157

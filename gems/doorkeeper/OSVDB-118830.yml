@@ -1,7 +1,7 @@
 ---
 gem: doorkeeper
 osvdb: 118830
-url: http://www.osvdb.org/show/osvdb/118830
+url: https://www.versioneye.com/Ruby/doorkeeper/2.1.1
 title: Doorkeeper Gem for Ruby stores sensitive information in production logs
 date: 2015-02-10
 description: |
@@ -10,5 +10,17 @@ description: |
   production logs. This may allow a local attacker to gain access to
   sensitive information.
 patched_versions:
-  - ~> 1.4.2
-  - '>= 2.1.2'
+  - "~> 1.4.2"
+  - ">= 2.1.2"
+related:
+  url:
+    - https://www.versioneye.com/Ruby/doorkeeper/2.1.1
+    - https://github.com/doorkeeper-gem/doorkeeper/commit/d6bca5f32b741b8cee83a4aeb818338b919181fe
+    - https://github.com/doorkeeper-gem/doorkeeper/blob/main/lib/doorkeeper/engine.rb
+    - https://github.com/doorkeeper-gem/doorkeeper/issues/576
+    - https://github.com/rubysec/ruby-advisory-db/pull/128
+    - https://my.diffend.io/gems/doorkeeper/versions/0.3.0
+    - https://security.snyk.io/vuln/SNYK-RUBY-DOORKEEPER-20206
+    - https://www.mend.io/vulnerability-database/WS-2015-0039
+    - http://www.osvdb.org/show/osvdb/118830
+notes: "Issue #576 backported to 1.4.x on March 2, 2015."

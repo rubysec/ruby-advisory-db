@@ -1,12 +1,21 @@
 ---
 gem: ruby-saml
 osvdb: 117903
-url: http://www.osvdb.org/show/osvdb/117903
+url: https://advisories.dxw.com/advisories/publicly-exploitable-command-injection-in-ruby-saml-0-7-2-library-can-root-the-host
 title: Ruby-Saml Gem is vulnerable to arbitrary code execution
 date: 2015-02-03
 description: |
-  ruby-saml contains a flaw that is triggered as the URI value of a SAML response is
-  not properly sanitized through a prepared statement. This may allow a remote
-  attacker to execute arbitrary shell commands on the host machine.
+  ruby-saml contains a flaw that is triggered as the URI value of a
+  SAML response is not properly sanitized through a prepared statement.
+  This may allow a remote attacker to execute arbitrary shell commands
+  on the host machine.
 patched_versions:
-  - '>= 0.8.2'
+  - ">= 0.8.2"
+related:
+  url:
+    - https://advisories.dxw.com/advisories/publicly-exploitable-command-injection-in-ruby-saml-0-7-2-library-can-root-the-host
+    - https://seclists.org/oss-sec/2015/q3/282
+    - https://github.com/SAML-Toolkits/ruby-saml/pull/225#issuecomment-120084288
+    - https://github.com/SAML-Toolkits/ruby-saml/commit/1b4e3dd6d2d44efa629144b2180842456bfb2a0f#diff-661b9d9743a3ff77661f224c6191165cL242
+    - https://www.mend.io/vulnerability-database/WS-2015-0040
+    - http://www.osvdb.org/show/osvdb/117903

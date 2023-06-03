@@ -1,11 +1,17 @@
 ---
 gem: kcapifony
 osvdb: 108572
-url: http://osvdb.org/show/osvdb/108572
-title: kcapifony Gem for Ruby /lib/ksymfony1.rb Metacharacter Handling Remote Command
-  Execution
+url: https://www.mend.io/vulnerability-database/WS-2014-0019
+title: kcapifony Gem for Ruby /lib/ksymfony1.rb Metacharacter
+  Handling Remote Command Execution
 date: 2014-06-30
 description: |
-  kcapifony Gem for Ruby contains a flaw in /lib/ksymfony1.rb that is triggered
-  when handling metacharacters. This may allow a remote attacker to execute arbitrary
-  commands.
+  kcapifony Gem for Ruby contains a flaw in /lib/ksymfony1.rb that
+  is triggered when handling metacharacters. This may allow a remote
+  attacker to execute arbitrary commands.
+notes: "Never patched"
+related:
+  url:
+    - https://www.mend.io/vulnerability-database/WS-2014-0019
+    - https://github.com/Kunstmaan/kCapifony/blob/master/lib/ksymfony1.rb
+    - http://osvdb.org/show/osvdb/108572
