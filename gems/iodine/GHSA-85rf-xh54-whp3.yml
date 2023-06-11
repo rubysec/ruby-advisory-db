@@ -18,4 +18,4 @@ description: |
   containing data from files that shouldn't be normally accessible from the
   public folder.
 patched_versions:
-  - '>= 0.7.34'
+  - ">= 0.7.34"

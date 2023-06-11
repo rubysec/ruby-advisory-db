@@ -23,9 +23,9 @@ description: |
   Patches
     This has been fixed in v3.3.1. HTML is now sanitised in search results.
 unaffected_versions:
-  - '< 2.0.2'
+  - "< 2.0.2"
 patched_versions:
-  - '>= 3.3.1'
+  - ">= 3.3.1"
 related:
   url:
     - https://github.com/alphagov/tech-docs-gem/security/advisories/GHSA-x2xw-hw8g-6773

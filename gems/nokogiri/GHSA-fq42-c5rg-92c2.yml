@@ -74,7 +74,7 @@ description: |
   upgraded immediately.
 cvss_v3: 8.8
 patched_versions:
-  - '>= 1.13.2'
+  - ">= 1.13.2"
 related:
   cve:
     - 2022-23308

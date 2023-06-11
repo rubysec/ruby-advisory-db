@@ -24,9 +24,9 @@ description: |
     - RELEASE: https://github.com/collectiveidea/audited/pull/671
 cvss_v3: 3.1
 unaffected_versions:
-  - '< 4.0.0'
+  - "< 4.0.0"
 patched_versions:
-  - '>= 5.3.3'
+  - ">= 5.3.3"
 related:
   url:
     - https://github.com/collectiveidea/audited/security/advisories/GHSA-hjp3-5g2q-7jww

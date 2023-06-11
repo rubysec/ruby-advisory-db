@@ -10,4 +10,4 @@ description: |
   requests to access arbitrary files on the machine of a yard server host under certain
   conditions.
 patched_versions:
-  - '>= 0.9.20'
+  - ">= 0.9.20"
