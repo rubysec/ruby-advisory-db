@@ -1,0 +1,38 @@
+---
+gem: activemodel
+framework: rails
+osvdb: 118954
+url: http://osvdb.org/show/osvdb/118954
+title: Ruby on Rails ActiveModel::Name to_json Call Infinite Loop Remote DoS
+date: 2015-02-24
+description: |
+  Ruby on Rails contains a flaw that is triggered when handling
+  a to_json call to ActiveModel::Name, which can cause an infinite
+  loop. This may allow a remote attacker to cause a denial of service.
+patched_versions:
+  - "~> 5.0.0.beta1"
+  - ">= 5.0.0"
+related:
+  url:
+    - http://osvdb.org/show/osvdb/118954
+    - https://github.com/rails/rails/pull/19055/commits/c5d62cb86d958aaa68a4057b3c2578329044e674
+    - https://github.com/rails/rails/pull/19055
+    - https://github.com/rails/rails/issues/19050
+    - https://github.com/attr-encrypted/encryptor/pull/22
+    - https://seclists.org/oss-sec/2015/q1/791
+    - https://seclists.org/oss-sec/2015/q1/770
+    - https://cxsecurity.com/issue/WLB-2015030039
+    - https://www.openwall.com/lists/oss-security/2015/03/06/7
+    - https://github.com/thesp0nge/dawnscanner/blob/main/Changelog.md
+    - https://github.com/thesp0nge/dawnscanner/issues/129
+    - https://github.com/thesp0nge/dawnscanner/commit/d037702bf688c67009aa783d79e9f41c8e37a998
+    - https://ianks.com/personal/
+    - https://github.com/rubysec/ruby-advisory-db/issues/130
+notes: |
+  - No CVE/GSHA ID.
+  - No cvss_v2 or cvss_v2.
+  - No CWE.
+  - Date used was from commit #19055.
+  - Commit #19055 first appears in 5.0.0.beta1.
+  - URL #791 says it is "bug but not a vulnerability.
+    The bug has been fixed" on 2/24/2015.
