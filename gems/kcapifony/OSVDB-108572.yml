@@ -14,4 +14,6 @@ related:
   url:
     - https://www.mend.io/vulnerability-database/WS-2014-0019
     - https://github.com/Kunstmaan/kCapifony/blob/master/lib/ksymfony1.rb
+    - http://www.vapid.dhs.org/advisories/kcapifony-2.1.6.html
+    - http://www.vapidlabs.com/advisory.php?v=65
     - http://osvdb.org/show/osvdb/108572
