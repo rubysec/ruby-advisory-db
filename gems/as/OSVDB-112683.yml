@@ -12,5 +12,7 @@ notes: "Never patched"
 related:
   url:
     - https://security.snyk.io/vuln/SNYK-RUBY-AS-20195
+    - http://www.vapid.dhs.org/advisories/as-v1.0.html
+    - http://www.vapidlabs.com/advisory.php?v=17
     - http://osvdb.org/show/osvdb/112683
 # FYI: rubygem.org Homepage is 404"

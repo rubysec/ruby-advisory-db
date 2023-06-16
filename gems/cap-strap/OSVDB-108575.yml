@@ -13,4 +13,6 @@ related:
   url:
     - https://www.openwall.com/lists/oss-security/2014/07/07/9
     - https://github.com/substantial/cap-strap
+    - http://www.vapid.dhs.org/advisories/cap-strap-0.1.5.html
+    - http://www.vapidlabs.com/advisory.php?v=27
     - http://osvdb.org/show/osvdb/108575

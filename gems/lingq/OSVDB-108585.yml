@@ -13,4 +13,6 @@ notes: "Never patched"
 related:
   url:
     - https://www.versioneye.com/Ruby/lingq/0.3.1
+    - http://www.vapid.dhs.org/advisories/lingq-0.3.1.html
+    - http://www.vapidlabs.com/advisory.php?v=71
     - http://osvdb.org/show/osvdb/108585
