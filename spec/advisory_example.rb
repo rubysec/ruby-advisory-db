@@ -94,6 +94,7 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['url'] }
 
       it { expect(subject).to be_kind_of(String) }
+      it { expect(subject).not_to include("osvdb") }
       it { expect(subject).not_to be_empty }
     end
 
