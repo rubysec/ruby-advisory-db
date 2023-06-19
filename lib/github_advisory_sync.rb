@@ -373,7 +373,7 @@ module GitHub
         # The second block of yaml in a .yaml file is ignored (after the second "---" line)
         # This effectively makes this data a large comment
         # Still it should be removed before the data goes into rubysec
-        file.write "\n\n# GitHub advisory data below - **Remove this data before committing**\n"
+        file.write "# GitHub advisory data below - **Remove this data before committing**\n"
         file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
         file.write advisory.merge("vulnerabilities" => vulnerabilities).to_yaml
       end
