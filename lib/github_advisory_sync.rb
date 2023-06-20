@@ -338,6 +338,31 @@ module GitHub
       package.filename
     end
 
+    def first_patched_versions_for(package)
+      first_patched_versions = []
+
+      vulnerabilities.each do |v|
+        if v['package']['name'] == package.name
+          first_patched_versions << v['firstPatchedVersion']['identifier']
+        end
+      end
+
+      first_patched_versions.sort
+    end
+
+    def patched_versions_for(package)
+      first_patched_versions = first_patched_versions_for(package)
+      patched_versions       = []
+
+      first_patched_versions[0..-2].each do |version|
+        patched_versions << "~> #{version}"
+      end
+
+      patched_versions << ">= #{first_patched_versions.last}"
+
+      return patched_versions
+    end
+
     def create(package)
       filename_to_write = package.filename
 
@@ -351,7 +376,7 @@ module GitHub
       File.open(filename_to_write, "w") do |file|
         # create an automatically generated advisory yaml file
         file.write new_data.merge(
-          "patched_versions" => ['FIX ME'],
+          "patched_versions" => patched_versions_for(package)
           "related" => {
             "url"  => advisory["references"]
           }
