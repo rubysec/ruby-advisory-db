@@ -376,7 +376,7 @@ module GitHub
       File.open(filename_to_write, "w") do |file|
         # create an automatically generated advisory yaml file
         file.write new_data.merge(
-          "patched_versions" => patched_versions_for(package)
+          "patched_versions" => patched_versions_for(package),
           "related" => {
             "url"  => advisory["references"]
           }
