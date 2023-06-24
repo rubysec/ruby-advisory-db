@@ -201,11 +201,10 @@ module GitHub
 
       def framework
         case name
-        when %w[
-          actioncable actionmailbox actionmailer actionpack actiontext
-          actionview activejob activemodel activerecord activestorage
-          activesupport railties
-        ]
+        when
+          "actioncable",  "actionmailbox", "actionmailer",  "actionpack",
+          "actiontext",   "actionview",    "activejob",     "activemodel",
+          "activerecord", "activestorage", "activesupport", "railties"
           "rails"
         end
       end
