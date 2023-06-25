@@ -230,7 +230,7 @@ module GitHub
 
       KEYS = %w[
         gem library framework platform cve osvdb ghsa url title date description
-        cvss_v2 cvss_v3 unaffected_versions patched_versions related notes
+        cvss_v2 cvss_v3 cvss_v4 unaffected_versions patched_versions related notes
       ].freeze
     end
 
@@ -367,6 +367,7 @@ module GitHub
 
       new_data = package.merge_data(
         "cvss_v3"             => ("<FILL IN IF AVAILABLE>" unless cvss),
+        "cvss_v4"             => "<FILL IN IF AVAILABLE>",
         "patched_versions"    => ["<FILL IN SEE BELOW>"],
         "unaffected_versions" => ["<OPTIONAL: FILL IN SEE BELOW>"]
       )

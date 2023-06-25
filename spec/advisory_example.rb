@@ -154,6 +154,13 @@ shared_examples_for 'Advisory' do |path|
         expect(subject).to be_kind_of(Float).or(be_nil)
       end
 
+      case advisory['cvss_v4']
+      when Float
+        context "when a Float" do
+          it { expect(subject).to be_between(0.0, 10.0) }
+        end
+      end
+
       case advisory['cvss_v3']
       when Float
         context "when a Float" do
