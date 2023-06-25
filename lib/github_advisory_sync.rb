@@ -368,7 +368,6 @@ module GitHub
       new_data = package.merge_data(
         "cvss_v3"             => ("<FILL IN IF AVAILABLE>" unless cvss),
         "cvss_v4"             => "<FILL IN IF AVAILABLE>",
-        "patched_versions"    => ["<FILL IN SEE BELOW>"],
         "unaffected_versions" => ["<OPTIONAL: FILL IN SEE BELOW>"]
       )
 
