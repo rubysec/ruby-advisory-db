@@ -16,6 +16,7 @@ desc "Sync GitHub RubyGem Advisories into this project"
 task :sync_github_advisories, [:gem_name] do |_, args|
   require_relative "lib/github_advisory_sync"
   GitHub::GitHubAdvisorySync.sync(gem_name: args[:gem_name])
+  system('./lib/rmdups')
 end
 
 task :lint    => ['lint:yaml']
