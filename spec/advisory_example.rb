@@ -154,13 +154,6 @@ shared_examples_for 'Advisory' do |path|
         expect(subject).to be_kind_of(Float).or(be_nil)
       end
 
-      case advisory['cvss_v4']
-      when Float
-        context "when a Float" do
-          it { expect(subject).to be_between(0.0, 10.0) }
-        end
-      end
-
       case advisory['cvss_v3']
       when Float
         context "when a Float" do
@@ -171,6 +164,21 @@ shared_examples_for 'Advisory' do |path|
       if advisory['cvss_v2']
         it "should also provide a cvss_v2 score" do
           expect(advisory['cvss_v2']).to_not be_nil
+        end
+      end
+    end
+
+    describe "cvss_v4" do
+      subject { advisory['cvss_v4'] }
+
+      it "may be nil or a Float" do
+        expect(subject).to be_kind_of(Float).or(be_nil)
+      end
+
+      case advisory['cvss_v4']
+      when Float
+        context "when a Float" do
+          it { expect(subject).to be_between(0.0, 10.0) }
         end
       end
     end
