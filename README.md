@@ -158,10 +158,9 @@ patched_versions:
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
 
-[CVSSv2.0]: https://www.first.org/cvss/v2/guide
-[CVSSv3.0]: https://www.first.org/cvss/v3.0/user-guide
-[CVSSv3.1]: https://www.first.org/cvss/v3.1/user-guide
-[CVSSv4.0]: https://www.first.org/cvss/v4.0/user-guide
+[CVSSv2]: https://www.first.org/cvss/v2/guide
+[CVSSv3]: https://www.first.org/cvss/v3.1/user-guide
+[CVSSv4]: https://www.first.org/cvss/v4.0/user-guide
 
 ### Tests
 
@@ -220,9 +219,8 @@ developed by the Open Security Foundation (OSF) and its contributors.
 [CVE]: https://cve.mitre.org/
 [OSVDB]: https://en.wikipedia.org/wiki/Open_Source_Vulnerability_Database
 [GHSA]: https://help.github.com/en/articles/about-maintainer-security-advisories
-[CVSSv2.0]: https://www.first.org/cvss/v2/guide
-[CVSSv3.0]: https://www.first.org/cvss/v3.0/user-guide
-[CVSSv3.1]: https://www.first.org/cvss/v3.1/user-guide
-[CVSSv4.0]: https://www.first.org/cvss/v4.0/user-guide
+[CVSSv2]: https://www.first.org/cvss/v2/guide
+[CVSSv3]: https://www.first.org/cvss/v3.1/user-guide
+[CVSSv4]: https://www.first.org/cvss/v4.0/user-guide
 [YAML]: http://www.yaml.org/
 [CONTRIBUTORS.md]: https://github.com/rubysec/ruby-advisory-db/blob/master/CONTRIBUTORS.md
