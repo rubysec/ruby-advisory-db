@@ -32,6 +32,8 @@ mapping:
     type: float
   "cvss_v3":
     type: float
+  "cvss_v4":
+    type: float
   "unaffected_versions":
     type: seq
     sequence:

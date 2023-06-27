@@ -129,6 +129,7 @@ patched_versions:
 * `description` \[String\] (required): One or more paragraphs describing the vulnerability. It may contain multiple paragraphs.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
+* `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
@@ -149,6 +150,7 @@ patched_versions:
 * `description` \[String\] (required): One or more paragraphs describing the vulnerability. It may contain multiple paragraphs.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
+* `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby implementation.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
@@ -157,7 +159,8 @@ patched_versions:
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
 
 [CVSSv2]: https://www.first.org/cvss/v2/guide
-[CVSSv3]: https://www.first.org/cvss/user-guide
+[CVSSv3]: https://www.first.org/cvss/v3.1/user-guide
+[CVSSv4]: https://www.first.org/cvss/v4.0/user-guide
 
 ### Tests
 
@@ -194,6 +197,7 @@ GH_API_TOKEN=<your GitHub API Token> bundle exec rake sync_github_advisories[gem
 - The rake task will write yaml files for any missing advisories.
 - Those files must be further edited.
   - Fill in `cvss_v3` field by following the CVE link and getting it from page
+  - Fill in `cvss_v4` field by following the CVE link and getting it from page
   - Fill in `patched_versions` field, using the comments at the bottom of the file
   - Fill in `unaffected_versions`, optional, if there are unaffected_versions
   - delete the GitHub data at the bottom of the yaml file
@@ -216,6 +220,7 @@ developed by the Open Security Foundation (OSF) and its contributors.
 [OSVDB]: https://en.wikipedia.org/wiki/Open_Source_Vulnerability_Database
 [GHSA]: https://help.github.com/en/articles/about-maintainer-security-advisories
 [CVSSv2]: https://www.first.org/cvss/v2/guide
-[CVSSv3]: https://www.first.org/cvss/user-guide
+[CVSSv3]: https://www.first.org/cvss/v3.1/user-guide
+[CVSSv4]: https://www.first.org/cvss/v4.0/user-guide
 [YAML]: http://www.yaml.org/
 [CONTRIBUTORS.md]: https://github.com/rubysec/ruby-advisory-db/blob/master/CONTRIBUTORS.md
