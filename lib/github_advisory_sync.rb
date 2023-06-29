@@ -371,15 +371,23 @@ module GitHub
         "unaffected_versions" => ["<OPTIONAL: FILL IN SEE BELOW>"]
       )
 
+      patched_versions = patched_versions_for(package)
+
+      if !patched_versions.empty?
+        new_data['patched_versions'] = patched_versions
+      else
+        new_data['notes'] = "Never patched"
+      end
+
+      # populate the related information
+      new_data["related"] = {
+        "url" => advisory["references"]
+      }
+
       FileUtils.mkdir_p(File.dirname(filename_to_write))
       File.open(filename_to_write, "w") do |file|
         # create an automatically generated advisory yaml file
-        file.write new_data.merge(
-          "patched_versions" => patched_versions_for(package),
-          "related" => {
-            "url"  => advisory["references"]
-          }
-        ).to_yaml
+        file.write new_data.to_yaml
 
         # The data we just wrote is incomplete,
         # and therefore should not be committed as is
