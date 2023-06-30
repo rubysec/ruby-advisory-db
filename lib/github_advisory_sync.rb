@@ -355,11 +355,13 @@ module GitHub
       first_patched_versions = first_patched_versions_for(package)
       patched_versions       = []
 
-      first_patched_versions[0..-2].each do |version|
-        patched_versions << "~> #{version}"
-      end
+      if !first_patched_versions.empty?
+        first_patched_versions[0..-2].each do |version|
+          patched_versions << "~> #{version}"
+        end
 
-      patched_versions << ">= #{first_patched_versions.last}"
+        patched_versions << ">= #{first_patched_versions.last}"
+      end
 
       return patched_versions
     end
