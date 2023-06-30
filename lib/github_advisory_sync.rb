@@ -341,7 +341,9 @@ module GitHub
       first_patched_versions = []
 
       vulnerabilities.each do |v|
-        if v['package']['name'] == package.name && v['firstPatchedVersion']
+        if v['package']['name'] == package.name &&
+           v['firstPatchedVersion'] &&
+           v['firstPatchedVersion']['identifier']
           first_patched_versions << v['firstPatchedVersion']['identifier']
         end
       end
