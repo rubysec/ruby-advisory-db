@@ -382,16 +382,20 @@ module GitHub
       #Use Case 1: gems/nokogiri/GHSA-fq42-c5rg-92c2.yml
       #   vulnerableVersionRange: "< 1.13.2"
       #    firstPatchedVersion:
-      #       identifier: 1.13.2
+      #      identifier: 1.13.2
+      # THEREFORE: Do nothing.
+      #
       #Use Case 2: Example: gems/spree_auth_devise/GHSA-8xfaw-5q82-3652.yml
       #    vulnerableVersionRange:"= 4.1.0"
       #    firstPatchedVersion:
-      #       identifier: 4.1.1
-      #Use Case 3: Example: gems/webrick/CVE-2009-4492.yml
+      #      identifier: 4.1.1
+      #THEREFORE: unaffected_versions: "< 4.1.0"
+      #
+      #Use Case 3: Example: TBD
       #    vulnerableVersionRange: "<= 1.3.1"
       #    firstPatchedVersion:
-      #       identifier: 1.4.0
-
+      #      identifier: 1.4.0
+      #THEREFORE: unaffected_versions: "> 1.3.1, < 4.1.0"
       ["<OPTIONAL: Use vulnerableVersionRange to FILL IN FIELD>"]
     end
 
