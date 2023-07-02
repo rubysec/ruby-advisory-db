@@ -396,6 +396,8 @@ module GitHub
       #    firstPatchedVersion:
       #      identifier: 1.4.0
       #THEREFORE: unaffected_versions: "> 1.3.1, < 4.1.0"
+      #
+      #Use Case 4: Multiple patched_verions ranges: TBD
       ["<OPTIONAL: Use vulnerableVersionRange to FILL IN FIELD>"]
     end
 
