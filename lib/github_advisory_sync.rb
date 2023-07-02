@@ -366,6 +366,19 @@ module GitHub
       return patched_versions
     end
 
+    def first_unaffected_versions_for(package)
+      first_unaffected_versions = []
+
+      vulnerabilities.each do |v|
+        if v['package']['name'] == package.name &&
+           v['vulnerableVersionRange']
+          first_unaffected_versions << v['vulnerableVersionRange']
+        end
+      end
+
+      first_unaffected_versions.sort
+    end
+
     def unaffected_versions_for(package)
       # The unaffected_versions field is similarly not directly available.
       # This optional field must be inferred from the vulnerableVersionRange.
@@ -398,7 +411,39 @@ module GitHub
       #THEREFORE: unaffected_versions: "> 1.3.1, < 4.1.0"
       #
       #Use Case 4: Multiple patched_verions ranges: TBD
-      ["<OPTIONAL: Use vulnerableVersionRange to FILL IN FIELD>"]
+
+      first_unaffected_versions = first_unaffected_versions_for(package)
+      unaffected_versions       = []
+
+      if !first_unaffected_versions.empty?
+        unaff_vers_range =
+          first_unaffected_versions.last[2..first_unaffected_versions.last.length]
+
+        case first_unaffected_versions.last[0,1]
+        when "<"
+          if first_unaffected_versions.last[0,2] == "<="
+            unaff_vers_range =
+              first_unaffected_versions.last[3..first_unaffected_versions.last.length]
+            unaffected_versions << "[<=]: [#{unaff_vers_range}]"
+          else
+            unaffected_versions << "[<]: [#{unaff_vers_range}]"
+          end
+        when "="
+          unaffected_versions << "[=]: [#{unaff_vers_range}]"
+        when ">"
+          if first_unaffected_versions.last[0,2] == ">="
+            unaff_vers_range =
+              first_unaffected_versions.last[4..first_unaffected_versions.last.length]
+            unaffected_versions << "[>=]: [#{unaff_vers_range}]"
+          else
+            unaffected_versions << "[>]: [#{unaff_vers_range}]"
+          end
+        else
+          unaffected_versions << "[UNK]: [#{unaff_vers_range}]"
+        end
+      end
+
+      return unaffected_versions
     end
 
     def create(package)
