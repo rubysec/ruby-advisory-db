@@ -366,14 +366,36 @@ module GitHub
       return patched_versions
     end
 
+    def unaffected_versions_for(package)
+      # The unaffected_versions field is similarly not directly available.
+      # This optional field must be inferred from the vulnerableVersionRange.
+
+      # EXAMPLE YAML OUTPUT:
+      #vulnerabilities:
+      #- package:
+      #    name: redcloth
+      #    ecosystem: RUBYGEMS
+      #  vulnerableVersionRange: "< 4.3.0"
+      #  firstPatchedVersion:
+      #    identifier: 4.3.0
+
+      ["<OPTIONAL: Use vulnerableVersionRange to FILL IN FIELD>"]
+    end
+
     def create(package)
       filename_to_write = package.filename
 
       new_data = package.merge_data(
         "cvss_v3"             => ("<FILL IN IF AVAILABLE>" unless cvss),
-        "cvss_v4"             => "<FILL IN IF AVAILABLE>",
-        "unaffected_versions" => ["<OPTIONAL: FILL IN SEE BELOW>"]
+        "cvss_v4"             => "<FILL IN IF AVAILABLE>"
       )
+
+      unaffected_versions = unaffected_versions_for(package)
+
+      # NOTE: Do not add "unaffected_versions:" field if empty.
+      if !unaffected_versions.empty?
+        new_data['unaffected_versions'] = unaffected_versions
+      end
 
       patched_versions = patched_versions_for(package)
 
