@@ -382,6 +382,7 @@ module GitHub
     def unaffected_versions_for(package)
       # The unaffected_versions field is similarly not directly available.
       # This optional field must be inferred from the vulnerableVersionRange.
+      #
       # EXAMPLE YAML OUTPUT:
       #vulnerabilities:
       #- package:
@@ -391,20 +392,22 @@ module GitHub
       #  firstPatchedVersion:
       #    identifier: 4.3.0
 
-#TODO: #Use Case 4: Multiple patched_verions ranges: TBD
-
-      # Need this to compare vulnerableVersionRange and firstPatchedVersion[identifier]
+      # Need this code to compare vulnerableVersionRange and firstPatchedVersion[identifier]
       first_patched_versions    = patched_versions_for(package)
       if first_patched_versions.count > 0
-        fpv_operator = first_patched_versions.last[0,1]
-        fpv_value    = first_patched_versions.last[3..first_patched_versions.last.length]
-
-        #puts "FPV=#{first_patched_versions}; COUNT=[#{first_patched_versions.length}]"
-        #puts "FPV[1]=[#{fpv_operator}]; FPV[2]=[#{fpv_value}]"
-#TODO: HEH Add "<=" and ">="
-      else
-        fpv_operator = "EMPTY"
-        fpv_value    = "EMPTY"
+        if first_patched_versions.count == 1
+          fpv_operator = first_patched_versions.last[0,1]
+          fpv_value    = first_patched_versions.last[3..first_patched_versions.last.length]
+          #puts "FPV=#{first_patched_versions}; COUNT=[#{first_patched_versions.length}]"
+          #puts "FPV[1]=[#{fpv_operator}]; FPV[2]=[#{fpv_value}]"
+        else # > 1
+          puts "TODO: #Use Case 4: Multiple patched_verions ranges: TBD"
+          fpv_operator = "MULTIPLE"
+          fpv_value    = "MULTIPLE"
+        end
+      else # == 0
+        #fpv_operator = "EMPTY"
+        #fpv_value    = "EMPTY"
       end
 
       first_unaffected_versions = first_unaffected_versions_for(package)
@@ -424,7 +427,8 @@ module GitHub
             #THEREFORE: unaffected_versions: "> 1.3.1, < 4.1.0"
             unaff_vers_range =
               first_unaffected_versions.last[3..first_unaffected_versions.last.length]
-            unaffected_versions << "[<=]: [> #{unaff_vers_range}, < #{fpv_value} ]"
+            puts "uv3: [<=]: > #{unaff_vers_range}, < #{fpv_value}"
+            unaffected_versions << "> #{unaff_vers_range}, < #{fpv_value}"
           else
             if unaff_vers_range == fpv_value
               #Use Case 1: gems/nokogiri/GHSA-fq42-c5rg-92c2.yml
@@ -432,32 +436,43 @@ module GitHub
               #    firstPatchedVersion:
               #      identifier: 1.13.2
               # THEREFORE: Do nothing.
-              unaffected_versions << "[< fvr == fpv_value], so do nothing]"
-            else
-              #Use Case 2: Example: gems/spree_auth_devise/GHSA-8xfaw-5q82-3652.yml
-              #    vulnerableVersionRange:"= 4.1.0"
-              #    firstPatchedVersion:
-              #      identifier: 4.1.1
-              #THEREFORE: unaffected_versions: "< 4.1.0"
-#TODO: Add expr: (unaff_vers_range == fpv_operator + 0.0.1)
-              unaffected_versions << "[<]: [< #{unaff_vers_range}, #{fpv_operator} + 0.0.1]"
+              puts "uc1A: [< && fvr == fpv_value], so do nothing"
+            else # < && !=
+              puts "uc1B: [< && fvr != fpv_value], so UNKNOWN"
             end
           end
         when "="
-#TODO: Double check next 3 lines of code.
           if unaff_vers_range < fpv_value
-            unaffected_versions << "[=, PROBABLY]: [< #{unaff_vers_range}]"
+            #Use Case 2: Example: gems/spree_auth_devise/GHSA-8xfaw-5q82-3652.yml
+            #    vulnerableVersionRange:"= 4.1.0"
+            #    firstPatchedVersion:
+            #      identifier: 4.1.1
+            #THEREFORE: unaffected_versions: "< 4.1.0"
+            puts "uc4A: [=, uvr < fpv_v]: < #{unaff_vers_range}"
+            unaffected_versions << "< #{unaff_vers_range}"
+          else # = & !=
+            puts "uc4B: [=, uvr >= fpv_v]: UNKNOWN"
+            unaffected_verions << "[=, uvr >= fpv_v]: UNKNOWN"
           end
         when ">"
           if first_unaffected_versions.last[0,2] == ">="
             unaff_vers_range =
               first_unaffected_versions.last[4..first_unaffected_versions.last.length]
-            unaffected_versions << "[>=]: [#{unaff_vers_range}]"
+            puts "[>=]: #{unaff_vers_range}"
+            unaffected_versions << "[>=]: #{unaff_vers_range}"
           else
-            unaffected_versions << "[>]: [#{unaff_vers_range}]"
+            puts "[>, !>=]: #{unaff_vers_range}"
+            unaffected_versions << "[>, !>=]: #{unaff_vers_range}"
           end
+        when "!"
+          puts "[!]: #{unaff_vers_range}"
+          unaffected_versions << "[! OPERATOR]: #{unaff_vers_range}"
+        when "~"
+          puts "[~]: #{unaff_vers_range}"
+          unaffected_versions << "[~ OPERATOR]: #{unaff_vers_range}"
         else
-          unaffected_versions << "[UNK]: [#{unaff_vers_range}]"
+          puts "[UNK OPERATOR]: #{unaff_vers_range}"
+          unaffected_versions << "[UNK OPERATOR]: #{unaff_vers_range}"
         end
       end
 
@@ -474,12 +489,14 @@ module GitHub
 
       unaffected_versions = unaffected_versions_for(package)
 
-      # NOTE: Do not add "unaffected_versions:" field if empty.
-      if !unaffected_versions.empty?
-        new_data['unaffected_versions'] = unaffected_versions
-      end
-
       patched_versions = patched_versions_for(package)
+
+      if !unaffected_versions.empty?
+        new_data['unaffected_versions'] = unaffected_versions if !patched_versions.empty?
+      else
+        # NOTE: Do not add "unaffected_versions:" field if empty.
+        puts "DEBUG: unaffected_versions: All Affected"
+      end
 
       if !patched_versions.empty?
         new_data['patched_versions'] = patched_versions
