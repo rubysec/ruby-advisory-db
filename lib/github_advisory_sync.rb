@@ -382,7 +382,6 @@ module GitHub
     def unaffected_versions_for(package)
       # The unaffected_versions field is similarly not directly available.
       # This optional field must be inferred from the vulnerableVersionRange.
-
       # EXAMPLE YAML OUTPUT:
       #vulnerabilities:
       #- package:
@@ -392,25 +391,21 @@ module GitHub
       #  firstPatchedVersion:
       #    identifier: 4.3.0
 
-      #Use Case 1: gems/nokogiri/GHSA-fq42-c5rg-92c2.yml
-      #   vulnerableVersionRange: "< 1.13.2"
-      #    firstPatchedVersion:
-      #      identifier: 1.13.2
-      # THEREFORE: Do nothing.
-      #
-      #Use Case 2: Example: gems/spree_auth_devise/GHSA-8xfaw-5q82-3652.yml
-      #    vulnerableVersionRange:"= 4.1.0"
-      #    firstPatchedVersion:
-      #      identifier: 4.1.1
-      #THEREFORE: unaffected_versions: "< 4.1.0"
-      #
-      #Use Case 3: Example: TBD
-      #    vulnerableVersionRange: "<= 1.3.1"
-      #    firstPatchedVersion:
-      #      identifier: 1.4.0
-      #THEREFORE: unaffected_versions: "> 1.3.1, < 4.1.0"
-      #
-      #Use Case 4: Multiple patched_verions ranges: TBD
+#TODO: #Use Case 4: Multiple patched_verions ranges: TBD
+
+      # Need this to compare vulnerableVersionRange and firstPatchedVersion[identifier]
+      first_patched_versions    = patched_versions_for(package)
+      if first_patched_versions.count > 0
+        fpv_operator = first_patched_versions.last[0,1]
+        fpv_value    = first_patched_versions.last[3..first_patched_versions.last.length]
+
+        #puts "FPV=#{first_patched_versions}; COUNT=[#{first_patched_versions.length}]"
+        #puts "FPV[1]=[#{fpv_operator}]; FPV[2]=[#{fpv_value}]"
+#TODO: HEH Add "<=" and ">="
+      else
+        fpv_operator = "EMPTY"
+        fpv_value    = "EMPTY"
+      end
 
       first_unaffected_versions = first_unaffected_versions_for(package)
       unaffected_versions       = []
@@ -422,14 +417,37 @@ module GitHub
         case first_unaffected_versions.last[0,1]
         when "<"
           if first_unaffected_versions.last[0,2] == "<="
+            #Use Case 3: Example: TBD
+            #    vulnerableVersionRange: "<= 1.3.1"
+            #    firstPatchedVersion:
+            #      identifier: 1.4.0
+            #THEREFORE: unaffected_versions: "> 1.3.1, < 4.1.0"
             unaff_vers_range =
               first_unaffected_versions.last[3..first_unaffected_versions.last.length]
-            unaffected_versions << "[<=]: [#{unaff_vers_range}]"
+            unaffected_versions << "[<=]: [> #{unaff_vers_range}, < #{fpv_value} ]"
           else
-            unaffected_versions << "[<]: [#{unaff_vers_range}]"
+            if unaff_vers_range == fpv_value
+              #Use Case 1: gems/nokogiri/GHSA-fq42-c5rg-92c2.yml
+              #   vulnerableVersionRange: "< 1.13.2"
+              #    firstPatchedVersion:
+              #      identifier: 1.13.2
+              # THEREFORE: Do nothing.
+              unaffected_versions << "[< fvr == fpv_value], so do nothing]"
+            else
+              #Use Case 2: Example: gems/spree_auth_devise/GHSA-8xfaw-5q82-3652.yml
+              #    vulnerableVersionRange:"= 4.1.0"
+              #    firstPatchedVersion:
+              #      identifier: 4.1.1
+              #THEREFORE: unaffected_versions: "< 4.1.0"
+#TODO: Add expr: (unaff_vers_range == fpv_operator + 0.0.1)
+              unaffected_versions << "[<]: [< #{unaff_vers_range}, #{fpv_operator} + 0.0.1]"
+            end
           end
         when "="
-          unaffected_versions << "[=]: [#{unaff_vers_range}]"
+#TODO: Double check next 3 lines of code.
+          if unaff_vers_range < fpv_value
+            unaffected_versions << "[=, PROBABLY]: [< #{unaff_vers_range}]"
+          end
         when ">"
           if first_unaffected_versions.last[0,2] == ">="
             unaff_vers_range =
