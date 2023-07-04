@@ -379,21 +379,7 @@ module GitHub
       first_unaffected_versions.sort
     end
 
-    def unaffected_versions_for(package)
-      # The unaffected_versions field is similarly not directly available.
-      # This optional field must be inferred from the vulnerableVersionRange.
-      #
-      # EXAMPLE YAML OUTPUT:
-      #vulnerabilities:
-      #- package:
-      #    name: redcloth
-      #    ecosystem: RUBYGEMS
-      #  vulnerableVersionRange: "< 4.3.0"
-      #  firstPatchedVersion:
-      #    identifier: 4.3.0
-
-      # Need this code to compare vulnerableVersionRange and firstPatchedVersion[identifier]
-      first_patched_versions    = patched_versions_for(package)
+    def set_fpv_vars(first_patched_versions)
       if first_patched_versions.count > 0
         if first_patched_versions.count == 1
           fpv_operator = first_patched_versions.last[0,1]
@@ -409,6 +395,27 @@ module GitHub
         #fpv_operator = "EMPTY"
         #fpv_value    = "EMPTY"
       end
+
+      return fpv_operator, fpv_value
+    end
+
+    def unaffected_versions_for(package)
+      # The unaffected_versions field is similarly not directly available.
+      # This optional field must be inferred from the vulnerableVersionRange.
+      #
+      # EXAMPLE YAML OUTPUT:
+      #vulnerabilities:
+      #- package:
+      #    name: redcloth
+      #    ecosystem: RUBYGEMS
+      #  vulnerableVersionRange: "< 4.3.0"
+      #  firstPatchedVersion:
+      #    identifier: 4.3.0
+
+      # Need this code to compare vulnerableVersionRange and firstPatchedVersion[identifier]
+      first_patched_versions  = patched_versions_for(package)
+
+      fpv_operator, fpv_value = set_fpv_vars(first_patched_versions)
 
       first_unaffected_versions = first_unaffected_versions_for(package)
       unaffected_versions       = []
