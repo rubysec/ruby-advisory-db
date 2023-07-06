@@ -337,8 +337,14 @@ module GitHub
       package.filename
     end
 
+    def first_vulnerability_for(package)
+      vulnerabilities.find do |v|
+        v['package']['name'] == package.name
+      end
+    end
+
     def unaffected_versions_for(package)
-      if (vulnerability = vulnerabilities.first)
+      if (vulnerability = first_vulnerability_for(package))
         vulnerable_version_range = vulnerabilities['vulnerableVersionRange']
         operator, version        = vulnerable_version_range.split(' ',2)
 
