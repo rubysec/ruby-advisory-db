@@ -337,6 +337,20 @@ module GitHub
       package.filename
     end
 
+    def unaffected_versions_for(package)
+      if (vulnerability = vulnerabilities.first)
+        vulnerable_version_range = vulnerabilities['vulnerableVersionRange']
+        operator, version        = vulnerable_version_range.split(' ',2)
+
+        case operator
+        when '>'
+          ["<= #{version}"]
+        when '>='
+          ["< #{version}"]
+        end
+      end
+    end
+
     def first_patched_versions_for(package)
       first_patched_versions = []
 
@@ -371,9 +385,12 @@ module GitHub
 
       new_data = package.merge_data(
         "cvss_v3"             => ("<FILL IN IF AVAILABLE>" unless cvss),
-        "cvss_v4"             => "<FILL IN IF AVAILABLE>",
-        "unaffected_versions" => ["<OPTIONAL: FILL IN SEE BELOW>"]
+        "cvss_v4"             => "<FILL IN IF AVAILABLE>"
       )
+
+      if (unaffected_versions = unaffected_versions_for(package))
+        new_data['unaffected_versions'] = unaffected_versions
+      end
 
       patched_versions = patched_versions_for(package)
 
