@@ -351,7 +351,7 @@ module GitHub
         case operator
         when '>'
           ["<= #{version}"]
-        when '>='
+        when '>=', '='
           ["< #{version}"]
         end
       end
