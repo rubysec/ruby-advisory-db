@@ -346,7 +346,8 @@ module GitHub
     def unaffected_versions_for(package)
       if (vulnerability = first_vulnerability_for(package))
         vulnerable_version_range = vulnerability['vulnerableVersionRange']
-        operator, version        = vulnerable_version_range.split(' ',2)
+        lower_version_range      = vulnerable_version_range.split(', ',2).first
+        operator, version        = lower_version_range.split(' ',2)
 
         case operator
         when '>'
