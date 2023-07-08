@@ -337,17 +337,22 @@ module GitHub
       package.filename
     end
 
-    def first_vulnerability_for(package)
-      vulnerabilities.find do |v|
+    def vulnerable_version_ranges_for(package)
+      vulnerabilities.select { |v|
         v['package']['name'] == package.name
-      end
+      }.map { |v|
+        v['vulnerableVersionRange'].split(', ',2).map do |version_range|
+          version_range.split(' ',2)
+        end
+      }.sort_by { |((lower_op,lower_version),(upper_op,upper_version))|
+        lower_version
+      }
     end
 
     def unaffected_versions_for(package)
-      if (vulnerability = first_vulnerability_for(package))
-        vulnerable_version_range = vulnerability['vulnerableVersionRange']
-        lower_version_range      = vulnerable_version_range.split(', ',2).first
-        operator, version        = lower_version_range.split(' ',2)
+      if (version_range = vulnerable_version_ranges_for(package).first)
+        lower_version_range = version_range[0]
+        operator, version   = lower_version_range
 
         case operator
         when '>'
