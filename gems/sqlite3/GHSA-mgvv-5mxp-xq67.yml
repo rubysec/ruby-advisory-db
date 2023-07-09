@@ -46,7 +46,7 @@ description: |
   - Instructions for compiling against system libraries:
     https://github.com/sparklemotion/sqlite3-ruby
 unaffected_versions:
-  - "!= 1.5.0"
+  - "< 1.5.0"
 patched_versions:
   - ">= 1.5.1"
 related:
