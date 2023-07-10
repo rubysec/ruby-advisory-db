@@ -204,8 +204,8 @@ module GitHub
         when
           "actioncable",  "actionmailbox", "actionmailer",  "actionpack",
           "actiontext",   "actionview",    "activejob",     "activemodel",
-          "activerecord", "activestorage", "activesupport", "railties"
-          "rails"
+          "activerecord", "activestorage", "activesupport", "railties",
+          "rails", "jquery-rails"
         end
       end
 
