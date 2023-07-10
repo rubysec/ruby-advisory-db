@@ -48,6 +48,10 @@ shared_examples_for "Gem Advisory" do |path|
         unless patched_versions.none?
           expect(versions.last.match(/^>=|^>/)).to be_truthy
         end
+
+        unless unaffected_versions.none?
+          expect(unaffected_versions.last.match(/^<=|^<|^>=|^>|~>|^=/)).to be_truthy
+        end
       end
     end
 
