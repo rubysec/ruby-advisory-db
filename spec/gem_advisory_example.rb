@@ -46,7 +46,7 @@ shared_examples_for "Gem Advisory" do |path|
 
         # If a gem is unpatched this test makes no sense
         unless patched_versions.none?
-          expect(versions.last.match(/^(?:>=|>) /)).to be_truthy
+          expect(versions.last).to match(/^(?:>=|>) /)
         end
 
         unless unaffected_versions.none?
