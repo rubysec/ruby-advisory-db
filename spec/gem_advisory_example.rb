@@ -50,7 +50,7 @@ shared_examples_for "Gem Advisory" do |path|
         end
 
         unless unaffected_versions.none?
-          expect(unaffected_versions.last.match(/^<=|^<|^>=|^>|~>|^=/)).to be_truthy
+          expect(unaffected_versions).to all(match(/^<=|^<|^>=|^>|~>|^=/))
         end
       end
     end
