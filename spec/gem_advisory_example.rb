@@ -35,6 +35,26 @@ shared_examples_for "Gem Advisory" do |path|
       end
     end
 
+    if advisory['patched_versions']
+      describe "patched_versions" do
+        it "must all start with a valid version operator" do
+          patched_versions = advisory['patched_versions']
+
+          expect(patched_versions).to all(match(/^(?:<=|<|>=|>|~>|=) /))
+        end
+      end
+    end
+
+    if advisory['unaffected_versions']
+      describe "unaffected_versions" do
+        it "must all start with a valid version operator" do
+          unaffected_versions = advisory['unaffected_versions']
+
+          expect(unaffected_versions).to all(match(/^(?:<=|<|>=|>|~>|=) /))
+        end
+      end
+    end
+
     describe "versions" do
       it "assumes that future versions will be patched" do
         unaffected_versions = advisory['unaffected_versions'] || []
@@ -47,10 +67,6 @@ shared_examples_for "Gem Advisory" do |path|
         # If a gem is unpatched this test makes no sense
         unless patched_versions.none?
           expect(versions.last).to match(/^(?:>=|>) /)
-        end
-
-        unless unaffected_versions.none?
-          expect(unaffected_versions).to all(match(/^(?:<=|<|>=|>|~>|=) /))
         end
       end
     end
