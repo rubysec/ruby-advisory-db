@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'versions_example'
+
 require 'yaml'
 
 shared_examples_for 'Advisory' do |path|
@@ -192,20 +194,8 @@ shared_examples_for 'Advisory' do |path|
         expect(subject).to be_kind_of(Array).or(be_nil)
       end
 
-      describe "each patched version" do
-        if advisory['patched_versions']
-          advisory['patched_versions'].each do |version|
-            describe(version) do
-              subject { version.split(', ') }
-
-              it "should contain valid RubyGem version requirements" do
-                expect {
-                Gem::Requirement.new(*subject)
-                }.not_to raise_error
-              end
-            end
-          end
-        end
+      if advisory['patched_versions'].kind_of?(Array)
+        include_examples "Versions", advisory['patched_versions']
       end
     end
 
@@ -216,19 +206,8 @@ shared_examples_for 'Advisory' do |path|
         expect(subject).to be_kind_of(Array).or(be_nil)
       end
 
-      case advisory['unaffected_versions']
-      when Array
-        advisory['unaffected_versions'].each do |version|
-          describe version do
-            subject { version.split(', ') }
-
-            it "should contain valid RubyGem version requirements" do
-              expect {
-                Gem::Requirement.new(*subject)
-              }.not_to raise_error
-            end
-          end
-        end
+      if advisory['unaffected_versions'].kind_of?(Array)
+        include_examples "Versions", advisory['unaffected_versions']
       end
     end
 
