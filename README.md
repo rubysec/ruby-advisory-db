@@ -207,6 +207,18 @@ GH_API_TOKEN=<your GitHub API Token> bundle exec rake sync_github_advisories[gem
       version ranges which are not vulnerable.  This is why some manual
       work to translate is needed.*
 
+- Here are the current GHSA SYNC PR prep steps:
+
+  1. On GitHub, click on "Sync fork" to get upstream's commits.
+
+  In the ruby-advisory top directory:
+
+  2. Run "bundle update" to get latest gems.
+  3. Run sync script (lib/github_advisory_sync.rb) with GitHub API Token mentioned above.
+  4. Remove known duplicate advisories.
+  5. Do post-processing on all modified and brand new advisories
+     so they are formated per ruby-advisory-db style rules
+     and extra debugging lines added by sync script are removed.
 
 ## Credits
 
