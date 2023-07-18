@@ -106,6 +106,18 @@ shared_examples_for 'Advisory' do |path|
       it { expect(subject).to be_kind_of(String) }
       it { expect(subject).to_not match(%r{\Ahttp(s)?://osvdb\.org}) }
       it { expect(subject).not_to be_empty }
+
+      it "must not include '/pull' url" do
+        if advisory['date'] > (Date.today - 182)
+          expect(subject).not_to include("/pull")
+        end
+      end
+
+      it "must not include '/commit' url" do
+        if advisory['date'] > (Date.today - 88)
+          expect(subject).not_to include("/commit")
+        end
+      end
     end
 
     describe "title" do
