@@ -42,9 +42,6 @@ description: |
   This introduces a new option to limit the length of IDs that can
   be decoded. A future release will also improve the performance and
   hugely reduce allocations in the underlying hashids implementation.
-
-  ### References
-  _Are there any links users can visit to find out more?_
 cvss_v3: 7.5
 patched_versions:
   - ">= 1.0.0.beta2"
