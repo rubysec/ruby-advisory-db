@@ -224,4 +224,3 @@ developed by the Open Security Foundation (OSF) and its contributors.
 [CVSSv4]: https://www.first.org/cvss/v4.0/user-guide
 [YAML]: http://www.yaml.org/
 [CONTRIBUTORS.md]: https://github.com/rubysec/ruby-advisory-db/blob/master/CONTRIBUTORS.md
-
