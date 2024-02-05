@@ -1,6 +1,5 @@
 ---
 gem: nokogiri
-cve: 2024-25062
 ghsa: xc9x-jj77-9p9j
 url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-xc9x-jj77-9p9j
 title: Improper Handling of Unexpected Data Type in Nokogiri
@@ -41,6 +40,8 @@ description: |
 patched_versions:
   - ">= 1.16.2"
 related:
+  cve:
+    - 2024-25062
   url:
     - https://github.com/sparklemotion/nokogiri/commit/1b768b797fd42d94de12b9cff4ed0221f5cb92ec
     - https://github.com/sparklemotion/nokogiri/releases/tag/v1.16.2
