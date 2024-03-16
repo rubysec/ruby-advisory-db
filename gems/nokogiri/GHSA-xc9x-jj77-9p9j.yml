@@ -28,7 +28,7 @@ description: |
 
   The Nokogiri maintainers have evaluated this as **Moderate**.
 
-  ## Impact
+  ### Impact
 
   From the CVE description, this issue applies to the `xmlTextReader` module (which underlies
   `Nokogiri::XML::Reader`):
