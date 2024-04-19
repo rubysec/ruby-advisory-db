@@ -6,6 +6,7 @@ title: Cross-site Scripting (XSS) possible due to improper sanitisation of `href
 date: 2024-04-16
 description: |
   ### Summary
+
   There is a potential cross-site scripting (XSS) vulnerability that can be exploited via maliciously crafted user data.
 
   Our filter to detect and prevent the use of the `javascript:` URL scheme in the `href` attribute of an `<a>` tag could be bypassed with tab `\t` or newline `\n` characters between the characters of the protocol, e.g. `java\tscript:`.
@@ -31,6 +32,7 @@ description: |
   - [1.4.2](https://rubygems.org/gems/phlex/versions/1.4.2)
 
   ### Workarounds
+
   Configuring a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) that does not allow [`unsafe-inline`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#unsafe-inline) would effectively prevent this vulnerability from being exploited.
 
 cvss_v3: 7.1
