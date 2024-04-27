@@ -117,6 +117,10 @@ shared_examples_for 'Advisory' do |path|
       it "must be one line" do
         expect(subject).to_not include("\n")
       end
+
+      it "must not start with or end with additional whitespace" do
+        expect(subject).to_not match(/\A\s|\s\z/)
+      end
     end
 
     describe "date" do
