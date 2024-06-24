@@ -140,6 +140,10 @@ shared_examples_for 'Advisory' do |path|
         expect(subject).to_not include("\\n\\n")
       end
 
+      it "must not have PoC sections" do
+        expect(subject).to_not include("### PoC")
+      end
+
       it { expect(subject).to be_kind_of(String) }
       it { expect(subject).not_to be_empty }
     end
