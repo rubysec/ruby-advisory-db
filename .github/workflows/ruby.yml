@@ -12,14 +12,6 @@ jobs:
     name: Linter
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ruby
-      - name: Install ruby dependencies
-        run: bundle install --jobs 4 --retry 3
-      - name: Validate YAML
-        run: bundle exec rake lint
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -30,3 +22,11 @@ jobs:
           pip install yamllint
       - name: Lint YAML files
         run: yamllint gems rubies
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+      - name: Install ruby dependencies
+        run: bundle install --jobs 4 --retry 3
+      - name: Validate YAML
+        run: bundle exec rake lint
