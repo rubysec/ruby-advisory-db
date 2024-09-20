@@ -1,7 +1,7 @@
 ---
 gem: omniauth-saml
 ghsa: cvp8-5r8g-fhvq
-url: https://github.com/SAML-Toolkits/ruby-saml/security/advisories/GHSA-jw9c-mfg7-9rx2
+url: https://github.com/omniauth/omniauth-saml/security/advisories/GHSA-cvp8-5r8g-fhvq
 title: omniauth-saml vulnerable to Improper Verification of Cryptographic Signature
 date: 2024-09-11
 description: |
