@@ -14,6 +14,7 @@ description: |
   by upgrading ruby-saml to the patched versions v1.17.
 cvss_v3: 10.0
 patched_versions:
+  - ">= 1.10.5, < 2.0.0"
   - ">= 2.1.1"
 related:
   ghsa:
