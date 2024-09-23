@@ -1,0 +1,88 @@
+---
+gem: camaleon_cms
+ghsa: r9cr-qmfw-pmrc
+url: https://github.com/owen2345/camaleon-cms/security/advisories/GHSA-r9cr-qmfw-pmrc
+title: Camaleon CMS vulnerable to stored XSS through user file upload (GHSL-2024-184)
+date: 2024-09-18
+description: |
+  A stored cross-site scripting has been found in the image upload
+  functionality that can be used by normal registered users:
+  It is possible to upload a SVG image containing JavaScript and
+  it's also possible to upload a HTML document when the format
+   parameter is manually changed to
+  [documents](https://github.com/owen2345/camaleon-cms/blob/feccb96e542319ed608acd3a16fa5d92f13ede67/app/uploaders/camaleon_cms_uploader.rb#L105-L106)
+  or a string of an
+  [unsupported format](https://github.com/owen2345/camaleon-cms/blob/feccb96e542319ed608acd3a16fa5d92f13ede67/app/uploaders/camaleon_cms_uploader.rb#L110-L111).
+  If an authenticated user or administrator visits that uploaded
+  image or document malicious JavaScript can be executed on their
+  behalf (e.g. changing or deleting content inside of the CMS.)
+
+  ** Proof of concept **
+
+  Login as a normal user (if user signup is enabled).
+  Go to the user's profile.
+  And upload the following profile picture via drag and drop.
+  The content of the SVG file could be as follows (e.g. name it test-xss.svg):
+
+  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <svg
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:svg="http://www.w3.org/2000/svg"
+     xmlns="http://www.w3.org/2000/svg"
+     width="500"
+     height="500"
+     viewBox="0 0 198.4375 52.916666"
+     version="1.1">
+    <g
+       transform="translate(-9.8676114,4.8833333)">
+      <path
+         d="m 107.79557,-10.430538 -7.33315,-0.02213 -3.647402,-6.361755 3.685742,-6.339624 7.33314,0.02213 3.64741,6.361756 z"
+         style="fill:#131f6b;fill-opacity:1;stroke-width:0.05937638"
+         transform="scale(1,-1)" />
+    <!-- The below lines were added in a text editor to the image XML. This is the stored XSS attack. -->
+    <script type="text/javascript">
+      alert("This is an example of a stored XSS attack in an SVG image, here's the cookie: " + document.cookie);
+    </script>
+    </g>
+  </svg>
+
+  The server might fail with a 500 internal server error, but the
+  uploaded image should be available at a location like
+  https://<camaleon-host>/media/1/test-xss-cookie.svg. If an
+  authenticated user or administrator accesses that link their
+  auth_token is reflected. Since the auth_token cookie contains a
+  static [auth token](https://github.com/owen2345/camaleon-cms/blob/feccb96e542319ed608acd3a16fa5d92f13ede67/app/models/concerns/camaleon_cms/user_methods.rb#L18-L19)
+  value that only changes when a user changes their password.
+
+  **Impact**
+
+  This issue may lead to account takeover due to reflected
+  Cross-site scripting (XSS).
+
+  **Remediation**
+
+  Only allow the upload of safe files such as PNG, TXT and others
+  or serve all "unsafe" files such as SVG and other files with a
+  content-disposition: attachment header, which should prevent
+  browsers from displaying them.
+
+  Additionally, a [Content security policy (CSP)](https://web.dev/articles/csp)
+  can be created that disallows inlined script. (Other parts of the
+  application might need modification to continue functioning.)
+
+  To prevent the theft of the auth_token it could be marked with
+  HttpOnly. This would however not prevent that actions could be
+  performed as the authenticated user/administrator. Furthermore,
+  it could make sense to use the authentication provided by
+   Ruby on Rails, so that stolen tokens cannot be used anymore
+  after some time.
+cvss_v3: 5.4
+patched_versions:
+  - ">= 2.8.1"
+related:
+  url:
+    - https://github.com/owen2345/camaleon-cms/security/advisories/GHSA-r9cr-qmfw-pmrc
+    - https://github.com/owen2345/camaleon-cms/commit/b18fbc74f3ecd98a1f781d015f5466ef16b1425b
+    - https://github.com/advisories/GHSA-r9cr-qmfw-pmrc
