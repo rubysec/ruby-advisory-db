@@ -1,0 +1,54 @@
+---
+gem: camaleon_cms
+ghsa: 75j2-9gmc-m855
+url: https://github.com/owen2345/camaleon-cms/security/advisories/GHSA-r9cr-qmfw-pmrc
+title: Camaleon CMS vulnerable to stored XSS through user file
+  upload (GHSL-2024-184)
+date: 2024-09-25
+description: |
+  A stored cross-site scripting has been found in the image upload
+  functionality that can be used by normal registered users:
+  It is possible to upload a SVG image containing JavaScript and it's
+  also possible to upload a HTML document when the format parameter
+  is manually changed to [documents][1] or a string of an
+  [unsupported format][2]. If an authenticated user or administrator
+  visits that uploaded image or document malicious JavaScript can be
+  executed on their behalf (e.g. changing or deleting content inside
+  of the CMS.)
+
+  [1]: https://github.com/owen2345/camaleon-cms/blob/feccb96e542319ed608acd3a16fa5d92f13ede67/app/uploaders/camaleon_cms_uploader.rb#L105-L106
+  [2]: https://github.com/owen2345/camaleon-cms/blob/feccb96e542319ed608acd3a16fa5d92f13ede67/app/uploaders/camaleon_cms_uploader.rb#L110-L111
+
+  ## Impact
+
+  This issue may lead to account takeover due to reflected Cross-site
+  scripting (XSS).
+
+  ## Remediation
+
+  Only allow the upload of safe files such as PNG, TXT and others or
+  serve all "unsafe" files such as SVG and other files with a
+  content-disposition: attachment header, which should prevent browsers
+  from displaying them.
+
+  Additionally, a [Content security policy (CSP)][3] can be created
+  that disallows inlined script. (Other parts of the application might
+  need modification to continue functioning.)
+
+  [3]: https://web.dev/articles/csp
+
+  To prevent the theft of the auth_token it could be marked with
+  HttpOnly. This would however not prevent that actions could be
+  performed as the authenticated user/administrator. Furthermore, it
+  could make sense to use the authentication provided by Ruby on Rails,
+  so that stolen tokens cannot be used anymore after some time.
+cvss_v3: 5.4
+unaffected_versions:
+  - "< 2.8.0"
+patched_versions:
+  - ">= 2.8.2"
+related:
+  url:
+    - https://github.com/owen2345/camaleon-cms/security/advisories/GHSA-r9cr-qmfw-pmrc
+    - https://github.com/rubysec/ruby-advisory-db/blob/master/gems/camaleon_cms/GHSA-8fx8-3rg2-79xw.yml
+    - https://github.com/advisories/GHSA-75j2-9gmc-m855
