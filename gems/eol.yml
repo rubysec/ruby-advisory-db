@@ -1,0 +1,11 @@
+---
+ruby-sass:
+  url: https://github.com/sass/ruby-sass/issues/112
+  date: 2019-03-26
+
+  description: With the release of Dart Sass 1.0.0 stable, Ruby Sass was
+    officially deprecated. Applications should move to Dart Sass or LibSass.
+
+  related:
+    url:
+      - http://sass.logdown.com/posts/7081811
