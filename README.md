@@ -65,7 +65,7 @@ description: |
 
   Versions Affected: All
   Not affected: None
-  Fixed Versions: 5.2.8.15 (Rails LTS), 6.1.7.1, 7.0.4.1
+  Fixed Versions: 6.1.7.1, 7.0.4.1
 
   # Impact
 
@@ -85,7 +85,7 @@ description: |
 
   Users on Ruby 3.2.0 or greater are not affected by this vulnerability.
 patched_versions:
-  - "~> 5.2.8, >= 5.2.8.15"  # Rails LTS
+  - "~> 5.2.8"
   - "~> 6.1.7, >= 6.1.7.1"
   - ">= 7.0.4.1"
 ```
