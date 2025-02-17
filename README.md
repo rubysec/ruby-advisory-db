@@ -206,6 +206,17 @@ GH_API_TOKEN="your GitHub API Token" bundle exec rake sync_github_advisories[gem
   * Delete the GitHub data at the bottom of the YAML file.
   * Double check all the data, commit it, and make a PR.
 
+## Rails LTS
+
+The maintainers of [Rails LTS] have [asked us not to track the Rails LTS versions][PR-847].
+If you are using [Rails LTS] and [bundler-audit], it is advised that you should
+add the [List of CVEs addressed by Rails LTS] to your `.bundler-audit.yml` file
+under `ignore:`.
+
+[Rails LTS]: https://railslts.com/
+[List of CVEs addressed by Rails LTS]: https://makandracards.com/railslts/474590-list-cves-addressed-rails-lts
+[PR-847]: https://github.com/rubysec/ruby-advisory-db/pull/847
+
 ## Credits
 
 Please see [CONTRIBUTORS.md].
