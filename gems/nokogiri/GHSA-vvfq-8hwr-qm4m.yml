@@ -1,0 +1,39 @@
+---
+gem: nokogiri
+ghsa: vvfq-8hwr-qm4m
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-vvfq-8hwr-qm4m
+title: Nokogiri updates packaged libxml2 to 2.13.6 to resolve
+  CVE-2025-24928 and CVE-2024-56171
+date: 2025-02-18
+description: |
+  ## Summary
+
+  Nokogiri v1.18.3 upgrades its dependency libxml2 to
+  [v2.13.6](https://gitlab.gnome.org/GNOME/libxml2/-/releases/v2.13.6).
+
+  libxml2 v2.13.6 addresses:
+
+  - CVE-2025-24928
+    - described at https://gitlab.gnome.org/GNOME/libxml2/-/issues/847
+  - CVE-2024-56171
+     - described at https://gitlab.gnome.org/GNOME/libxml2/-/issues/828
+
+  ## Impact
+
+  ### CVE-2025-24928
+
+  Stack-buffer overflow is possible when reporting DTD validation
+  errors if the input contains a long (~3kb) QName prefix.
+
+  ### CVE-2024-56171
+
+  Use-after-free is possible during validation against untrusted
+  XML Schemas (.xsd) and, potentially, validation of untrusted documents
+  against trusted Schemas if they make use of `xsd:keyref` in combination
+  with recursively defined types that have additional identity constraints.
+patched_versions:
+  - ">= 1.18.3"
+related:
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-vvfq-8hwr-qm4m
+    - https://github.com/advisories/GHSA-vvfq-8hwr-qm4m
