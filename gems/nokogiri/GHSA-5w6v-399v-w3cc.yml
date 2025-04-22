@@ -1,0 +1,60 @@
+---
+gem: nokogiri
+ghsa: 5w6v-399v-w3cc
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-5w6v-399v-w3cc
+title: Nokogiri updates packaged libxml2 to v2.13.8 to resolve
+  CVE-2025-32414 and CVE-2025-32415
+date: 2025-04-21
+description: |
+  ## Summary
+
+  Nokogiri v1.18.8 upgrades its dependency libxml2 to
+  [v2.13.8](https://gitlab.gnome.org/GNOME/libxml2/-/releases/v2.13.8).
+
+  libxml2 v2.13.8 addresses:
+
+  - CVE-2025-32414
+    - described at https://gitlab.gnome.org/GNOME/libxml2/-/issues/889
+  - CVE-2025-32415
+    - described at https://gitlab.gnome.org/GNOME/libxml2/-/issues/890
+
+  ## Impact
+
+  ### CVE-2025-32414: No impact
+
+  In libxml2 before 2.13.8 and 2.14.x before 2.14.2, out-of-bounds
+  memory access can occur in the Python API (Python bindings) because
+  of an incorrect return value. This occurs in xmlPythonFileRead and
+  xmlPythonFileReadRaw because of a difference between bytes and characters.
+
+  **There is no impact** from this CVE for Nokogiri users.
+
+  ### CVE-2025-32415: Low impact
+
+  In libxml2 before 2.13.8 and 2.14.x before 2.14.2,
+  xmlSchemaIDCFillNodeTables in xmlschemas.c has a heap-based buffer
+  under-read. To exploit this, a crafted XML document must be validated
+  against an XML schema with certain identity constraints, or a
+  crafted XML schema must be used.
+
+  In the upstream issue, further context is provided by the maintainer:
+
+  > The bug affects validation against untrusted XML Schemas (.xsd)
+  > and validation of untrusted documents against trusted Schemas if
+  > they make use of xsd:keyref in combination with recursively
+  > defined types that have additional identity constraints.
+
+  MITRE has published a severity score of 2.9 LOW
+  (CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L) for this CVE.
+patched_versions:
+  - ">= 1.18.8"
+related:
+  cve:
+    - CVE-2025-32414
+    - CVE-2025-32415
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-5w6v-399v-w3cc
+    - https://gitlab.gnome.org/GNOME/libxml2/-/releases/v2.13.8
+    - https://gitlab.gnome.org/GNOME/libxml2/-/issues/889
+    - https://gitlab.gnome.org/GNOME/libxml2/-/issues/890
+    - https://github.com/advisories/GHSA-5w6v-399v-w3cc
