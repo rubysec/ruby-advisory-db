@@ -1,0 +1,24 @@
+---
+gem: user_agent_parser
+ghsa: pcqq-5962-hvcw
+url: https://github.com/ua-parser/uap-ruby/security/advisories/GHSA-pcqq-5962-hvcw
+title: Denial of Service in uap-core when processing crafted User-Agent strings
+date: 2020-03-10
+description: |-
+  ### Impact
+  Some regexes are vulnerable to regular expression denial of service (REDoS) due to overlapping capture groups. This allows remote attackers to overload a server by setting the User-Agent header in an HTTP(S) request to maliciously crafted long strings.
+
+  ### Patches
+  Please update `uap-ruby` to &gt;= v2.6.0
+
+  ### For more information
+  https://github.com/ua-parser/uap-core/security/advisories/GHSA-cmcx-xhr8-3w9p
+
+  Reported in `uap-core` by Ben Caller @bcaller
+patched_versions:
+- ">= 2.6.0"
+related:
+  url:
+  - https://github.com/ua-parser/uap-ruby/security/advisories/GHSA-pcqq-5962-hvcw
+  - https://github.com/ua-parser/uap-ruby/commit/2bb18268f4c5ba7d4ba0e21c296bf6437063da3a
+  - https://github.com/advisories/GHSA-pcqq-5962-hvcw

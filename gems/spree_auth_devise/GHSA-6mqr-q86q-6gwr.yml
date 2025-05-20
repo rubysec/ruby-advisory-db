@@ -1,0 +1,35 @@
+---
+gem: spree_auth_devise
+ghsa: 6mqr-q86q-6gwr
+url: https://github.com/solidusio/solidus_auth_devise/security/advisories/GHSA-xm34-v85h-9pg2
+title: Authentication Bypass by CSRF Weakness
+date: 2021-11-18
+description: "### Impact\n\nCSRF vulnerability that allows user account takeover.\n\nAll
+  applications using any version of the frontend component of `spree_auth_devise`
+  are affected if `protect_from_forgery` method is both:\n\n* Executed whether as:\n
+  \ * A before_action callback (the default)\n  * A prepend_before_action (option
+  prepend: true given) before the :load_object hook in Spree::UserController (most
+  likely order to find).\n* Configured to use :null_session or :reset_session strategies
+  (:null_session is the default in case the no strategy is given, but rails --new
+  generated skeleton use :exception).\n\nThat means that applications that haven't
+  been configured differently from what it's generated with Rails aren't affected.\n\nThanks
+  @waiting-for-dev for reporting and providing a patch \U0001F44F \n\n### Patches\n\nSpree
+  4.3 users should update to spree_auth_devise 4.4.1\nSpree 4.2 users should update
+  to spree_auth_devise 4.2.1\n \n### Workarounds\n\nIf possible, change your strategy
+  to :exception:\n\n```ruby\nclass ApplicationController < ActionController::Base\n
+  \ protect_from_forgery with: :exception\nend\n```\n\nAdd the following to`config/application.rb
+  `to at least run the `:exception` strategy on the affected controller:\n\n```ruby\nconfig.after_initialize
+  do\n  Spree::UsersController.protect_from_forgery with: :exception\nend\n```\n\n###
+  References\nhttps://github.com/solidusio/solidus_auth_devise/security/advisories/GHSA-xm34-v85h-9pg2\n"
+cvss_v3: 9.3
+unaffected_versions:
+- "< 4.2.0"
+patched_versions:
+- ">= 4.2.1"
+related:
+  url:
+  - https://github.com/solidusio/solidus_auth_devise/security/advisories/GHSA-xm34-v85h-9pg2
+  - https://github.com/spree/spree_auth_devise/security/advisories/GHSA-6mqr-q86q-6gwr
+  - https://github.com/spree/spree_auth_devise/commit/50bf2444a851f10dff926eb4ea3674976d9d279d
+  - https://github.com/rubysec/ruby-advisory-db/blob/master/gems/spree_auth_devise/CVE-2021-41275.yml
+  - https://github.com/advisories/GHSA-6mqr-q86q-6gwr
