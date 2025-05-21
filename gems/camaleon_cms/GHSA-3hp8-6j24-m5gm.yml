@@ -32,7 +32,7 @@ description: |
   Where it is joined in an unchecked manner with the root folder and
   then deleted.
 
-  **Proof of concept**
+  ## Proof of concept
   The following request would delete the file README.md in the top folder of the Ruby on Rails application. (The values for auth_token, X-CSRF-Token and _cms_session would also need to be replaced with authenticated values in the curl command below)
   ```
   curl --path-as-is -i -s -k -X $'POST' \
@@ -45,16 +45,16 @@ description: |
       $'https://<camaleon-host>/admin/media/actions?actions=true'
   ```
 
-  **Impact**
+  ## Impact
 
   This issue may lead to a defective CMS or system.
 
-  **Remediation**
+  ## Remediation
 
   Normalize all file paths constructed from untrusted user input before using them and check that the resulting path is inside the
   targeted directory. Additionally, do not allow character sequences such as .. in untrusted input that is used to build paths.
 
-  **See also:**
+  ## See also:
 
   [CodeQL: Uncontrolled data used in path expression](https://codeql.github.com/codeql-query-help/ruby/rb-path-injection/)
   [OWASP: Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)
