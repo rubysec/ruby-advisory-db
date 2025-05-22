@@ -1,0 +1,54 @@
+---
+gem: nokogiri
+ghsa: vcc3-rw6f-jv97
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-xc9x-jj77-9p9j
+title: Use-after-free in libxml2 via Nokogiri::XML::Reader
+date: 2024-03-18
+description: |
+  ### Summary
+
+  Nokogiri upgrades its dependency libxml2 as follows:
+  - v1.15.6 upgrades libxml2 to 2.11.7 from 2.11.6
+  - v1.16.2 upgrades libxml2 to 2.12.5 from 2.12.4
+
+  libxml2 v2.11.7 and v2.12.5 address the following vulnerability:
+
+  CVE-2024-25062 / https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-25062
+  - described at https://gitlab.gnome.org/GNOME/libxml2/-/issues/604
+  - patched by https://gitlab.gnome.org/GNOME/libxml2/-/commit/92721970
+
+  Please note that this advisory only applies to the CRuby implementation of Nokogiri, and only if
+  the packaged libraries are being used. If you've overridden defaults at installation time to use
+  system libraries instead of packaged libraries, you should instead pay attention to your distro's
+  libxml2 release announcements.
+
+  JRuby users are not affected.
+
+  ### Severity
+
+  The Nokogiri maintainers have evaluated this as **Moderate**.
+
+  ### Impact
+
+  From the CVE description, this issue applies to the `xmlTextReader` module (which underlies
+  `Nokogiri::XML::Reader`):
+
+  > When using the XML Reader interface with DTD validation and XInclude expansion enabled,
+  > processing crafted XML documents can lead to an xmlValidatePopElement use-after-free.
+
+  ### Mitigation
+
+  Upgrade to Nokogiri `~> 1.15.6` or `>= 1.16.2`.
+
+  Users who are unable to upgrade Nokogiri may also choose a more complicated mitigation: compile
+  and link Nokogiri against patched external libxml2 libraries which will also address these same
+  issues.
+cvss_v3: 7.5
+patched_versions:
+- "~> 1.15.6"
+- ">= 1.16.2"
+related:
+  url:
+  - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-xc9x-jj77-9p9j
+  - https://github.com/rubysec/ruby-advisory-db/blob/master/gems/nokogiri/GHSA-xc9x-jj77-9p9j.yml
+  - https://github.com/advisories/GHSA-vcc3-rw6f-jv97
