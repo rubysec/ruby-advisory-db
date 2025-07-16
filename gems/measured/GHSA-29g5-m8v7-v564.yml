@@ -1,0 +1,25 @@
+---
+gem: measured
+ghsa: 29g5-m8v7-v564
+url: https://github.com/Shopify/measured/security/advisories/GHSA-29g5-m8v7-v564
+title: Measured is vulnerable to Path Traversal attacks during
+  class initialization
+date: 2025-07-15
+description: |
+  ### Impact
+
+  A path traversal vulnerability exists where an attacker
+  with access to manipulate inputs when initializing the
+  `Measured::Cache::Json class` would be able to instruct
+  the library to read arbitrary files.
+
+  ### Patches
+
+  Users should update to the latest version.
+patched_versions:
+  - ">= 3.2.1"
+related:
+  url:
+    - https://github.com/Shopify/measured/security/advisories/GHSA-29g5-m8v7-v564
+    - https://github.com/Shopify/measured/commit/d6319985a2304d97c085e3dc45c98af554f4be76
+    - https://github.com/advisories/GHSA-29g5-m8v7-v564
