@@ -1,0 +1,106 @@
+---
+gem: nokogiri
+ghsa: 353f-x4gh-cqq8
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-353f-x4gh-cqq8
+title: Nokogiri patches vendored libxml2 to resolve multiple CVEs
+date: 2025-07-21
+description: |
+  ## Summary
+
+  Nokogiri v1.18.9 patches the vendored libxml2 to address
+  CVE-2025-6021, CVE-2025-6170, CVE-2025-49794, CVE-2025-49795,
+  and CVE-2025-49796.
+
+  ## Impact and severity
+
+  ### CVE-2025-6021
+
+  A flaw was found in libxml2's xmlBuildQName function, where integer
+  overflows in buffer size calculations can lead to a stack-based
+  buffer overflow. This issue can result in memory corruption or a
+  denial of service when processing crafted input.
+
+  NVD claims a severity of 7.5 High
+  (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+
+  Fixed by applying https://gitlab.gnome.org/GNOME/libxml2/-/commit/17d950ae
+
+  ### CVE-2025-6170
+
+  A flaw was found in the interactive shell of the xmllint command-line
+  tool, used for parsing XML files. When a user inputs an overly long
+  command, the program does not check the input size properly, which
+  can cause it to crash. This issue might allow attackers to run
+  harmful code in rare configurations without modern protections.
+
+  NVD claims a severity of 2.5 Low
+  (CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:N/I:N/A:L)
+
+  Fixed by applying https://gitlab.gnome.org/GNOME/libxml2/-/commit/5e9ec5c1
+
+  ### CVE-2025-49794
+
+  A use-after-free vulnerability was found in libxml2. This issue
+  occurs when parsing XPath elements under certain circumstances when
+  the XML schematron has the <sch:name path="..."/> schema elements.
+  This flaw allows a malicious actor to craft a malicious XML document
+  used as input for libxml, resulting in the program's crash using
+  libxml or other possible undefined behaviors.
+
+  NVD claims a severity of 9.1 Critical
+  (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H)
+
+  Fixed by applying https://gitlab.gnome.org/GNOME/libxml2/-/commit/81cef8c5
+
+  ### CVE-2025-49795
+
+  A NULL pointer dereference vulnerability was found in libxml2 when
+  processing XPath XML expressions. This flaw allows an attacker to
+  craft a malicious XML input to libxml2, leading to a denial of service.
+
+  NVD claims a severity of 7.5 High
+  (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+
+  Fixed by applying https://gitlab.gnome.org/GNOME/libxml2/-/commit/62048278
+
+  ### CVE-2025-49796
+
+  A vulnerability was found in libxml2. Processing certain sch:name
+  elements from the input XML file can trigger a memory corruption
+  issue. This flaw allows an attacker to craft a malicious XML input
+  file that can lead libxml to crash, resulting in a denial of service
+  or other possible undefined behavior due to sensitive data being
+  corrupted in memory.
+
+  NVD claims a severity of 9.1 Critical
+  (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H)
+
+  Fixed by applying https://gitlab.gnome.org/GNOME/libxml2/-/commit/81cef8c5
+
+  ## Affected Versions
+
+  - Nokogiri < 1.18.9 when using CRuby (MRI) with vendored libxml2
+
+  ## Patched Versions
+
+  - Nokogiri >= 1.18.9
+
+  ## Mitigation
+
+  Upgrade to Nokogiri v1.18.9 or later.
+
+  Users who are unable to upgrade Nokogiri may also choose a more
+  complicated mitigation: compile and link Nokogiri against patched
+  external libxml2 libraries which will also address these same issues.
+patched_versions:
+  - ">= 1.18.9"
+related:
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-353f-x4gh-cqq8
+    - https://nvd.nist.gov/vuln/detail/CVE-2025-49794
+    - https://nvd.nist.gov/vuln/detail/CVE-2025-49795
+    - https://nvd.nist.gov/vuln/detail/CVE-2025-49796
+    - https://nvd.nist.gov/vuln/detail/CVE-2025-6021
+    - https://nvd.nist.gov/vuln/detail/CVE-2025-6170
+    - https://github.com/sparklemotion/nokogiri/pull/3526
+    - https://github.com/advisories/GHSA-353f-x4gh-cqq8
