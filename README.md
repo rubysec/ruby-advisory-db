@@ -121,7 +121,7 @@ patched_versions:
 
 * `gem` \[String\] (required): Name of the affected gem.
 * `library` \[String\] (optional): Name of the ruby library which the affected gem belongs to.
-* `framework` \[String\] (optional): Name of the framework which the affected gem belongs to.
+* `framework` \[String\] (optional): Name of the framework which the affected gem belongs to. (e.g. rails)
 * `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)
 * `cve` \[String\] (optional): Common Vulnerabilities and Exposures (CVE) ID.
 * `osvdb` \[Integer\] (optional): Open Sourced Vulnerability Database (OSVDB) ID.
