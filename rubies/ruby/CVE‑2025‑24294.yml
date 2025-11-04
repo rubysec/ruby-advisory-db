@@ -17,8 +17,8 @@ patched_versions:
   - ">= 3.4.5"
 related:
   url:
-  - https://github.com/rubysec/ruby-advisory-db/blob/master/gems/resolv/CVE-2025-24294.yml
-  - https://www.cve.org/CVE-2025-24294
-  - https://www.ruby-lang.org/en/news/2025/07/24/ruby-3-2-9-released/
-  - https://www.ruby-lang.org/en/news/2025/07/24/ruby-3-3-9-released/
-  - https://www.ruby-lang.org/en/news/2025/07/15/ruby-3-4-5-released/
+    - https://github.com/rubysec/ruby-advisory-db/blob/master/gems/resolv/CVE-2025-24294.yml
+    - https://www.cve.org/CVE-2025-24294
+    - https://www.ruby-lang.org/en/news/2025/07/24/ruby-3-2-9-released/
+    - https://www.ruby-lang.org/en/news/2025/07/24/ruby-3-3-9-released/
+    - https://www.ruby-lang.org/en/news/2025/07/15/ruby-3-4-5-released/
