@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'versions_example'
+require 'net/http'
 
 require 'yaml'
 
@@ -106,6 +107,23 @@ shared_examples_for 'Advisory' do |path|
       it { expect(subject).to be_kind_of(String) }
       it { expect(subject).to_not match(%r{\Ahttp(s)?://osvdb\.org}) }
       it { expect(subject).not_to be_empty }
+
+      it "check for successful URL" do
+         # Only installing check for advisories going forward.
+         if Date.parse( advisory['date'].to_s ).year >= 2025
+           # Assume only 1 value
+           uri = URI.parse(subject)
+
+           begin
+             response = Net::HTTP.get_response(uri)
+             # TBD: What other codes besides [200, 301, 302, 308, 403]?
+             expect([200, 301, 302, 308, 403]).to include(response.code.to_i),
+               ">URL - #{uri} - #{response.code.to_i}"
+           rescue StandardError => e
+             raise ">URL - #{uri} - Error: #{e.message}"
+           end
+         end
+      end
     end
 
     describe "title" do
@@ -240,6 +258,32 @@ shared_examples_for 'Advisory' do |path|
 
             it "should always contain an array" do
               expect(values).to be_kind_of(Array)
+            end
+          end
+        end
+      end
+
+      it "check for successful related URLs" do
+        if advisory["related"] # not nil
+          advisory["related"].each_pair do |name,values|
+            values.each do |value_str|
+              if !value_str.to_s.start_with?('CVE-')
+                # Only installing check for advisories going forward.
+                if Date.parse( advisory['date'].to_s ).year >= 2025
+                  # Assume only 1 value
+                  uri = URI.parse(value_str)
+
+                  begin
+                    response = Net::HTTP.get_response(uri)
+                    # TBD: What other codes besides [200, 301, 302, 308, 403]?
+                    expect([200, 301, 302, 308, 403]).to include(
+                    response.code.to_i),
+                      ">RELATED - #{uri}: #{response.code.to_i}"
+                  rescue StandardError => e
+                    raise ">RELATED - #{uri} - Error: #{e.message}"
+                  end
+                end
+              end
             end
           end
         end
