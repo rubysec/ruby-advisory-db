@@ -72,5 +72,4 @@ related:
     - https://github.com/etaminstudio/prosemirror_to_html/commit/4d59f94f550bcabeec30d298791bbdd883298ad8
     - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
     - https://github.com/etaminstudio/prosemirror_to_html/blob/ea8beb32f6c37f29f042ba4155ccf18504da716e/lib/prosemirror_to_html.rb#L249
-    - https://github.com/rubysec/ruby-advisory-db/blob/master/gems/prosemirror_to_html/GHSA-vfpf-xmwh-8m65.yml
     - https://github.com/advisories/GHSA-4249-gjr8-jpq3
