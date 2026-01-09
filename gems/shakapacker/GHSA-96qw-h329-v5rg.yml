@@ -1,0 +1,91 @@
+---
+gem: shakapacker
+ghsa: 96qw-h329-v5rg
+url: https://github.com/shakacode/shakapacker/security/advisories/GHSA-96qw-h329-v5rg
+title: Shakapacker has environment variable leak via EnvironmentPlugin
+  that exposes secrets to client-side bundles
+date: 2026-01-08
+description: |
+  ### Summary
+
+  Since 2017, the default webpack plugins have passed the entire
+  `process.env` to `EnvironmentPlugin`. This pattern exposed ALL
+  build environment variables to client-side JavaScript bundles
+  whenever application code (or any dependency) referenced
+  `process.env.VARIABLE_NAME`.
+
+  This is not a regression - the vulnerable code has existed since
+  the original Webpacker implementation. No recent code change
+  in Shakapacker triggered this issue.
+
+  ### Impact
+
+  Any environment variable in the build environment that is referenced
+  in client-side code (including third-party dependencies) is embedded
+  directly into the JavaScript bundle. This includes:
+
+  - `DATABASE_URL` - Database credentials
+  - `AWS_SECRET_ACCESS_KEY` - AWS credentials
+  - `RAILS_MASTER_KEY` - Rails encrypted credentials key
+  - `STRIPE_SECRET_KEY`, `TWILIO_AUTH_TOKEN` - Third-party API keys
+  - Any other secrets present in the build environment
+
+  **Severity**: Critical - secrets are exposed in publicly accessible
+  JavaScript files.
+
+  ### Root Cause
+
+  The original code used:
+  ```javascript
+  new
+  webpack.EnvironmentPlugin(process.env)
+  ```
+
+  This makes every environment variable available for substitution. If
+  any code references `process.env.SECRET_KEY`, that value is embedded
+  in the bundle.
+
+  ### Patches
+
+  Upgrade to version 9.5.0 or later, which uses an allowlist approach
+  that only exposes `NODE_ENV`, `RAILS_ENV`, and `WEBPACK_SERVE` by default.
+
+  ### Workarounds
+
+  If developers cannot upgrade immediately:
+    1. Audit client-side code and dependencies for any `process.env.X`
+       references to sensitive variables
+    2. Remove sensitive variables from the build environment
+    3. Override the default plugins with a custom webpack/rspack
+       config using an explicit allowlist
+
+  ### Migration
+
+  After upgrading, if client-side code needs access to specific environment
+  variables:
+
+  **Option 1: Use the `SHAKAPACKER_PUBLIC_` prefix (recommended)**
+  ```bash
+  # Variables with this prefix are automatically exposed
+  export SHAKAPACKER_PUBLIC_API_URL=\"https://api.example.com\"
+  ```
+
+  **Option 2: Use `SHAKAPACKER_ENV_VARS`**
+  ```bash
+  SHAKAPACKER_ENV_VARS=API_URL,FEATURE_FLAG
+  bundle exec rails assets:precompile
+  ```
+
+  ### Action Required
+
+  After upgrading, **rotate any secrets** that may have been exposed
+  in previously compiled JavaScript bundles.
+cvss_v3: 7.5
+patched_versions:
+  - ">= 9.5.0"
+related:
+  url:
+    - https://github.com/shakacode/shakapacker/security/advisories/GHSA-96qw-h329-v5rg
+    - https://github.com/shakacode/shakapacker/pull/857
+    - https://github.com/shakacode/shakapacker/commit/3e06781b18383c5c2857ed3a722f7b91bdc1bc0e
+    - https://github.com/advisories/GHSA-96qw-h329-v5rg
