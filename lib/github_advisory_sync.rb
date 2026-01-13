@@ -201,11 +201,11 @@ module GitHub
 
       def framework
         case name
-        when
-          "actioncable",  "actionmailbox", "actionmailer",  "actionpack",
-          "actiontext",   "actionview",    "activejob",     "activemodel",
-          "activerecord", "activestorage", "activesupport", "railties",
-          "rails", "jquery-rails"
+        when "actioncable", "actionmailbox", "actionmailer", "actionpack",
+             "actiontext", "actionview", "activejob", "activemodel",
+             "activerecord", "activestorage", "activesupport", "railties",
+             "jquery-rails"
+          "rails"
         end
       end
 
