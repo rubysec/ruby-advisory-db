@@ -205,7 +205,9 @@ module GitHub
           "actioncable",  "actionmailbox", "actionmailer",  "actionpack",
           "actiontext",   "actionview",    "activejob",     "activemodel",
           "activerecord", "activestorage", "activesupport", "railties",
-          "rails", "jquery-rails"
+          "jquery-rails"
+          # Mark all of the above to be part of the Rails framework
+          "rails"
         end
       end
 
