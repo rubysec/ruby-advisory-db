@@ -1,0 +1,62 @@
+---
+gem: encryptor
+gsm: 2016-16
+url: https://advisories.gitlab.com/pkg/gem/encryptor/GMS-2016-16
+title: AES-GCM nonce reuse vulnerability
+date: 2016-03-20
+description: |
+  The encryptor gem prior to version 3.0.0 encrypts all messages using
+  the same AES-GCM key/nonce pair when GCM mode is used. Reusing a
+  nonce with AES-GCM catastrophically breaks the security of the scheme:
+  by XORing two ciphertexts produced with the same key and nonce, an
+  attacker can recover the XOR of the corresponding plaintexts.
+  Worse, the construction leaks the AES-GCM authentication subkey,
+  allowing attackers to forge valid authentication tags, mount chosen
+  ciphertext attacks, and potentially recover full plaintexts. Users
+  relying on encryptor 2.x with AES-GCM should assume confidentiality
+  and integrity of affected ciphertexts are compromised and must
+  re-encrypt data with a corrected implementation.
+
+  ## PREVIOUS DESCRIPTION
+  This gem was encrypting all messages using the same key/nonce. This
+  not only exposes the XOR of the plaintexts if you XOR together two
+  ciphertexts, but it also leaks the AES-GCM authentication key, allowing
+  an attacker to forge messages and potentially perform chosen ciphertext
+  attacks, which could potentially enable full plaintext recovery
+  (especially if they've e.g. compromised the database, which is the
+  threat model attr_encrypted is designed to defend against).
+
+  ## NOTE
+  The vulnerability arises from using a fixed or otherwise reused nonce with
+  AES-GCM across multiple encryptions under the same key. This design flaw
+  fatally undermines both confidentiality and integrity, enabling plaintext
+  recovery and forgery of ciphertexts. Version 3.0.0 of encryptor changes
+  the way IVs/nonces are generated for AES-GCM, addressing the nonce reuse
+  issue and rendering prior ciphertexts produced under the vulnerable
+  scheme unsafe.
+
+  NOTE: Release 3.0.0 (3/26/2018) is last release of gem as of 6/12/2023.
+patched_versions:
+  - ">= 3.0.0"
+related:
+  url:
+    - https://advisories.gitlab.com/pkg/gem/encryptor/GMS-2016-16
+    - https://security.snyk.io/vuln/SNYK-RUBY-ENCRYPTOR-20434
+    - https://github.com/attr-encrypted/encryptor/releases/tag/3.0.0
+    - https://github.com/rubysec/ruby-advisory-db/issues/305
+    - https://github.com/attr-encrypted/encryptor#upgrading-from-v200-to-v300
+    - https://github.com/attr-encrypted/encryptor/blob/master/CHANGELOG.md
+    - https://github.com/attr-encrypted/encryptor/issues/30
+    - https://github.com/attr-encrypted/encryptor/pull/22
+    - https://github.com/attr-encrypted/encryptor/pull/22/commits/91f7228b6add7156f5bb38f9495be5141fe557a8
+notes: |
+  - ISS#30 ("CVE for encryptor 2.0.0") is still open.
+  - No CVE/GSHA/OSVDB ID.
+  - No cvss_v2 or cvss_v3. SNYK has general CVSS values.
+  - Empty https://github.com/attr-encrypted/encryptor/security
+  - Using CWE-323.
+    - keywords: CWE AES-GSM nonce reuse vulnerability encrypting authentication
+      - (CWE-323) (yes)
+        - https://www.ubiqsecurity.com/
+          exploring-cwe-323-reusing-a-nonce-key-pair-in-encryption/
+      - (CWE-327) (general)

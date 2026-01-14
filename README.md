@@ -37,14 +37,14 @@ rubies/:
 The `gems/` directory contains sub-directories that match the names of the Ruby
 libraries on [rubygems.org]. Within each directory are one or more advisory
 files for the Ruby library. These advisory files are named using the
-advisories' [CVE] or [GHSA] ID.
+advisories' [CVE] or [GHSA] or [GSM] ID.
 
 ### `rubies/`
 
 The `rubies/` directory contains sub-directories for each Ruby implementation.
 Within each directory are one or more advisory files for the Ruby
 implementation. These advisory files are named using the advisories' [CVE]
-or [GHSA] ID.
+or [GHSA] or [GSM] ID.
 
 ## Examples
 
@@ -126,6 +126,7 @@ patched_versions:
 * `cve` \[String\] (optional): Common Vulnerabilities and Exposures (CVE) ID.
 * `osvdb` \[Integer\] (optional): Open Sourced Vulnerability Database (OSVDB) ID.
 * `ghsa` \[String\] (optional): GitHub Security Advisory (GHSA) ID.
+* `gsm` \[String\] (optional): GitLab Security Advisory (GSM) ID.
 * `url` \[String\] (required): The URL to the full advisory.
 * `title` \[String\] (required): The title of the advisory or individual vulnerability. It must be a single line sentence.
 * `date` \[Date\] (required): The public disclosure date of the advisory.
@@ -137,7 +138,7 @@ patched_versions:
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
   patched versions of the Ruby library.
-* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
+* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `gsm`, `osvdb`, and `url`
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
 
 ### `rubies`
@@ -147,6 +148,7 @@ patched_versions:
 * `cve` \[String\] (optional): Common Vulnerabilities and Exposures (CVE) ID.
 * `osvdb` \[Integer\] (optional): Open Sourced Vulnerability Database (OSVDB) ID.
 * `ghsa` \[String\] (optional): GitHub Security Advisory (GHSA) ID.
+* `gsm` \[String\] (optional): GitLab Security Advisory (GSM) ID.
 * `url` \[String\] (required): The URL to the full advisory.
 * `title` \[String\] (required): The title of the advisory or individual vulnerability. It must be a single line sentence.
 * `date` \[Date\] (required): The public disclosure date of the advisory.
@@ -158,7 +160,7 @@ patched_versions:
   unaffected versions of the Ruby implementation.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
   patched versions of the Ruby implementation.
-* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
+* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `gsm`, `osvdb`, and `url`
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
 
 ## Tests
@@ -229,6 +231,7 @@ developed by the Open Security Foundation (OSF) and its contributors.
 [CVE]: https://cve.mitre.org/
 [OSVDB]: https://en.wikipedia.org/wiki/Open_Source_Vulnerability_Database
 [GHSA]: https://help.github.com/en/articles/about-maintainer-security-advisories
+[GSM]: https://advisories.gitlab.com/advisories
 [GitHub Security Advisory API]: https://developer.github.com/v4/object/securityadvisory/
 [CVSSv2]: https://www.first.org/cvss/v2/guide
 [CVSSv3]: https://www.first.org/cvss/v3.1/user-guide

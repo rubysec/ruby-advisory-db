@@ -27,20 +27,27 @@ shared_examples_for 'Advisory' do |path|
       end
     end
 
-    it "should be correctly named CVE-XXX or OSVDB-XXX or GHSA-XXX" do
+    let(:filename_gsm) do
+      if filename.start_with?('GSM-')
+        filename.gsub('GSM-','')
+      end
+    end
+
+    it "should be correctly named CVE-XXX or OSVDB-XXX or GHSA-XXX or GSM-XXX" do
       expect(filename).to match(
         /\A
           (?:
              CVE-\d{4}-(?:0\d{3}|[1-9]\d{3,})|
              OSVDB-\d+|
-             GHSA(-[a-z0-9]{4}){3}
+             GHSA(-[a-z0-9]{4}){3}|
+             GSM(-[a-z0-9]{4})-[0-9]{2}
           )\.yml\z
         /x
       )
     end
 
-    it "should have CVE or OSVDB or GHSA" do
-      expect(advisory['cve'] || advisory['osvdb'] || advisory['ghsa']).not_to be_nil
+    it "should have CVE or OSVDB or GHSA or GSM" do
+      expect(advisory['cve'] || advisory['osvdb'] || advisory['ghsa'] || advisory['gsm']).not_to be_nil
     end
 
     it "should CVE-XXX if cve field has a value" do
@@ -48,6 +55,8 @@ shared_examples_for 'Advisory' do |path|
         expect(filename).to start_with('CVE-')
       elsif advisory['ghsa']
         expect(filename).to start_with('GHSA-')
+      elsif advisory['gam']
+        expect(filename).to start_with('GSM-')
       end
     end
 
@@ -96,6 +105,19 @@ shared_examples_for 'Advisory' do |path|
       it "should be id in filename if filename is GHSA-XXX" do
         if filename_ghsa
           expect(subject).to eq(filename_ghsa.chomp('.yml'))
+        end
+      end
+    end
+
+    describe "gsm" do
+      subject { advisory['gsm'] }
+
+      it "may be nil or a String" do
+        expect(subject).to be_kind_of(String).or(be_nil)
+      end
+      it "should be id in filename if filename is GSM-XXX" do
+        if filename_gsm
+          expect(subject).to eq(filename_gsm.chomp('.yml'))
         end
       end
     end
@@ -234,8 +256,8 @@ shared_examples_for 'Advisory' do |path|
       when Hash
         advisory["related"].each_pair do |name,values|
           describe(name) do
-            it "should be either a cve, an osvdb, a ghsa, or a url" do
-              expect(["cve", "osvdb", "ghsa", "url"]).to include(name)
+            it "should be either a cve, an osvdb, a ghsa, a gsm or a url" do
+              expect(["cve", "osvdb", "ghsa", "gsm", "url"]).to include(name)
             end
 
             it "should always contain an array" do
