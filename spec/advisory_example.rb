@@ -102,6 +102,7 @@ shared_examples_for 'Advisory' do |path|
       it "may be nil or a String" do
         expect(subject).to be_kind_of(String).or(be_nil)
       end
+
       it "should be id in filename if filename is GHSA-XXX" do
         if filename_ghsa
           expect(subject).to eq(filename_ghsa.chomp('.yml'))
