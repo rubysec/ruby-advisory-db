@@ -1,0 +1,19 @@
+---
+gem: activejob
+osvdb: 112347
+url: https://advisories.gitlab.com/pkg/gem/activejob/OSVDB-112347
+title: Active Job - Object injection security vulnerability if Global IDs
+date: 2014-09-29
+description: |
+  * In release post: "Active Job vulnerability:
+    We also fixed an Active Job bug that allowed String
+    arguments to be deserialized as if they were Global IDs,
+    an object injection security vulnerability.
+patched_versions:
+  - ">= 4.2.0.beta2"
+related:
+  url:
+    - https://rubyonrails.org/2014/9/29/Rails-4-2-0-beta2-has-been-released
+    - https://advisories.gitlab.com/pkg/gem/activejob/OSVDB-112347
+notes: |
+  - No CVE, GHSA, or CVSS values

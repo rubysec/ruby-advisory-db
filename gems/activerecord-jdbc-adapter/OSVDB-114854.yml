@@ -25,3 +25,4 @@ related:
     - https://security.snyk.io/vuln/SNYK-RUBY-ACTIVERECORDJDBCADAPTER-20076
     - https://my.diffend.io/gems/activerecord-jdbc-adapter/1.2.5/1.2.8
     - http://osvdb.org/show/osvdb/114854
+    - https://advisories.gitlab.com/pkg/gem/activerecord-jdbc-adapter/OSVDB-2013-02-25
