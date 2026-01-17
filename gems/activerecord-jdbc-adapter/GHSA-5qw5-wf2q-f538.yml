@@ -2,10 +2,10 @@
 gem: activerecord-jdbc-adapter
 platform: jruby
 osvdb: 114854
-url: https://github.com/jruby/activerecord-jdbc-adapter/issues/322
-title:
-  ActiveRecord-JDBC-Adapter (AR-JDBC) lib/arjdbc/jdbc/adapter.rb sql.gsub()
-  Function SQL Injection
+ghsa: 5qw5-wf2q-f538
+url: https://github.com/advisories/GHSA-5qw5-wf2q-f538
+title: ActiveRecord-JDBC-Adapter (AR-JDBC) lib/arjdbc/jdbc/adapter.rb
+  sql.gsub() Function SQL Injection
 date: 2013-02-25
 description: |
   ActiveRecord-JDBC-Adapter (AR-JDBC) contains a flaw that may allow carrying
@@ -22,7 +22,8 @@ related:
   url:
     - https://github.com/jruby/activerecord-jdbc-adapter/issues/322
     - https://github.com/jruby/activerecord-jdbc-adapter/blob/master/lib/arjdbc/jdbc/adapter.rb
-    - https://security.snyk.io/vuln/SNYK-RUBY-ACTIVERECORDJDBCADAPTER-20076
     - https://my.diffend.io/gems/activerecord-jdbc-adapter/1.2.5/1.2.8
-    - http://osvdb.org/show/osvdb/114854
-    - https://advisories.gitlab.com/pkg/gem/activerecord-jdbc-adapter/OSVDB-2013-02-25
+    - https://security.snyk.io/vuln/SNYK-RUBY-ACTIVERECORDJDBCADAPTER-20076
+    - https://github.com/advisories/GHSA-5qw5-wf2q-f538
+notes: |
+  - No CVE, CVSS values.
