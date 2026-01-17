@@ -1,0 +1,27 @@
+---
+gem: activejob
+framework: rails
+ghsa: mpwp-4h2m-765c
+osvdb: 112347
+url: https://github.com/advisories/GHSA-mpwp-4h2m-765c
+title: Active Job - Object injection security vulnerability if Global IDs
+date: 2014-09-29
+description: |
+  Active Job vulnerability: An Active Job bug allowed String
+  arguments to be deserialized as if they were Global IDs, an
+  object injection security vulnerability.
+
+  * In release post: "Active Job vulnerability:
+    We also fixed an Active Job bug that allowed String
+    arguments to be deserialized as if they were Global IDs,
+    an object injection security vulnerability.
+patched_versions:
+  - ">= 4.2.0.beta2"
+related:
+  url:
+    - https://advisories.gitlab.com/pkg/gem/activejob/OSVDB-112347
+    - https://rubyonrails.org/2014/9/29/Rails-4-2-0-beta2-has-been-released
+    - https://github.com/rubysec/ruby-advisory-db/blob/master/gems/activejob/OSVDB-112347.yml
+    - https://github.com/advisories/GHSA-mpwp-4h2m-765c
+notes: |
+  - No CVE or CVSS values.
