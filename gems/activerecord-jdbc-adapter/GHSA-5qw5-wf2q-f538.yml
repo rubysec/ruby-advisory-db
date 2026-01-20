@@ -24,6 +24,7 @@ related:
     - https://github.com/jruby/activerecord-jdbc-adapter/blob/master/lib/arjdbc/jdbc/adapter.rb
     - https://my.diffend.io/gems/activerecord-jdbc-adapter/1.2.5/1.2.8
     - https://security.snyk.io/vuln/SNYK-RUBY-ACTIVERECORDJDBCADAPTER-20076
+    - https://advisories.gitlab.com/pkg/gem/activerecord-jdbc-adapter/GHSA-5qw5-wf2q-f538
     - https://github.com/advisories/GHSA-5qw5-wf2q-f538
 notes: |
   - No CVE, CVSS values.
