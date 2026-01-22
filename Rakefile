@@ -18,5 +18,11 @@ task :sync_github_advisories, [:gem_name] do |_, args|
   GitHub::GitHubAdvisorySync.sync(gem_name: args[:gem_name])
 end
 
+desc "Sync Unreviewed GitHub RubyGem Advisories into this project"
+task :sync_unreviewed_github_advisories, [:gem_name] do |_, args|
+  require_relative "lib/github_unreviewed_advisory_sync"
+  GitHub::GitHubAdvisorySync.sync(gem_name: args[:gem_name])
+end
+
 task :lint    => ['lint:yaml']
 task :default => :lint
