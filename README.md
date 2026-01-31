@@ -136,7 +136,8 @@ patched_versions:
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
-  patched versions of the Ruby library.
+  patched versions of the Ruby library. If no patch is available, you can put
+   **notes: "Never patched"** in its place.
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
 
