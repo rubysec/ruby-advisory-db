@@ -21,7 +21,6 @@ related:
   url:
     - https://advisories.gitlab.com/pkg/gem/activejob/OSVDB-112347
     - https://rubyonrails.org/2014/9/29/Rails-4-2-0-beta2-has-been-released
-    - https://github.com/rubysec/ruby-advisory-db/blob/master/gems/activejob/OSVDB-112347.yml
     - https://advisories.gitlab.com/pkg/gem/activejob/GHSA-mpwp-4h2m-765c
     - https://github.com/advisories/GHSA-mpwp-4h2m-765c
 notes: |
