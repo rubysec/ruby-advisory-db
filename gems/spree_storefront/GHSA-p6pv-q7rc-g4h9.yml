@@ -1,0 +1,78 @@
+---
+gem: spree_storefront
+ghsa: p6pv-q7rc-g4h9
+url: https://github.com/spree/spree/security/advisories/GHSA-p6pv-q7rc-g4h9
+title: Unauthenticated Spree Commerce users can view completed
+  guest orders by Order ID
+date: 2026-02-05
+description: |
+  ### Unauthenticated users can view completed guest orders by Order ID (`GHSL-2026-029`)
+
+  The `OrdersController#show` action permits viewing completed
+  guest orders by order number alone, without requiring the
+  associated order token.
+
+  Order lookup without enforcing token requirement in [`OrdersController#show`](https://github.com/spree/spree/blob/1341623f2ae92685cdbe232885bf5808fc8f9ca8/storefront/app/controllers/spree/orders_controller.rb#L14):
+
+  ```ruby
+  @order = complete_order_finder.new(number: params[:id],
+    token: params[:token], store: current_store).execute.first
+  ```
+
+  Authorization bypass for guest orders in [`authorize_access`](https://github.com/spree/spree/blob/1341623f2ae92685cdbe232885bf5808fc8f9ca8/storefront/app/controllers/spree/orders_controller.rb#L51C1-L55C8):
+  ```ruby
+  def authorize_access
+    return true if @order.user_id.nil?
+
+    @order.user == try_spree_current_user
+  end
+  ```
+
+  If the attacker is in possession of a leaked Order ID, they might
+  look it up directly via this API.
+  Alternatively, brute forcing all or parts of the possible
+  Order IDs might be feasible for an attacker. (The Order IDs
+  themselves are [securely generated](https://github.com/spree/spree/blob/a878eb4a782ce0445d218ea86fb12075b0e3d7cc/core/lib/spree/core/number_generator.rb#L45),
+  but with relatively low entropy: by default an order ID has a
+  length of 9 and a base of 10, that would require an attacker to
+  perform 1 billion requests to gather all guest orders. (At an
+  assumed constant rate of 100 requests per second it would take 115 days.)
+
+  #### Impact
+
+  This issue may lead to disclosure of PII of guest users
+  (including names, addresses and phone numbers).
+
+  #### CWEs
+
+  - CWE-639: Authorization Bypass Through User-Controlled Key
+
+  ### Credit
+
+  This issue was discovered with the [GitHub Security Lab Taskflow Agent](https://github.com/GitHubSecurityLab/seclab-taskflow-agent)
+  and manually verified by GHSL team members
+  [@p- (Peter Stöckli)](https://github.com/p-) and
+  [@m-y-mo (Man Yue Mo)](https://github.com/m-y-mo).
+
+  ### Disclosure Policy
+
+  This report is subject to a 90-day disclosure deadline, as
+  described in more detail in our [coordinated disclosure policy](https://securitylab.github.com/advisories#policy).
+patched_versions:
+  - "~> 5.0.8"
+  - "~> 5.1.10"
+  - "~> 5.2.7"
+  - ">= 5.3.2"
+related:
+  url:
+    - https://github.com/spree/spree/security/advisories/GHSA-p6pv-q7rc-g4h9
+    - https://github.com/spree/spree/commit/3e00be64c128ef4bd4b99731f0c3ab469509cfab
+    - https://github.com/spree/spree/commit/6b32ed7d474aa55fa441990e6aa39740152aa1be
+    - https://github.com/spree/spree/commit/6f6b8a7a28a8bff24a6e20eab04b4bbbdf39384d
+    - https://github.com/spree/spree/commit/ea4a5db590ca753dbc986f2a4e818d9e0edfb1ad
+    - https://github.com/spree/spree/blob/1341623f2ae92685cdbe232885bf5808fc8f9ca8/storefront/app/controllers/spree/orders_controller.rb#L14
+    - https://github.com/spree/spree/blob/1341623f2ae92685cdbe232885bf5808fc8f9ca8/storefront/app/controllers/spree/orders_controller.rb#L51C1-L55C8
+    - https://github.com/spree/spree/blob/a878eb4a782ce0445d218ea86fb12075b0e3d7cc/core/lib/spree/core/number_generator.rb#L45
+    - https://github.com/advisories/GHSA-p6pv-q7rc-g4h9
+notes: |
+  - CVE-2026-25757 in GHSA advisory.
