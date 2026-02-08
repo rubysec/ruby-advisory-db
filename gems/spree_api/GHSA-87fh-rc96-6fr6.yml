@@ -94,4 +94,4 @@ related:
     - https://github.com/spree/spree/blob/1341623f2ae92685cdbe232885bf5808fc8f9ca8/core/lib/spree/permitted_attributes.rb#L92-L96
     - https://github.com/advisories/GHSA-87fh-rc96-6fr6
 notes: |
-  -- CVE-2026-25758 in GHSA Advisory.
+  - CVE-2026-25758 in GHSA Advisory.
