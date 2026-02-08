@@ -4,7 +4,7 @@ mapping:
   "engine":
     type: str
     required: true
-    enum: [jruby, rbx, ruby, mruby]
+    enum: [jruby, rbx, ruby, mruby, mrubyc]
   "platform":
     type: str
   "cve":
