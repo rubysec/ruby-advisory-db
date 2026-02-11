@@ -1,0 +1,45 @@
+---
+gem: bitcoinrb
+ghsa: q66h-m87m-j2q6
+url: https://github.com/chaintope/bitcoinrb/security/advisories/GHSA-q66h-m87m-j2q6
+title: Bitcoinrb Vulnerable to Command injection via RPC
+date: 2026-02-10
+description: |
+  ### Summary: Remote Code Execution
+
+  Unsafe handling of request parameters in the RPC HTTP server
+  results in command injection.
+
+  ### Details
+
+  In lib/bitcoin/rpc/http_server.rb line 30-39, the JSON body of a
+  POST request is parsed into `command` and `args` variables. These
+  values are then passed to `send`, which is used to call an arbitrary
+  class method. However, there is no validation that the provided
+  `command` value  is one of the expected RPC methods.
+  This means that an attacker could supply a `command` value such
+  as `system`, and then pass arbitrary system commands into the
+  `args` parameter and achieve remote code execution.
+
+  ### Remediation
+
+   **Mitigating Factors:**
+
+  - The RPC server is part of the experimental SPV node feature,
+     which is not documented and has very few users.
+  - The SPV-related features may be removed in future releases.
+
+  **Resolution:**
+
+  - Added whitelist validation to allow only RPC methods defined
+    in `RequestHandler`.
+
+  - Fixed in version 1.12.0.
+patched_versions:
+  - ">= 1.12.0"
+related:
+  url:
+    - https://github.com/chaintope/bitcoinrb/releases/tag/v1.12.0
+    - https://github.com/chaintope/bitcoinrb/security/advisories/GHSA-q66h-m87m-j2q6
+    - https://github.com/chaintope/bitcoinrb/commit/070327133a2a3e5a6d265b2d82f06f9414c01e74
+    - https://github.com/advisories/GHSA-q66h-m87m-j2q6
