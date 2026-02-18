@@ -414,7 +414,7 @@ module GitHub
 
       # populate the related information
       new_data["related"] = {
-        "url" => advisory["references"]
+        "url" => advisory["references"].map { |reference| reference['url'] }.reject(&:empty?)
       }
 
       FileUtils.mkdir_p(File.dirname(filename_to_write))
