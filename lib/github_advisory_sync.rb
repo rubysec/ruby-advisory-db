@@ -184,6 +184,11 @@ module GitHub
 
   class GitHubAdvisory
     class Package
+      NORMALISED_NAMES = {
+        "arabic-prawn"  => "Arabic-Prawn",
+        "redcloth"      => "RedCloth",
+      }
+
       attr_reader :name
 
       def initialize(advisory, name)
@@ -196,7 +201,11 @@ module GitHub
       end
 
       def filename
-        File.join("gems", name, "#{@advisory.primary_id}.yml")
+        # These packages appear to have been named differently in the past
+        # This 'corrects' them so updates don't affect existing vulnerabilities
+        package_name = NORMALISED_NAMES.fetch(name, name)
+
+        File.join("gems", package_name, "#{@advisory.primary_id}.yml")
       end
 
       def framework
