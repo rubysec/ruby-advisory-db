@@ -196,7 +196,18 @@ module GitHub
       end
 
       def filename
-        File.join("gems", name, "#{@advisory.primary_id}.yml")
+        # These packages appear to have been named differently in the past
+        # This 'corrects' them so updates don't affect existing vulnerabilities
+        package_name = case name
+        when "arabic-prawn"
+          "Arabic-Prawn"
+        when "redcloth"
+          "RedCloth"
+        else
+          name
+        end
+
+        File.join("gems", package_name, "#{@advisory.primary_id}.yml")
       end
 
       def framework
