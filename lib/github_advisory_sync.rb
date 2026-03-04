@@ -417,30 +417,44 @@ module GitHub
         "url" => advisory["references"]
       }
 
+      if ENV["DEBUG"]
+        # Add json versions of files in json directory.
+        json_dir = File.join("json", package.name)
+        FileUtils.mkdir_p(json_dir)
+
+        json_path = File.join(json_dir, "#{primary_id}.json")
+        File.write(json_path, JSON.pretty_generate({
+          "advisory" => advisory,
+          "vulnerabilities" => vulnerabilities
+        }))
+      end
+
       FileUtils.mkdir_p(File.dirname(filename_to_write))
       File.open(filename_to_write, "w") do |file|
         # create an automatically generated advisory yaml file
         file.write new_data.to_yaml
 
-        # The data we just wrote is incomplete,
-        # and therefore should not be committed as is
-        # We can not directly translate from GitHub to rubysec advisory format
-        #
-        # The patched_versions field is not exactly available.
-        # - GitHub has a first_patched_version field,
-        #   but rubysec advisory needs a ruby version spec
-        #
-        # The unaffected_versions field is similarly not directly available
-        # This optional field must be inferred from the vulnerableVersionRange
-        #
-        # To help write those fields, we put all the github data below.
-        #
-        # The second block of yaml in a .yaml file is ignored (after the second "---" line)
-        # This effectively makes this data a large comment
-        # Still it should be removed before the data goes into rubysec
-        file.write "# GitHub advisory data below - **Remove this data before committing**\n"
-        file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
-        file.write advisory.merge("vulnerabilities" => vulnerabilities).to_yaml
+        if ENV["DEBUG"]
+          # The data we just wrote is incomplete,
+          # and therefore should not be committed as is
+          # We can not directly translate from GitHub to rubysec advisory format
+          #
+          # The patched_versions field is not exactly available.
+          # - GitHub has a first_patched_version field,
+          #   but rubysec advisory needs a ruby version spec
+          #
+          # The unaffected_versions field is similarly not directly available
+          # This optional field must be inferred from the vulnerableVersionRange
+          #
+          # To help write those fields, we put all the github data below.
+          #
+          # The second block of yaml in a .yaml file is ignored (after the second "---" line)
+          # This effectively makes this data a large comment
+          # Still it should be removed before the data goes into rubysec
+          file.write "# GitHub advisory data below - **Remove this data before committing**\n"
+          file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
+          file.write advisory.merge("vulnerabilities" => vulnerabilities).to_yaml
+        end
       end
       puts "Wrote: #{filename_to_write}"
       filename_to_write
