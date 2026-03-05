@@ -7,7 +7,7 @@ The ruby-advisory-db may contain some information copyrighted by the Open
 Source Vulnerability Database (http://osvdb.org). If you use ruby-advisory-db
 data to build a product or a service, it is your responsibility to familiarize
 yourself with the terms of their license: http://www.osvdb.org/osvdb_license
-(you may need to use a web archive service to view the license).
+(you may need to use a web archive service, such as [Here](https://scancode-licensedb.aboutcode.org/osvdb.html), to view the license).
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
