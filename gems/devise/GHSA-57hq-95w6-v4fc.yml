@@ -1,0 +1,60 @@
+---
+gem: devise
+ghsa: 57hq-95w6-v4fc
+url: https://github.com/heartcombo/devise/security/advisories/GHSA-57hq-95w6-v4fc
+title: Confirmable "change email" race condition permits
+  user to confirm email they have no access to
+date: 2026-03-16
+description: |
+  ## Impact
+
+  A race condition in Devise's Confirmable module allows an attacker
+  to confirm an email address they do not own. This affects any Devise
+  application using the reconfirmable option (the default when using
+  Confirmable with email changes).
+
+  By sending two concurrent email change requests, an attacker can
+  desynchronize the confirmation_token and unconfirmed_email fields.
+  The confirmation token is sent to an email the attacker controls,
+  but the unconfirmed_email in the database points to a victim's
+  email address. When the attacker uses the token, the victim's email
+  is confirmed on the attacker's account.
+
+  ## Patch
+
+  This is patched in Devise v5.0.3. Users should upgrade as soon as possible.
+
+  ## Workaround
+
+  Applications can override this specific method from Devise models
+  to force unconfirmed_email to be persisted when unchanged:
+  (assuming your model is User)
+
+  ```
+  class User < ApplicationRecord
+    protected
+
+    def postpone_email_change_until_confirmation_and_regenerate_confirmation_token
+      unconfirmed_email_will_change!
+      super
+    end
+  end
+  ```
+
+  Note: Mongoid does not seem to respect that will_change! should
+  force the attribute to be persisted, even if it did not really
+  change, so you might have to implement a workaround similar to
+  Devise by setting changed_attributes["unconfirmed_email"] = nil as well.
+patched_versions:
+  - ">= 5.0.3"
+related:
+  url:
+    - https://about.gitlab.com/releases/2023/01/09/security-release-gitlab-15-7-2-released
+    - https://github.com/heartcombo/devise/pull/5784
+    - https://github.com/heartcombo/devise/issues/5783
+    - https://portswigger.net/research/smashing-the-state-machine
+    - https://groups.google.com/g/heartcombo/c/ieiLJhG4EGE/m/PNlIQv54AAAJ
+    - https://groups.google.com/g/heartcombo/c/o9mtkcfvt_g/m/SABX6rp8AgAJ
+    - https://groups.google.com/g/heartcombo/c/XDII89RV6Ak/m/AJMOyayNAgAJ
+    - https://groups.google.com/g/heartcombo/c/TWge7vKELhc/m/gRTrgKz4CQAJ
+    - https://github.com/heartcombo/devise/security/advisories/GHSA-57hq-95w6-v4fc
