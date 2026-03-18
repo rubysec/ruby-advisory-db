@@ -13,15 +13,14 @@ description: |
 
   An attacker could craft HTML containing a `data-trix-serialized-attributes`
   attribute with a malicious payload that, when the content is rendered,
-  could execute arbitrary JavaScript code within the context of the
-  user's session, potentially leading to unauthorized actions being
-  performed or sensitive information being disclosed.
+  could execute arbitrary JavaScript code within the context of the user's
+  session, potentially leading to unauthorized actions being performed
+  or sensitive information being disclosed.
 
   ### Patches
 
-  Update Recommendation
-
-  Users should upgrade to Trix editor version 2.1.17 or later.
+  Update Recommendation: Users should upgrade to Trix editor
+  version 2.1.17 or later.
 
   ### References
 
