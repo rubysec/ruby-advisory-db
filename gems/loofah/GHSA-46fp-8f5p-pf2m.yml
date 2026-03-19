@@ -1,0 +1,51 @@
+---
+gem: loofah
+ghsa: 46fp-8f5p-pf2m
+url: https://github.com/flavorjones/loofah/security/advisories/GHSA-46fp-8f5p-pf2m
+title: Improper detection of disallowed URIs by Loofah `allowed_uri?`
+date: 2026-03-18
+description: |
+  ## Summary
+
+  `Loofah::HTML5::Scrub.allowed_uri?` does not correctly reject
+  `javascript:` URIs when the scheme is split by HTML entity-encoded
+  control characters such as `&#13;` (carriage return), `&#10;`
+  (line feed), or `&#9;` (tab).
+
+  ## Details
+
+  The `allowed_uri?` method strips literal control characters before
+  decoding HTML entities. Payloads like `java&#13;script:alert(1)`
+  survive the control character strip, then `&#13;` is decoded to
+  a carriage return, producing `java\rscript:alert(1)`.
+
+  Note that the Loofah sanitizer's default `sanitize()` path is
+  **not affected** because Nokogiri decodes HTML entities during
+  parsing before Loofah evaluates the URI protocol. This issue only
+  affects direct callers of the `allowed_uri?` string-level helper
+  when passing HTML-encoded strings.
+
+  ## Impact
+
+  Applications that call `Loofah::HTML5::Scrub.allowed_uri?` to
+  validate user-controlled URLs and then render approved URLs into
+  `href` or other browser-interpreted URI attributes may be
+  vulnerable to cross-site scripting (XSS).
+
+  This only affects Loofah `2.25.0`.
+
+  ## Mitigation
+
+  Upgrade to Loofah >= `2.25.1`.
+
+  ## Credit
+
+  Responsibly reported by HackOne user `@smlee`.
+unaffected_versions:
+  - "< 2.25.0"
+patched_versions:
+  - ">= 2.25.1"
+related:
+  url:
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-46fp-8f5p-pf2m
+    - https://github.com/advisories/GHSA-46fp-8f5p-pf2m
