@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'gem_advisory_example'
 require 'ruby_advisory_example'
+require 'check_indents'
 
 describe "gems" do
   Dir.glob(File.join(ROOT,'gems/*/*')) do |path|
