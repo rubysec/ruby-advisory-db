@@ -48,4 +48,7 @@ patched_versions:
 related:
   url:
     - https://github.com/flavorjones/loofah/security/advisories/GHSA-46fp-8f5p-pf2m
+    - https://github.com/flavorjones/loofah/releases/tag/v2.25.1
+    - https://github.com/flavorjones/loofah/commit/f4ebc9c5193dde759a57541062e490e86fc7c068
+    - https://github.com/advisories/GHSA-2j22-pr5w-6gq8
     - https://github.com/advisories/GHSA-46fp-8f5p-pf2m
