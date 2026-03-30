@@ -1,0 +1,44 @@
+---
+gem: action_text-trix
+ghsa: 53p3-c7vp-4mcc
+url: https://github.com/basecamp/trix/security/advisories/GHSA-53p3-c7vp-4mcc
+title: Trix is vulnerable to XSS through JSON deserialization bypass
+  in drag-and-drop (Level0InputController)
+date: 2026-03-29
+description: |
+  ### Impact
+
+  The Trix editor, in versions prior to 2.1.18, is vulnerable to XSS
+  when a crafted `application/x-trix-document` JSON payload is dropped
+  into the editor in environments using the fallback Level0InputController
+  (e.g., embedded WebViews lacking Input Events Level 2 support).
+
+  The `StringPiece.fromJSON` method trusted `href` attributes from the
+  JSON payload without sanitization. An attacker could craft a draggable
+  element containing a `javascript:` URI in the href attribute that,
+  when dropped into a vulnerable editor, would bypass DOMPurify
+  sanitization and inject executable JavaScript into the DOM.
+
+  Exploitation requires a specific environment (Level0InputController
+  fallback) and social engineering (victim must drag and drop
+  attacker-controlled content into the editor). Applications using
+  server-side HTML sanitization (such as Rails' built-in sanitizer)
+  are additionally protected, as the payload is neutralized on save.
+
+  ### Patches
+
+  Update Recommendation: Users should upgrade to Trix editor
+  version 2.1.18 or later.
+
+  ### References
+
+  The XSS vulnerability was responsibly reported by Hackerone
+  researcher [newbiefromcoma](https://hackerone.com/newbiefromcoma).
+patched_versions:
+  - ">= 2.1.18"
+related:
+  url:
+    - https://github.com/basecamp/trix/security/advisories/GHSA-53p3-c7vp-4mcc
+    - https://github.com/basecamp/trix/releases/tag/v2.1.18
+    - https://github.com/basecamp/trix/commit/9c0a993d9fc2ffe9d56b013b030bc238f9c0557c
+    - https://github.com/advisories/GHSA-53p3-c7vp-4mcc
