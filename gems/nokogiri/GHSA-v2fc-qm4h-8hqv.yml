@@ -1,0 +1,45 @@
+---
+gem: nokogiri
+ghsa: v2fc-qm4h-8hqv
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-v2fc-qm4h-8hqv
+title: Nokogiri XSLT transform has a memory leak
+date: 2026-05-06
+description: |
+  ## Summary
+
+  Nokogiri's `Nokogiri::XSLT::Stylesheet#transform` leaks a small heap allocation when passed a Ruby string parameter containing a null byte.
+
+  For applications that pass attacker-controlled input through `XSLT.transform` parameters, this may be a vector for a denial of service attack against long-running processes.
+
+
+  ## Mitigation
+
+  Upgrade to Nokogiri `>= 1.19.3`.
+
+  Users may also be able to mitigate this issue without upgrading by validating untrusted transform parameters before passing them to `Nokogiri::XSLT::Stylesheet#transform`.
+
+
+  ## Severity
+
+  The Nokogiri maintainers have evaluated this as **Moderate Severity**, CVSS 5.3.
+
+  Each leaked allocation is approximately 24–32 bytes, so meaningful memory growth requires sustained attacker-controlled traffic at high call rates. The bug does not cause memory corruption, information disclosure, or any change in the behavior of the transform itself, and the string-handling exception is raised as expected.
+
+  Applications that do not pass raw attacker-controlled bytes to XSLT parameters are unlikely to be affected in practice.
+
+
+  ## Resources
+
+  - [CWE-401: Missing Release of Memory after Effective Lifetime](https://cwe.mitre.org/data/definitions/401.html)
+
+
+  ## Credit
+
+  This vulnerability was responsibly reported by @Captainjack-kor.
+cvss_v3: 5.3
+patched_versions:
+  - ">= 1.19.3"
+related:
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-v2fc-qm4h-8hqv
+    - https://github.com/advisories/GHSA-v2fc-qm4h-8hqv

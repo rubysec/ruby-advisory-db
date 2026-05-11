@@ -1,0 +1,49 @@
+---
+gem: nokogiri
+ghsa: c4rq-3m3g-8wgx
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-c4rq-3m3g-8wgx
+title: Nokogiri CSS selector tokenizer has regular expression backtracking
+date: 2026-05-06
+description: |
+  ## Summary
+
+  Nokogiri's CSS selector tokenizer contains regular expressions whose construction may result in exponential regex backtracking on adversarial selectors. Three ReDoS vectors are addressed in this release:
+
+  1. String-literal tokenization on certain unterminated quoted-string input.
+  2. String-literal tokenization on a separate class of hex-escape-rich input.
+  3. Identifier tokenization on hex-escape-rich input.
+
+  The public CSS selector methods that funnel through the affected tokenizer are `Nokogiri::CSS.xpath_for`, `Node#css`, `Node#at_css`, `Searchable#search`, and `CSS::Parser#parse`.
+
+
+  ## Mitigation
+
+  Upgrade to Nokogiri `>= 1.19.3`.
+
+  If users are unable to upgrade, two options are available:
+
+  - Avoid the use of attacker-controlled text in CSS selectors. Applications that only pass developer-authored selectors to Nokogiri are not directly exposed.
+  - Set global `Regexp.timeout` (Ruby 3.2+, JRuby 9.4+) to bound parse time.
+
+  ## Severity
+
+  The Nokogiri maintainers have evaluated this as **High Severity** (CVSS 7.5, `AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H`).
+
+  An attacker able to inject user-supplied text into a CSS selector parse method can cause exponential backtracking, resulting in a potential denial of service.
+
+
+  ## Resources
+
+  - [CWE-1333: Inefficient Regular Expression Complexity](https://cwe.mitre.org/data/definitions/1333.html)
+
+
+  ## Credit
+
+  Vector 1 was responsibly reported by @colby-swandale. Vectors 2 and 3 were discovered by @flavorjones during the response to the original report.
+cvss_v3: 7.5
+patched_versions:
+  - ">= 1.19.3"
+related:
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-c4rq-3m3g-8wgx
+    - https://github.com/advisories/GHSA-c4rq-3m3g-8wgx
