@@ -1,0 +1,32 @@
+---
+gem: fat_free_crm
+ghsa: 9pm8-vwc5-w2hm
+url: https://github.com/fatfreecrm/fat_free_crm/security/advisories/GHSA-9pm8-vwc5-w2hm
+title:
+  Fat Free CRM has BOLA in DELETE /emails/:id - Any authenticated
+  user can hit this endpoint and delete emails by ID
+date: 2026-04-14
+description: |
+  Fat Free CRM has BOLA (Broken Object Level Authorization) in
+  DELETE /emails/:id - Any authenticated user can hit this
+  endpoint and delete emails by ID
+
+  ### Impact
+
+  Authenticated users can delete emails imported into the system
+  assigned to another user; where the
+  [Email Dropbox](https://github.com/fatfreecrm/fat_free_crm/wiki/Email-Dropbox)
+  is in use.
+
+  ### Workarounds
+
+  Disable use of email dropbox.
+cvss_v3: 2.1
+patched_versions:
+  - ">= 0.26.0"
+related:
+  url:
+    - https://rubygems.org/gems/fat_free_crm/versions/0.26.0
+    - https://github.com/fatfreecrm/fat_free_crm/releases/tag/v0.26.0
+    - https://github.com/fatfreecrm/fat_free_crm/security/advisories/GHSA-9pm8-vwc5-w2hm
+    - https://github.com/advisories/GHSA-9pm8-vwc5-w2hm
