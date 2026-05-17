@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'faraday', '~> 2.0'
-gem 'kwalify', '~> 0.1'
-gem 'rspec',   '~> 3.0'
+gem 'faraday',      '~> 2.0'
+gem 'kwalify',      '~> 0.1'
+gem 'json_schemer', '~> 2.0'
+gem 'rspec',        '~> 3.0'
 
 group :development do
   gem 'pry'
