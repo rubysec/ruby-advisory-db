@@ -40,5 +40,5 @@ related:
     - https://gitlab.gnome.org/GNOME/libxslt/-/issues/128
     - https://github.com/advisories/GHSA-mrxw-mxhj-p664
   cve:
-    - https://nvd.nist.gov/vuln/detail/CVE-2024-55549
-    - https://nvd.nist.gov/vuln/detail/CVE-2025-24855
+    - 2024-55549
+    - 2025-24855
