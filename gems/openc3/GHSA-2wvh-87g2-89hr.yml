@@ -1,0 +1,44 @@
+---
+gem: openc3
+ghsa: 2wvh-87g2-89hr
+url: https://github.com/OpenC3/cosmos/security/advisories/GHSA-2wvh-87g2-89hr
+title: OpenC3 COSMOS - Permissions Bypass Provides User Access to
+  Unassigned Administrative Actions via Script Runner Tool
+date: 2026-04-23
+description: |
+  Vulnerability Type: Execution with Unnecessary Privileges Attack
+  type: Authenticated remote
+
+  Impact: Data disclosure/manipulation, privilege escalation
+
+  Affected components:
+
+  * The following docker images: Openc3inc/openc3-COSMOS-script-runner-api
+
+  The Script Runner widget allows users to execute Python and Ruby
+  scripts directly from the openc3-COSMOS-script-runner-api container.
+  Because all the docker containers share a network, users can execute
+  specially crafted scripts to bypass the API permissions check and
+  perform administrative actions, including reading and modifying data
+  inside the Redis database, which can be used to read secrets and
+  change COSMOS settings, as well as read and write to the buckets
+  service, which holds configuration, log,and plugin files. These
+  actions are normally only available from the Admin Console or with
+  administrative privileges. Any user with permission to create and
+  run scripts can connect to any service in the docker network.
+
+  ## Recommendations
+
+  * Limit the permissions of the script runner API to prevent lower
+    level users from performing administrative actions.
+cvss_v3: 9.6
+patched_versions:
+  - ">= 7.0.0"
+related:
+  url:
+    - https://github.com/OpenC3/cosmos/security/advisories/GHSA-2wvh-87g2-89hr
+    - https://rubygems.org/gems/openc3/versions/7.0.0
+    - https://github.com/OpenC3/cosmos/releases/tag/v7.0.0
+    - https://www.linkedin.com/posts/vulert_critical-permissions-bypass-in-openc3-cosmos-activity-7453420840760774656-RMv1
+    - https://www.miggo.io/vulnerability-database/cve/GHSA-2wvh-87g2-89hr
+    - https://github.com/advisories/GHSA-2wvh-87g2-89hr
