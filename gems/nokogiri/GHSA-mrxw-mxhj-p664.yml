@@ -35,6 +35,8 @@ patched_versions:
   - ">= 1.18.4"
 related:
   url:
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-55549
+    - https://nvd.nist.gov/vuln/detail/CVE-2025-24855
     - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-mrxw-mxhj-p664
     - https://gitlab.gnome.org/GNOME/libxslt/-/issues/127
     - https://gitlab.gnome.org/GNOME/libxslt/-/issues/128
