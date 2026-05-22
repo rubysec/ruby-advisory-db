@@ -1,0 +1,67 @@
+---
+gem: omniauth-saml
+ghsa: cvp8-5r8g-fhvq
+url: https://github.com/SAML-Toolkits/ruby-saml/security/advisories/GHSA-jw9c-mfg7-9rx2
+title: omniauth-saml vulnerable to Improper Verification of Cryptographic Signature
+date: 2024-09-11
+description: "ruby-saml, the dependent SAML gem of omniauth-saml has a signature wrapping
+  vulnerability in <= v1.12.0 and v1.13.0 to v1.16.0 , see https://github.com/SAML-Toolkits/ruby-saml/security/advisories/GHSA-jw9c-mfg7-9rx2
+  \nAs a result, omniauth-saml created a [new release](https://github.com/omniauth/omniauth-saml/releases)
+  by upgrading ruby-saml to the patched versions v1.17. \n"
+cvss_v3: 10.0
+cvss_v4: "<FILL IN IF AVAILABLE>"
+patched_versions:
+- "~> 1.10.5"
+- "~> 2.1.2"
+- ">= 2.2.1"
+related:
+  url:
+  - https://github.com/SAML-Toolkits/ruby-saml/security/advisories/GHSA-jw9c-mfg7-9rx2
+  - https://github.com/omniauth/omniauth-saml/security/advisories/GHSA-cvp8-5r8g-fhvq
+  - https://github.com/omniauth/omniauth-saml/commit/4274e9d57e65f2dcaae4aa3b2accf831494f2ddd
+  - https://github.com/omniauth/omniauth-saml/commit/6c681fd082ab3daf271821897a40ab3417382e29
+  - https://github.com/rubysec/ruby-advisory-db/blob/master/gems/omniauth-saml/GHSA-cvp8-5r8g-fhvq.yml
+  - https://github.com/advisories/GHSA-cvp8-5r8g-fhvq
+# GitHub advisory data below - **Remove this data before committing**
+# Use this data to write patched_versions (and potentially unaffected_versions) above
+---
+identifiers:
+- type: GHSA
+  value: GHSA-cvp8-5r8g-fhvq
+summary: omniauth-saml vulnerable to Improper Verification of Cryptographic Signature
+description: "ruby-saml, the dependent SAML gem of omniauth-saml has a signature wrapping
+  vulnerability in <= v1.12.0 and v1.13.0 to v1.16.0 , see https://github.com/SAML-Toolkits/ruby-saml/security/advisories/GHSA-jw9c-mfg7-9rx2
+  \nAs a result, omniauth-saml created a [new release](https://github.com/omniauth/omniauth-saml/releases)
+  by upgrading ruby-saml to the patched versions v1.17. \n"
+severity: CRITICAL
+cvss:
+  score: 10.0
+  vectorString: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:N
+references:
+- url: https://github.com/SAML-Toolkits/ruby-saml/security/advisories/GHSA-jw9c-mfg7-9rx2
+- url: https://github.com/omniauth/omniauth-saml/security/advisories/GHSA-cvp8-5r8g-fhvq
+- url: https://github.com/omniauth/omniauth-saml/commit/4274e9d57e65f2dcaae4aa3b2accf831494f2ddd
+- url: https://github.com/omniauth/omniauth-saml/commit/6c681fd082ab3daf271821897a40ab3417382e29
+- url: https://github.com/rubysec/ruby-advisory-db/blob/master/gems/omniauth-saml/GHSA-cvp8-5r8g-fhvq.yml
+- url: https://github.com/advisories/GHSA-cvp8-5r8g-fhvq
+publishedAt: '2024-09-11T21:08:26Z'
+withdrawnAt:
+vulnerabilities:
+- package:
+    name: omniauth-saml
+    ecosystem: RUBYGEMS
+  vulnerableVersionRange: ">= 2.2.0, < 2.2.1"
+  firstPatchedVersion:
+    identifier: 2.2.1
+- package:
+    name: omniauth-saml
+    ecosystem: RUBYGEMS
+  vulnerableVersionRange: "< 1.10.5"
+  firstPatchedVersion:
+    identifier: 1.10.5
+- package:
+    name: omniauth-saml
+    ecosystem: RUBYGEMS
+  vulnerableVersionRange: ">= 2.0.0, < 2.1.2"
+  firstPatchedVersion:
+    identifier: 2.1.2
