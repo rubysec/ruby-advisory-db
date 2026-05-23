@@ -4,6 +4,8 @@ on:
   push:
     branches: [ master ]
 
+permissions: {}
+
 jobs:
   notify:
     if: github.repository_owner == 'rubysec'
