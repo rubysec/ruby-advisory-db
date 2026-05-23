@@ -50,8 +50,8 @@ patched_versions:
   - ">= 1.18.8"
 related:
   cve:
-    - CVE-2025-32414
-    - CVE-2025-32415
+    - 2025-32414
+    - 2025-32415
   url:
     - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-5w6v-399v-w3cc
     - https://gitlab.gnome.org/GNOME/libxml2/-/releases/v2.13.8
