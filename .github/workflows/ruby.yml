@@ -46,7 +46,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # v1.310.0
         with:
-          ruby-version: 3.4
+          ruby-version: 4.0
       - name: Install ruby dependencies
         run: bundle install --jobs 4 --retry 3
       - name: Validate YAML
