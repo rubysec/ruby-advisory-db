@@ -1,0 +1,33 @@
+---
+gem: graphql
+ghsa: 3h96-34p3-xm76
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-3h96-34p3-xm76
+title: GraphQL-Ruby's Ruby lexer does not count comment tokens for
+  the purposes of max_query_string_tokens
+date: 2026-05-05
+description: |
+  GraphQL-Ruby's `max_query_string_tokens` configuration didn't count
+  comment tokens against the limit, allowing strings to be processed
+  even after the configured maximum had actually been reached.
+
+  In patched versions, the Ruby lexer does count these tokens.
+
+  GraphQL-CParser is not affected by this problem.
+
+  `max_query_string_tokens` was introduced in v2.3.1. Each 2.x
+  version has received a new patch release for including a fix.
+cvss_v3: 5.3
+unaffected_versions:
+  - "< 2.3.1"
+patched_versions:
+  - "~> 2.3.23"
+  - "~> 2.4.18"
+  - "~> 2.5.26"
+  - ">= 2.6.1"
+related:
+  url:
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#261
+    - https://github.com/rmosolgo/graphql-ruby/commit/2a8d95680bf1ed9bb7c0d89345a736f57b10877b
+    - https://github.com/rmosolgo/graphql-ruby/pull/4929
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-3h96-34p3-xm76
+    - https://github.com/advisories/GHSA-3h96-34p3-xm76
