@@ -135,8 +135,10 @@ patched_versions:
 * `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby library.
-* `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
-  patched versions of the Ruby library.
+* `patched_versions` \[Array\<String\>\] (optional): The version requirements
+  for the patched versions of the Ruby library. Please omit the "patch_versions:"
+  field and value if the patch has not been released.
+
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
 
@@ -156,8 +158,10 @@ patched_versions:
 * `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby implementation.
-* `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
-  patched versions of the Ruby implementation.
+* `patched_versions` \[Array\<String\>\] (optional): The version requirements
+  for the patched versions of the Ruby implementation. Please omit the
+  "patch_versions:" field and value if the patch has not been released.
+
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
 
@@ -201,7 +205,9 @@ GH_API_TOKEN="your GitHub API Token" bundle exec rake sync_github_advisories[gem
   * Fill in `cvss_v3` field by following the CVE link and getting it from page.
   * Fill in `cvss_v4` field by following the CVE link and getting it from page.
   * Fill in `patched_versions` field, using the comments at the bottom of the
-    YAML file.
+    YAML file. Please omit the "patch_versions:" field and value if the
+    patch has not been released.
+
   * Optionally fill in `unaffected_versions`.
   * Delete the GitHub data at the bottom of the YAML file.
   * Double check all the data, commit it, and make a PR.
