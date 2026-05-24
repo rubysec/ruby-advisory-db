@@ -103,9 +103,15 @@ url: https://www.ruby-lang.org/en/news/2022/04/12/buffer-overrun-in-string-to-fl
 title: Buffer overrun in String-to-Float conversion
 date: 2022-04-12
 description: |
-  A buffer-overrun vulnerability is discovered in a conversion algorithm from a String to a Float. This vulnerability has been assigned the CVE identifier CVE-2022-28739. We strongly recommend upgrading Ruby.
+  A buffer-overrun vulnerability is discovered in a conversion algorithm from a
+  String to a Float. This vulnerability has been assigned the CVE identifier
+  CVE-2022-28739. We strongly recommend upgrading Ruby.
 
-  Due to a bug in an internal function that converts a String to a Float, some convertion methods like Kernel#Float and String#to_f could cause buffer over-read. A typical consequence is a process termination due to segmentation fault, but in a limited circumstances, it may be exploitable for illegal memory read.
+  Due to a bug in an internal function that converts a String to a Float, some
+  convertion methods like Kernel#Float and String#to_f could cause buffer
+  over-read. A typical consequence is a process termination due to segmentation
+  fault, but in a limited circumstances, it may be exploitable for illegal
+  memory read.
 
   Please update Ruby to 2.6.10, 2.7.6, 3.0.4, or 3.1.2.
 patched_versions:
@@ -120,59 +126,93 @@ patched_versions:
 ### `gems`
 
 * `gem` \[String\] (required): Name of the affected gem.
-* `library` \[String\] (optional): Name of the ruby library which the affected gem belongs to.
-* `framework` \[String\] (optional): Name of the framework which the affected gem belongs to. (e.g. rails)
-* `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)
+* `library` \[String\] (optional): Name of the ruby library which the
+  affected gem belongs to.
+* `framework` \[String\] (optional): Name of the framework which the
+  affected gem belongs to. (e.g. rails)
+* `platform` \[String\] (optional): If this vulnerability is platform-specific,
+  name of platform this vulnerability affects (e.g. jruby)
 * `cve` \[String\] (optional): Common Vulnerabilities and Exposures (CVE) ID.
 * `osvdb` \[Integer\] (optional): Open Sourced Vulnerability Database (OSVDB) ID.
 * `ghsa` \[String\] (optional): GitHub Security Advisory (GHSA) ID.
 * `url` \[String\] (required): The URL to the full advisory.
-* `title` \[String\] (required): The title of the advisory or individual vulnerability. It must be a single line sentence.
+* `title` \[String\] (required): The title of the advisory or individual
+  vulnerability. It must be a single line sentence.
+  * Line wrap `title:` field at 80.
 * `date` \[Date\] (required): The public disclosure date of the advisory.
-* `description` \[String\] (required): One or more paragraphs describing the vulnerability. It may contain multiple paragraphs.
+* `description` \[String\] (required): One or more paragraphs describing the
+  vulnerability. It may contain multiple paragraphs.
  * Used `description: |` if it is more than one sentence/line.
+ * Line wrap `descriptions:` field at 80.
+ * Do no include "POC" or "PoC" in `description:` field.
+ * Not use "\n" in `description:` field.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
 * `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby library.
-* `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
-  patched versions of the Ruby library.
+* `patched_versions` \[Array\<String\>\] (optional): The version requirements
+  for the patched versions of the Ruby library.
   * `patched_versions`/`unaffected_versions` version ranges must be quoted (ex: `">= 1.2.3"`).
-* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
-* `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
+  * Omit patched_versions: if you has no patched version identifiers.
+* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory
+  references many urls and other identifiers. Supported keys:
+  `cve`, `ghsa`, `osvdb`, and `url`
+   * Field `related:/url:` is 4 blanks from left margin.
+* `notes` \[String\] (optional): Internal notes regarding the vulnerability's
+  inclusion in this database.
 
 ### `rubies`
 
-* `engine` \[`ruby` | `mruby` | `jruby` | `truffleruby`\] (required): Name of the affected Ruby implementation.
-* `platform` \[String\] (optional): If this vulnerability is platform-specific, name of platform this vulnerability affects (e.g. jruby)
+* `engine` \[`ruby` | `mruby` | `jruby` | `truffleruby`\] (required): Name
+  of the affected Ruby implementation.
+* `platform` \[String\] (optional): If this vulnerability is platform-specific,
+  name of platform this vulnerability affects (e.g. jruby)
 * `cve` \[String\] (optional): Common Vulnerabilities and Exposures (CVE) ID.
 * `osvdb` \[Integer\] (optional): Open Sourced Vulnerability Database (OSVDB) ID.
 * `ghsa` \[String\] (optional): GitHub Security Advisory (GHSA) ID.
 * `url` \[String\] (required): The URL to the full advisory.
-* `title` \[String\] (required): The title of the advisory or individual vulnerability. It must be a single line sentence.
+* `title` \[String\] (required): The title of the advisory or individual
+  vulnerability. It must be a single line sentence.
+  * Line wrap `title:` field at 80.
 * `date` \[Date\] (required): The public disclosure date of the advisory.
-* `description` \[String\] (required): One or more paragraphs describing the vulnerability. It may contain multiple paragraphs.
- * Used `description: |` if it is more than one sentence/line.
+* `description` \[String\] (required): One or more paragraphs describing the
+  vulnerability. It may contain multiple paragraphs.
+ * Used `description: |` (not `|-`) if it is more than one sentence/line.
+ * Line wrap `descriptions:` field at 80.
+ * Not use "\n" in `description:` field.
+ * Do no include "POC" or "PoC" in `description:` field.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
 * `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
-* `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
-  unaffected versions of the Ruby implementation.
-* `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
-  patched versions of the Ruby implementation.
-  * `patched_versions`/`unaffected_versions` version ranges must be quoted (ex: `">= 1.2.3"`).
-* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
-* `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
+* `unaffected_versions` \[Array\<String\>\] (optional): The version requirements
+  for the unaffected versions of the Ruby implementation.
+  * Field `unaffected_versions` are 2 blanks from left margin.
+* `patched_versions` \[Array\<String\>\] (optional): The version requirements
+  for the patched versions of the Ruby implementation.
+  * `patched_versions`/`unaffected_versions` version ranges must be quoted
+     (ex: `">= 1.2.3"`).
+  * Field `patched_versions`are 2 blanks from left margin.
+  * Omit patched_versions: if you has no patched version identifiers.
+* `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory
+  references many urls and other identifiers. Supported keys:
+  `cve`, `ghsa`, `osvdb`, and `url`
+ * Field `related:/url:` is 4 blanks from left margin.
+ * `notes` \[String\] (optional): Internal notes regarding the vulnerability's
+  inclusion in this database.
 
 # General Contributing Guidelines
-
+ * Advisory filename prefix naming preferance is:
+   * 1st choice: CVE, then GHSA, then OSVDB.
+ * Advisory filename (without suffix) should be equal to root `url:` field value.
  * Try to keep all text within 80 columns.
-
- * Run yamlint [`yamllint` tool](https://yamllint.readthedocs.io/en/stable/quickstart.html] to check yaml format.
+ * Run yamlint [`yamllint` tool](https://yamllint.readthedocs.io/en/stable/quickstart.html] to check yaml format. It find no issues.
   * YAML must be indented by 2 spaces.
-  * For more info: https://pypi.org/project/yamllint
-
+  * Ruby YAML does not like embedded ":" characters.
+  * For more info:
+    * https://pypi.org/project/yamllint
+    * [HERE](https://github.com/rubysec/ruby-advisory-db/blob/master/.github/workflows/ruby.yml)
+ * Check all URLs for dead links. Sometimes find the URL  https://web.archive.org .
  * Please see the [README](README.md#schema) for more documentation on the  YAML Schema.
 
 ## Tests
