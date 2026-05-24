@@ -130,6 +130,7 @@ patched_versions:
 * `title` \[String\] (required): The title of the advisory or individual vulnerability. It must be a single line sentence.
 * `date` \[Date\] (required): The public disclosure date of the advisory.
 * `description` \[String\] (required): One or more paragraphs describing the vulnerability. It may contain multiple paragraphs.
+ * Used `description: |` if it is more than one sentence/line.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
 * `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
@@ -137,6 +138,7 @@ patched_versions:
   unaffected versions of the Ruby library.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
   patched versions of the Ruby library.
+  * `patched_versions`/`unaffected_versions` version ranges must be quoted (ex: `">= 1.2.3"`).
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
 
@@ -151,6 +153,7 @@ patched_versions:
 * `title` \[String\] (required): The title of the advisory or individual vulnerability. It must be a single line sentence.
 * `date` \[Date\] (required): The public disclosure date of the advisory.
 * `description` \[String\] (required): One or more paragraphs describing the vulnerability. It may contain multiple paragraphs.
+ * Used `description: |` if it is more than one sentence/line.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
 * `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
@@ -158,8 +161,19 @@ patched_versions:
   unaffected versions of the Ruby implementation.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements for the
   patched versions of the Ruby implementation.
+  * `patched_versions`/`unaffected_versions` version ranges must be quoted (ex: `">= 1.2.3"`).
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory references many urls and other identifiers. Supported keys: `cve`, `ghsa`, `osvdb`, and `url`
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's inclusion in this database.
+
+# General Contributing Guidelines
+
+ * Try to keep all text within 80 columns.
+
+ * Run yamlint [`yamllint` tool](https://yamllint.readthedocs.io/en/stable/quickstart.html] to check yaml format.
+  * YAML must be indented by 2 spaces.
+  * For more info: https://pypi.org/project/yamllint
+
+ * Please see the [README](README.md#schema) for more documentation on the  YAML Schema.
 
 ## Tests
 
