@@ -142,23 +142,24 @@ patched_versions:
 * `date` \[Date\] (required): The public disclosure date of the advisory.
 * `description` \[String\] (required): One or more paragraphs describing the
   vulnerability. It may contain multiple paragraphs.
- * Used `description: |` if it is more than one sentence/line.
- * Line wrap `descriptions:` field at 80.
- * Do no include "POC" or "PoC" in `description:` field.
- * Not use "\n" in `description:` field.
+  * Used `description: |` if it is more than one sentence/line.
+  * Line wrap `descriptions:` field at 80.
+  * Do no include "POC" or "PoC" in `description:` field.
+  * Not use "\n" in `description:` field.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
 * `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements for the
   unaffected versions of the Ruby library.
+  * `unaffected_versions` version ranges must be quoted (ex: `">= 1.2.3"`).
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements
   for the patched versions of the Ruby library.
-  * `patched_versions`/`unaffected_versions` version ranges must be quoted (ex: `">= 1.2.3"`).
-  * Omit patched_versions: if you has no patched version identifiers.
+  * `patched_versions version ranges must be quoted (ex: `">= 1.2.3"`).
+  * Omit `patched_versions:` if you has no patched version identifiers.
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory
   references many urls and other identifiers. Supported keys:
   `cve`, `ghsa`, `osvdb`, and `url`
-   * Field `related:/url:` is 4 blanks from left margin.
+   * All supported keys are 4 blanks from left margin.
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's
   inclusion in this database.
 
@@ -178,10 +179,10 @@ patched_versions:
 * `date` \[Date\] (required): The public disclosure date of the advisory.
 * `description` \[String\] (required): One or more paragraphs describing the
   vulnerability. It may contain multiple paragraphs.
- * Used `description: |` (not `|-`) if it is more than one sentence/line.
- * Line wrap `descriptions:` field at 80.
- * Not use "\n" in `description:` field.
- * Do no include "POC" or "PoC" in `description:` field.
+  * Used `description: |` (not `|-`) if it is more than one sentence/line.
+  * Line wrap `descriptions:` field at 80.
+  * Not use "\n" in `description:` field.
+  * Do no include "POC" or "PoC" in `description:` field.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
 * `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
@@ -197,21 +198,22 @@ patched_versions:
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory
   references many urls and other identifiers. Supported keys:
   `cve`, `ghsa`, `osvdb`, and `url`
- * Field `related:/url:` is 4 blanks from left margin.
+  * All supported keys are 4 blanks from left margin.
  * `notes` \[String\] (optional): Internal notes regarding the vulnerability's
   inclusion in this database.
 
 # General Contributing Guidelines
  * Advisory filename prefix naming preferance is:
    * 1st choice: CVE, then GHSA, then OSVDB.
- * Advisory filename (without suffix) should be equal to root `url:` field value.
+   * Advisory filename (without suffix) should be equal to root `url:` field value.
  * Try to keep all text within 80 columns.
  * Run yamlint [`yamllint` tool](https://yamllint.readthedocs.io/en/stable/quickstart.html] to check yaml format. It find no issues.
-  * YAML must be indented by 2 spaces.
-  * Ruby YAML does not like embedded ":" characters.
-  * For more info:
-    * https://pypi.org/project/yamllint
-    * [HERE](https://github.com/rubysec/ruby-advisory-db/blob/master/.github/workflows/ruby.yml)
+   * YAML must be indented by 2 spaces.
+   * Ruby YAML does not like embedded ":" characters.
+   * For more info:
+     * https://pypi.org/project/yamllint
+     * [HERE](https://github.com/rubysec/ruby-advisory-db/blob/master/.github/workflows/ruby.yml)
+ * Run `rspec spec/schema_validation_spec.rb` for aditional lint checks.
  * Check all URLs for dead links. Sometimes find the URL  https://web.archive.org .
  * Please see the [README](README.md#schema) for more documentation on the  YAML Schema.
 
