@@ -160,6 +160,7 @@ patched_versions:
   references many urls and other identifiers. Supported keys:
   `cve`, `ghsa`, `osvdb`, and `url`
    * All supported keys are 4 blanks from left margin.
+   * `cve`, `ghsa`, and `osvdb` related fields are not URLs.
 * `notes` \[String\] (optional): Internal notes regarding the vulnerability's
   inclusion in this database.
 
@@ -188,7 +189,7 @@ patched_versions:
 * `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.
 * `unaffected_versions` \[Array\<String\>\] (optional): The version requirements
   for the unaffected versions of the Ruby implementation.
-  * Field `unaffected_versions` are 2 blanks from left margin.
+  * Field `unaffected_versions` are 2 blanks from left margin.* `cve`, `ghsa`, and `osvdb` related fields are not URLs.
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements
   for the patched versions of the Ruby implementation.
   * `patched_versions`/`unaffected_versions` version ranges must be quoted
@@ -199,6 +200,7 @@ patched_versions:
   references many urls and other identifiers. Supported keys:
   `cve`, `ghsa`, `osvdb`, and `url`
   * All supported keys are 4 blanks from left margin.
+  * `cve`, `ghsa`, and `osvdb` related fields are not URLs.
  * `notes` \[String\] (optional): Internal notes regarding the vulnerability's
   inclusion in this database.
 
