@@ -1,4 +1,4 @@
-## Information on Helping To Improve External Data
+# Information on Helping To Improve External Data
 
 Remember that these requests are outside the scope of the ruby-advisory-db repo.
 
