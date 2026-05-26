@@ -18,5 +18,9 @@ task :sync_github_advisories, [:gem_name] do |_, args|
   GitHub::GitHubAdvisorySync.sync(gem_name: args[:gem_name])
 end
 
+RSpec::Core::RakeTask.new(:schema) do |t|
+  t.pattern = 'spec/schema_validation_spec.rb'
+end
+
 task :lint    => ['lint:yaml']
-task :default => :lint
+task :default => [:schema, :lint]
