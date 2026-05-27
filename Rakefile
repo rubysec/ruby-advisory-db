@@ -15,7 +15,7 @@ end
 desc "Sync GitHub RubyGem Advisories into this project"
 task :sync_github_advisories, [:gem_name] do |_, args|
   require_relative "lib/github_advisory_sync"
-  t.exclude_pattern = "spec/schema_validation_spec.rb'
+  t.exclude_pattern = "spec/schema_validation_spec.rb"
   GitHub::GitHubAdvisorySync.sync(gem_name: args[:gem_name])
 end
 
