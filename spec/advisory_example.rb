@@ -118,7 +118,7 @@ shared_examples_for 'Advisory' do |path|
         # Skip advisories older than start_date and old OSVDB advisories.
         if advisory["date"] >= start_date and !filename_root.start_with?("OSVDB")
           expect(url).to include(filename_root),
-            "Expected filename DOES NOT to match URL root"
+            "Expected base filename DOES NOT include URL"
         end
       end
     end
