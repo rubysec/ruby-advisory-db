@@ -121,7 +121,7 @@ shared_examples_for 'Advisory' do |path|
         # Skip advisories older than start_date and old OSVDB advisories.
         if advisory["date"] >= start_date and !filename_root.start_with?("OSVDB")
           expect(filename_root).to eq(url_root),
-            "Expected filename '#{filename_root}' DOES NOT to match URL root '#{url_root}'"
+            "Expected filename DOES NOT to match URL root"
         end
       end
     end
