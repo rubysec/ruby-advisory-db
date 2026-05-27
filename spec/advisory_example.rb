@@ -110,15 +110,12 @@ shared_examples_for 'Advisory' do |path|
       it "has a filename that matches the root of the url field" do
         url = advisory["url"]
 
-        # Extract filename without extension
         filename_root = File.basename(path, ".yml")
 
         # 5/24/2026: May 9, 2026 is earliest start date with no failed checks.
         start_date = Date.new(2026, 5, 9)
-        # Skip advisories older than start_date and old OSVDB advisories.
         if advisory["date"] >= start_date and !filename_root.start_with?("OSVDB")
-          expect(url).to include(filename_root),
-            "Expected base filename DOES NOT include URL"
+          expect(url).to include(filename_root)
         end
       end
     end
