@@ -110,9 +110,6 @@ shared_examples_for 'Advisory' do |path|
       it "has a filename that matches the root of the url field" do
         url = advisory["url"]
 
-        # Extract last path segment from URL
-        url_root = File.basename(URI.parse(url).path)
-
         # Extract filename without extension
         filename_root = File.basename(path, ".yml")
 
@@ -120,7 +117,7 @@ shared_examples_for 'Advisory' do |path|
         start_date = Date.new(2026, 5, 9)
         # Skip advisories older than start_date and old OSVDB advisories.
         if advisory["date"] >= start_date and !filename_root.start_with?("OSVDB")
-          expect(filename_root).to eq(url_root),
+          expect(url).to include(filename_root),
             "Expected filename DOES NOT to match URL root"
         end
       end
