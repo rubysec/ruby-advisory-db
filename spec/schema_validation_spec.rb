@@ -25,6 +25,31 @@ def normalize_for_json(value)
   end
 end
 
+def raw_yaml_field_checks(data)
+  errors = []
+
+  if data.key?('date') && !data['date'].is_a?(Date)
+    errors << {
+      'data_pointer' => '/date',
+      'error' => 'value must be a YAML date'
+    }
+  end
+
+  %w[cvss_v2 cvss_v3 cvss_v4].each do |field|
+    next unless data.key?(field)
+
+    value = data[field]
+    next if value.is_a?(Float)
+
+    errors << {
+      'data_pointer' => "/#{field}",
+      'error' => 'value must be a float'
+    }
+  end
+
+  errors
+end
+
 def format_errors(errors)
   errors.map do |e|
     pointer = e['data_pointer'].to_s.empty? ? '<root>' : e['data_pointer']
@@ -41,8 +66,9 @@ shared_examples 'conforming schema' do |glob:, schemer:|
     filename = path.split('/')[-2..].join('/')
 
     it "#{filename} conforms to schema" do
-      data = normalize_for_json(YAML.safe_load_file(path, permitted_classes: [Date]))
-      errors = schemer.validate(data).to_a
+      raw_data = YAML.safe_load_file(path, permitted_classes: [Date])
+      data = normalize_for_json(raw_data)
+      errors = raw_yaml_field_checks(raw_data) + schemer.validate(data).to_a
 
       expect(errors).to be_empty, lambda {
         "#{filename}\n#{format_errors(errors)}"
