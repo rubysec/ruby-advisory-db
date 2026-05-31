@@ -8,6 +8,7 @@
   (ex: `">= 1.2.3"`).
 * Please see the [README](README.md#schema) for more documentation on the
   YAML Schema.
+
 * Prior to submitting a pull request, run the tests:
 * Advisory filename and the root of the `url:` field must
   be equal `(as of 5/10/2026).`
