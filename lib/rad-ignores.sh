@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+echo "In rad-ignores.sh"
+
+REPON="ruby-advisory-db"
+if [ "X`pwd |sed -e "s,.*/,,"`X" == "X${REPON}X" ] ; then
+    :
+else
+    echo "Change dir to [${REPON}] first."
+    exit
+fi
+
+# 10/26/2024, 5/25/2026: Autolab is not a Rubygem so remove it.
+rm -f gems/Autolab/CVE-2024-49376.yml
+
+# 1/29/2026, 5/25/2026: rails is not a Rubygem so remove it.
+#    Covered by gems/actionpack/CVE-2024-26143.yml file
+rm -f gems/rails/CVE-2024-26143.yml
+
+# Extra GHSA advisory.
+# 3/31/2026, 5/25/2026: Using GHSA-46fp-8f5p-pf2m.yml so
+#    GHSA-2j22-pr5w-6gq8.yml is dup.
+rm -f gems/loofah/GHSA-2j22-pr5w-6gq8.yml
+
+# Use CVE over GHSA prefix.
+# 9/23/2024, 1/19/2026: 5/25/2026: Using gems/omniauth-saml/CVE-2024-45409.yml
+rm -f gems/omniauth-saml/GHSA-cvp8-5r8g-fhvq.yml
+
+# Use CVE over GHSA prefix.
+# 1/29/2026, 5/25/2026; Using gems/user_agent_parser/CVE-2020-5243.yml
+# https://github.com/advisories/GHSA-cmcx-xhr8-3w9p
+# https://github.com/advisories/GHSA-pcqq-5962-hvcw
+rm -f gems/user_agent_parser/GHSA-pcqq-5962-hvcw.yml
+
+# Use CVE over GHSA prefix.
+# 1/29/2026, 5/25/2026: Using gems/nokogiri/CVE-2021-30560.yml
+#https://github.com/advisories/GHSA-fq42-c5rg-92c2
+#https://github.com/advisories/GHSA-59gp-qqm7-cw4j
+rm -f gems/nokogiri/GHSA-fq42-c5rg-92c2.yml
+
+# Use CVE over GHSA prefix.
+# 1/19/2026, 5/25/2026: Using gems/nokogiri/CVE-2018-25032.yml
+# https://github.com/advisories/GHSA-v6gp-9mmm-c6p5
+# https://github.com/advisories/GHSA-jc36-42cf-vqwj
+rm -f gems/nokogiri/GHSA-v6gp-9mmm-c6p5.yml
+
+# Use CVE over GHSA prefix.
+# 1/29/2026, 5/25/2026: Using gems/nokogiri/CVE-2022-23437.yml
+# https://github.com/advisories/GHSA-xxx9-3xcr-gjj3
+rm -rf gems/nokogiri/GHSA-xxx9-3xcr-gjj3.yml
+
+# Use CVE over GHSA prefix.
+# 5/31/2026: gems/nokogiri/CVE-2022-24839.yml
+rm -rf gems/nokogiri/GHSA-gx8x-g87m-h5q6.yml
+
+exit
+
+# AL>> QUESTION (ruby or jruby)?
+# 5/25/2026: Using gems/nokogiri/CVE-2022-24839.yml (On JRuby)
+# https://github.com/advisories/GHSA-gx8x-g87m-h5q6 (on JRuby)
+#rm -f gems/nokogiri/GHSA-gx8x-g87m-h5q6.yml
+
+# 5/25/2026: In PR queue
+#gems/erb/CVE-2026-41316.yml
+#gems/faraday/CVE-2026-33637.yml
+#gems/jwt/CVE-2026-45363.yml
