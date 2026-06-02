@@ -472,7 +472,7 @@ module GitHub
       filename_to_write = package.filename
 
       new_data = package.merge_data(
-        "cvss_v3"             => ("<FILL IN IF AVAILABLE>" unless cvss)
+        "cvss_v3" => (cvss if cvss) # Used value if have one else no field.
       )
 
       if (unaffected_versions = unaffected_versions_for(package))
@@ -496,26 +496,6 @@ module GitHub
       File.open(filename_to_write, "w") do |file|
         # create an automatically generated advisory yaml file
         file.write self.class.formatted_yaml(new_data)
-
-        # The data we just wrote is incomplete,
-        # and therefore should not be committed as is
-        # We can not directly translate from GitHub to rubysec advisory format
-        #
-        # The patched_versions field is not exactly available.
-        # - GitHub has a first_patched_version field,
-        #   but rubysec advisory needs a ruby version spec
-        #
-        # The unaffected_versions field is similarly not directly available
-        # This optional field must be inferred from the vulnerableVersionRange
-        #
-        # To help write those fields, we put all the github data below.
-        #
-        # The second block of yaml in a .yaml file is ignored (after the second "---" line)
-        # This effectively makes this data a large comment
-        # Still it should be removed before the data goes into rubysec
-        file.write "# GitHub advisory data below - **Remove this data before committing**\n"
-        file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
-        file.write self.class.formatted_yaml(advisory.merge("vulnerabilities" => vulnerabilities))
       end
       puts "Wrote: #{filename_to_write}"
       filename_to_write
