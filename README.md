@@ -213,8 +213,7 @@ patched_versions:
        - https://www.cve.org/CVERecord
        - https://www.cvedetails.com/index.php
        - https://cve.report
-     This CVE can be used in the primary "url:", "cve:", and
-     "related:"/"url:" fields.
+     This CVE can be used in the primary "url:", "cve:", and "related:"/"url:" fields.
    * Advisory filename (without suffix) should be equal to root `url:` field value.
  * Try to keep all text within 80 columns.
  * Run yamlint [`yamllint` tool](https://yamllint.readthedocs.io/en/stable/quickstart.html] to check yaml format. It find no issues.
