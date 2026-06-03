@@ -184,6 +184,11 @@ module GitHub
 
   class GitHubAdvisory
     class Package
+      NORMALISED_NAMES = {
+        "arabic-prawn"  => "Arabic-Prawn",
+        "redcloth"      => "RedCloth",
+      }
+
       attr_reader :name
 
       def initialize(advisory, name)
@@ -196,7 +201,11 @@ module GitHub
       end
 
       def filename
-        File.join("gems", name, "#{@advisory.primary_id}.yml")
+        # These packages appear to have been named differently in the past
+        # This 'corrects' them so updates don't affect existing vulnerabilities
+        package_name = NORMALISED_NAMES.fetch(name, name)
+
+        File.join("gems", package_name, "#{@advisory.primary_id}.yml")
       end
 
       def framework
@@ -240,6 +249,73 @@ module GitHub
       @advisory = advisory
       @vulnerabilities = []
     end
+
+    def self.formatted_yaml(data)
+      yaml = data.to_yaml
+      formatted_yaml = indent_mapping_sequences(yaml)
+
+      return formatted_yaml if yaml_round_trips?(formatted_yaml, data)
+
+      yaml
+    end
+
+    def self.indent_mapping_sequences(yaml)
+      active_sequence_indents = []
+      pending_sequence_indent = nil
+      block_scalar_indent = nil
+
+      yaml.lines.map do |line|
+        if line.strip.empty? || line.start_with?("---")
+          next line
+        end
+
+        indent = line[/\A */].length
+
+        if block_scalar_indent
+          if indent > block_scalar_indent
+            next "#{'  ' * active_sequence_indents.length}#{line}"
+          end
+
+          block_scalar_indent = nil
+        end
+
+        sequence_item = line.match?(/\A\s*-\s/)
+
+        active_sequence_indents.pop while active_sequence_indents.any? &&
+          indent <= active_sequence_indents.last &&
+          !(sequence_item && indent == active_sequence_indents.last)
+
+        if sequence_item && pending_sequence_indent == indent
+          active_sequence_indents << indent
+        end
+
+        pending_sequence_indent = sequence_indent_after_mapping_key(line, indent)
+        block_scalar_indent = indent if block_scalar_header?(line)
+
+        "#{'  ' * active_sequence_indents.length}#{line}"
+      end.join
+    end
+
+    def self.sequence_indent_after_mapping_key(line, indent)
+      if line.match?(/\A\s*-\s+.*:\s*\z/)
+        indent + 2
+      elsif line.match?(/\A\s*[^#].*:\s*\z/)
+        indent
+      end
+    end
+
+    def self.block_scalar_header?(line)
+      line.match?(/\A\s*(?:-\s+)?[^#]+:\s*[>|](?:[+-]?[1-9]|[1-9][+-]?)?\s*\z/)
+    end
+
+    def self.yaml_round_trips?(yaml, data)
+      YAML.safe_load(yaml, permitted_classes: [Date]) == data
+    rescue Psych::Exception
+      false
+    end
+
+    private_class_method :indent_mapping_sequences, :sequence_indent_after_mapping_key,
+                         :block_scalar_header?, :yaml_round_trips?
 
     def identifier_list
       advisory["identifiers"]
@@ -329,7 +405,7 @@ module GitHub
       return if saved_data == new_data
 
       File.open(package.filename, 'w') do |file|
-        file.write YAML.dump(new_data)
+        file.write self.class.formatted_yaml(new_data)
       end
 
       puts "Updated: #{package.filename}"
@@ -396,8 +472,7 @@ module GitHub
       filename_to_write = package.filename
 
       new_data = package.merge_data(
-        "cvss_v3"             => ("<FILL IN IF AVAILABLE>" unless cvss),
-        "cvss_v4"             => "<FILL IN IF AVAILABLE>"
+        "cvss_v3"             => ("<FILL IN IF AVAILABLE>" unless cvss)
       )
 
       if (unaffected_versions = unaffected_versions_for(package))
@@ -414,13 +489,13 @@ module GitHub
 
       # populate the related information
       new_data["related"] = {
-        "url" => advisory["references"]
+        "url" => advisory["references"].map { |reference| reference['url'] }.reject(&:empty?)
       }
 
       FileUtils.mkdir_p(File.dirname(filename_to_write))
       File.open(filename_to_write, "w") do |file|
         # create an automatically generated advisory yaml file
-        file.write new_data.to_yaml
+        file.write self.class.formatted_yaml(new_data)
 
         # The data we just wrote is incomplete,
         # and therefore should not be committed as is
@@ -440,7 +515,7 @@ module GitHub
         # Still it should be removed before the data goes into rubysec
         file.write "# GitHub advisory data below - **Remove this data before committing**\n"
         file.write "# Use this data to write patched_versions (and potentially unaffected_versions) above\n"
-        file.write advisory.merge("vulnerabilities" => vulnerabilities).to_yaml
+        file.write self.class.formatted_yaml(advisory.merge("vulnerabilities" => vulnerabilities))
       end
       puts "Wrote: #{filename_to_write}"
       filename_to_write

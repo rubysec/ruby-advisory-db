@@ -106,6 +106,18 @@ shared_examples_for 'Advisory' do |path|
       it { expect(subject).to be_kind_of(String) }
       it { expect(subject).to_not match(%r{\Ahttp(s)?://osvdb\.org}) }
       it { expect(subject).not_to be_empty }
+
+      it "has a filename that matches the root of the url field" do
+        url = advisory["url"]
+
+        filename_root = File.basename(path, ".yml")
+
+        # 5/24/2026: May 9, 2026 is earliest start date with no failed checks.
+        start_date = Date.new(2026, 5, 9)
+        if advisory["date"] >= start_date and !filename_root.start_with?("OSVDB")
+          expect(url).to include(filename_root)
+        end
+      end
     end
 
     describe "title" do
