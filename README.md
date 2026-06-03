@@ -275,6 +275,10 @@ under `ignore:`.
 [List of CVEs addressed by Rails LTS]: https://makandracards.com/railslts/474590-list-cves-addressed-rails-lts
 [PR-847]: https://github.com/rubysec/ruby-advisory-db/pull/847
 
+## Policy on Generative AI Contributions
+
+To safeguard project security and respect our maintainers' volunteer time, a human-in-the-loop is strictly required for all submissions. While AI tools are permitted as assistants, contributors must personally review, understand, and take full responsibility for their work. Any contributions that appear to be unreviewed machine output will be closed immediately, and repeat offenders will be banned from the project and reported.
+
 ## Credits
 
 Please see [CONTRIBUTORS.md].
