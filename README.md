@@ -228,20 +228,30 @@ bundle install
 bundle exec rspec
 ```
 
-## GitHub Advisory Sync
+## GitHub Security Advisory Sync (GHSA)
+
+ * The usual GHSA/SYNC workflow is:
+   1. Run "ruby lib/github_advisory_sync.rb" ruby script.
+      - The rake task will write YAML files for any missing advisories.
+      - More details follow this paragraph.
+   2. Run "./lib/rad-ignores.sh" shell script to ignore duplicate advisories.
+   3. Run "rake" to run the lint checks.
+   4. Run "yamllint $(find gems rubies -type f |grep yml$)".
+   5. If new or modified advisories, submit a PR to the repo.
+   6. CAVERT: Between steps 2 and 5, you might need to manually edit the files. 
 
 There is a script that will create initial YAML files for RubyGem advisories
 which are in the [GitHub Security Advisory API], but are not already in this
 dataset. This script can be periodically run to ensure this repo has all the
-data that is present in the GitHub Advisory data.
+data that is present in the GitHub Security Advisory data.
 
-The GitHub Advisory API requires a token to access it.
+The GitHub Security Advisory API requires a token to access it.
 
 * It can be a completely scope-less token (recommended); it does not require any
   permissions at all.
 * Get yours at: https://github.com/settings/tokens
 
-To run the GitHub Advisory sync to retrieve all advisories, start by executing
+To run the GitHub Security Advisory sync to retrieve all advisories, start by executing
 the rake task:
 
 ```shell
@@ -253,16 +263,6 @@ Or, to only retrieve advisories for a single gem:
 ```shell
 GH_API_TOKEN="your GitHub API Token" bundle exec rake sync_github_advisories[gem_name]
 ```
-
-* The rake task will write YAML files for any missing advisories.
-* Those files must be further edited.
-  * Fill in `cvss_v3` field by following the CVE link and getting it from page.
-  * Fill in `cvss_v4` field by following the CVE link and getting it from page.
-  * Fill in `patched_versions` field, using the comments at the bottom of the
-    YAML file.
-  * Optionally fill in `unaffected_versions`.
-  * Delete the GitHub data at the bottom of the YAML file.
-  * Double check all the data, commit it, and make a PR.
 
 ## Rails LTS
 
