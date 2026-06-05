@@ -1,0 +1,46 @@
+---
+gem: spree
+ghsa: xf4v-w5x5-pv79
+url: https://github.com/advisories/GHSA-xf4v-w5x5-pv79
+title: Spree - CSV Formula Injection in Customer Export
+date: 2026-06-04
+description: |
+  CSV formula injection (also known as formula injection or CSV injection)
+  affects customer export. User-controlled values customer names, email
+  addresses, and shipping addresses. When an administrator opens a
+  crafted Export in Microsoft Excel or LibreOffice Calc, formulas
+  embedded in user data execute in the context of the administrator's
+  desktop, potentially exfiltrating data or executing OS commands
+  via DDE (Dynamic Data Exchange).
+
+  ## Impact
+
+  Vulnerability class: CSV / Formula Injection (CWE-1236)
+
+  ## Who is impacted
+
+  Administrators who download and open export files in spreadsheet
+  software are the direct victims. Administrative accounts have
+  access to all store data, payment method configurations, customer
+  PII, and full order history.
+unaffected_versions:
+  - "< 5.2.0"
+patched_versions:
+  - "~> 5.2.8"
+  - "~> 5.3.6"
+  - ">= 5.4.3"
+related:
+  url:
+    - https://github.com/spree/spree/releases/tag/v5.2.8
+    - https://github.com/spree/spree/releases/tag/v5.3.6
+    - https://github.com/spree/spree/releases/tag/v5.4.3
+    - https://dev.to/cverports/ghsa-xf4v-w5x5-pv79-ghsa-xf4v-w5x5-pv79-csv-formula-injection-in-spree-customer-export-3f4
+    - https://github.com/spree/spree/security/advisories/GHSA-xf4v-w5x5-pv79
+    - https://advisories.gitlab.com/gem/spree/GHSA-xf4v-w5x5-pv79
+    - https://gitlab.com/gitlab-oss-package-research/source/gem/sp/spree-e60058ba/-/tree/5.4.3
+    - https://github.com/advisories/GHSA-xf4v-w5x5-pv79
+notes: |
+  - Embedded description: field (requiring manual step)
+  - Need "cve:" value or CVE URL.
+    - No CVE in GHSA advisory.
+  - No NVD so no cvss_v[234] values.
