@@ -211,8 +211,6 @@ patched_versions:
        found at one of these web sites:
        - https://nvd.nist.gov/vuln/search
        - https://www.cve.org/CVERecord
-       - https://www.cvedetails.com/index.php
-       - https://cve.report
      This CVE can be used in the primary "url:", "cve:", and "related:"/"url:" fields.
    * Advisory filename (without suffix) should be equal to root `url:` field value.
  * Try to keep all text within 80 columns.
