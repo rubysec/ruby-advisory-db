@@ -207,7 +207,7 @@ patched_versions:
 # General Contributing Guidelines
  * Advisory filename prefix naming preferance is:
    * 1st choice: CVE, then GHSA, then OSVDB.
-     - For post-2016 advisories, use only "published" CVEs which are
+     - For post-2016 advisories, use only "published" or "reserved" CVEs which are
        found at one of these web sites:
        - https://nvd.nist.gov/vuln/search
        - https://www.cve.org/CVERecord
