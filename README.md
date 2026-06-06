@@ -231,7 +231,7 @@ bundle exec rspec
 ## GitHub Security Advisory Sync (GHSA)
 
  * The usual GHSA/SYNC workflow is:
-   1. Run "ruby lib/github_advisory_sync.rb" ruby script.
+   1. Run "GH_API_TOKEN=`GITHUB_TOKEN_VALUE` bundle exec rake sync_github_advisories" ruby script.
       - The rake task will write YAML files for any missing advisories.
       - More details follow this paragraph.
    2. Run "./lib/rad-ignores.sh" shell script to ignore duplicate advisories.
