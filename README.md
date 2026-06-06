@@ -238,7 +238,7 @@ bundle exec rspec
    3. Run "rake" to run the lint checks.
    4. Run "yamllint $(find gems rubies -type f |grep yml$)".
    5. If new or modified advisories, submit a PR to the repo.
-   6. CAVERT: Between steps 2 and 5, you might need to manually edit the files. 
+   6. CAVEAT: Between steps 2 and 5, you might need to manually edit the files. 
 
 There is a script that will create initial YAML files for RubyGem advisories
 which are in the [GitHub Security Advisory API], but are not already in this
