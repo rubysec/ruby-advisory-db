@@ -205,19 +205,25 @@ patched_versions:
   inclusion in this database.
 
 # General Contributing Guidelines
- * Advisory filename prefix naming preferance is:
-   * 1st choice: CVE, then GHSA, then OSVDB.
-   * Advisory filename (without suffix) should be equal to root `url:` field value.
- * Try to keep all text within 80 columns.
- * Run yamlint [`yamllint` tool](https://yamllint.readthedocs.io/en/stable/quickstart.html] to check yaml format. It find no issues.
-   * YAML must be indented by 2 spaces.
-   * Ruby YAML does not like embedded ":" characters.
-   * For more info:
-     * https://pypi.org/project/yamllint
-     * [HERE](https://github.com/rubysec/ruby-advisory-db/blob/master/.github/workflows/ruby.yml)
- * Run `rspec spec/schema_validation_spec.rb` for aditional lint checks.
- * Check all URLs for dead links. Sometimes find the URL  https://web.archive.org .
- * Please see the [README](README.md#schema) for more documentation on the  YAML Schema.
+
+* Advisory file name
+  * Preference is CVE, then GHSA, then OSVDB, in that order.
+  * Should be equal to root `url:` field value.
+* For post-2016 advisories, use only "published" or "reserved" CVEs which are found at one of these web sites:
+  * https://nvd.nist.gov/vuln/search
+  * https://www.cve.org/CVERecord
+* When present, the CVE should be used in the primary "url:", "cve:", and "related:"/"url:" fields.
+* All text should be wrapped at 80 columns.
+* Run [`yamllint`](https://yamllint.readthedocs.io/en/stable/quickstart.html] to check yaml format.
+  * YAML must be indented by 2 spaces.
+  * Ruby YAML does not like embedded ":" characters.
+  * For more info:
+    * https://pypi.org/project/yamllint
+    * [Github Action workflow](https://github.com/rubysec/ruby-advisory-db/blob/master/.github/workflows/ruby.yml)
+* Run `rspec spec/schema_validation_spec.rb` for aditional lint checks.
+* Check all URLs for dead links.
+  * If a URL is dead, check if https://web.archive.org has a copy, and link to that.
+* Please see the [README](README.md#schema) for more documentation on the YAML Schema.
 
 ## Tests
 
