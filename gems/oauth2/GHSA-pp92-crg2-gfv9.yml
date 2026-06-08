@@ -1,0 +1,85 @@
+---
+gem: oauth2
+ghsa: pp92-crg2-gfv9
+url: https://github.com/ruby-oauth/oauth2/security/advisories/GHSA-pp92-crg2-gfv9
+title: Protocol-relative redirect Location overrides authority in
+  OAuth2::Client#request, leaking bearer Authorization to attacker host
+date: 2026-06-07
+description: |
+  ## Summary
+
+  When an application uses OAuth2::Client (typically via an
+  OAuth2::AccessToken) and the configured authorization server returns
+  a redirect whose Location header is a protocol-relative URI of the
+  form //attacker.example/leak, OAuth2::Client#request resolves the
+  redirect with response.response.env.url.merge(location). Per
+  RFC 3986 §5.2, an input that starts with // is a network-path reference
+  and replaces the authority of the base URL:
+  URI("http://idp.trusted/userinfo").merge("//attacker.example/leak")
+  returns http://attacker.example/leak. The recursive request(verb,
+  full_location, req_opts) call then re-sends the request to the attacker
+  host while preserving the Authorization: Bearer <access-token> header
+  that OAuth2::AccessToken#configure_authentication! installed on
+  req_opts[:headers] for the original request.
+
+  The result is a one-shot cross-origin credential disclosure: any 30x
+  response from the IdP that an attacker can influence (a compromised
+  endpoint, a tenant-controlled IdP in a multi-tenant deployment, or an
+  open-redirect handler that does not normalise the Location it emits)
+  can extract the bearer access token of the calling user.
+
+  ## Affected
+
+  * oauth2 v2.0.21 and all prior versions back to and including v0.4.0.
+    * The underlying unsafe redirect-following behavior that
+      reuses headers starts in v0.4.0 via b944da5.
+    * The vulnerability was retained when the code was refactored
+      to a redirect helper, and in this form has been present in
+      OAuth2::Client#request since v2.0.0 via b944da5.
+  * Ruby 4.0.5 on arm64-darwin25. The behaviour of URI#merge for
+    protocol-relative inputs is RFC-conformant and the same on every
+    supported Ruby (≥ 2.x).
+  * Adapter independence: confirmed against the default faraday 2.14.2 +
+    faraday-net_http 3.4.3 stack. The URI#merge call is in oauth2
+    itself, not in Faraday, so the issue is not adapter-specific.
+
+  ## Impact
+
+  A consumer that uses OAuth2::AccessToken#get / #post / #request
+  against an IdP whose redirect target an attacker can influence (open
+  redirect, malicious tenant, or in-path adversary) loses two things at once:
+
+  1. Cross-origin credential disclosure. The connection-scoped
+     Authorization: Bearer <token> header attached by
+     OAuth2::AccessToken#configure_authentication! is sent to the
+     attacker host on the very next request, with no second user interaction.
+  2. SSRF from the application server. The OAuth2 client follows the
+     redirect on behalf of the application, so the host that ultimately
+     receives the request is one the attacker chooses — useful for
+     hitting internal addresses (//169.254.169.254/..., //127.0.0.1:.../...)
+     that the application server can reach but the attacker cannot.
+
+  The combined primitive is stronger than the usual cross-origin-redirect
+  leak because no application-level cooperation is required and no
+  Location: http://attacker/... is needed — the protocol-relative
+   //attacker/x form slips past naive scheme-based Location filters
+  that allow same-scheme-implicit redirects.
+
+  ## Credit
+
+  * Reported by tonghuaroot.
+cvss_v3: 8.6
+unaffected_versions:
+  - "< 0.4.0"
+patched_versions:
+  - ">= 2.0.22"
+related:
+  url:
+    - https://github.com/ruby-oauth/oauth2/blob/v2.0.22/CHANGELOG.md
+    - https://github.com/ruby-oauth/oauth2/releases/tag/v2.0.22
+    - https://github.com/ruby-oauth/oauth2/commit/442c1609858ebaecbac5eab77f4511bc81ed7383
+    - https://github.com/ruby-oauth/oauth2/security/advisories/GHSA-pp92-crg2-gfv9
+notes: |
+  - Not on GHSA.
+  - No CVE value - will add it if it shows up.
+    - No NVD/[cvss_v2, cvss_v4] values - v3 from GHSA.
