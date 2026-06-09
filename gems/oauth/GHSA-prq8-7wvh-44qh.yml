@@ -1,0 +1,84 @@
+---
+gem: oauth
+ghsa: prq8-7wvh-44qh
+url: https://github.com/ruby-oauth/oauth/security/advisories/GHSA-prq8-7wvh-44qh
+title: Cross-origin OAuth token-request redirects can expose
+  signed request metadata
+date: 2026-06-07
+description: |
+  ## Summary
+
+  When an application uses OAuth::Consumer to request OAuth 1.0 request
+  tokens or access tokens, the token request helper follows 300..399
+  redirects returned by the OAuth server. In affected versions,
+  OAuth::Consumer#token_request parses the raw Location header, follows
+  the redirect recursively, and can mutate the consumer's configured
+  site when the redirect points to a different host with the same path.
+
+  The result is a cross-origin signed-request disclosure primitive: if an OAuth
+  server token endpoint returns a redirect whose target an attacker controls,
+  the client can re-sign the token request and send OAuth 1.0 request metadata,
+  including the OAuth signature, nonce, timestamp, consumer key, and any request
+  parameters included in the signature base string, to the attacker-controlled
+  host. The same behavior can also be used as an SSRF or confused-deputy
+  primitive because the application server follows the redirect and sends
+  the next request from its own network position.
+
+  ## Affected
+
+  oauth v1.1.5 and prior versions back to and including v0.5.5.
+  The cross-host token redirect behavior was introduced by d74b767f
+  The behavior is documented in the v0.5.5 changelog as "Allow redirect to
+  different host but same path".
+  The vulnerable behavior is in OAuth::Consumer#token_request, which is
+  used by the documented request-token and access-token flows.
+  The issue is not specific to a Ruby engine or platform. It is caused by the
+  gem's redirect handling and recursive token request behavior.
+  Patched version: oauth v1.1.6.
+
+  ## Impact
+
+  A consumer that calls OAuth::Consumer#get_request_token,
+  OAuth::Consumer#get_access_token, or lower-level token request helpers
+  against an OAuth server whose token endpoint redirect target can be
+  influenced may lose three security properties:
+
+  Cross-origin signed-request metadata disclosure. The redirected request is
+  signed for the attacker-controlled endpoint. Depending on the request method,
+  scheme, and parameters, the attacker may receive OAuth 1.0 parameters such as
+  oauth_consumer_key, oauth_signature_method, oauth_timestamp,
+  oauth_nonce, oauth_version, and oauth_signature.
+  SSRF from the application server. The OAuth client follows the redirect on
+  behalf of the application, so the redirected host is contacted from the
+  application server's network position.
+  Confused-deputy behavior. A malicious or compromised token endpoint can
+  cause an otherwise trusted application to initiate signed requests to an
+  unintended origin.
+  The disclosed OAuth 1 signature is not equivalent to an OAuth 2 bearer token:
+  it is bound to the signed request, timestamp, nonce, HTTP method, and request
+  URL. However, it can still disclose sensitive integration metadata, may be
+  replayable within the receiver's accepted nonce/timestamp window in some
+  deployments, and can expose application-server reachability to
+  attacker-selected hosts.
+
+  ## Credit
+
+  * Found during the follow-up audit for GHSA-pp92-crg2-gfv9.
+
+  * Reporter/coordinator: Peter H. Boling (pboling)
+cvss_v3: 7.2
+unaffected_versions:
+  - "< 0.5.5"
+patched_versions:
+  - ">= 1.1.6"
+related:
+  url:
+    - https://github.com/ruby-oauth/oauth/blob/v1.1.6/CHANGELOG.md
+    - https://github.com/ruby-oauth/oauth/releases/tag/v1.1.6
+    - https://github.com/ruby-oauth/oauth/commit/d74b767f
+    - https://github.com/ruby-oauth/oauth/security/advisories/GHSA-pp92-crg2-gfv9
+    - https://github.com/ruby-oauth/oauth/security/advisories/GHSA-prq8-7wvh-44qh
+notes: |
+  - Not on GHSA.
+  - No CVE value - will add it if it shows up.
+    - No NVD/[cvss_v2, cvss_v4] values - v3 from GHSA.
