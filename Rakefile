@@ -6,6 +6,9 @@ rescue LoadError
   warn "Warning: RSpec is not installed. Please run `gem install rspec` to install RSpec."
 end
 
+abort "yamllint is not installed. Install it with: pip install yamllint" \
+  unless system("which yamllint > /dev/null 2>&1")
+
 if defined?(RSpec::Core::RakeTask)
   namespace :lint do
     desc "Lint reports (excluding schema validation)"
@@ -21,7 +24,18 @@ if defined?(RSpec::Core::RakeTask)
 
   desc "Run all linting tasks"
   task :lint    => [ 'lint:schema', 'lint:yaml' ]
-  task :default => [ :lint ]
+
+  desc "Run rad-ignores.sh to generate ignore patterns"
+  task :ignores do
+    sh "bash lib/rad-ignores.sh"
+  end
+
+  desc "Run yamllint command on all 'gems/*/*.yml' and 'rubies/*/*.yml' files"
+  task :yamllint do
+    sh "yamllint gems rubies"
+  end
+
+  task :default => [ :lint, :ignores, :yamllint ]
 end
 
 desc "Sync GitHub RubyGem Advisories into this project"
