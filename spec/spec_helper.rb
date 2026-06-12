@@ -1,3 +1,12 @@
+require 'strscan'
+
+class StringScanner
+  def peep(len)
+    peek(len)
+  end
+end
+require 'kwalify'
+
 require 'date'
 require 'rspec'
 

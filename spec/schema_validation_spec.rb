@@ -66,10 +66,15 @@ shared_examples 'conforming schema' do |glob:, schemer:|
     filename = path.split('/')[-2..].join('/')
 
     it "#{filename} conforms to schema" do
-      raw_data = YAML.safe_load_file(path, permitted_classes: [Date])
-      data = normalize_for_json(raw_data)
-      errors = raw_yaml_field_checks(raw_data) + schemer.validate(data).to_a
-
+      if ENV['USEKWALIFY'] == 'yes'
+         data = normalize_for_json(YAML.safe_load_file(path,
+         permitted_classes: [Date]))
+         errors = schemer.validate(data).to_a
+      else
+        raw_data = YAML.safe_load_file(path, permitted_classes: [Date])
+        data = normalize_for_json(raw_data)
+        errors = raw_yaml_field_checks(raw_data) + schemer.validate(data).to_a
+      end
       expect(errors).to be_empty, lambda {
         "#{filename}\n#{format_errors(errors)}"
       }
