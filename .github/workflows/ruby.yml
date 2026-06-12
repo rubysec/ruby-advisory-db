@@ -50,4 +50,4 @@ jobs:
       - name: Install ruby dependencies
         run: bundle install --jobs 4 --retry 3
       - name: Validate YAML
-        run: bundle exec rake lint
+        run: USEKWALIFY="yes" bundle exec rake lint
