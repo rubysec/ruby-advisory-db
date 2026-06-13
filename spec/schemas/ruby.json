@@ -3,6 +3,12 @@
   "$id": "https://github.com/rubysec/ruby-advisory-db/schemas/ruby.json",
   "title": "Ruby implementation advisory",
   "type": "object",
+  "properties": {},
+  "patternProperties": {
+    "^(?!gem$).*": {},
+    "^(?!library$).*": {},
+    "^(?!framework$).*": {}
+  },
   "additionalProperties": false,
   "required": ["engine", "url", "title", "date", "description"],
   "anyOf": [
@@ -17,6 +23,7 @@
     },
     "platform": {
       "type": "string",
+      "pattern": "jruby",
       "minLength": 1
     },
     "cve": {
@@ -49,8 +56,8 @@
     "description": {
       "type": "string",
       "minLength": 1,
+      "pattern": "\\n",
       "allOf": [
-        { "pattern": "\\n" },
         { "not": { "pattern": "\\\\n\\\\n" } },
         { "not": { "pattern": "(#+) PoC" } }
       ]
