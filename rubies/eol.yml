@@ -1,0 +1,5 @@
+---
+ruby:
+  url: https://www.ruby-lang.org/en/news/2019/03/31/support-of-ruby-2-3-has-ended/
+  date: 2019-03-31
+  version: "< 2.4"
