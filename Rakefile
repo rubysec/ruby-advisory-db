@@ -20,7 +20,16 @@ if defined?(RSpec::Core::RakeTask)
   end
 
   desc "Run all linting tasks"
-  task :lint    => [ 'lint:schema', 'lint:yaml' ]
+  task :lint    => [ 'lint:schema', 'lint:yaml', :yamllint ]
+
+  desc "Run yamllint command on all 'gems/*/*.yml' and 'rubies/*/*.yml' files"
+  task :yamllint do
+    abort "yamllint is not installed. Install it with: pip install yamllint" \
+      unless system("which yamllint > /dev/null 2>&1")
+
+    sh "yamllint gems rubies"
+  end
+
   task :default => [ :lint ]
 end
 
@@ -28,4 +37,5 @@ desc "Sync GitHub RubyGem Advisories into this project"
 task :sync_github_advisories, [:gem_name] do |_, args|
   require_relative "lib/github_advisory_sync"
   GitHub::GitHubAdvisorySync.sync(gem_name: args[:gem_name])
+  sh "bash lib/rad-ignores.sh"
 end
