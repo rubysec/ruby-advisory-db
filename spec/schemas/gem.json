@@ -68,7 +68,7 @@
     "description": {
       "type": "string",
       "minLength": 1,
-      "pattern": "\\n",
+      "pattern": "^(?=.*\\n)(?:[^\\n]{1,150})(?:\\n[^\\n]{1,150})*$",
       "allOf": [
         { "not": { "pattern": "\\\\n\\\\n" } },
         { "not": { "pattern": "(#+) PoC" } }
