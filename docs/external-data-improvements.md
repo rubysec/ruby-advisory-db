@@ -14,7 +14,8 @@ Here are the different sources of information this repo usually uses and how to 
   - See [repo](https://github.com/rubysec/ruby-advisory-db) README on policy.
 - Have only project-specific data (announcement, blog, CHANGELOG, Release notes) about advisory
   - Google for more information. Try to contact developer privately.
-- To exclude a duplicate or disputed advisories, send them to @jasnow to add them to his ignored-dup-list.file.
+- To exclude a duplicate or disputed advisories, create a PR to add them
+  to [file](https://github.com/rubysec/ruby-advisory-db/lib/rad-ignores.sh).
 
 ## GEMS
 

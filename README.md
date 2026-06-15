@@ -214,11 +214,9 @@ patched_versions:
   * https://www.cve.org/CVERecord
 * When present, the CVE should be used in the primary "url:", "cve:", and "related:"/"url:" fields.
 * All text should be wrapped at 80 columns.
-* Run [`yamllint`](https://yamllint.readthedocs.io/en/stable/quickstart.html] to check yaml format.
   * YAML must be indented by 2 spaces.
   * Ruby YAML does not like embedded ":" characters.
   * For more info:
-    * https://pypi.org/project/yamllint
     * [Github Action workflow](https://github.com/rubysec/ruby-advisory-db/blob/master/.github/workflows/ruby.yml)
 * Run `rspec spec/schema_validation_spec.rb` for aditional lint checks.
 * Check all URLs for dead links.
@@ -239,12 +237,15 @@ bundle exec rspec
  * The usual GHSA/SYNC workflow is:
    1. Run "GH_API_TOKEN=`GITHUB_TOKEN_VALUE` bundle exec rake sync_github_advisories" ruby script.
       - The rake task will write YAML files for any missing advisories.
+        - Then it runs "./lib/rad-ignores.sh" shell script to
+          ignore duplicate advisories.
+        - Then it runs "yamllint" for all gems and rubies yml files.
       - More details follow this paragraph.
-   2. Run "./lib/rad-ignores.sh" shell script to ignore duplicate advisories.
-   3. Run "rake" to run the lint checks.
-   4. Run "yamllint $(find gems rubies -type f |grep yml$)".
-   5. If new or modified advisories, submit a PR to the repo.
-   6. CAVEAT: Between steps 2 and 5, you might need to manually edit the files. 
+
+   2. Run "rake" to run the lint checks.
+
+   3. If new or modified advisories, submit a PR to the repo.
+   4. CAVEAT: Between steps 2 and 5, you might need to manually edit the files.
 
 There is a script that will create initial YAML files for RubyGem advisories
 which are in the [GitHub Security Advisory API], but are not already in this
