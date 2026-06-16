@@ -155,7 +155,7 @@ patched_versions:
 * `patched_versions` \[Array\<String\>\] (optional): The version requirements
   for the patched versions of the Ruby library.
   * `patched_versions version ranges must be quoted (ex: `">= 1.2.3"`).
-  * Omit `patched_versions:` if you has no patched version identifiers.
+  * Omit `patched_versions:` if you have no patched version identifiers.
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory
   references many urls and other identifiers. Supported keys:
   `cve`, `ghsa`, `osvdb`, and `url`
@@ -195,7 +195,7 @@ patched_versions:
   * `patched_versions`/`unaffected_versions` version ranges must be quoted
      (ex: `">= 1.2.3"`).
   * Field `patched_versions`are 2 blanks from left margin.
-  * Omit patched_versions: if you has no patched version identifiers.
+  * Omit patched_versions: if you have no patched version identifiers.
 * `related` \[Hash\<Array\<String\>\>\] (optional): Sometimes an advisory
   references many urls and other identifiers. Supported keys:
   `cve`, `ghsa`, `osvdb`, and `url`
@@ -221,7 +221,7 @@ patched_versions:
 * Run `rspec spec/schema_validation_spec.rb` for aditional lint checks.
 * Check all URLs for dead links.
   * If a URL is dead, check if https://web.archive.org has a copy, and link to that.
-* Please see the [README](README.md#schema) for more documentation on the YAML Schema.
+* Please see the [README](README.md#yaml-schema) for more documentation on the YAML Schema.
 
 ## Tests
 
