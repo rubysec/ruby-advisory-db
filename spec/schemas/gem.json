@@ -3,10 +3,6 @@
   "$id": "https://github.com/rubysec/ruby-advisory-db/schemas/gem.json",
   "title": "Ruby gem advisory",
   "type": "object",
-  "properties": {},
-  "patternProperties": {
-    "^(?!engine$).*": {}
-  },
   "additionalProperties": false,
   "required": ["gem", "url", "title", "date", "description"],
   "anyOf": [
@@ -15,28 +11,19 @@
     { "required": ["ghsa"] }
   ],
   "properties": {
-    "engine": {
-      "type": "string",
-      "enum": ["ruby", "jruby", "mruby", "mrubyc", "rbx", "truffleruby"]
-    },
+    "engine": false,
     "gem": {
       "type": "string",
       "minLength": 1
     },
     "library": {
-      "type": "string",
-      "pattern": "rubygems",
-      "minLength": 1
+      "const": "rubygems"
     },
     "framework": {
-      "type": "string",
-      "pattern": "rails",
-      "minLength": 1
+      "const": "rails"
     },
     "platform": {
-      "type": "string",
-      "pattern": "jruby",
-      "minLength": 1
+      "const": "jruby"
     },
     "cve": {
       "type": "string",

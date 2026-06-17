@@ -3,12 +3,6 @@
   "$id": "https://github.com/rubysec/ruby-advisory-db/schemas/ruby.json",
   "title": "Ruby implementation advisory",
   "type": "object",
-  "properties": {},
-  "patternProperties": {
-    "^(?!gem$).*": {},
-    "^(?!library$).*": {},
-    "^(?!framework$).*": {}
-  },
   "additionalProperties": false,
   "required": ["engine", "url", "title", "date", "description"],
   "anyOf": [
@@ -21,10 +15,11 @@
       "type": "string",
       "enum": ["ruby", "jruby", "mruby", "mrubyc", "rbx", "truffleruby"]
     },
+    "gem:": false,
+    "library": false,
+    "framework:": false,
     "platform": {
-      "type": "string",
-      "pattern": "jruby",
-      "minLength": 1
+      "const": "jruby"
     },
     "cve": {
       "type": "string",
