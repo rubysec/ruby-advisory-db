@@ -35,6 +35,7 @@ description: |
     in `RequestHandler`.
 
   - Fixed in version 1.12.0.
+cvss_v4: 2.0
 patched_versions:
   - ">= 1.12.0"
 related:

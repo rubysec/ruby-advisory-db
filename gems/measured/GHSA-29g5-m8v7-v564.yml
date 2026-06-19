@@ -16,6 +16,7 @@ description: |
   ### Patches
 
   Users should update to the latest version.
+cvss_v4: 4.9
 patched_versions:
   - ">= 3.2.1"
 related:

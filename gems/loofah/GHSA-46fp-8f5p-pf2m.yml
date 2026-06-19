@@ -41,6 +41,7 @@ description: |
   ## Credit
 
   Responsibly reported by HackOne user `@smlee`.
+cvss_v4: 2.7
 unaffected_versions:
   - "< 2.25.0"
 patched_versions:

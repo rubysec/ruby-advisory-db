@@ -72,6 +72,7 @@ description: |
   [CodeQL: Uncontrolled data used in path expression](https://codeql.github.com/codeql-query-help/ruby/rb-path-injection/)
   [OWASP: Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)
 cvss_v3: 7.2
+cvss_v4: 8.6
 patched_versions:
   - ">= 2.8.1"
 related:
