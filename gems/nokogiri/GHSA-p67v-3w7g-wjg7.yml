@@ -1,0 +1,52 @@
+---
+gem: nokogiri
+ghsa: p67v-3w7g-wjg7
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-p67v-3w7g-wjg7
+title: 'Nokogiri: Possible Use-After-Free when directly using `NokogirI::XML::XPathContext`
+  beyond document lifetime'
+date: 2026-06-19
+description: |
+  ### Summary
+
+  `Nokogiri::XML::XPathContext` did not keep its source document alive for
+  garbage collection. If an `XPathContext` outlived its document and the
+  document was collected, evaluating an XPath expression could read invalid
+  memory and potentially segfault.
+
+  This is only reachable when application code constructs an `XPathContext`
+  directly and lets the document become unreachable while continuing to use the
+  context. The normal `Document#xpath`, `#css`, and related search methods are
+  not affected, and it is not triggerable by malicious document input.
+
+  Nokogiri 1.19.4 makes `XPathContext` keep its source document alive for as
+  long as the context exists.
+
+  Only the CRuby implementation is affected. JRuby is not affected.
+
+  ### Severity
+
+  The Nokogiri maintainers have evaluated this as low severity. Reaching it
+  requires an unusual API-usage pattern that does not arise during normal use.
+  The application must construct an `XML::XPathContext` directly and continue
+  using it after allowing its source document to be garbage-collected. Nokogiri
+  1.19.4 makes this pattern safe with no change to the public API. The context
+  now keeps its source document alive for as long as it exists.
+
+  ### Mitigation
+
+  Upgrade to Nokogiri 1.19.4 or later.
+
+  As a workaround, ensure the source document remains referenced for as long as
+  any `XPathContext` created from it is in use. The standard `Document#xpath`,
+  `#css`, and related search methods already do this and are unaffected.
+
+  ### Credit
+
+  This issue was responsibly reported by Zheng Yu from depthfirst.com.
+cvss_v4: 1.7
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-p67v-3w7g-wjg7
+    - https://github.com/advisories/GHSA-p67v-3w7g-wjg7

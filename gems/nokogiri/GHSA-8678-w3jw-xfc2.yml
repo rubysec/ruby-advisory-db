@@ -1,0 +1,66 @@
+---
+gem: nokogiri
+ghsa: 8678-w3jw-xfc2
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-8678-w3jw-xfc2
+title: 'Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,
+  bypassing CVE-2020-26247'
+date: 2026-06-19
+description: |
+  ### Summary
+
+  The `NONET` parse option, which Nokogiri turns on by default for
+  `Nokogiri::XML::Schema` (see
+  [CVE-2020-26247](https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-vr8q-g5c7-m54m)),
+  was not correctly enforced on the JRuby implementation. As a result, a schema
+  parsed with default options could still cause external resources to be fetched
+  over the network, potentially enabling SSRF or XXE attacks.
+
+  Nokogiri 1.19.4 replaces the scheme denylist with an allowlist. When `NONET`
+  is enabled, only local resources (a `file:` scheme, or a relative or absolute
+  path with no scheme) are resolved, and every network scheme is blocked,
+  case-insensitively. This brings the JRuby behavior in line with CRuby.
+
+  Only the JRuby implementation is affected. CRuby is not affected, because
+  libxml2's `xmlNoNetExternalEntityLoader` blocks all network schemes at the I/O
+  layer regardless of scheme or case.
+
+  ### Severity
+
+  The Nokogiri maintainers have evaluated this as low severity (CVSS 2.6,
+  `CVSS:3.0/AV:N/AC:H/PR:L/UI:R/S:U/C:L/I:N/A:N`). It is a bypass of
+  CVE-2020-26247, which was scored the same way.
+
+  ### Mitigation
+
+  Upgrade to Nokogiri 1.19.4 or later.
+
+  There are no known workarounds for affected versions.
+
+  This change properly enforces `NONET` on JRuby, which is a breaking change for
+  any code that (perhaps unknowingly) relied on the previous behavior to load
+  network resources with default parse options. If you trust your input and want
+  to allow external resources to be accessed over the network, you can
+  explicitly disable `NONET`, exactly as documented for CVE-2020-26247:
+
+  1. Ensure the input is trusted. Do not enable this option for untrusted input.
+  2. Pass a `Nokogiri::XML::ParseOptions` with the `NONET` flag turned off:
+
+  ``` ruby
+  # allows resources to be accessed over the network for trusted input
+  schema = Nokogiri::XML::Schema.new(trusted_schema, Nokogiri::XML::ParseOptions.new.nononet)
+  ```
+
+  ### References
+
+  - Bypass of: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-vr8q-g5c7-m54m
+
+  ### Credit
+
+  This issue was responsibly reported by @bilerden.
+cvss_v3: 2.6
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-8678-w3jw-xfc2
+    - https://github.com/advisories/GHSA-8678-w3jw-xfc2
