@@ -15,9 +15,11 @@
       "type": "string",
       "enum": ["ruby", "jruby", "mruby", "mrubyc", "rbx", "truffleruby"]
     },
+    "gem:": false,
+    "library": false,
+    "framework:": false,
     "platform": {
-      "type": "string",
-      "minLength": 1
+      "const": "jruby"
     },
     "cve": {
       "type": "string",
@@ -49,9 +51,8 @@
     "description": {
       "type": "string",
       "minLength": 1,
-      "pattern": "^(?!.{81,})(?:[^\n]{1,150})(?:\n[^\n]{1,150})*$",
+      "pattern": "^(?=.{1,80}$)(?=.*\\n)(?:[^\n]{1,80})(?:\n[^\n]{1,80})*$",
       "allOf": [
-        { "pattern": "\\n" },
         { "not": { "pattern": "\\\\n\\\\n" } },
         { "not": { "pattern": "(#+) PoC" } }
       ]

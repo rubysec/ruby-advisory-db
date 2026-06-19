@@ -11,21 +11,19 @@
     { "required": ["ghsa"] }
   ],
   "properties": {
+    "engine": false,
     "gem": {
       "type": "string",
       "minLength": 1
     },
     "library": {
-      "type": "string",
-      "minLength": 1
+      "const": "rubygems"
     },
     "framework": {
-      "type": "string",
-      "minLength": 1
+      "const": "rails"
     },
     "platform": {
-      "type": "string",
-      "minLength": 1
+      "const": "jruby"
     },
     "cve": {
       "type": "string",
@@ -57,9 +55,8 @@
     "description": {
       "type": "string",
       "minLength": 1,
-      "pattern": "^(?!.{81,})(?:[^\n]{1,150})(?:\n[^\n]{1,150})*$",
+      "pattern": "^(?=.{1,80}$)(?=.*\\n)(?:[^\n]{1,80})(?:\n[^\n]{1,80})*$",
       "allOf": [
-        { "pattern": "\\n" },
         { "not": { "pattern": "\\\\n\\\\n" } },
         { "not": { "pattern": "(#+) PoC" } }
       ]
