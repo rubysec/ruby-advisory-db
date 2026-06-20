@@ -58,7 +58,7 @@
       "pattern": "^(?=.{1,80}$)(?=.*\\n)(?:[^\n]{1,80})(?:\n[^\n]{1,80})*$",
       "allOf": [
         { "not": { "pattern": "\\\\n\\\\n" } },
-        { "not": { "pattern": "(#+) PoC" } }
+        { "not": { "pattern": "(?i)(#+) *(poc\\b|proof of concept)" } }
       ]
     },
     "cvss_v2": {

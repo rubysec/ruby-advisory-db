@@ -144,7 +144,8 @@ patched_versions:
   vulnerability. It may contain multiple paragraphs.
   * Used `description: |` if it is more than one sentence/line.
   * Line wrap `descriptions:` field at 80.
-  * Do no include "POC" or "PoC" in `description:` field.
+  * Do not include "POC", "PoC", or "Proof of Concept" heading sections
+    (any casing) in the `description:` field.
   * Not use "\n" or "%" in `description:` field.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
@@ -183,7 +184,8 @@ patched_versions:
   * Used `description: |` (not `|-`) if it is more than one sentence/line.
   * Line wrap `descriptions:` field at 80.
   * Not use "\n" or "%" in `description:` field.
-  * Do no include "POC" or "PoC" in `description:` field.
+  * Do not include "POC", "PoC", or "Proof of Concept" heading sections
+    (any casing) in the `description:` field.
 * `cvss_v2` \[Float\] (optional): The [CVSSv2] score for the vulnerability.
 * `cvss_v3` \[Float\] (optional): The [CVSSv3] score for the vulnerability.
 * `cvss_v4` \[Float\] (optional): The [CVSSv4] score for the vulnerability.

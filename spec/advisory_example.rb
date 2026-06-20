@@ -153,7 +153,7 @@ shared_examples_for 'Advisory' do |path|
       end
 
       it "must not have PoC sections" do
-        expect(subject).to_not include("### PoC")
+        expect(subject).to_not match(/(#+) *(?:poc\b|proof of concept)/i)
       end
 
       it { expect(subject).to be_kind_of(String) }
