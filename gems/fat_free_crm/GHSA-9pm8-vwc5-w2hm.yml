@@ -22,6 +22,7 @@ description: |
 
   Disable use of email dropbox.
 cvss_v3: 2.1
+cvss_v4: 2.1
 patched_versions:
   - ">= 0.26.0"
 related:

@@ -14,6 +14,7 @@ description: |
   using it in SQL queries. This may allow a remote attacker to inject or
   manipulate SQL queries in the back-end database, allowing for the
   manipulation or disclosure of arbitrary data.
+cvss_v4: 8.8
 unaffected_versions:
   - "< 1.2.6"
 patched_versions:

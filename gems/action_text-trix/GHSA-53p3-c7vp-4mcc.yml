@@ -34,6 +34,7 @@ description: |
 
   The XSS vulnerability was responsibly reported by Hackerone
   researcher [newbiefromcoma](https://hackerone.com/newbiefromcoma).
+cvss_v4: 2.1
 patched_versions:
   - ">= 2.1.18"
 related:

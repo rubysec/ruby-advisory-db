@@ -23,6 +23,7 @@ description: |
   software are the direct victims. Administrative accounts have
   access to all store data, payment method configurations, customer
   PII, and full order history.
+cvss_v4: 5.2
 unaffected_versions:
   - "< 5.2.0"
 patched_versions:

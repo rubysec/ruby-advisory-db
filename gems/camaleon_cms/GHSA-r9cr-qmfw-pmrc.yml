@@ -43,6 +43,7 @@ description: |
   Ruby on Rails, so that stolen tokens cannot be used anymore
   after some time.
 cvss_v3: 5.4
+cvss_v4: 4.8
 patched_versions:
   - ">= 2.8.1"
 related:

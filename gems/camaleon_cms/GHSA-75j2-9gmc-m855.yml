@@ -43,6 +43,7 @@ description: |
   could make sense to use the authentication provided by Ruby on Rails,
   so that stolen tokens cannot be used anymore after some time.
 cvss_v3: 5.4
+cvss_v4: 4.8
 unaffected_versions:
   - "< 2.8.0"
 patched_versions:

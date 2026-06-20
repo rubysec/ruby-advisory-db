@@ -152,9 +152,15 @@ module GitHub
                 summary
                 description
                 severity
-                cvss {
-                  score
-                  vectorString
+                cvssSeverities {
+                  cvssV3 {
+                    score
+                    vectorString
+                  }
+                  cvssV4 {
+                    score
+                    vectorString
+                  }
                 }
                 references {
                   url
@@ -356,10 +362,19 @@ module GitHub
       !advisory["withdrawnAt"].nil?
     end
 
-    def cvss
-      return if advisory["cvss"]["vectorString"].nil?
+    def cvss_v3
+      cvss_score("cvssV3")
+    end
 
-      advisory["cvss"]["score"].to_f
+    def cvss_v4
+      cvss_score("cvssV4")
+    end
+
+    def cvss_score(version)
+      severity = advisory.dig("cvssSeverities", version)
+      return if severity.nil? || severity["vectorString"].nil?
+
+      severity["score"].to_f
     end
 
     def external_reference
@@ -384,7 +399,8 @@ module GitHub
         "url"         => external_reference,
         "title"       => advisory["summary"],
         "description" => advisory["description"],
-        "cvss_v3"     => cvss,
+        "cvss_v3"     => cvss_v3,
+        "cvss_v4"     => cvss_v4,
       }.compact
     end
 
@@ -472,7 +488,11 @@ module GitHub
       filename_to_write = package.filename
 
       new_data = package.merge_data(
-        "cvss_v3" => (cvss if cvss) # Used value if have one else no field.
+        # Include each score only if we have one, else no field.
+        {
+          "cvss_v3" => cvss_v3,
+          "cvss_v4" => cvss_v4,
+        }.compact
       )
 
       if (unaffected_versions = unaffected_versions_for(package))
