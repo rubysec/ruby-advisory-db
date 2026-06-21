@@ -3,6 +3,9 @@ require 'versions_example'
 
 require 'yaml'
 
+MAX_DESC_LEN  = 102
+MAX_TITLE_LEN = 154
+
 shared_examples_for 'Advisory' do |path|
   advisory = YAML.safe_load_file(path, permitted_classes: [Date])
 
@@ -133,6 +136,20 @@ shared_examples_for 'Advisory' do |path|
       it "must not start with or end with additional whitespace" do
         expect(subject).to_not match(/\A\s|\s\z/)
       end
+
+      it "has a title <= #{MAX_TITLE_LEN} characters" do
+        title = advisory["title"]
+        expect(title).to be_a(String)
+
+        filename_root = File.basename(path, ".yml")
+
+        # 5/28/2026: May 8, 2026 is earliest start date with no failed checks.
+        start_date = Date.new(2026, 5, 8)
+        if advisory["date"] >= start_date and !filename_root.start_with?("OSVDB")
+          expect(title.length).to be <= MAX_TITLE_LEN,
+            "Title too long (#{title.length} chars): #{title.inspect}"
+        end
+      end
     end
 
     describe "date" do
@@ -158,6 +175,22 @@ shared_examples_for 'Advisory' do |path|
 
       it { expect(subject).to be_kind_of(String) }
       it { expect(subject).not_to be_empty }
+
+      it "has a description with no line > ${MAX_DESC_LEN} characters" do
+         description = advisory["description"]
+         expect(description).to be_a(String)
+
+        filename_root = File.basename(path, ".yml")
+
+         # 5/28/2026: May 8, 2026 is earliest start date with no failed checks.
+         start_date = Date.new(2026, 5, 8)
+         if advisory["date"] >= start_date and !filename_root.start_with?("OSVDB")
+           long_lines = description.split("\n").select { |line| line.length > MAX_DESC_LEN }
+           expect(long_lines).to be_empty,
+             "Description has lines > #{MAX_DESC_LEN} chars:\n" +
+             long_lines.map { |l| "  #{l.length} chars: #{l.inspect}" }.join("\n")
+          end
+        end
     end
 
     describe "cvss_v2" do

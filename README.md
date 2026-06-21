@@ -142,7 +142,8 @@ patched_versions:
 * `date` \[Date\] (required): The public disclosure date of the advisory.
 * `description` \[String\] (required): One or more paragraphs describing the
   vulnerability. It may contain multiple paragraphs.
-  * Used `description: |` if it is more than one sentence/line.
+  * Used `description: |` or `description: |-` if it is more than
+    one sentence/line.
   * Line wrap `descriptions:` field at 80.
   * Do not include "POC", "PoC", or "Proof of Concept" heading sections
     (any casing) in the `description:` field.
