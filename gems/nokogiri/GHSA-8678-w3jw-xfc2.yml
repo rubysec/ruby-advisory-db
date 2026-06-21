@@ -47,12 +47,14 @@ description: |
 
   ``` ruby
   # allows resources to be accessed over the network for trusted input
-  schema = Nokogiri::XML::Schema.new(trusted_schema, Nokogiri::XML::ParseOptions.new.nononet)
+  schema = Nokogiri::XML::Schema.new(trusted_schema,
+    Nokogiri::XML::ParseOptions.new.nononet)
   ```
 
   ### References
 
-  - Bypass of: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-vr8q-g5c7-m54m
+  - Bypass of:
+    https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-vr8q-g5c7-m54m
 
   ### Credit
 
