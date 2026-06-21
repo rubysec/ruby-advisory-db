@@ -1,0 +1,50 @@
+---
+gem: nokogiri
+ghsa: phwj-rprq-35pp
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-phwj-rprq-35pp
+title: 'Nokogiri: Possible Use-After-Free when setting an attribute value via `Nokogiri::XML::Attr#value=`
+  or `#content=`'
+date: 2026-06-19
+description: |
+  ### Summary
+
+  Nokogiri's CRuby native extension could leave a Ruby wrapper pointing to freed
+  memory when replacing the value of an XML attribute. If Ruby code had already
+  accessed an attribute child node, `Nokogiri::XML::Attr#value=` could free the
+  underlying native child node while the wrapper remained reachable through the
+  document node cache. A later use of the freed child node or a Ruby GC mark
+  could dereference an invalid pointer, causing an invalid read and a possible
+  segfault.
+
+  Nokogiri 1.19.4 preserves any already-wrapped attribute child nodes before
+  replacing the attribute value.
+
+  JRuby is not affected.
+
+  ### Severity
+
+  The Nokogiri maintainers have evaluated this as low severity. Reaching it
+  requires an unusual API-usage pattern that does not arise during normal use.
+  The application must directly access an attribute's child node and then
+  replace that same attribute's value via `Attr#value=` or `#content=`. Nokogiri
+  1.19.4 makes this pattern safe with no change to the public API.
+  Already-wrapped attribute child nodes are preserved before the value is
+  replaced.
+
+  ### Mitigation
+
+  Upgrade to Nokogiri 1.19.4 or later.
+
+  As a workaround, avoid accessing attribute child nodes directly via
+  `Attr#child` or similar before mutating the same attribute’s value.
+
+  ### Credit
+
+  This issue was responsibly reported by Zheng Yu from depthfirst.com.
+cvss_v4: 1.7
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-phwj-rprq-35pp
+    - https://github.com/advisories/GHSA-phwj-rprq-35pp

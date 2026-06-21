@@ -1,0 +1,48 @@
+---
+gem: nokogiri
+ghsa: wjv4-x9w8-wm3h
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-wjv4-x9w8-wm3h
+title: 'Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid
+  node type'
+date: 2026-06-19
+description: |
+  ### Summary
+
+  `Nokogiri::XML::Document#root=` validated only that the new root was a
+  `Nokogiri::XML::Node`, allowing a DTD node to be set as the document root. The
+  result is a heap use-after-free during garbage collection or finalization,
+  leading to an invalid memory read or potentially a segfault.
+
+  Nokogiri 1.19.4 restricts `Document#root=` to element nodes, raising
+  `TypeError` for any other node type.
+
+  This memory-safety issue affects only the CRuby implementation (libxml2). The
+  JRuby implementation was not affected; the same input validation was added
+  there for behavioral parity.
+
+  ### Severity
+
+  The Nokogiri maintainers have evaluated this as low severity. This is only
+  triggered by a programming error. It requires application code to assign a
+  non-element node such as a DTD as the document root via `Document#root=`.
+  Nokogiri 1.19.4 now raises `TypeError` instead of allowing a use-after-free.
+  It cannot be triggered by untrusted input or through normal use of the public
+  API.
+
+  ### Mitigation
+
+  Upgrade to Nokogiri 1.19.4 or later.
+
+  As a workaround, applications that cannot upgrade should avoid assigning a DTD
+  (or any non-element node) via `Document#root=`.
+
+  ### Credit
+
+  This issue was responsibly reported by Zheng Yu from depthfirst.com.
+cvss_v4: 1.7
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-wjv4-x9w8-wm3h
+    - https://github.com/advisories/GHSA-wjv4-x9w8-wm3h

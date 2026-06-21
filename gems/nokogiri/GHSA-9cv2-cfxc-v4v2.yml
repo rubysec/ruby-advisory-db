@@ -1,0 +1,45 @@
+---
+gem: nokogiri
+ghsa: 9cv2-cfxc-v4v2
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-9cv2-cfxc-v4v2
+title: 'Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper
+  classes'
+date: 2026-06-19
+description: |
+  ### Summary
+
+  Nokogiri contains a bug when calling certain methods on
+  allocated-but-uninitialized native wrapper classes that inherit from
+  `Nokogiri::XML::Node`. This caused a NULL pointer dereference that could crash
+  the process.
+
+  Nokogiri 1.19.4 checks for missing native data pointers and raises a
+  `RuntimeError`.
+
+  JRuby is not affected.
+
+  ### Severity
+
+  The Nokogiri maintainers have evaluated this as low severity. This is only
+  triggered by a programming error. It requires application code to call
+  `.allocate` directly on a native-backed class and then invoke methods on the
+  resulting uninitialized object. It cannot be triggered by untrusted input or
+  through normal use of the public API.
+
+  ### Mitigation
+
+  Upgrade to Nokogiri 1.19.4 or later.
+
+  Avoid calling `.allocate` directly on Nokogiri native-backed classes. Use the
+  documented constructors and factory methods instead.
+
+  ### Credit
+
+  This issue was responsibly reported by Zheng Yu from depthfirst.com.
+cvss_v4: 1.7
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-9cv2-cfxc-v4v2
+    - https://github.com/advisories/GHSA-9cv2-cfxc-v4v2

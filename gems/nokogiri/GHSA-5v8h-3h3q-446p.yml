@@ -1,0 +1,46 @@
+---
+gem: nokogiri
+ghsa: 5v8h-3h3q-446p
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-5v8h-3h3q-446p
+title: 'Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`
+  raises an exception'
+date: 2026-06-19
+description: |
+  ### Summary
+
+  Calling `Document#encoding=` with an invalid encoding (e.g., a non-string, or
+  a string containing a null byte) raises an exception, but only after freeing
+  the document's current encoding string without replacing it. The document is
+  left referencing freed memory, so the next call to `Document#encoding` reads
+  invalid memory, which can cause a segfault or leak freed bytes into a Ruby
+  `String`.
+
+  Affects the CRuby (libxml2) implementation only; JRuby is not affected.
+
+  ### Severity
+
+  The Nokogiri maintainers have evaluated this as low severity. Reaching it
+  requires an unusual API-usage pattern that does not arise during normal use.
+  The application must pass an invalid encoding to `Document#encoding=`, rescue
+  the resulting exception, and then continue using the same document. Nokogiri
+  1.19.4 makes this pattern safe with no change to the public API. The document
+  no longer references freed memory after the exception is raised.
+
+  ### Mitigation
+
+  Upgrade to Nokogiri 1.19.4 or later.
+
+  If users are unable to upgrade, avoid passing attacker-controlled values to
+  `Document#encoding=`. Applications that only assign developer-authored
+  encodings are not directly exposed.
+
+  ### Credit
+
+  This issue was responsibly reported by Zheng Yu from depthfirst.com.
+cvss_v4: 1.7
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-5v8h-3h3q-446p
+    - https://github.com/advisories/GHSA-5v8h-3h3q-446p
