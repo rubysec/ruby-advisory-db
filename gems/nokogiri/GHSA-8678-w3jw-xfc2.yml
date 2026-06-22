@@ -1,5 +1,6 @@
 ---
 gem: nokogiri
+platform: jruby
 ghsa: 8678-w3jw-xfc2
 url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-8678-w3jw-xfc2
 title: 'Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,
