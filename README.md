@@ -2,6 +2,9 @@
 
 The Ruby Advisory Database is a community effort to compile all security
 advisories that are relevant to Ruby libraries.
+We expect others to create the data, such as getting CVE's, GHSA's,
+OSVDB's, cvss', or original vulnerability information.
+More details at [HERE](docs/external-data-improvements.md).
 
 You can check your own Gemfile.locks against this database by using
 [bundler-audit].
@@ -108,7 +111,7 @@ description: |
   CVE-2022-28739. We strongly recommend upgrading Ruby.
 
   Due to a bug in an internal function that converts a String to a Float, some
-  convertion methods like Kernel#Float and String#to_f could cause buffer
+  conversion methods like Kernel#Float and String#to_f could cause buffer
   over-read. A typical consequence is a process termination due to segmentation
   fault, but in a limited circumstances, it may be exploitable for illegal
   memory read.
@@ -221,10 +224,9 @@ patched_versions:
   * Ruby YAML does not like embedded ":" characters.
   * For more info:
     * [Github Action workflow](https://github.com/rubysec/ruby-advisory-db/blob/master/.github/workflows/ruby.yml)
-* Run `rspec spec/schema_validation_spec.rb` for aditional lint checks.
+* Run `rspec spec/schema_validation_spec.rb` for additional lint checks.
 * Check all URLs for dead links.
   * If a URL is dead, check if https://web.archive.org has a copy, and link to that.
-* Please see the [README](README.md#yaml-schema) for more documentation on the YAML Schema.
 
 ## Tests
 
