@@ -1,0 +1,48 @@
+---
+gem: nokogiri
+ghsa: g9g8-vgvw-g3vf
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-g9g8-vgvw-g3vf
+title: Possible invalid memory read when calling
+  `Nokogiri::XML::Node#initialize_copy_with_args` with
+  incorrect argument type
+date: 2026-06-19
+description: |
+  ## Summary
+
+  The protected copy helper behind Node#dup and #clone unwrapped its
+  source argument as an xmlNode without a type check.
+  Supplying a non-Node (e.g. a Namespace) made it read an xmlNs
+  out of bounds, crashing the process.
+
+  Nokogiri 1.19.4 performs a type check and raises TypeError when an
+  argument of invalid type is passed.
+
+   Only CRuby is affected. JRuby is not affected.
+
+  ## Severity
+
+  The Nokogiri maintainers have evaluated this as low severity.
+  This is only triggered by a programming error. It requires application
+  code to call the protected internal initialize_copy_with_args method
+  with an argument that is not a Nokogiri::XML::Node.
+  Nokogiri 1.19.4 now raises TypeError instead of reading out of bounds.
+  It cannot be triggered by untrusted input or through normal use of
+  the public API.
+
+  ## Mitigation
+
+  Upgrade to Nokogiri 1.19.4 or later. There is no workaround.
+
+  ## Credit
+
+  This issue was responsibly reported by Zheng Yu from depthfirst.com.
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://rubygems.org/gems/nokogiri/versions/1.19.4
+    - https://github.com/sparklemotion/nokogiri/releases/tag/v1.19.4
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-g9g8-vgvw-g3vf
+notes: |
+    - no CVE number
+    - No [cvss_v2, cvss_v3, cvss_v4] on GHSA file
