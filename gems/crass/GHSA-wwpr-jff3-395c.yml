@@ -1,0 +1,26 @@
+---
+gem: crass
+ghsa: wwpr-jff3-395c
+url: https://github.com/rgrove/crass/security/advisories/GHSA-wwpr-jff3-395c
+title: A large number of adjacent CSS comments can trigger a
+  SystemStackError
+date: 2026-06-25
+description: |
+  ## Impact
+
+  When the :preserve_comments option is not enabled (which is the
+  default behavior), Crass discards CSS comments by recursively
+  consuming the next token. An attacker who provides a stylesheet
+  containing a very large number of adjacent comments can cause
+  excessive recursion and trigger a SystemStackError.
+cvss_v4: 6.3
+patched_versions:
+  - ">= 1.0.7"
+related:
+  url:
+    - https://rubygems.org/gems/crass/versions/1.0.7
+    - https://github.com/rgrove/crass/releases/tag/v1.0.7
+    - https://github.com/rgrove/crass/blob/v1.0.7/HISTORY.md#107-2026-06-25
+    - https://github.com/rgrove/crass/security/advisories/GHSA-wwpr-jff3-395c
+notes: |
+  - No CVE, but published so no non-GHSA cvss values.

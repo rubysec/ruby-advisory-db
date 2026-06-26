@@ -1,0 +1,27 @@
+---
+gem: crass
+ghsa: 6wmf-3r64-vcwv
+url: https://github.com/rgrove/crass/security/advisories/GHSA-6wmf-3r64-vcwv
+title: Large numeric exponents cause CPU and memory denial of service
+date: 2026-06-25
+description: |
+  ## Impact
+
+  Crass converts CSS scientific notation number values with unbounded
+  exponentiation before it clamps the result to Float::MAX. Applications
+  that use Crass to parse attacker-controlled CSS strings can be forced
+  to spend disproportionate CPU and memory parsing a tiny input,
+  possibly resulting in a crash.
+
+  Exponents are now bounded before 10**exponent is computed.
+cvss_v4: 8.9
+patched_versions:
+  - ">= 1.0.7"
+related:
+  url:
+    - https://rubygems.org/gems/crass/versions/1.0.7
+    - https://github.com/rgrove/crass/releases/tag/v1.0.7
+    - https://github.com/rgrove/crass/blob/v1.0.7/HISTORY.md#107-2026-06-25
+    - https://github.com/rgrove/crass/security/advisories/GHSA-6wmf-3r64-vcwv
+notes: |
+  - No CVE, but published so no non-GHSA cvss values.
