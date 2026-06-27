@@ -24,4 +24,4 @@ related:
     - https://github.com/rgrove/crass/blob/v1.0.7/HISTORY.md#107-2026-06-25
     - https://github.com/rgrove/crass/security/advisories/GHSA-6wmf-3r64-vcwv
 notes: |
-  - No CVE, but published so no non-GHSA cvss values.
+  - No CVE, but not published so no non-GHSA cvss values.
