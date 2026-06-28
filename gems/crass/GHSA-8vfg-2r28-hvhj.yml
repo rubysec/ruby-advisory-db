@@ -2,7 +2,7 @@
 gem: crass
 ghsa: 8vfg-2r28-hvhj
 url: https://github.com/rgrove/crass/security/advisories/GHSA-8vfg-2r28-hvhj
-title: A large number of adjacent CSS comments can trigger a SystemStackError
+title: Non-ASCII characters cause superlinear CPU consumption
 date: 2026-06-25
 description: |
   ## Impact
