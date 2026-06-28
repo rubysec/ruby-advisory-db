@@ -1,0 +1,25 @@
+---
+gem: crass
+ghsa: 8vfg-2r28-hvhj
+url: https://github.com/rgrove/crass/security/advisories/GHSA-8vfg-2r28-hvhj
+title: Non-ASCII characters cause superlinear CPU consumption
+date: 2026-06-25
+description: |
+  ## Impact
+
+  When parsing an input containing non-ASCII characters, inefficiencies
+  in how Crass tracks the positions of multi-byte characters result
+  in superlinear parsing time. An attacker-controlled input consisting
+  of many non-ASCII characters could cause excessive CPU consumption
+  and potentially denial of service.
+cvss_v4: 6.3
+patched_versions:
+  - ">= 1.0.7"
+related:
+  url:
+    - https://rubygems.org/gems/crass/versions/1.0.7
+    - https://github.com/rgrove/crass/releases/tag/v1.0.7
+    - https://github.com/rgrove/crass/blob/v1.0.7/HISTORY.md#107-2026-06-25
+    - https://github.com/rgrove/crass/security/advisories/GHSA-8vfg-2r28-hvhj
+notes: |
+  - No CVE, but not published so no non-GHSA cvss values.

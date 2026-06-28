@@ -1,0 +1,25 @@
+---
+gem: crass
+ghsa: 6jxj-px6v-747w
+url: https://github.com/rgrove/crass/security/advisories/GHSA-6jxj-px6v-747w
+title: Deeply nested CSS blocks and functions can trigger a
+  SystemStackError or excessive memory usage
+date: 2026-06-25
+description: |
+  ## Impact
+
+  Crass recursively parses CSS simple blocks and functions without a
+  depth guard. An attacker-controlled value containing many deeply
+  nested blocks can recurse until Ruby raises SystemStackError:
+  stack level too deep, or can cause excessive memory usage.
+cvss_v4: 6.3
+patched_versions:
+  - ">= 1.0.7"
+related:
+  url:
+    - https://rubygems.org/gems/crass/versions/1.0.7
+    - https://github.com/rgrove/crass/releases/tag/v1.0.7
+    - https://github.com/rgrove/crass/blob/v1.0.7/HISTORY.md#107-2026-06-25
+    - https://github.com/rgrove/crass/security/advisories/GHSA-6jxj-px6v-747w
+notes: |
+  - No CVE, but not published so no non-GHSA cvss values.
