@@ -1,0 +1,52 @@
+---
+gem: pay
+ghsa: mjgf-xj26-9qf9
+url: https://github.com/advisories/GHSA-mjgf-xj26-9qf9
+title: pay-rails/pay - non-constant-time HMAC comparison in
+  Paddle Billing webhook signature verifier
+date: 2026-07-01
+description: |
+  ## Summary
+
+  The `Pay::Webhooks::PaddleBillingController#valid_signature?`
+  (`app/controllers/pay/webhooks/paddle_billing_controller.rb`)
+  verifies the Paddle Billing webhook signature by computing
+  `OpenSSL::HMAC.hexdigest(...)` and comparing it to the attacker-supplied
+  header value using Ruby's `String#==`. Ruby's `==` is non-constant-time —
+  it returns as soon as the first byte mismatches — and exposes a per-byte
+  timing side channel on the webhook signature verification path. The
+  canonical mitigation is to use a constant-time primitive
+  (`OpenSSL.fixed_length_secure_compare` /
+  `ActiveSupport::SecurityUtils.secure_compare`).
+
+  - IMPACT - CWE-208 — Observable Timing Discrepancy on the  webhook
+    signature verifier.
+    - An attacker who can deliver requests to the `/pay/webhooks/paddle_billing`
+      mount point can probe the verifier with guessed `Paddle-Signature`
+      header values. Because `String#==` short-circuits on the first
+      mismatching byte, the response-time distribution shifts as the prefix
+      of the guess matches the real hex digest.
+    - A signature recovered through the oracle lets the attacker deliver
+      forged Paddle Billing webhook events (e.g. `subscription.created` /
+      `transaction.completed`) against the host application. Pay's webhook
+      'processor enqueues a `Pay::Webhooks::ProcessJob` for any accepted'
+      webhook, which downstream applications use to update billing state —
+      including provisioning paid features, recording refunds, and
+      triggering customer notifications.
+    - The endpoint is internet-reachable by definition (Paddle must
+      POST events to it).
+
+  - Credit - Reported by tonghuaroot (https://github.com/tonghuaroot)
+cvss_v3: 7.4
+related:
+  url:
+    - https://advisories.gitlab.com/gem/pay/GHSA-mjgf-xj26-9qf9
+    - https://github.com/pay-rails/pay/security/advisories/GHSA-mjgf-xj26-9qf9
+    - https://github.com/advisories/GHSA-mjgf-xj26-9qf9
+notes: |
+  - Latest (unpatched) release as of 7/2/2026 is 11.6.1
+    - `pay` (rubygem) ≤ v11.6.1 (latest release as of 2026-05-27).
+    - https://github.com/pay-rails/pay/releases/tag/v11.6.1
+    - https://rubygems.org/gems/pay/versions/11.6.1
+  - cvss_v3 value comes from project advisory.
+  - No cve value, so missing cvss_v2 and cvss_v4 values.
