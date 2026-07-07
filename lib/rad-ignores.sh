@@ -53,14 +53,13 @@ rm -rf gems/nokogiri/GHSA-xxx9-3xcr-gjj3.yml
 # 5/31/2026: gems/nokogiri/CVE-2022-24839.yml
 rm -rf gems/nokogiri/GHSA-gx8x-g87m-h5q6.yml
 
+# Use CVE over GHSA prefix.
+# 7/7/2026: gems/commonmarker/CVE-2023-37463.yml
+rm -rf gems/commonmarker/GHSA-7vh7-fw88-wj87.yml
+
 exit
 
 # AL>> QUESTION (ruby or jruby)?
 # 5/25/2026: Using gems/nokogiri/CVE-2022-24839.yml (On JRuby)
 # https://github.com/advisories/GHSA-gx8x-g87m-h5q6 (on JRuby)
 #rm -f gems/nokogiri/GHSA-gx8x-g87m-h5q6.yml
-
-# 5/25/2026: In PR queue
-#gems/erb/CVE-2026-41316.yml
-#gems/faraday/CVE-2026-33637.yml
-#gems/jwt/CVE-2026-45363.yml
