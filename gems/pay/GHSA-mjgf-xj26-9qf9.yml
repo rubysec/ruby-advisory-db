@@ -38,15 +38,16 @@ description: |
 
   - Credit - Reported by tonghuaroot (https://github.com/tonghuaroot)
 cvss_v3: 7.4
+patched_versions:
+  - ">= 11.6.2"
 related:
   url:
     - https://advisories.gitlab.com/gem/pay/GHSA-mjgf-xj26-9qf9
     - https://github.com/pay-rails/pay/security/advisories/GHSA-mjgf-xj26-9qf9
     - https://github.com/advisories/GHSA-mjgf-xj26-9qf9
 notes: |
-  - Latest (unpatched) release as of 7/2/2026 is 11.6.1
-    - `pay` (rubygem) ≤ v11.6.1 (latest release as of 2026-05-27).
-    - https://github.com/pay-rails/pay/releases/tag/v11.6.1
-    - https://rubygems.org/gems/pay/versions/11.6.1
+  - Fixed in 11.6.2.
+    - https://github.com/pay-rails/pay/releases/tag/v11.6.2
+    - https://rubygems.org/gems/pay/versions/11.6.2
   - cvss_v3 value comes from project advisory.
   - No cve value, so missing cvss_v2 and cvss_v4 values.
