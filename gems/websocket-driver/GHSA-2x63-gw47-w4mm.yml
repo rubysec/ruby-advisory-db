@@ -1,0 +1,34 @@
+---
+gem: websocket-driver
+ghsa: 2x63-gw47-w4mm
+url: https://github.com/faye/websocket-driver-ruby/security/advisories/GHSA-2x63-gw47-w4mm
+title: Denial of service via malformed Host header
+date: 2026-06-23
+description: |
+  ## Impact
+
+  If this library is used to implement a WebSocket server on top of a
+  TCP server, by using the WebSocket::Driver.server() method, then a
+  client can cause the server to crash by sending a Host header that
+  is not a valid host[:port] string. When this happens, a URI::InvalidURIError
+  exception is raised which is not caught, and this can cause the server
+  process to crash if the application does not catch the error from
+   the parse() method itself.
+
+  ## Acknowledgements
+
+  This issue was discovered and reported by Pranjali Thakur,
+  DepthFirst Security Research Team.
+cvss_v4: 8.9
+patched_versions:
+  - ">= 0.8.2"
+related:
+  url:
+    - https://rubygems.org/gems/websocket-driver/versions/0.8.2
+    - https://github.com/faye/websocket-driver-ruby/blob/main/CHANGELOG.md#082--2026-06-23
+    - https://github.com/faye/websocket-driver-ruby/security/advisories/GHSA-2x63-gw47-w4mm
+notes: |
+  - NOTE: Gem name is websocket-driver but repo name is websocket-driver-ruby.
+  - date value from CHANGELOG URL.
+  - cvss_v4 value came from GHSA.
+  - No CVE, so no non-GHSA cvss values.
