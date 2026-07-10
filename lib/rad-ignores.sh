@@ -57,6 +57,13 @@ rm -rf gems/nokogiri/GHSA-gx8x-g87m-h5q6.yml
 # 7/7/2026: gems/commonmarker/CVE-2023-37463.yml
 rm -rf gems/commonmarker/GHSA-7vh7-fw88-wj87.yml
 
+# Disputed by the WEBrick maintainers. CVEs were assigned without
+# maintainer involvement, and WEBrick's documented scope has excluded
+# production use since 2020.
+# 7/10/2026: https://github.com/ruby/webrick/issues/198
+rm -f gems/webrick/CVE-2024-47220.yml
+rm -f gems/webrick/CVE-2026-38969.yml
+
 exit
 
 # AL>> QUESTION (ruby or jruby)?
