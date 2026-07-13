@@ -11,6 +11,17 @@ else
 fi
 
 # 10/26/2024, 5/25/2026: Autolab is not a Rubygem so remove it.
+# 7/13/2026: Found 10 more so added them here.
+#https://github.com/autolab/Autolab/security/advisories/GHSA-v46j-h43h-rwrm
+#https://github.com/autolab/Autolab/security/advisories/GHSA-84qc-7773-2gg3
+#https://github.com/autolab/Autolab/security/advisories/GHSA-8qhp-jhhw-45r2
+#https://github.com/autolab/Autolab/security/advisories/GHSA-962r-m9fj-3hj9
+#https://github.com/autolab/Autolab/security/advisories/GHSA-cqxx-pfmh-h43g
+#https://github.com/autolab/Autolab/security/advisories/GHSA-g7x7-mgrv-f24x
+#https://github.com/autolab/Autolab/security/advisories/GHSA-h8g5-vhm4-wx6g
+#https://github.com/autolab/Autolab/security/advisories/GHSA-h8wq-ghfq-5hfx
+#https://github.com/autolab/Autolab/security/advisories/GHSA-rjg4-cf66-x6gr
+#https://github.com/autolab/Autolab/security/advisories/GHSA-x9hj-r9q4-832c
 rm -f gems/Autolab/CVE-2024-49376.yml
 
 # 1/29/2026, 5/25/2026: rails is not a Rubygem so remove it.
