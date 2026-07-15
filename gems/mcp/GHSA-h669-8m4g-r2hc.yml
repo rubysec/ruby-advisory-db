@@ -1,0 +1,28 @@
+---
+gem: mcp
+ghsa: h669-8m4g-r2hc
+url: https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-h669-8m4g-r2hc
+title: Unbounded JSON-RPC request body causes uncontrolled memory
+  allocation in StreamableHTTPTransport
+date: 2026-07-07
+description: |
+  ## Summary
+
+  An unauthenticated remote attacker can force any MCP Ruby SDK server
+  using MCP::Server::Transports::StreamableHTTPTransport to allocate
+  gigabytes of memory by sending a single oversized JSON-RPC POST. The
+  transport reads the entire HTTP body into a Ruby String and parses
+  it with JSON.parse(body, symbolize_names: true) with no size limit,
+  no Content-Length pre-check, and no streaming parser, allowing
+  trivial denial of service against the worker process.
+cvss_v3: 7.5
+patched_versions:
+  - ">= 0.23.0"
+related:
+  url:
+    - https://rubygems.org/gems/mcp/versions/0.23.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/releases/tag/v0.23.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-h669-8m4g-r2hc
+notes: |
+  - cvss_v3 came from GHSA.
+  - date from gem release

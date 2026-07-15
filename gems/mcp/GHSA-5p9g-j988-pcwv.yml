@@ -1,0 +1,24 @@
+---
+gem: mcp
+ghsa: 5p9g-j988-pcwv
+url: https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-5p9g-j988-pcwv
+title: Ruby SSE Session Poisoning
+date: 2026-07-07
+description: |
+  ## Summary
+
+  Vulnerability: Missing Session Ownership Validation in the Ruby MCP
+  SDK's Streamable and SSE HTTP transport implementation. Any attacker
+  with a stolen session ID can execute tools with the victim's session.
+  This is a silent attack - the victim's session is compromised and
+  being used for unauthorized actions, but it is hard to know for the victim.
+patched_versions:
+  - ">= 0.23.0"
+related:
+  url:
+    - https://rubygems.org/gems/mcp/versions/0.23.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/releases/tag/v0.23.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-5p9g-j988-pcwv
+notes: |
+  - Project GHSA has high severity.
+  - date from gem release

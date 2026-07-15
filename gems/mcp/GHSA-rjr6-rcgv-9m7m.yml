@@ -1,0 +1,45 @@
+---
+gem: mcp
+ghsa: rjr6-rcgv-9m7m
+url: https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-rjr6-rcgv-9m7m
+title: Streamable HTTP transport lacks DNS-rebinding (Host/Origin) protection
+date: 2026-07-07
+description: |
+  ## Summary
+
+  MCP::Server::Transports::StreamableHTTPTransport (the Rack-mountable
+  Streamable HTTP transport in the mcp gem) processes every incoming
+  JSON-RPC request without ever inspecting the HTTP Host or Origin
+  request headers. There is no AllowedHosts/AllowedOrigins allowlist
+  and no DNS-rebinding guard anywhere in the transport. A local MCP
+  server that binds a loopback or LAN HTTP port is therefore reachable
+  by any web origin a victim's browser visits, via a DNS-rebinding
+  attack: a malicious page rebinds its own hostname to 127.0.0.1, then
+  drives the local MCP server cross-origin to enumerate and invoke
+  its tools and exfiltrate their output. This is the standard browser-driven
+  local-service attack that the MCP Streamable HTTP guidance exists to prevent.
+
+  ## Impact
+
+  An attacker who can get a victim to open a web page can reach any MCP
+  server the victim runs locally over the Streamable HTTP transport
+  (e.g. a developer-tools or filesystem MCP server on localhost).
+  Because the transport issues a session and dispatches tools/list/
+  tools/call from a foreign Host/Origin with no rejection, the attacker
+  can drive arbitrary server-exposed tools and read their results,
+  exfiltrating local data (files, secrets, command output) to the
+  attacker's origin.
+  The blast radius is whatever the locally-running MCP server exposes.
+  For MCP servers wired to filesystem, shell, or credential tools,
+  this is sensitive-data disclosure and, depending on the tool set,
+  local action execution.
+patched_versions:
+  - ">= 0.23.0"
+related:
+  url:
+    - https://rubygems.org/gems/mcp/versions/0.23.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/releases/tag/v0.23.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-rjr6-rcgv-9m7m
+notes: |
+  - "Moderate" severity in GHSA but no values.
+  - date from gem release

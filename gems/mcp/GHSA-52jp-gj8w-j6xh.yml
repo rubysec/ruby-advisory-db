@@ -1,0 +1,28 @@
+---
+gem: mcp
+ghsa: 52jp-gj8w-j6xh
+url: https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-52jp-gj8w-j6xh
+title: Unbounded session retention in StreamableHTTPTransport allows
+  memory exhaustion via initialize flood
+date: 2026-07-07
+description: |
+  ## Summary
+
+  In its default configuration, MCP::Server::Transports::StreamableHTTPTransport
+  never expires sessions. Every successful initialize request stores a
+  new ServerSession and a session record under a fresh UUID, and the
+  only path that removes them is an explicit client-issued HTTP DELETE.
+  An unauthenticated attacker can repeatedly initialize new sessions
+  and immediately disconnect, forcing the server to retain an unbounded
+  number of ServerSession objects until memory is exhausted.
+cvss_v3: 5.3
+patched_versions:
+  - ">= 0.23.0"
+related:
+  url:
+    - https://rubygems.org/gems/mcp/versions/0.23.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/releases/tag/v0.23.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-52jp-gj8w-j6xh
+notes: |
+  - cvss_v3 came from GHSA.
+  - date from gem release
