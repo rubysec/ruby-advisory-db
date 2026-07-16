@@ -1,0 +1,30 @@
+---
+gem: loofah
+ghsa: 8whx-365g-h9vv
+url: https://github.com/flavorjones/loofah/security/advisories/GHSA-8whx-365g-h9vv
+title: Loofah `allowed_uri?` does not detect `javascript:` URIs
+  split by named whitespace character references
+date: 2026-07-15
+description: |
+  ## Summary
+
+  Loofah::HTML5::Scrub.allowed_uri? does not correctly reject javascript:
+  URIs when the scheme is split or prefixed by the HTML5 named character
+  references &Tab; (tab) or &NewLine; (line feed).
+
+  This is a bypass of the fix for GHSA-46fp-8f5p-pf2m, which handled
+  the equivalent numeric character references (&#9;, &#10;, &#13;) but
+  did not cover the named forms.
+unaffected_versions:
+  - "< 2.25.0"
+patched_versions:
+  - ">= 2.25.2"
+related:
+  url:
+    - https://rubygems.org/gems/loofah/versions/2.25.2
+    - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2252--2026-07-15
+    - https://github.com/advisories/GHSA-46fp-8f5p-pf2m
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-8whx-365g-h9vv
+notes: |
+  - "Low" severity from GHSA
+  - No CVE.

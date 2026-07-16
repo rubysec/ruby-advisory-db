@@ -1,0 +1,42 @@
+---
+gem: loofah
+ghsa: 9wjq-cp2p-hrgf
+url: https://github.com/flavorjones/loofah/security/advisories/GHSA-9wjq-cp2p-hrgf
+title: SVG `href` attribute bypasses local-reference restriction in Loofah
+date: 2026-07-15
+description: |
+  ## Summary
+
+  Loofah's HTML5 sanitizer restricted only the xlink:href attribute on
+  certain SVG elements to local, same-document references. Browsers
+  also accept a plain href attribute as an alternative to the deprecated
+  xlink:href per the SVG 2 spec, but Loofah did not apply the same
+  restriction to it, allowing those elements to reference arbitrary
+  external documents.
+
+  ## Impact
+
+  SVG <use> can load and render external SVG content by reference. If
+  the referenced external SVG is same-origin and contains scripts or
+  other dangerous content, it could execute in the context of the
+  sanitized document. <feImage> can load external images, which can be
+  used for tracking. Modern browsers restrict cross-origin <use>
+  fetches, which limits but does not eliminate the risk.
+
+  Applications that sanitize user-supplied SVG (directly, or as part
+  of HTML) with Loofah's default allowlist are affected.
+
+  ## Credit
+
+  Found by the maintainer, Mike Dalessio, during a security audit.
+cvss_v3: 4.7
+patched_versions:
+  - ">= 2.25.2"
+related:
+  url:
+    - https://rubygems.org/gems/loofah/versions/2.25.2
+    - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2252--2026-07-15
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-9wjq-cp2p-hrgf
+notes: |
+  - cvss_v3 value from GHSA
+  - No CVE.

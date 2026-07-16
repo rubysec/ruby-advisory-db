@@ -1,0 +1,31 @@
+---
+gem: rails-html-sanitizer
+framework: rails
+ghsa: cj75-f6xr-r4g7
+url: https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-cj75-f6xr-r4g7
+title: Possible XSS vulnerability with certain configurations of
+  rails-html-sanitizer
+date: 2026-07-15
+description: |
+  ## Summary
+
+  There is a possible cross-site scripting vulnerability in
+  rails-html-sanitizer when the sanitizer is configured to allow an
+  SVG reference element such as <use>.
+  See related GHSA-9wjq-cp2p-hrgf in Loofah, whose SVG local-reference
+  logic rails-html-sanitizer mirrors.
+unaffected_versions:
+  - "< 1.0.3"
+patched_versions:
+  - ">= 1.7.1"
+related:
+  url:
+    - https://rubygems.org/gems/rails-html-sanitizer/versions/1.7.1
+    - https://github.com/rails/rails-html-sanitizer/blob/main/CHANGELOG.md#v171--2026-07-15
+    - https://github.com/rails/rails-html-sanitizer/commit/74dcb8053e6da9921246ce71b06ad9fd65b19586
+    - https://discuss.rubyonrails.org/t/ghsa-cj75-f6xr-r4g7-possible-xss-vulnerability-with-certain-configurations-of-rails-html-sanitizer/91359#post_1
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-9wjq-cp2p-hrgf
+    - https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-cj75-f6xr-r4g7
+notes: |
+  - "Moderate" severity in GHSA
+  - No CVE.
