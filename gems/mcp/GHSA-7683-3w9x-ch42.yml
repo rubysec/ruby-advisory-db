@@ -1,0 +1,30 @@
+---
+gem: mcp
+ghsa: 7683-3w9x-ch42
+url: https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-7683-3w9x-ch42
+title: Unbounded line buffer in stdio transports leads to memory
+  exhaustion (DoS)
+date: 2026-07-07
+description: |
+  ## Summary
+
+  The stdio transports in MCP::Server::Transports::StdioTransport and
+  MCP::Client::Stdio read newline-delimited JSON-RPC frames using
+  IO#gets with no limit argument. CRuby's IO#gets with no limit reads
+  from the current position until the next separator (\n) with no upper
+  bound on the returned string length. A peer that streams bytes without
+  ever emitting a newline causes gets to accumulate the entire stream
+  in a single Ruby String until the process is killed by the
+  operating-system OOM killer.
+cvss_v3: 6.2
+patched_versions:
+  - ">= 0.23.0"
+related:
+  url:
+    - https://rubygems.org/gems/mcp/versions/0.23.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/releases/tag/v0.23.0
+    - https://docs.ruby-lang.org/en/3.3/IO.html#method-i-gets
+    - https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-7683-3w9x-ch42
+notes: |
+  - cvss_v3 came from GHSA.
+  - date from gem release
