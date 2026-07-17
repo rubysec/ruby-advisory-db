@@ -1,0 +1,45 @@
+---
+gem: loofah
+ghsa: 5qhf-9phg-95m2
+url: https://github.com/flavorjones/loofah/security/advisories/GHSA-5qhf-9phg-95m2
+title: Loofah `allowed_uri?` does not detect `javascript:` URIs
+  split by numeric character references without semicolons
+date: 2026-07-15
+description: |
+  ## Summary
+
+  Loofah::HTML5::Scrub.allowed_uri? does not correctly reject javascript:
+  or vbscript: URIs when the scheme is split by a numeric character
+  reference that has no trailing semicolon. A browser decodes such
+  references and resolves the URL to an executable javascript: scheme,
+  while allowed_uri? reports it safe.
+
+  This is a bypass of the fix for GHSA-46fp-8f5p-pf2m, which handled
+  numeric character references with a trailing ; (&#9;, &#10;, &#13;)
+  but did not cover the forms without semicolons.
+
+  ## Impact
+
+  Callers that validate a user-controlled URL with
+  Loofah::HTML5::Scrub.allowed_uri? and then render the approved value
+  into an href or other browser-interpreted URI attribute may be
+  vulnerable to cross-site scripting (XSS). This includes applications
+  that call allowed_uri? directly, as well as higher-level features
+  built on top of it, such as Action Text 8.2's markdown link validation.
+
+  ## Credit
+
+  Responsibly reported by GitHub user @MoonFuji.
+unaffected_versions:
+  - "< 2.25.0"
+patched_versions:
+  - ">= 2.25.2"
+related:
+  url:
+    - https://rubygems.org/gems/loofah/versions/2.25.2
+    - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2252--2026-07-15
+    - https://github.com/advisories/GHSA-46fp-8f5p-pf2m
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-5qhf-9phg-95m2
+notes: |
+  - "Low" severity from GHSA
+  - No CVE.
