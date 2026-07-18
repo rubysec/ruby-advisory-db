@@ -75,6 +75,19 @@ rm -rf gems/commonmarker/GHSA-7vh7-fw88-wj87.yml
 rm -f gems/webrick/CVE-2024-47220.yml
 rm -f gems/webrick/CVE-2026-38969.yml
 
+# https://github.com/Shopify/ruby-lsp/security/advisories/GHSA-2x7g-8mp4-572w
+# is a Shopify.ruby-lsp (VS Code Extension), not a Ruby gem.
+
+# https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-vh5c-xwqv-cv9g
+# is not a Ruby gem, it is a WYSIWYG editor.
+
+# https://github.com/ua-parser/uap-core/security/advisories/GHSA-p4pj-mg4r-x6v4
+# is not a Ruby gem, it is a npm (javascript) package.
+
+# https://github.com/github/cmark-gfm/security/advisories/GHSA-7gc6-9qr5-hc85
+# https://github.com/github/cmark-gfm/security/advisories/GHSA-cgh3-p57x-9q7q
+# are not a Ruby gems, no Ruby code.
+
 exit
 
 # AL>> QUESTION (ruby or jruby)?
