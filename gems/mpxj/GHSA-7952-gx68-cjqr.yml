@@ -1,0 +1,29 @@
+---
+gem: mpxj
+ghsa: 7952-gx68-cjqr
+url: https://github.com/joniles/mpxj/security/advisories/GHSA-7952-gx68-cjqr
+title: Potential Path Traversal Vulnerability in Primavera P3 PRX and
+  SureTrak STX readers
+date: 2026-07-03
+description: |
+  ## Impact
+
+  When reading a suitably crafted PRX or STX file, MPXJ can be made
+  to write files to arbitrary locations in the file system.
+
+  ## Workarounds
+
+  Do not read PRX or STX files from untrusted sources.
+cvss_v3: 5.3
+unaffected_versions:
+  - "< 7.3.0"
+patched_versions:
+  - ">= 16.5.0"
+related:
+  url:
+    - https://rubygems.org/gems/mpxj/versions/16.5.0
+    - https://github.com/joniles/mpxj/releases/tag/v16.5.0
+    - https://github.com/joniles/mpxj/security/advisories/GHSA-7952-gx68-cjqr
+notes: |
+  - No CVE.
+  - cvss_v3 value from GHSA

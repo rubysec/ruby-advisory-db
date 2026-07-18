@@ -1,0 +1,28 @@
+---
+gem: omniauth-saml
+ghsa: cgp2-2cmh-pf7x
+url: https://github.com/omniauth/omniauth-saml/security/advisories/GHSA-cgp2-2cmh-pf7x
+title: Bad documentation for idp_cert_fingerprint_validator
+date: 2025-05-27
+description: |
+  Documentation:
+  https://github.com/omniauth/omniauth-saml#:~:text=%2C%0A%20%20%3Aidp_cert_fingerprint%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3D%3E%20%22E7%3A91%3AB2%3AE1%3A...%22%2C-,%3Aidp_cert_fingerprint_validator%20%20%20%20%20%3D%3E%20lambda%20%7B%20%7Cfingerprint%7C%20fingerprint%20%7D%2C,-%3Aname_identifier_format%20%20%20%20%20%20%20%20%20%20%20%20%20%3D%3E%20%22urn%3Aoasis%3Anames%3Atc%3ASAML%3A1.1%3Anameid%2Dformat
+
+  Has the line:
+    :idp_cert_fingerprint_validator     => lambda { |fingerprint| fingerprint },
+
+  This proc returns true for any fingerprint, allowing any certificate
+   to be trusted.
+
+  Update documentation to encourage secure defaults.
+patched_versions:
+  - ">= 2.2.4"
+related:
+  url:
+    - https://rubygems.org/gems/omniauth-saml/versions/2.2.4
+    - https://github.com/omniauth/omniauth-saml/releases/tag/v2.2.4
+    - https://github.com/omniauth/omniauth-saml/security/advisories/GHSA-cgp2-2cmh-pf7x
+notes: |
+  - No CVE.
+  - GHSA has "low" severity.
+  - date from GHSA
