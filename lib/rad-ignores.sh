@@ -91,6 +91,7 @@ rm -f gems/webrick/CVE-2026-38969.yml
 # https://github.com/omniauth/omniauth-saml/security/advisories/GHSA-cgp2-2cmh-pf7x
 # Dev said, so removed advisory: "The listed vulnerability is an error in
 # their documented usage. Updating the gem does not make an app more secure."
+rm -f gems/omniauth-saml/GHSA-cgp2-2cmh-pf7x.yml
 
 exit
 
