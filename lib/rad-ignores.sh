@@ -88,6 +88,10 @@ rm -f gems/webrick/CVE-2026-38969.yml
 # https://github.com/github/cmark-gfm/security/advisories/GHSA-cgh3-p57x-9q7q
 # are not a Ruby gems, no Ruby code.
 
+# https://github.com/omniauth/omniauth-saml/security/advisories/GHSA-cgp2-2cmh-pf7x
+# Dev said, so removed advisory: "The listed vulnerability is an error in
+# their documented usage. Updating the gem does not make an app more secure."
+
 exit
 
 # AL>> QUESTION (ruby or jruby)?
