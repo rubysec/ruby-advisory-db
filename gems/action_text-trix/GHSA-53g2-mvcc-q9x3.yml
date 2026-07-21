@@ -1,0 +1,50 @@
+---
+gem: action_text-trix
+ghsa: 53g2-mvcc-q9x3
+url: https://github.com/basecamp/trix/security/advisories/GHSA-53g2-mvcc-q9x3
+title: Stored XSS via HTMLParser attribute injection on paste
+date: 2026-03-26
+description: |
+  ## Impact
+
+  The Trix editor, in versions prior to 2.1.18, is vulnerable to XSS
+  when crafted HTML is pasted into the editor. The HTMLParser processed
+  a mock attachment, a <span> carrying an empty data-trix-attachment="{}".
+  The empty attachment object caused the element to bypass attachment
+  handling, so its data-trix-attributes were applied to a plain string
+  piece. The pre-2.1.18 StringPiece.fromJSON accepted the href without
+  validation, so an attacker-supplied javascript: URI was carried into
+  the document model and emitted verbatim into the serialized HTML,
+  executing when the content was rendered and clicked.
+
+  This is a stored XSS in any application that accepts untrusted rich
+  text through Trix and renders the serialized output to other users.
+  Applications that apply server-side HTML sanitization, such as the
+  Rails built-in sanitizer, are additionally protected because the
+  payload is neutralized on save.
+
+  This vulnerability shares its fix with GHSA-53p3-c7vp-4mcc.
+  Both are resolved by the StringPiece.fromJSON sanitization added
+  in 2.1.18. This advisory covers the paste and HTMLParser entry
+  vector, while GHSA-53p3-c7vp-4mcc covers the drag-and-drop path
+  through the fallback Level0InputController.
+
+  ## References
+
+  The vulnerability was responsibly reported by HackerOne
+  researcher newbiefromcoma.
+cvss_v3: 4.6
+patched_versions:
+  - ">= 2.1.18"
+related:
+  url:
+    - https://rubygems.org/gems/action_text-trix/versions/2.1.18
+    - https://github.com/basecamp/trix/releases/tag/v2.1.18
+    - https://github.com/basecamp/trix/pull/1293
+    - https://github.com/advisories/GHSA-53p3-c7vp-4mcc
+    - https://github.com/basecamp/trix/security/advisories/GHSA-53g2-mvcc-q9x3
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA
+  - date from gem releases page
+  - Unnknown HackerOne number

@@ -92,6 +92,47 @@ rm -f gems/webrick/CVE-2026-38969.yml
 # Dev said, so removed advisory: "The listed vulnerability is an error in
 # their documented usage. Updating the gem does not make an app more secure."
 rm -f gems/omniauth-saml/GHSA-cgp2-2cmh-pf7x.yml
+# https://github.com/joniles/mpxj/security/advisories/GHSA-jf2p-4gqj-849g
+# does not involve Ruby code.
+
+# https://github.com/devise-two-factor/devise-two-factor/security/advisories/GHSA-chcr-x7hc-8fp8
+# https://github.com/advisories/GHSA-chcr-x7hc-8fp8
+# was never patched and withdrawn on 3/19/2026.
+
+# CVE-2024-43368: https://github.com/basecamp/trix/security/advisories/GHSA-qm2q-9f3q-2vcv
+# CVE-2025-46812: https://github.com/basecamp/trix/security/advisories/GHSA-mcrw-746g-9q8h
+# CVE-2024-53847: https://github.com/basecamp/trix/security/advisories/GHSA-6vx4-v2jw-qwqh
+# CVE-2025-21610: https://github.com/basecamp/trix/security/advisories/GHSA-j386-3444-qgwg
+# all 4 are NPM related, not Ruby.
+
+######################################################################
+# PasswordPusher SUMMARY: Yes, Ruby Fixed, none are gems.
+#.....................................................................
+# https://github.com/pglombardo/PasswordPusher/security/advisories/GHSA-59w3-h5v2-c4xw
+# - https://github.com/pglombardo/PasswordPusher/releases/tag/v2.9.2
+#   - https://rubygems.org/gems/pwpush (https://eu.pwpush.com - 2016)
+# Release 2.9.2; pglombardo/PasswordPusher; RUBY code; Bash Poc; Ruby fix; No CVE
+#...
+# https://github.com/pglombardo/PasswordPusher/security/advisories/GHSA-76c2-66pg-fj2f
+#  - https://github.com/pglombardo/PasswordPusher/releases/tag/v2.8.1
+# Release 2.8.1; pglombardo/PasswordPusher; RUBY code; Bash Poc; Ruby fix; No CVE
+#... 
+# https://github.com/pglombardo/PasswordPusher/security/advisories/GHSA-qfh8-f79c-x86c
+# - https://github.com/pglombardo/PasswordPusher/pull/4381
+#   - https://github.com/pglombardo/PasswordPusher/releases/tag/v2.4.2
+# Release 2:4.2 - Ruby rb code; Unreviewed GHSA
+#... 
+# https://github.com/pglombardo/PasswordPusher/security/advisories/GHSA-4fwj-m62q-pp47
+# Never patched; CVE-2024-56733; Password Pusher; No project references
+#...
+# https://github.com/pglombardo/PasswordPusher/security/advisories/GHSA-ffp2-8p2h-4m5j
+# - https://github.com/pglombardo/PasswordPusher/releases/tag/v1.49.0
+#   - https://github.com/pglombardo/PasswordPusher/pull/2797
+# Release 1.49.0; Password Pusher Application; yml and ruby fixes
+#...
+# https://github.com/pglombardo/PasswordPusher/security/advisories/GHSA-5chg-cq29-gfqf
+# - https://github.com/pglombardo/PasswordPusher/releases/tag/v1.48.1
+# Release 1.48.1; Password Pusher Application; erb file code fix
 
 exit
 
