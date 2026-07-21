@@ -418,6 +418,11 @@ module GitHub
       saved_data = YAML.safe_load_file(package.filename, permitted_classes: [Date])
       new_data = package.merge_data(saved_data)
 
+      patched = patched_versions_for(package)
+      if patched.any? && (new_data["patched_versions"].nil? || new_data["patched_versions"].empty?)
+        new_data["patched_versions"] = patched
+      end
+
       return if saved_data == new_data
 
       File.open(package.filename, 'w') do |file|
