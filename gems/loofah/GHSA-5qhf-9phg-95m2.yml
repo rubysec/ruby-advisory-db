@@ -30,6 +30,7 @@ description: |
   ## Credit
 
   Responsibly reported by GitHub user @MoonFuji.
+cvss_v4: 2.7
 unaffected_versions:
   - "< 2.25.0"
 patched_versions:
@@ -41,5 +42,5 @@ related:
     - https://github.com/advisories/GHSA-46fp-8f5p-pf2m
     - https://github.com/flavorjones/loofah/security/advisories/GHSA-5qhf-9phg-95m2
 notes: |
-  - "Low" severity from GHSA
+  - cvss_v4 from GHSA
   - No CVE.
