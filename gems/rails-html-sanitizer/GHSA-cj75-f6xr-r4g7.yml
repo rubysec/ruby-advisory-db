@@ -14,6 +14,7 @@ description: |
   SVG reference element such as <use>.
   See related GHSA-9wjq-cp2p-hrgf in Loofah, whose SVG local-reference
   logic rails-html-sanitizer mirrors.
+cvss_v4: 5.1
 unaffected_versions:
   - "< 1.0.3"
 patched_versions:
@@ -27,5 +28,5 @@ related:
     - https://github.com/flavorjones/loofah/security/advisories/GHSA-9wjq-cp2p-hrgf
     - https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-cj75-f6xr-r4g7
 notes: |
-  - "Moderate" severity in GHSA
+  - cvss_v4 from GHSA
   - No CVE.
