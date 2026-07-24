@@ -134,6 +134,28 @@ rm -f gems/omniauth-saml/GHSA-cgp2-2cmh-pf7x.yml
 # - https://github.com/pglombardo/PasswordPusher/releases/tag/v1.48.1
 # Release 1.48.1; Password Pusher Application; erb file code fix
 
+#.....................................................................
+
+# 7/23/2026: GHSA/WITHDRAWN: https://github.com/advisories/GHSA-h385-52j6-9984
+rm -f gems/agoo/CVE-2020-7670.yml
+
+# 7/23/2026: GHSA/WITHDRAWN: https://github.com/advisories/GHSA-gmg5-r3c4-3fm9
+rm -f gems/fat_free_crm/CVE-2019-10226.yml
+
+# 7/23/2026: GHSA/WITHDRAWN: https://github.com/advisories/GHSA-4249-gjr8-jpq3
+rm -f gems/prosemirror_to_html/GHSA-4249-gjr8-jpq3.yml
+
+# 7/23/2026: GHSA/WITHDRAWN: https://github.com/advisories/GHSA-mqcp-p2hv-vw6x
+rm -f gems/thor/CVE-2025-54314.yml
+
+# 7/23/2026: GHSA/WITHDRAWN: https://github.com/advisories/GHSA-vc8w-jr9v-vj7f
+#  * (REJECTED) https://nvd.nist.gov/vuln/detail/CVE-2024-6531
+rm -f gems/bootstrap/CVE-2024-6531.yml
+
+# 7/23/2026: GHSA/WITHDRAWN: https://github.com/advisories/GHSA-7mj4-2984-955f
+# * (DISPUTED) https://nvd.nist.gov/vuln/detail/CVE-2018-18307
+rm -f gems/alchemy_cms/CVE-2018-18307.yml
+
 exit
 
 # AL>> QUESTION (ruby or jruby)?
