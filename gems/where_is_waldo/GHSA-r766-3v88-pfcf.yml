@@ -1,0 +1,28 @@
+---
+gem: where_is_waldo
+ghsa: r766-3v88-pfcf
+url: https://github.com/byscott-io/where_is_waldo/security/advisories/GHSA-r766-3v88-pfcf
+title: >-
+  where_is_waldo authenticates ActionCable connections from a client-supplied
+  subject_id when no authenticate_proc is configured
+date: 2026-07-25
+description: |
+  WhereIsWaldo::ApplicationCable::Connection (the gem's built-in ActionCable
+  connection) authenticated the connection from `request.params[:subject_id]`
+  whenever no `authenticate_proc` was configured. Because request params are
+  client-controlled, a client could connect with `?subject_id=<any id>` and be
+  authenticated as that subject, enabling impersonation and cross-account
+  presence-roster disclosure (authentication bypass by spoofing, CWE-290).
+
+  Only applications that mount the built-in connection without configuring
+  `authenticate_proc` are affected; applications that supply their own
+  authenticated ActionCable connection (e.g. deriving current_user from a
+  verified JWT) or configure `authenticate_proc` are not.
+
+  Fixed in 0.1.6: the params path is permitted only in local development/test;
+  in production the connection fails closed unless an authenticated source
+  establishes the subject.
+patched_versions:
+  - ">= 0.1.6"
+notes: |
+    - A CVE has been requested for this GHSA and can be added once assigned.
