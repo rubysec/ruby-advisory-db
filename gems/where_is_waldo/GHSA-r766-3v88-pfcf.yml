@@ -24,3 +24,5 @@ description: |
   establishes the subject.
 patched_versions:
   - ">= 0.1.6"
+notes: |
+    - A CVE has been requested for this GHSA and can be added once assigned.
