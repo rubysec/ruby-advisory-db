@@ -1,0 +1,65 @@
+---
+gem: spree_api
+ghsa: 4825-p4xm-pcf2
+url: https://github.com/spree/spree/security/advisories/GHSA-4825-p4xm-pcf2
+title: Broken Access Control in `PATCH /api/v3/store/carts/:id/associate` (IDOR)
+date: 2026-07-20
+description: |
+  ## Summary
+
+  The Store API v3 endpoint PATCH /api/v3/store/carts/:id/associate binds
+  a guest cart to the authenticated caller without verifying possession
+  of that cart. It locates the cart by prefixed ID only —
+  current_store.carts.where(user: [nil, current_user]).find_by_prefix_id!(
+  params[:id]) — and omits the authorize!(:update, @cart, cart_token)
+  check that every other action in the controller performs via CartResolvable.
+  Because prefixed IDs are a reversible Sqids encoding of the auto-increment
+  primary key (obfuscation, not a token), an authenticated customer can
+  name arbitrary guest cart IDs, take them over, and read the checkout
+  addresses stored on them. This is broken access control / IDOR,
+  reachable by any low-privilege registered user.
+
+  ## Severity
+
+  Requires an authenticated store account and depends on target guest
+  carts already carrying an address and not yet being associated, on a
+  store not running in login_required mode. Confidentiality impact is
+  the driver (guest checkout PII); integrity impact is limited and
+  recoverable (cart reassignment + email overwrite on an in-progress
+  cart). Not Critical: the action is gated behind authentication (PR:L, not
+  PR:N) and constrained by cart state, so it is not anonymously exploitable.
+
+  ## Impact
+
+  Confidentiality: an authenticated attacker can enumerate guest cart
+  IDs and read checkout PII (name, street, postal code, phone) on carts
+  they don't own. Integrity: limited and recoverable — each call reassigns
+  the guest cart and overwrites its email, disrupting the original
+  guest's in-progress cart. Requires a registered account, so not
+  anonymously exploitable.
+
+  ## Remediation
+
+  Update to Spree 5.4.4 or 5.5.4.
+
+  Your storefront, based on https://github.com/spree/storefront,
+  doesn't need any updates because it has always sent a cart
+  token when associating carts; this is a backend issue.
+cvss_v3: 7.1
+unaffected_versions:
+  - "< 5.4.0"
+patched_versions:
+  - "~> 5.4.4"
+  - ">= 5.5.4"
+related:
+  url:
+    - https://rubygems.org/gems/spree_api/versions/5.5.4
+      - https://github.com/spree/spree/releases/tag/v5.5.4
+    - https://rubygems.org/gems/spree_api/versions/5.4.4
+      - https://github.com/spree/spree/releases/tag/v5.4.4
+    - https://github.com/spree/spree/security/advisories/GHSA-4825-p4xm-pcf2
+notes: |
+  - NOTE: Gem name is "spree_api" but repo name is "spree".
+  - cvss_v3 from project GHSA
+  - No CVE in project GHSA
+  - date field is rubygems.org release date.

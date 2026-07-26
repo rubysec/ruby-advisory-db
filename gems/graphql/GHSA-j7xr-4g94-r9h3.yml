@@ -1,0 +1,43 @@
+---
+gem: graphql
+ghsa: j7xr-4g94-r9h3
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-j7xr-4g94-r9h3
+title: 'Authorization Bypass in Execution::Next'
+date: 2026-07-21
+description: |
+  ## Impact
+
+  In GraphQL-Ruby < v2.6.6, when using Execution::Next, authorization
+  failures did not properly halt execution for fields using
+  GraphQL::Schema::Resolver (and its subclasses, including
+  GraphQL::Schema::Mutation, GraphQL::Schema::RelayClassicMutation,
+  and GraphQL::Schema::Subscription) when they raised
+  GraphQL::UnauthorizedErrors.
+  Other forms of authorization were applied correctly.
+
+  If your application uses Execution::Next, update
+  GraphQL-Ruby to v2.6.6 or later.
+
+  ## Credit
+
+  This issue was discovered with the GitHub Security Lab Taskflow Agent
+  as part of Project Glasswing, a cross-industry initiative to secure
+  critical open-source software using frontier AI models, and manually
+  verified by GHSL team member: @anticomputer.
+unaffected_versions:
+  - "< 2.5.23"
+patched_versions:
+  - ">= 2.6.6"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.6
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#266-21-jul-2026
+    - https://github.com/rmosolgo/graphql-ruby/compare/v2.6.5...v2.6.6
+    - https://github.com/GitHubSecurityLab/seclab-taskflow-agent
+    - https://www.anthropic.com/glasswing
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-j7xr-4g94-r9h3
+notes: |
+  - Note that gem name is "grahhql" but repo name is "graphql-ruby".
+  - Project GHSA has "High" severity.
+  - No CVE in project GHSA so no cvss values.
+  - date value from rubygems.org URL.

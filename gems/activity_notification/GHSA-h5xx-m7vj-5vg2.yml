@@ -1,0 +1,25 @@
+---
+gem: activity_notification
+ghsa: h5xx-m7vj-5vg2
+url: https://github.com/simukappu/activity_notification/security/advisories/GHSA-h5xx-m7vj-5vg2
+title: SQL Injection via custom_filter in Bulk Notification Endpoints
+date: 2026-07-11
+description: |
+  ## Summary
+
+  The notifications_api_controller.rb bulk endpoints (open_all and
+  destroy_all) pass unfiltered request parameters to filtered_by_options,
+  which passes a custom_filter value directly to ActiveRecord's where()
+  as a raw SQL string. An unauthenticated attacker can inject arbitrary
+  SQL conditions, enabling mass data modification, mass data deletion,
+  and information disclosure via boolean-based exfiltration.
+patched_versions:
+  - "> 2.7.0"
+related:
+  url:
+    - https://rubygems.org/gems/activity_notification/versions/2.7.0
+    - https://github.com/simukappu/activity_notification/compare/v2.6.1...v2.7.0
+    - https://github.com/simukappu/activity_notification/security/advisories/GHSA-h5xx-m7vj-5vg2
+notes: |
+  - Project GHSA has "Critical" severity, but no CVE or cvss values.
+  - date value from rubygems.org URL
