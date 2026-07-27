@@ -1,0 +1,24 @@
+---
+gem: blazer
+ghsa: m5f6-4589-m89f
+url: https://github.com/ankane/blazer/security/advisories/GHSA-m5f6-4589-m89f
+title: Stored XSS vulnerability
+date: 2026-07-27
+description: |
+  An authenticated user can create a malicious query that executes arbitrary
+  JavaScript when another user tries to edit the query. This can be used to
+  perform actions as the other user for resources on the same origin.
+patched_versions:
+  - ">= 3.5.0"
+unaffected_versions:
+  - "< 1.7.3"
+cvss_v3: 5.4
+related:
+  url:
+    - https://rubygems.org/gems/blazer/versions/3.5.0
+    - https://github.com/ankane/blazer/blob/master/CHANGELOG.md#350-2026-07-27
+    - https://github.com/ankane/blazer/compare/v3.4.0...v3.5.0
+    - https://github.com/ankane/blazer/security/advisories/GHSA-m5f6-4589-m89f
+notes: |
+  - cvss_v3 from project GHSA
+  - No CVE
