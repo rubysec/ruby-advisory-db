@@ -156,6 +156,11 @@ rm -f gems/bootstrap/CVE-2024-6531.yml
 # * (DISPUTED) https://nvd.nist.gov/vuln/detail/CVE-2018-18307
 rm -f gems/alchemy_cms/CVE-2018-18307.yml
 
+# 7/27/2026: GHSL/Not a gem
+# https://securitylab.github.com/advisories/GHSL-2024-001_GHSL-2024-003_rubygems_org
+# https://github.com/rubygems/rubygems.org/security/advisories/GHSA-4vc5-whwr-7hh2
+# https://nvd.nist.gov/vuln/detail/CVE-2024-35221
+
 exit
 
 # AL>> QUESTION (ruby or jruby)?
