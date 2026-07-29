@@ -156,6 +156,10 @@ rm -f gems/bootstrap/CVE-2024-6531.yml
 # * (DISPUTED) https://nvd.nist.gov/vuln/detail/CVE-2018-18307
 rm -f gems/alchemy_cms/CVE-2018-18307.yml
 
+# 7/29/2026: Last release of sqlite3-ruby was 1/16/2011.
+rm -f gems/sqlite3-ruby/CVE-2026-54619.yml \
+      gems/sqlite3-ruby/CVE-2026-54620.yml
+
 exit
 
 # AL>> QUESTION (ruby or jruby)?
