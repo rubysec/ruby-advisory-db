@@ -5,7 +5,7 @@ url: https://github.com/omniauth/omniauth-saml/security/advisories/GHSA-hw46-3hm
 title: omniauth-saml has dependency on ruby-saml version with Signature Wrapping Attack
   issue
 date: 2025-03-12
-description: |-
+description: |
   ### Summary
   There are 2 new Critical Signature Wrapping Vulnerabilities (CVE-2025-25292, CVE-2025-25291) and a potential DDOS Moderated Vulneratiblity (CVE-2025-25293) affecting ruby-saml, a dependency of omniauth-saml.
 
@@ -21,6 +21,9 @@ patched_versions:
   - "~> 2.1.3"
   - ">= 2.2.3"
 related:
+  cve:
+    - 2025-25291
+    - 2025-25292
   url:
     - https://github.com/omniauth/omniauth-saml/security/advisories/GHSA-hw46-3hmr-x9xv
     - https://github.com/omniauth/omniauth-saml/commit/0d5eaa0d808acb2ac96deadf5c750ac1cf2d92b5
@@ -28,4 +31,5 @@ related:
     - https://github.com/omniauth/omniauth-saml/commit/7a348b49083462a566af41a5ae85e9f3af15b985
     - https://github.com/omniauth/omniauth-saml/blob/master/omniauth-saml.gemspec#L16
     - https://rubygems.org/gems/omniauth-saml/versions/2.2.3
+    - https://securitylab.github.com/advisories/GHSL-2024-329_GHSL-2024-330_ruby-saml
     - https://github.com/advisories/GHSA-hw46-3hmr-x9xv
