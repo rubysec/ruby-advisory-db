@@ -159,6 +159,10 @@ rm -f gems/alchemy_cms/CVE-2018-18307.yml
 # 7/29/2026: Last release of sqlite3-ruby was 1/16/2011.
 rm -f gems/sqlite3-ruby/CVE-2026-54619.yml \
       gems/sqlite3-ruby/CVE-2026-54620.yml
+# 7/27/2026: GHSL/Not a gem
+# https://securitylab.github.com/advisories/GHSL-2024-001_GHSL-2024-003_rubygems_org
+# https://github.com/rubygems/rubygems.org/security/advisories/GHSA-4vc5-whwr-7hh2
+# https://nvd.nist.gov/vuln/detail/CVE-2024-35221
 
 exit
 
