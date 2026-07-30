@@ -36,6 +36,7 @@ related:
     - https://github.com/basecamp/activerecord-tenanted/pull/307
     - https://github.com/basecamp/activerecord-tenanted/commit/b242c8ad9bf58bbd7f5a032d153b0f29db54b9ba
     - https://osv.dev/vulnerability/GHSA-pmwx-rm49-xv39
+    - https://advisories.gitlab.com/gem/activerecord-tenanted/GHSA-pmwx-rm49-xv39
     - https://github.com/rails/rails/security/advisories/GHSA-9xrj-h377-fr87
     - https://github.com/advisories/GHSA-pmwx-rm49-xv39
 notes: |
