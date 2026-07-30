@@ -140,7 +140,7 @@ shared_examples_for 'Advisory' do |path|
 
       it { expect(subject).to be_kind_of(Date) }
 
-      it "has a date not in the future" do
+      it "has no dates in the future" do
         expect(subject).to be <= Date.today
       end
     end
