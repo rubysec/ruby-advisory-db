@@ -10,4 +10,5 @@ group :development do
   gem 'pry'
   gem 'nokogiri',      '~> 1.0'
   gem 'activesupport', '~> 8.0'
+  gem 'safe_yaml'
 end

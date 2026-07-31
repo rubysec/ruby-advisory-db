@@ -1,63 +1,63 @@
-## The ~> (Pessimistic) Operator Cheatsheet
+# The ~> (Pessimistic) Operator Cheatsheet
 
-* Definition: Means "greater than or equal to this version, but less than
-  the next major/minor milestone". It locks the left-most specified
-  digits and only allows the right-most digit to change.
+  - Definition: Means "greater than or equal to this version, but less than
+    the next major/minor milestone". It locks the left-most specified
+    digits and only allows the right-most digit to change.
 
- * How it behaves with two digits (~> x.y): It allows patch and minor
-   updates, but blocks the next major number.
-   * ~> 2.2 is the same as >= 2.2 and < 3.0. It allows 2.3, 2.9,
-     but blocks 3.0.
+  - How it behaves with two digits (~> x.y): It allows patch and minor
+     updates, but blocks the next major number.
+     - ~> 2.2 is the same as >= 2.2 and < 3.0. It allows 2.3, 2.9,
+       but blocks 3.0.
 
- * How it behaves with three digits (~> x.y.z): It allows only patch
-   updates, but blocks the next minor number.
-   * ~> 2.2.0 is the same as >= 2.2.0 and < 2.3.0. It allows
-     2.2.1, 2.2.8, but blocks 2.3.0.
+  - How it behaves with three digits (~> x.y.z): It allows only patch
+     updates, but blocks the next minor number.
+     - ~> 2.2.0 is the same as >= 2.2.0 and < 2.3.0. It allows
+       2.2.1, 2.2.8, but blocks 2.3.0.
 
- * How it behaves with four digits (~> w.x.y.z): It allows only patch
-   updates, but blocks the next minor number.
-   * Upper bound: w.x.(y+1)
-   * ~> 7.2.3.1 is the same as >= 7.2.3.1 and < 7.2.4. It allows
-     7.2.3.2, 7.2.3.3, 7.2.3.9 but blocks 7.2.4.0 and blocks 7.3.x.
+  - How it behaves with four digits (~> w.x.y.z): It allows only patch
+    updates, but blocks the next minor number.
+    - Upper bound: w.x.(y+1)
+    - ~> 7.2.3.1 is the same as >= 7.2.3.1 and < 7.2.4. It allows
+       7.2.3.2, 7.2.3.3, 7.2.3.9 but blocks 7.2.4.0 and blocks 7.3.x.
 
-  * When to use: Recommended for most production applications because
-    it respects Semantic Versioning—allowing safe bug fixes while
-    preventing breaking changes.
+    - When to use: Recommended for most production applications because
+      it respects Semantic Versioning—allowing safe bug fixes while
+      preventing breaking changes.
 
-### Test Code
+## Test Code
 
-  * Gem::Requirement.new("~> 7.2.3.1").satisfied_by?(Gem::Version.new("7.2.3.2"))
-  * Gem::Requirement.new("~> 7.2.3.1").satisfied_by?(Gem::Version.new("7.2.4"))
-  * Gem::Requirement.new("~> 7.2.3.1").satisfied_by?(Gem::Version.new("7.3.0"))
-  * req = Gem::Requirement.new("~> 7.2.3.1") [
+   - Gem::Requirement.new("~> 7.2.3.1").satisfied_by?(Gem::Version.new("7.2.3.2"))
+   - Gem::Requirement.new("~> 7.2.3.1").satisfied_by?(Gem::Version.new("7.2.4"))
+   - Gem::Requirement.new("~> 7.2.3.1").satisfied_by?(Gem::Version.new("7.3.0"))
+   - req = Gem::Requirement.new("~> 7.2.3.1") [
       "7.2.3.1",
       "7.2.3.2",
       "7.2.4",
       "7.3.0"
-    ].each do |v|
-      puts "#{v}: #{req.satisfied_by?(Gem::Version.new(v))}"
-    end
+     ].each do |v|
+       puts "#{v}: #{req.satisfied_by?(Gem::Version.new(v))}"
+     end
 
-### References
+## References
 
- * https://railsfactory.com/blog/ruby-gem-versions-explained
- * https://guides.rubygems.org/patterns/#semantic-versioning
- * Example: https://github.com/rubysec/ruby-advisory-db/pull/1191:
-   * Per the Rails GHSA and the v7.2.3.2 release, the affected ranges are:
-     * activestorage < 7.2.3.2
-     * activestorage >= 8.0, < 8.0.5.1
-     * activestorage >= 8.1, < 8.1.3.1
-   * Two bugs in the current entry:
+   - https://railsfactory.com/blog/ruby-gem-versions-explained
+   - https://guides.rubygems.org/patterns/#semantic-versioning
+   - Example: https://github.com/rubysec/ruby-advisory-db/pull/1191:
+     - Per the Rails GHSA and the v7.2.3.2 release, the affected ranges are:
+       - activestorage < 7.2.3.2
+       - activestorage >= 8.0, < 8.0.5.1
+     - activestorage >= 8.1, < 8.1.3.1
+   - Two bugs in the current entry:
      1. "~> 7.2.3.1" marks the vulnerable 7.2.3.1 as patched. The 7.2.x fix
         shipped in 7.2.3.2, not 7.2.3.1 (the current file even links 7.2.3.2
         as the fixed release). As written, an app on the vulnerable 7.2.3.1
         gets a clean bundle-audit — a false "not vulnerable" for a CVSS 9.5.
      2. "~> 8.0.5.1" is too narrow. ~> 8.0.5.1 means >= 8.0.5.1, < 8.0.6, so
         it wrongly flags 8.0.6+ as still vulnerable.
-   * Fix
-     * Use compound constraints (matching the existing convention in e.g.
+   - Fix
+     - Use compound constraints (matching the existing convention in e.g.
        activerecord/CVE-2022-44566.yml):
-     * patched_versions:
+     - patched_versions:
        - "~> 7.2.3, >= 7.2.3.2" (Verified against: 7.2.3.1/.2, 7.2.4)
        - "~> 8.0.5, >= 8.0.5.1" (Verified against: 8.0.0/8.0.5.0/
                                                    8.0.5.1/8.0.6)
@@ -65,12 +65,13 @@
 
 ## RAD VERSION PATTERN TYPES
 
- * Legend
-   * "m+n" means expect a "," with m and n as digit(s).
-   * "+" at end of line means expect non-digits
+  - Legend
+    - "m+n" means expect a "," with m and n as digit(s).
+    - "+" at end of line means expect non-digits
 
 ### Pattern Types
 
+```
 2
       4   - "~> %.%"
       6   - ">= %.%"
@@ -119,8 +120,10 @@
     127   - ">= %.%.%.%"
 4+
       5   - "~> %.%.%.rc%.%"
+```
 
-## BNF
+### BNF
+
 ```
 <version_list> ::= <version_range>
                  | <version_range> "," <version_list>
