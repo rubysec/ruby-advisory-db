@@ -14,7 +14,7 @@ description: |
   SQL conditions, enabling mass data modification, mass data deletion,
   and information disclosure via boolean-based exfiltration.
 patched_versions:
-  - "> 2.7.0"
+  - ">= 2.7.0"
 related:
   url:
     - https://rubygems.org/gems/activity_notification/versions/2.7.0
