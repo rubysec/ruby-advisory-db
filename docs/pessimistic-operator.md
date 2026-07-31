@@ -41,8 +41,8 @@
      - Per the Rails GHSA and the v7.2.3.2 release, the affected ranges are:
        - activestorage < 7.2.3.2
        - activestorage >= 8.0, < 8.0.5.1
-     - activestorage >= 8.1, < 8.1.3.1
-   - Two bugs in the current entry:
+       - activestorage >= 8.1, < 8.1.3.1
+   - Two bugs in the example:
      1. "~> 7.2.3.1" marks the vulnerable 7.2.3.1 as patched. The 7.2.x fix
         shipped in 7.2.3.2, not 7.2.3.1 (the current file even links 7.2.3.2
         as the fixed release). As written, an app on the vulnerable 7.2.3.1
@@ -66,7 +66,7 @@
 
 ### Pattern Types
 
-```
+```text
 2
       4   - "~> %.%"
       6   - ">= %.%"
@@ -119,8 +119,7 @@
 
 ### BNF
 
-# bnf
-```
+```text
 <version_list> ::= <version_range>
                  | <version_range> "," <version_list>
 
