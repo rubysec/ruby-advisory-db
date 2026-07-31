@@ -37,7 +37,7 @@ related:
     - https://www.anthropic.com/glasswing
     - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-j7xr-4g94-r9h3
 notes: |
-  - Note that gem name is "grahhql" but repo name is "graphql-ruby".
+  - Note that gem name is "graphql" but repo name is "graphql-ruby".
   - Project GHSA has "High" severity.
   - No CVE in project GHSA so no cvss values.
   - date value from rubygems.org URL.
