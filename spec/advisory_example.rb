@@ -139,6 +139,10 @@ shared_examples_for 'Advisory' do |path|
       subject { advisory['date'] }
 
       it { expect(subject).to be_kind_of(Date) }
+
+      it "has no dates in the future" do
+        expect(subject).to be <= Date.today
+      end
     end
 
     describe "description" do
