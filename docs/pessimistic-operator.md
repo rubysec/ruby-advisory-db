@@ -29,12 +29,7 @@
    - Gem::Requirement.new("~> 7.2.3.1").satisfied_by?(Gem::Version.new("7.2.3.2"))
    - Gem::Requirement.new("~> 7.2.3.1").satisfied_by?(Gem::Version.new("7.2.4"))
    - Gem::Requirement.new("~> 7.2.3.1").satisfied_by?(Gem::Version.new("7.3.0"))
-   - req = Gem::Requirement.new("~> 7.2.3.1") [
-      "7.2.3.1",
-      "7.2.3.2",
-      "7.2.4",
-      "7.3.0"
-     ].each do |v|
+   - req = Gem::Requirement.new("~> 7.2.3.1") ["7.2.3.1", "7.2.3.2", "7.2.4", "7.3.0"].each do |v|
        puts "#{v}: #{req.satisfied_by?(Gem::Version.new(v))}"
      end
 
@@ -124,6 +119,7 @@
 
 ### BNF
 
+# bnf
 ```
 <version_list> ::= <version_range>
                  | <version_range> "," <version_list>
