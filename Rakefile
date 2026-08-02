@@ -17,10 +17,15 @@ if defined?(RSpec::Core::RakeTask)
     RSpec::Core::RakeTask.new(:schema) do |t|
       t.pattern = 'spec/schema_validation_spec.rb'
     end
+
+    desc "Verify version patterns"
+    RSpec::Core::RakeTask.new(:versioncheck) do |t|
+      t.pattern = 'spec/versions_example.rb'
+    end
   end
 
   desc "Run all linting tasks"
-  task :lint    => [ 'lint:schema', 'lint:yaml', :yamllint ]
+  task :lint => [ 'lint:schema', 'lint:versioncheck', :yamllint, 'lint:yaml' ]
 
   desc "Run yamllint command on all 'gems/*/*.yml' and 'rubies/*/*.yml' files"
   task :yamllint do
