@@ -1,0 +1,43 @@
+---
+gem: activerecord-tenanted
+ghsa: pmwx-rm49-xv39
+url: https://github.com/basecamp/activerecord-tenanted/security/advisories/GHSA-pmwx-rm49-xv39
+title: ActiveRecord::Tenanted::Storage::DiskService#path_for has a
+  possible path traversal
+date: 2026-07-29
+description: |
+  ### Summary
+
+  Active Record Tenanted's override of Active Storage's `DiskService#path_for`
+  does not validate that the resolved filesystem path remains within
+  the storage root directory. If a blob key containing path traversal
+  sequences (e.g. `../`) is used, it could allow reading, writing, or
+  deleting arbitrary files on the server. Blob keys are expected to be
+  trusted strings, but some applications could be passing user input
+  as keys and would be affected.
+
+  ### Mitigation
+
+  Upgrade to Active Record Tenanted v0.7.0 or later.
+
+  As a workaround, do not use untrusted user input as blob keys. Blob
+  keys are expected to be trusted strings.
+
+  ### Credit
+
+  This issue was responsibly reported by @tonghuaroot.
+cvss_v4: 2.3
+patched_versions:
+  - ">= 0.7.0"
+related:
+  url:
+    - https://github.com/basecamp/activerecord-tenanted/security/advisories/GHSA-pmwx-rm49-xv39
+    - https://github.com/basecamp/activerecord-tenanted/releases/tag/v0.7.0
+    - https://github.com/basecamp/activerecord-tenanted/pull/307
+    - https://github.com/basecamp/activerecord-tenanted/commit/b242c8ad9bf58bbd7f5a032d153b0f29db54b9ba
+    - https://osv.dev/vulnerability/GHSA-pmwx-rm49-xv39
+    - https://advisories.gitlab.com/gem/activerecord-tenanted/GHSA-pmwx-rm49-xv39
+    - https://github.com/rails/rails/security/advisories/GHSA-9xrj-h377-fr87
+    - https://github.com/advisories/GHSA-pmwx-rm49-xv39
+notes: |
+  - No CVE in GHSA
