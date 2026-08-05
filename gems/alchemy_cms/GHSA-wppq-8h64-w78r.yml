@@ -1,0 +1,42 @@
+---
+gem: alchemy_cms
+ghsa: wppq-8h64-w78r
+url: https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-wppq-8h64-w78r
+title: Unauthenticated navigation-tree disclosure via
+  GET /api/nodes (missing authorization)
+date: 2026-07-28
+description: |
+  ## Summary
+
+  Alchemy::Api::NodesController#index (GET /api/nodes) returns every
+  menu node of every site and every language with no authorization
+  check and no site/language scoping. It is the only API index action
+  with neither accessible_by nor authorize!. Because a menu node attached
+  to a page derives its name and url from that page (Node#name → page.name,
+  Node#url → page.url_path), an anonymous request also discloses names
+  and URL paths of pages that are restricted (members-only) or not
+  published (draft), plus any internal URLs editors placed in menus.
+
+  This is the same class the maintainer fixed in the sibling action
+  Api::PagesController#nested (advisory GHSA-mqq5-j7w8-2hgh) and in
+  PR #2145 ("Do not leak all records for guest users in API controllers").
+  nodes#index was not covered.
+cvss_v3: 5.3
+patched_versions:
+  - "~> 7.4.16"
+  - ">= 8.3.6"
+related:
+  ghsa:
+    - mqq5-j7w8-2hgh
+  url:
+    - https://rubygems.org/gems/alchemy_cms/versions/8.3.6
+    - https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v8.3.6
+    - https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.5...v8.3.6
+    - https://rubygems.org/gems/alchemy_cms/versions/7.4.16
+    - https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v7.4.16
+    - https://github.com/AlchemyCMS/alchemy_cms/compare/v7.4.15...v7.4.16
+    - https://github.com/AlchemyCMS/alchemy_cms/pull/2145
+    - https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-wppq-8h64-w78r
+notes: |
+  - No CVE value in project GHSA
+  - cvss_v3 from project GHSA
