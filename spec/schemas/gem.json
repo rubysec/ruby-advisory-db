@@ -6,7 +6,6 @@
   "additionalProperties": false,
   "required": ["gem", "url", "title", "date", "description"],
   "anyOf": [
-    { "required": ["cve"] },
     { "required": ["osvdb"] },
     { "required": ["ghsa"] }
   ],
