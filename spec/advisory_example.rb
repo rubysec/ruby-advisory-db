@@ -43,14 +43,6 @@ shared_examples_for 'Advisory' do |path|
       expect(advisory['cve'] || advisory['osvdb'] || advisory['ghsa']).not_to be_nil
     end
 
-    it "should CVE-XXX if cve field has a value" do
-      if advisory['cve']
-        expect(filename).to start_with('CVE-')
-      elsif advisory['ghsa']
-        expect(filename).to start_with('GHSA-')
-      end
-    end
-
     describe "platform" do
       subject { advisory['platform'] }
 

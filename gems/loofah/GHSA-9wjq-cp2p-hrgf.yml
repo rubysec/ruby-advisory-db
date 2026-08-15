@@ -1,6 +1,7 @@
 ---
 gem: loofah
 ghsa: 9wjq-cp2p-hrgf
+cve: 2026-73490
 url: https://github.com/flavorjones/loofah/security/advisories/GHSA-9wjq-cp2p-hrgf
 title: SVG `href` attribute bypasses local-reference restriction in Loofah
 date: 2026-07-15
@@ -34,9 +35,10 @@ patched_versions:
   - ">= 2.25.2"
 related:
   url:
+    - https://nvd.nist.gov/vuln/detail/CVE-2026-73490
     - https://rubygems.org/gems/loofah/versions/2.25.2
     - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2252--2026-07-15
+    - https://github.com/flavorjones/loofah/commit/20867b9be689521887364b74822c41ef830523c9
     - https://github.com/flavorjones/loofah/security/advisories/GHSA-9wjq-cp2p-hrgf
 notes: |
-  - cvss_v3 value from GHSA
-  - No CVE.
+  - cvss_v3 from GHSA and nvd.nist.gov URLs.

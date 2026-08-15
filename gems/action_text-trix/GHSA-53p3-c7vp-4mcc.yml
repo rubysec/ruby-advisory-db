@@ -1,5 +1,6 @@
 ---
 gem: action_text-trix
+cve: 2026-73427
 ghsa: 53p3-c7vp-4mcc
 url: https://github.com/basecamp/trix/security/advisories/GHSA-53p3-c7vp-4mcc
 title: Trix is vulnerable to XSS through JSON deserialization bypass
@@ -39,7 +40,11 @@ patched_versions:
   - ">= 2.1.18"
 related:
   url:
-    - https://github.com/basecamp/trix/security/advisories/GHSA-53p3-c7vp-4mcc
+    - https://nvd.nist.gov/vuln/detail/CVE-2026-73427
+    - https://rubygems.org/gems/action_text-trix/versions/2.1.18
     - https://github.com/basecamp/trix/releases/tag/v2.1.18
     - https://github.com/basecamp/trix/commit/9c0a993d9fc2ffe9d56b013b030bc238f9c0557c
+    - https://github.com/basecamp/trix/security/advisories/GHSA-53p3-c7vp-4mcc
     - https://github.com/advisories/GHSA-53p3-c7vp-4mcc
+notes: |
+  - cvss_v4 from GHSA and nvd.nist.gov URLs.

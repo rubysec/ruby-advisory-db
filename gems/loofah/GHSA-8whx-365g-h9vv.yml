@@ -1,5 +1,6 @@
 ---
 gem: loofah
+cve: 2026-73491
 ghsa: 8whx-365g-h9vv
 url: https://github.com/flavorjones/loofah/security/advisories/GHSA-8whx-365g-h9vv
 title: Loofah `allowed_uri?` does not detect `javascript:` URIs
@@ -22,10 +23,12 @@ patched_versions:
   - ">= 2.25.2"
 related:
   url:
+    - https://nvd.nist.gov/vuln/detail/CVE-2026-73491
     - https://rubygems.org/gems/loofah/versions/2.25.2
     - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2252--2026-07-15
+    - https://github.com/flavorjones/loofah/commit/5e91af861e3cdab47b91dd0b81f3afdfd13a5e19
     - https://github.com/advisories/GHSA-46fp-8f5p-pf2m
     - https://github.com/flavorjones/loofah/security/advisories/GHSA-8whx-365g-h9vv
+    - https://github.com/advisories/GHSA-8whx-365g-h9vv
 notes: |
-  - cvss_v4 from project GHSA
-  - No CVE.
+  - cvss_v4 from GHSA and nvd.nist.gov URLs.

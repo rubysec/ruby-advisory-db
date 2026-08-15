@@ -1,6 +1,7 @@
 ---
 gem: rails-html-sanitizer
 framework: rails
+cve: 2026-73648
 ghsa: cj75-f6xr-r4g7
 url: https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-cj75-f6xr-r4g7
 title: Possible XSS vulnerability with certain configurations of
@@ -14,6 +15,27 @@ description: |
   SVG reference element such as <use>.
   See related GHSA-9wjq-cp2p-hrgf in Loofah, whose SVG local-reference
   logic rails-html-sanitizer mirrors.
+
+  ## Impact
+
+  `Rails::HTML::PermitScrubber` restricts SVG reference elements in the
+  `SVG_ALLOW_LOCAL_HREF` collection to local, same-document references,
+  but that restriction covered only the `xlink:href` attribute. Browsers
+  also accept a plain `href` attribute per the SVG 2 spec, and it was
+  not restricted, so those elements could reference arbitrary external
+  documents. SVG `<use>` can load and render external SVG content by
+  reference, and if the referenced document is same-origin and contains
+  scripts, it could execute in the context of the sanitized document.
+  `<feImage>` can load external images, which can be used for tracking.
+
+  Applications are impacted only when the allowed tags are overridden
+  to include one of these SVG reference elements, for example `<use>`
+  or `<feImage>`. The default allowed tags do not include these SVG
+  elements, so applications using the default configuration are not affected.
+
+  ## Credit
+
+  Found by maintainer Mike Dalessio during a security audit.
 cvss_v4: 5.1
 unaffected_versions:
   - "< 1.0.3"
@@ -21,12 +43,14 @@ patched_versions:
   - ">= 1.7.1"
 related:
   url:
+    - https://nvd.nist.gov/vuln/detail/CVE-2026-73648
     - https://rubygems.org/gems/rails-html-sanitizer/versions/1.7.1
+    - https://github.com/rails/rails-html-sanitizer/releases/tag/v1.7.1
     - https://github.com/rails/rails-html-sanitizer/blob/main/CHANGELOG.md#v171--2026-07-15
     - https://github.com/rails/rails-html-sanitizer/commit/74dcb8053e6da9921246ce71b06ad9fd65b19586
     - https://discuss.rubyonrails.org/t/ghsa-cj75-f6xr-r4g7-possible-xss-vulnerability-with-certain-configurations-of-rails-html-sanitizer/91359#post_1
     - https://github.com/flavorjones/loofah/security/advisories/GHSA-9wjq-cp2p-hrgf
     - https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-cj75-f6xr-r4g7
+    - https://github.com/advisories/GHSA-cj75-f6xr-r4g7
 notes: |
-  - cvss_v4 from GHSA
-  - No CVE.
+  - cvss_v4 in GHSA and nvd.nist.gov URLs.
