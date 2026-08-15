@@ -164,6 +164,14 @@ rm -f gems/sqlite3-ruby/CVE-2026-54619.yml \
 # https://github.com/rubygems/rubygems.org/security/advisories/GHSA-4vc5-whwr-7hh2
 # https://nvd.nist.gov/vuln/detail/CVE-2024-35221
 
+# 8/15/2026: Using GHSA filenames (new policy) instead of CVE filenames.
+rm -f gems/action_text-trix/CVE-2026-73426.yml \
+      gems/action_text-trix/CVE-2026-73427.yml \
+      gems/action_text-trix/CVE-2026-73428.yml \
+      gems/loofah/CVE-2026-73490.yml \
+      gems/loofah/CVE-2026-73491.yml \
+      gems/rails-html-sanitizer/CVE-2026-73648.yml
+
 exit
 
 # AL>> QUESTION (ruby or jruby)?
