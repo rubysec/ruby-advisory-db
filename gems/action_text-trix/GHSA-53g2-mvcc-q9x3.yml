@@ -48,7 +48,6 @@ related:
     - https://github.com/basecamp/trix/security/advisories/GHSA-53g2-mvcc-q9x3
     - https://github.com/advisories/GHSA-53g2-mvcc-q9x3
 notes: |
-  - No CVE.
   - cvss_v3 from GHSA URL.
   - date from gem releases page
   - Unnknown HackerOne number
