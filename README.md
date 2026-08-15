@@ -19,7 +19,7 @@ issue or submit a PR.
 The database is a list of directories that match the names of Ruby libraries on
 [rubygems.org]. Within each directory are one or more advisory files
 for the Ruby library. These advisory files are named using
-the advisories' [CVE] identifier number.
+the advisories' [CVE] or [GHSA] or [OSVDB] (legacy) identifier number.
 
 ```
 gems/:
@@ -212,12 +212,11 @@ patched_versions:
 # General Contributing Guidelines
 
 * Advisory file name
-  * Preference is CVE, then GHSA, then OSVDB, in that order.
+  * Preference is CVE or GHSA over OSVDB file naming.
   * Should be equal to root `url:` field value.
 * For post-2016 advisories, use only "published" or "reserved" CVEs which are found at one of these web sites:
   * https://nvd.nist.gov/vuln/search
   * https://www.cve.org/CVERecord
-* When present, the CVE should be used in the primary "url:", "cve:", and "related:"/"url:" fields.
 * All text should be wrapped at 80 columns.
   * YAML must be indented by 2 spaces.
   * Ruby YAML does not like embedded ":" characters.
