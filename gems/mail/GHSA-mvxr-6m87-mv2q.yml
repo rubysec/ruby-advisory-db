@@ -1,0 +1,28 @@
+---
+gem: mail
+ghsa: mvxr-6m87-mv2q
+url: https://github.com/mikel/mail/security/advisories/GHSA-mvxr-6m87-mv2q
+title: Email address spoofing via malformed RFC 2047 encoded-words in mail
+date: 2026-07-01
+description: |
+  ## Summary
+
+  Mail::Utilities.q_value_decode and Mail::Utilities.b_value_decode
+  decoded only the first RFC 2047 encoded-word in a string and used
+  an overly greedy pattern to match the charset token. A crafted,
+  malformed encoded-word embedded in an address display name or local
+  part could cause the decoded output to differ from what a human
+  reviewer or downstream parser would expect, allowing an attacker
+  to spoof the apparent sender/recipient address.
+cvss_v3: 5.1
+patched_versions:
+  - ">= 2.9.1"
+related:
+  url:
+    - https://rubygems.org/gems/mail/versions/2.9.1
+    - https://github.com/mikel/mail/releases/tag/2.9.1
+    - https://github.com/mikel/mail/pull/1664
+    - https://github.com/mikel/mail/security/advisories/GHSA-mvxr-6m87-mv2q
+notes: |
+  - cvss_v3, date from repo GHSA
+  - No CVE value.
