@@ -50,6 +50,30 @@ def raw_yaml_field_checks(data)
   errors
 end
 
+def raw_yaml_date_checks(yaml)
+  mapping = Psych.parse(yaml).root
+  date_node = mapping.children.each_slice(2).find do |key, _value|
+    key.value == 'date'
+  end&.last
+  return [] unless date_node
+
+  value = date_node.value
+  valid = value.match?(/\A\d{4}-\d{2}-\d{2}\z/)
+
+  begin
+    Date.iso8601(value)
+  rescue Date::Error
+    valid = false
+  end
+
+  return [] if valid
+
+  [{
+    'data_pointer' => '/date',
+    'error' => 'value must be a valid date in YYYY-MM-DD format'
+  }]
+end
+
 def format_errors(errors)
   errors.map do |e|
     pointer = e['data_pointer'].to_s.empty? ? '<root>' : e['data_pointer']
@@ -66,14 +90,33 @@ shared_examples 'conforming schema' do |glob:, schemer:|
     filename = path.split('/')[-2..].join('/')
 
     it "#{filename} conforms to schema" do
-      raw_data = YAML.safe_load_file(path, permitted_classes: [Date])
+      yaml = File.read(path)
+      raw_data = YAML.safe_load(yaml, permitted_classes: [Date])
       data = normalize_for_json(raw_data)
-      errors = raw_yaml_field_checks(raw_data) + schemer.validate(data).to_a
+      errors = raw_yaml_date_checks(yaml) +
+               raw_yaml_field_checks(raw_data) +
+               schemer.validate(data).to_a
 
       expect(errors).to be_empty, lambda {
         "#{filename}\n#{format_errors(errors)}"
       }
     end
+  end
+end
+
+describe 'raw YAML date validation' do
+  it 'accepts a valid YYYY-MM-DD date' do
+    expect(raw_yaml_date_checks("date: 2026-06-03\n")).to be_empty
+  end
+
+  it 'rejects dates without leading zeroes' do
+    %w[2026-06-3 2026-6-03 2026-6-3].each do |date|
+      expect(raw_yaml_date_checks("date: #{date}\n")).not_to be_empty
+    end
+  end
+
+  it 'rejects an impossible date' do
+    expect(raw_yaml_date_checks("date: 2026-02-30\n")).not_to be_empty
   end
 end
 
