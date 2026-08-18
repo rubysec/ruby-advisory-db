@@ -3,7 +3,7 @@ gem: mail
 ghsa: mvxr-6m87-mv2q
 url: https://github.com/mikel/mail/security/advisories/GHSA-mvxr-6m87-mv2q
 title: Email address spoofing via malformed RFC 2047 encoded-words in mail
-date: 2026-07-1
+date: 2026-07-01
 description: |
   ## Summary
 
