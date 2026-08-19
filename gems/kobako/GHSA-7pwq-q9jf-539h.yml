@@ -1,0 +1,48 @@
+---
+gem: kobako
+cve: 2026-55107
+ghsa: 7pwq-q9jf-539h
+url: https://github.com/elct9620/kobako/security/advisories/GHSA-7pwq-q9jf-539h
+title: kobako Sandbox Escape - guest eval reaches host RCE via
+  method_missing → public_send (any bound Service)
+date: 2026-08-18
+description: |
+  ### Summary
+
+  A guest mruby script running inside the Kobako sandbox can execute
+  arbitrary Ruby in the host process, fully escaping the sandbox.
+
+  ### Impact
+
+  Complete sandbox escape leading to remote code execution in the host process,
+  defeating the gem's central guarantee of isolating untrusted mruby scripts.
+  Any deployment that runs untrusted or attacker-influenced scripts is affected.
+  All released versions (0.1.0 through 0.9.0) are vulnerable; the dispatcher
+  carried the same unguarded `public_send` sink under three successive names
+  (`registry` → `rpc` → `transport`).
+
+  ### Credits
+
+  Reported and fixed by Ahmed Al Hafoudh.
+cvss_v3: 10.0
+patched_versions:
+  - ">= 0.9.1"
+related:
+  url:
+    - https://rubygems.org/gems/kobako/versions/0.22.0
+    - https://github.com/elct9620/kobako/releases/tag/v0.22.0
+    - https://github.com/elct9620/kobako/commit/64f84700c81f44902bed9211318d5362f44987b3
+    - https://advisories.gitlab.com/gem/kobako/CVE-2026-55107
+    - https://github.com/elct9620/kobako/security/advisories/GHSA-7pwq-q9jf-539h
+    - https://github.com/advisories/GHSA-7pwq-q9jf-539h
+notes: |
+  - cvss_v3 from GHSA
+  - CVE is reserved, but not published.
+  - Details on Patch:
+    - Fixed in 0.9.1. The dispatcher now rejects any method whose resolved
+      owner is a core/meta module (`BasicObject`, `Kernel`, `Object`,
+      `Module`, `Class`), so only methods the bound object itself defines —
+      or dynamically handles via `method_missing` — remain reachable.
+      The ambient reflection methods (`send`, `__send__`, `public_send`,
+      `instance_eval`, `instance_exec`, `method`, `instance_variable_get`,
+      …) are all owned by those modules and are blocked.
