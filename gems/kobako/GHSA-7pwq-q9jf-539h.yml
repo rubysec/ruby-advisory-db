@@ -29,8 +29,9 @@ patched_versions:
   - ">= 0.9.1"
 related:
   url:
-    - https://rubygems.org/gems/kobako/versions/0.22.0
-    - https://github.com/elct9620/kobako/releases/tag/v0.22.0
+    - https://rubygems.org/gems/kobako/versions/0.9.1
+    - https://github.com/elct9620/kobako/blob/main/CHANGELOG.md#091-2026-06-11
+    - https://github.com/elct9620/kobako/commit/dd081665f368f7ba54e476c3ad045ee1aa8ed703
     - https://github.com/elct9620/kobako/commit/64f84700c81f44902bed9211318d5362f44987b3
     - https://advisories.gitlab.com/gem/kobako/CVE-2026-55107
     - https://github.com/elct9620/kobako/security/advisories/GHSA-7pwq-q9jf-539h
