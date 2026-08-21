@@ -174,5 +174,3 @@ rm -f gems/action_text-trix/CVE-2026-73426.yml \
 
 # 8/15/2026: Using GHSA filenames (new policy) instead of CVE filenames.
 rm -f gems/kobako/CVE-2026-55107.yml
-
-exit
