@@ -72,8 +72,8 @@ rm -rf gems/commonmarker/GHSA-7vh7-fw88-wj87.yml
 # maintainer involvement, and WEBrick's documented scope has excluded
 # production use since 2020.
 # 7/10/2026: https://github.com/ruby/webrick/issues/198
-rm -f gems/webrick/CVE-2024-47220.yml
-rm -f gems/webrick/CVE-2026-38969.yml
+rm -f gems/webrick/CVE-2024-47220.yml # GHSA-6f62-3596-g6w7
+rm -f gems/webrick/CVE-2026-38969.yml # GHSA-h4w6-wx8r-p68v
 
 # https://github.com/Shopify/ruby-lsp/security/advisories/GHSA-2x7g-8mp4-572w
 # is a Shopify.ruby-lsp (VS Code Extension), not a Ruby gem.
@@ -116,12 +116,12 @@ rm -f gems/omniauth-saml/GHSA-cgp2-2cmh-pf7x.yml
 # https://github.com/pglombardo/PasswordPusher/security/advisories/GHSA-76c2-66pg-fj2f
 #  - https://github.com/pglombardo/PasswordPusher/releases/tag/v2.8.1
 # Release 2.8.1; pglombardo/PasswordPusher; RUBY code; Bash Poc; Ruby fix; No CVE
-#... 
+#...
 # https://github.com/pglombardo/PasswordPusher/security/advisories/GHSA-qfh8-f79c-x86c
 # - https://github.com/pglombardo/PasswordPusher/pull/4381
 #   - https://github.com/pglombardo/PasswordPusher/releases/tag/v2.4.2
 # Release 2:4.2 - Ruby rb code; Unreviewed GHSA
-#... 
+#...
 # https://github.com/pglombardo/PasswordPusher/security/advisories/GHSA-4fwj-m62q-pp47
 # Never patched; CVE-2024-56733; Password Pusher; No project references
 #...
@@ -174,3 +174,43 @@ rm -f gems/action_text-trix/CVE-2026-73426.yml \
 
 # 8/15/2026: Using GHSA filenames (new policy) instead of CVE filenames.
 rm -f gems/kobako/CVE-2026-55107.yml
+
+# "chkr" IGNORE-THEM (2022) advisories (8/21/2026: None in this repo)
+# #......................................................................
+# # Ruby mentioned
+# GHSA-5458-w8p3-f624 - CVE-2017-7642 (mentions ruby but not ruby lang)
+# GHSA-hwm5-7hrp-v744 - CVE-2006-6979 (mentions ruby, not ruby lang)
+# GHSA-2jww-8ppq-f5qp - CVE-2019-12575 (mentions ruby but not ruby lang)
+# #......................................................................
+# # DISPUTED
+# GHSA-c2xw-j3rw-89x2 DISPUTED - SQL injection vul
+# GHSA-rjh4-8mqr-rvr8 DISPUTED - SQL injection vul
+# GHSA-vqpc-h5g8-fhrw DISPUTED - SQL injection vul
+# GHSA-4w6g-25w8-c8vc DISPUTED - SQL injection vul
+# GHSA-6qq6-x75v-fgg7 DISPUTED - openssl extension - CVE-2014-2734
+# GHSA-jwh5-q83f-2jjc DISPUTED - WEBrick gem 1.4.2
+# #......................................................................
+# #NOT RUBY (Ruby Tools)
+# GHSA-6r9x-mqf6-jvrp - CVE-2017-1000047 - rbenv (ruby tool)
+# GHSA-9j7m-jqrm-mcj3 - CVE-2019-5624 - Rapid7 Metasploit Framework (tool)
+# GHSA-rm8f-p7g6-p8p4 - CVE-2009-4079 - (redmine, not ruby lang)
+# GHSA-68hg-cfx6-pvhh - CVE-2009-4078 - (redmine, not ruby lang)
+# #......................................................................
+# # NOT RUBY
+# GHSA-qgq2-pf5j-2fvq JAVASCRIPT/Prototype.js
+# GHSA-w8r8-w5w4-4w4v - CVE-2014-0160  - openssl - not directly ruby
+#    https://www.ruby-lang.org/en/news/2014/04/10/severe-openssl-vulnerability
+# GHSA-h4xp-827w-ffh7 - CVE-2016-4864 (ho2, not mruby lang)
+# GHSA-jmhx-fqfh-838h NOT-RUBY
+# CVE-2022-45301      NOT-RUBY
+# GHSA-6938-wq9x-9rgg - CVE-2012-1241
+# GHSA-6f39-fvhf-c6qr - CVE-2017-11465 (REJECTED)
+# GHSA-rc82-v3mm-rhj2 - CVE-2011-3624.yml (REJECTED)
+# GHSA-94xx-gq3f-6gw4 - CVE-2026-1097.yml (not ruby)
+# #......................................................................
+# # Redhat
+# GHSA-3fcg-qm7h-hhpw (red hat #3)
+# GHSA-gphm-f2cq-m9pv (red hat #2)
+# GHSA-w5v4-7h7x-xfvq (red hat #1)
+# GHSA-h459-7mrx-8pvc - CVE-2014-0241 (Red hat plugin, not ruby lang)
+# GHSA-f29j-vf7h-f9g9 - CVE-2013-1945
