@@ -172,9 +172,5 @@ rm -f gems/action_text-trix/CVE-2026-73426.yml \
       gems/loofah/CVE-2026-73491.yml \
       gems/rails-html-sanitizer/CVE-2026-73648.yml
 
-exit
-
-# AL>> QUESTION (ruby or jruby)?
-# 5/25/2026: Using gems/nokogiri/CVE-2022-24839.yml (On JRuby)
-# https://github.com/advisories/GHSA-gx8x-g87m-h5q6 (on JRuby)
-#rm -f gems/nokogiri/GHSA-gx8x-g87m-h5q6.yml
+# 8/15/2026: Using GHSA filenames (new policy) instead of CVE filenames.
+rm -f gems/kobako/CVE-2026-55107.yml
