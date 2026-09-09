@@ -5,6 +5,7 @@ gem 'faraday',      '~> 2.0'
 gem 'kwalify',      '~> 0.1'
 gem 'json_schemer', '~> 2.0'
 gem 'rspec',        '~> 3.0'
+gem 'base64'
 
 group :development do
   gem 'pry'
