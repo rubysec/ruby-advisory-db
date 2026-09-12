@@ -298,3 +298,6 @@ rm -f gems/nokogiri/CVE-2026-79772.yml
 # nokogiri  | https://github.com/advisories/GHSA-rh9x-7xjc-vwx2 (duplicate)
 # paperclip | https://github.com/advisories/GHSA-phmw-pv3f-vvx7 (withdrawn)
 # sprockets | https://github.com/advisories/GHSA-r4x3-g983-9g48 (withdrawn)
+
+# 9/9/2026: 
+# Rubygmems | https://github.com/advisories/GHSA-mq4m-44x6-6r2v (not a gem)
