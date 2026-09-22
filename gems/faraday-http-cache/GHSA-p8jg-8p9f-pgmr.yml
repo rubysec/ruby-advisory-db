@@ -1,0 +1,36 @@
+---
+gem: faraday-http-cache
+ghsa: p8jg-8p9f-pgmr
+url: https://github.com/sourcelevel/faraday-http-cache/security/advisories/GHSA-p8jg-8p9f-pgmr
+title: Cache entries deserialized with JSON.load can instantiate
+  arbitrary classes named by an origin server
+date: 2026-09-15
+description: |
+  faraday-http-cache stores cached responses with the JSON module by
+  default and reads them back with JSON.load, which honours the
+  json_class key and calls json_create on the named class. Response
+  headers are stored verbatim inside the cache entry, so an origin
+  server that returns a json_class response header causes that class
+  to be instantiated in the client process on the next cache hit. Any
+  application that uses the middleware to fetch URLs it does not
+  fully control is affected with the default configuration, through
+  both the ByUrl and ByVary strategies.
+
+  NOTE: Versions 2.0.0 through 2.7.0 were confirmed by the reporter;
+  the 1.x line was not tested but uses the same deserialization path.
+
+  ## CREDIT
+
+  Reported by Matthew Mongeau (Ruby Central / Project Glasswing).
+cvss_v3: 8.1
+patched_versions:
+  - ">= 2.8.0"
+related:
+  url:
+    - https://rubygems.org/gems/faraday-http-cache/versions/2.8.0
+    - https://github.com/sourcelevel/faraday-http-cache/blob/master/CHANGELOG.md#280-2026-09-15
+    - https://github.com/sourcelevel/faraday-http-cache/compare/v2.7.0...v2.8.0
+    - https://github.com/sourcelevel/faraday-http-cache/security/advisories/GHSA-p8jg-8p9f-pgmr
+notes: |
+  - cvss_v3 from GHSA URL.
+  - No CVE in GHSA URL.

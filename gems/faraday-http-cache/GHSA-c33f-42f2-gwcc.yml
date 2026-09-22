@@ -1,0 +1,38 @@
+---
+gem: faraday-http-cache
+ghsa: c33f-42f2-gwcc
+url: https://github.com/sourcelevel/faraday-http-cache/security/advisories/GHSA-c33f-42f2-gwcc
+title: Shared cache serves responses to authenticated requests to other callers
+date: 2026-09-15
+description: |
+  faraday-http-cache acts as a shared cache by default (shared_cache: true).
+  The ByUrl strategy keys entries on method and URL and treats a cached
+  response without a Vary header as matching every request, and the
+  ByVary strategy relies on the origin listing Authorization in Vary.
+  A response to a request that carried an Authorization header is
+  therefore stored and served to later requests from different callers
+  whenever the origin omits Vary and does not mark the response private.
+
+  RFC 9111 section 3.5 requires a shared cache not to reuse such a
+  response unless it carries public, must-revalidate or s-maxage. The
+  middleware did not implement that rule.
+
+  NOTE: Versions 2.0.0 through 2.7.0 were confirmed by the reporter;
+  the 1.x line was not tested.
+
+  ## CREDIT
+
+  Reported by Matthew Mongeau (Ruby Central / Project Glasswing).
+  RFC 9111 section 3.5.
+cvss_v3: 6.5
+patched_versions:
+  - ">= 2.8.0"
+related:
+  url:
+    - https://rubygems.org/gems/faraday-http-cache/versions/2.8.0
+    - https://github.com/sourcelevel/faraday-http-cache/blob/master/CHANGELOG.md#280-2026-09-15
+    - https://github.com/sourcelevel/faraday-http-cache/compare/v2.7.0...v2.8.0
+    - https://github.com/sourcelevel/faraday-http-cache/security/advisories/GHSA-c33f-42f2-gwcc
+notes: |
+  - cvss_v3 from GHSA URL.
+  - No CVE in GHSA URL.
