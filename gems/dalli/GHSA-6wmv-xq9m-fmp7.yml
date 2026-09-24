@@ -1,0 +1,44 @@
+---
+gem: dalli
+ghsa: 6wmv-xq9m-fmp7
+url: https://github.com/petergoldstein/dalli/security/advisories/GHSA-6wmv-xq9m-fmp7
+title: Memcached command injection through numeric arguments to incr/decr
+  and fetch_with_lock
+date: 2026-09-24
+description: |
+  Dalli's meta protocol request formatter wrote some numeric arguments
+  into memcached commands without converting them to integers. If an
+  application passes an attacker-controlled String to one of these
+  arguments, CRLF sequences in it are sent to memcached as additional
+  commands on the same connection, letting the attacker run arbitrary
+  memcached commands, such as overwriting keys or running `flush_all`.
+
+  The affected arguments are the `default` (initial value) argument of
+  `Dalli::Client#incr` and `#decr`, and the `lock_ttl` and
+  `recache_threshold` arguments of `Dalli::Client#fetch_with_lock`
+  (4.2.0 and later).
+
+  In 3.2.x and 4.x, only clients created with `protocol: :meta` are
+  affected; the default binary protocol is not. All 5.x configurations
+  are affected.
+
+  An application is only exploitable if untrusted input reaches one of
+  these arguments.
+
+  ### Workarounds
+
+  Convert values to integers before passing them, e.g.
+  `Integer(params[:initial], 10)`. On 3.2.x and 4.x, use the default
+  binary protocol instead of `protocol: :meta`.
+cvss_v3: 7.7
+unaffected_versions:
+  - "< 3.2.0"
+patched_versions:
+  - "~> 3.2.9"
+  - "~> 4.3.4"
+  - "~> 5.0.7"
+  - ">= 5.1.1"
+related:
+  url:
+    - https://github.com/petergoldstein/dalli/security/advisories/GHSA-6wmv-xq9m-fmp7
+    - https://github.com/petergoldstein/dalli/commit/7bd7daf
