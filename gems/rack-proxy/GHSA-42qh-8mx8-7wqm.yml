@@ -1,0 +1,53 @@
+---
+gem: rack-proxy
+ghsa: 42qh-8mx8-7wqm
+url: https://github.com/ncr/rack-proxy/security/advisories/GHSA-42qh-8mx8-7wqm
+title: HTTP response smuggling via ambiguous backend response
+  framing in rack-proxy 1.x
+date: 2026-09-25
+description: |
+  ## Summary
+
+  rack-proxy 1.0.0 through 1.0.2 can forward an incorrect Content-Length
+  when a backend response contains both Transfer-Encoding and Content-Length.
+  Net::HTTP removes chunked framing from the body, while rack-proxy
+  strips Transfer-Encoding but retains the backend-supplied Content-Length.
+  This affects both the default streaming mode and streaming: false.
+
+  ## Impact and Preconditions
+
+  A malicious, compromised, or attacker-influenced backend can supply
+  a length shorter than the dechunked body. When a frontend Rack handler
+  trusts this length and uses persistent connections, surplus bytes
+  can be interpreted as a subsequent HTTP response, allowing response-queue
+  poisoning and potentially affecting intermediaries or caches.
+
+  The reporter demonstrated downstream desynchronization with
+  WEBrick 1.9.2 via Rackup::Handler. Other handlers may close or
+  reframe the response; end-to-end exploitability depends on the
+  deployment. The inconsistent Rack response was confirmed in both
+  streaming modes. No opt-in setting is needed for the vulnerable
+  response handling.
+
+  ## Credit
+
+  Thanks to oss-security-shop for privately reporting the
+  vulnerability and providing a detailed reproduction.
+unaffected_versions:
+  - "< 1.0.0"
+patched_versions:
+  - ">= 1.0.3"
+related:
+  url:
+    - https://rubygems.org/gems/rack-proxy/versions/1.0.3
+    - https://github.com/ncr/rack-proxy/releases/tag/v1.0.3
+    - https://github.com/ncr/rack-proxy/commit/9886359a29c6dbccef8b5d174514649a2ef08296
+    - https://github.com/ncr/rack-proxy/security/advisories/GHSA-42qh-8mx8-7wqm
+notes: |
+  - "High" severify and no CVE or cvss scores in GHSA URL.
+  - From GHSA URL: "Affected versions:
+    - Confirmed affected: rack-proxy 1.0.0, 1.0.1, and 1.0.2.
+    - Fixed in the 1.x series: 1.0.3, released September 25, 2026.
+    - Versions 2.0.0 and later already reject this ambiguous response framing.
+    - Versions before 1.0.0 were not assessed for this advisory;
+      they are not asserted to be unaffected.'
