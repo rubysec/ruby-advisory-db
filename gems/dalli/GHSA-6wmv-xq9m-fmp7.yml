@@ -42,3 +42,16 @@ related:
   url:
     - https://github.com/petergoldstein/dalli/security/advisories/GHSA-6wmv-xq9m-fmp7
     - https://github.com/petergoldstein/dalli/commit/7bd7daf
+    - https://rubygems.org/gems/dalli/versions/5.1.1
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.1.1
+    - https://rubygems.org/gems/dalli/versions/5.0.7
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.0.7
+    - https://rubygems.org/gems/dalli/versions/4.3.4
+    - https://github.com/petergoldstein/dalli/releases/tag/v4.3.4
+    - https://rubygems.org/gems/dalli/versions/3.2.9
+    - https://github.com/petergoldstein/dalli/releases/tag/v3.2.9
+notes: |
+  - No CVE in GHSA.
+     - "A CVE has been requested through GitHub but not yet
+        assigned, so the entry has no cve: field."
+  - cvss_v3 from GHSA URL.
