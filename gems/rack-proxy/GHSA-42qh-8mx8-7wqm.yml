@@ -33,8 +33,6 @@ description: |
 
   Thanks to oss-security-shop for privately reporting the
   vulnerability and providing a detailed reproduction.
-unaffected_versions:
-  - "< 1.0.0"
 patched_versions:
   - ">= 1.0.3"
 related:
