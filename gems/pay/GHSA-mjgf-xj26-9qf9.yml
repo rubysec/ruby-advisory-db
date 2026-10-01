@@ -43,11 +43,13 @@ patched_versions:
 related:
   url:
     - https://advisories.gitlab.com/gem/pay/GHSA-mjgf-xj26-9qf9
+    - https://rubygems.org/gems/pay/versions/11.6.2
+    - https://github.com/pay-rails/pay/releases/tag/v11.6.2
+    - https://github.com/pay-rails/pay/commit/ba6494109d88209fba2a4df2d9d6373fe81ed805
+    - https://github.com/pay-rails/pay/issues/1232
+    - https://github.com/rubysec/ruby-advisory-db/pull/1158
     - https://github.com/pay-rails/pay/security/advisories/GHSA-mjgf-xj26-9qf9
     - https://github.com/advisories/GHSA-mjgf-xj26-9qf9
 notes: |
-  - Fixed in 11.6.2.
-    - https://github.com/pay-rails/pay/releases/tag/v11.6.2
-    - https://rubygems.org/gems/pay/versions/11.6.2
-  - cvss_v3 value comes from project advisory.
-  - No cve value, so missing cvss_v2 and cvss_v4 values.
+  - cvss_v3 from GHSA URL.
+  - No cve in GHSA URL.
