@@ -27,8 +27,13 @@ patched_versions:
 related:
   url:
     - https://rubygems.org/gems/sqlite3/versions/2.9.6
+    - https://github.com/sparklemotion/sqlite3-ruby/releases/tag/v2.9.6
     - https://github.com/sparklemotion/sqlite3-ruby/blob/main/CHANGELOG.md#296--2026-08-11
     - https://github.com/sparklemotion/sqlite3-ruby/security/advisories/GHSA-mwm8-39rw-8826
+    - https://github.com/sparklemotion/sqlite3-ruby/pull/733
+    - https://osv.dev/vulnerability/GHSA-mwm8-39rw-8826
+    - https://advisories.gitlab.com/gem/sqlite3/GHSA-mwm8-39rw-8826
+    - https://github.com/advisories/GHSA-mwm8-39rw-8826
 notes: |
   - cvss_v4 from repo GHSA URL.
   - No CVE in repo GHSA URL.
