@@ -20,12 +20,18 @@ description: |
   Applications that fork while threads use a shared client are affected
   (pre-forking servers, job runners).
 
+  The first fix was incomplete on 4.3.6 and 3.2.12: when another
+  library's fork hook (such as connection_pool's, loaded before Dalli) ran
+  first in the child, the parent's TLS session could still be ended, and
+  4.3.6's write buffer kept a reference to the caller's value string with
+  the meta protocol. Both are fixed in 4.3.7 and 3.2.13.
+
   ### Workarounds
 
   Call `close` on Dalli clients before forking, outside any quiet block.
 patched_versions:
-  - "~> 3.2.12"
-  - "~> 4.3.6"
+  - "~> 3.2.13"
+  - "~> 4.3.7"
   - "~> 5.0.9"
   - "~> 5.1.3"
   - ">= 5.2.1"
@@ -33,6 +39,10 @@ related:
   url:
     - https://github.com/petergoldstein/dalli/security/advisories/GHSA-w39f-xq2m-4g8x
     - https://github.com/petergoldstein/dalli/commit/62d5ad1
+    - https://rubygems.org/gems/dalli/versions/4.3.7
+    - https://github.com/petergoldstein/dalli/releases/tag/v4.3.7
+    - https://rubygems.org/gems/dalli/versions/3.2.13
+    - https://github.com/petergoldstein/dalli/releases/tag/v3.2.13
     - https://rubygems.org/gems/dalli/versions/5.2.1
     - https://github.com/petergoldstein/dalli/releases/tag/v5.2.1
     - https://rubygems.org/gems/dalli/versions/5.1.3

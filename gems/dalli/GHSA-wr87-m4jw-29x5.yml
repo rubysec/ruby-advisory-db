@@ -23,20 +23,37 @@ description: |
   to avoid unsafe deserialization. Patched versions add
   `Dalli::JSONSerializer`, which reads with `JSON.parse`.
 
+  The first fix (5.2.1, 5.1.3, 5.0.9, 4.3.6 and 3.2.12) was incomplete:
+  on 5.0, 4.3 and 3.2, `cas` and `cas!` (and `fetch_with_lock` on 5.0,
+  and on 4.3 with the meta protocol) still deserialized values read with
+  `raw: true`, and on every line but 3.2 a raw read still honored flags a
+  reply carried unasked. Both are fixed in 5.2.2, 5.1.4, 5.0.10, 4.3.7
+  and 3.2.13.
+
   ### Workarounds
 
   Use a serializer that only parses data, such as one wrapping
   `JSON.parse`, instead of `serializer: JSON`.
 patched_versions:
-  - "~> 3.2.12"
-  - "~> 4.3.6"
-  - "~> 5.0.9"
-  - "~> 5.1.3"
-  - ">= 5.2.1"
+  - "~> 3.2.13"
+  - "~> 4.3.7"
+  - "~> 5.0.10"
+  - "~> 5.1.4"
+  - ">= 5.2.2"
 related:
   url:
     - https://github.com/petergoldstein/dalli/security/advisories/GHSA-wr87-m4jw-29x5
     - https://github.com/petergoldstein/dalli/commit/8529428
+    - https://rubygems.org/gems/dalli/versions/5.2.2
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.2.2
+    - https://rubygems.org/gems/dalli/versions/5.1.4
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.1.4
+    - https://rubygems.org/gems/dalli/versions/5.0.10
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.0.10
+    - https://rubygems.org/gems/dalli/versions/4.3.7
+    - https://github.com/petergoldstein/dalli/releases/tag/v4.3.7
+    - https://rubygems.org/gems/dalli/versions/3.2.13
+    - https://github.com/petergoldstein/dalli/releases/tag/v3.2.13
     - https://rubygems.org/gems/dalli/versions/5.2.1
     - https://github.com/petergoldstein/dalli/releases/tag/v5.2.1
     - https://rubygems.org/gems/dalli/versions/5.1.3
