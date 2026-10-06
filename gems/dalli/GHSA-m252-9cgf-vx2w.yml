@@ -1,0 +1,49 @@
+---
+gem: dalli
+ghsa: m252-9cgf-vx2w
+url: https://github.com/petergoldstein/dalli/security/advisories/GHSA-m252-9cgf-vx2w
+title: With a namespace, a retried request reads or writes a different key
+date: 2026-10-05
+description: |
+  When a client is configured with a `namespace`, a request that hits a
+  transient network error (a timeout, or a connection closed by memcached
+  or a proxy, such as stale connections after a memcached restart) was
+  retried with the namespace applied a second time, so `app:x` became
+  `app:app:x`. A retried read could return a different key's value, and a
+  retried write could overwrite a different key. Where cache keys include
+  user input, a user who can choose a key of the form `app:<something>`
+  can arrange for another user's retried read to return attacker-chosen
+  data.
+
+  Affected: every single-key operation since 5.0.3, single-server
+  `get_multi` since 5.1.0, and `get_with_metadata` and `fetch_with_lock`
+  since 4.1.0. Clients without a namespace are not affected, and 3.2.x is
+  not affected.
+
+  ### Workarounds
+
+  Don't configure a `namespace`; prefix keys in application code instead.
+unaffected_versions:
+  - "< 4.1.0"
+patched_versions:
+  - "~> 4.3.7"
+  - "~> 5.0.10"
+  - "~> 5.1.4"
+  - ">= 5.2.2"
+related:
+  url:
+    - https://github.com/petergoldstein/dalli/security/advisories/GHSA-m252-9cgf-vx2w
+    - https://github.com/petergoldstein/dalli/commit/61a9813
+    - https://rubygems.org/gems/dalli/versions/5.2.2
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.2.2
+    - https://rubygems.org/gems/dalli/versions/5.1.4
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.1.4
+    - https://rubygems.org/gems/dalli/versions/5.0.10
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.0.10
+    - https://rubygems.org/gems/dalli/versions/4.3.7
+    - https://github.com/petergoldstein/dalli/releases/tag/v4.3.7
+notes: |
+  - No CVE in GHSA.
+     - "A CVE has been requested through GitHub but not yet
+        assigned, so the entry has no cve: field."
+  - No CVSS score in GHSA; GitHub severity is high.

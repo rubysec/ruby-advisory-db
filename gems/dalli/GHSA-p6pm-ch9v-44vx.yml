@@ -1,0 +1,55 @@
+---
+gem: dalli
+ghsa: p6pm-ch9v-44vx
+url: https://github.com/petergoldstein/dalli/security/advisories/GHSA-p6pm-ch9v-44vx
+title: Pipelined get_multi can return another key's value after an error reply
+date: 2026-10-05
+description: |
+  Dalli's pipelined reply parser treated any reply line without a value
+  body (for example `CLIENT_ERROR` or `SERVER_ERROR`) as the `MN` that
+  ends the batch. It stopped reading that server's replies and left the
+  rest on the connection, where later commands read them as their own
+  replies, so a later `get` could return a different key's value.
+
+  memcached answers `CLIENT_ERROR` for a key over 250 bytes on the wire.
+  Dalli checked key length in characters, before base64-encoding keys
+  that need it, so a key of under 250 characters could still be too long.
+  If any part of a cache key comes from user input, a user can trigger
+  this and, in an application that caches per-user data, see another
+  user's data. Affects multi-server `get_multi` (including Rails
+  `read_multi`), `get_multi` with a block, and `get_multi_cas`, with the
+  meta protocol (3.2.0 and later; the default since 5.0.0).
+
+  With the binary protocol (the default before 5.0), the same over-long
+  key made memcached drop the connection, and `get` or `get_multi` with
+  it retried forever, so a user-supplied key could hang requests.
+
+  ### Workarounds
+
+  Keep user-controlled cache keys well under 250 bytes, for example by
+  hashing them.
+patched_versions:
+  - "~> 3.2.12"
+  - "~> 4.3.6"
+  - "~> 5.0.9"
+  - "~> 5.1.3"
+  - ">= 5.2.1"
+related:
+  url:
+    - https://github.com/petergoldstein/dalli/security/advisories/GHSA-p6pm-ch9v-44vx
+    - https://github.com/petergoldstein/dalli/commit/e35c7ad
+    - https://rubygems.org/gems/dalli/versions/5.2.1
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.2.1
+    - https://rubygems.org/gems/dalli/versions/5.1.3
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.1.3
+    - https://rubygems.org/gems/dalli/versions/5.0.9
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.0.9
+    - https://rubygems.org/gems/dalli/versions/4.3.6
+    - https://github.com/petergoldstein/dalli/releases/tag/v4.3.6
+    - https://rubygems.org/gems/dalli/versions/3.2.12
+    - https://github.com/petergoldstein/dalli/releases/tag/v3.2.12
+notes: |
+  - No CVE in GHSA.
+     - "A CVE has been requested through GitHub but not yet
+        assigned, so the entry has no cve: field."
+  - No CVSS score in GHSA; GitHub severity is high.

@@ -1,0 +1,71 @@
+---
+gem: dalli
+ghsa: wr87-m4jw-29x5
+url: https://github.com/petergoldstein/dalli/security/advisories/GHSA-wr87-m4jw-29x5
+title: Per-request raw and the JSON serializer don't prevent unsafe
+  deserialization
+date: 2026-10-05
+description: |
+  1. Per-request `raw: true` was ignored by some read methods, which still
+     ran the configured serializer's `load` (Marshal by default) on values
+     whose flags say they're serialized: in 5.1 and 5.2, `get_multi`,
+     `get_multi_cas`, `get_multi_with_metadata`, `get_cas` and
+     `get_with_metadata`; in 5.0, `get_with_metadata`; in 4.x, `get`,
+     `gat` and `fetch` with the binary protocol, and `get_with_metadata`;
+     in 3.x, `get`, `gat` and `fetch`.
+  2. `serializer: JSON` resolves to `JSON.load`. With the json gem before
+     3.0, `JSON.load` honors `json_class` when the json additions are
+     loaded, so a crafted value can instantiate classes that define
+     `json_create`.
+
+  Exploiting either requires write access to the memcached instance and
+  an application relying on per-request `raw: true` or `serializer: JSON`
+  to avoid unsafe deserialization. Patched versions add
+  `Dalli::JSONSerializer`, which reads with `JSON.parse`.
+
+  The first fix (5.2.1, 5.1.3, 5.0.9, 4.3.6 and 3.2.12) was incomplete:
+  on 5.0, 4.3 and 3.2, `cas` and `cas!` (and `fetch_with_lock` on 5.0,
+  and on 4.3 with the meta protocol) still deserialized values read with
+  `raw: true`, and on every line but 3.2 a raw read still honored flags a
+  reply carried unasked. Both are fixed in 5.2.2, 5.1.4, 5.0.10, 4.3.7
+  and 3.2.13.
+
+  ### Workarounds
+
+  Use a serializer that only parses data, such as one wrapping
+  `JSON.parse`, instead of `serializer: JSON`.
+patched_versions:
+  - "~> 3.2.13"
+  - "~> 4.3.7"
+  - "~> 5.0.10"
+  - "~> 5.1.4"
+  - ">= 5.2.2"
+related:
+  url:
+    - https://github.com/petergoldstein/dalli/security/advisories/GHSA-wr87-m4jw-29x5
+    - https://github.com/petergoldstein/dalli/commit/8529428
+    - https://rubygems.org/gems/dalli/versions/5.2.2
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.2.2
+    - https://rubygems.org/gems/dalli/versions/5.1.4
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.1.4
+    - https://rubygems.org/gems/dalli/versions/5.0.10
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.0.10
+    - https://rubygems.org/gems/dalli/versions/4.3.7
+    - https://github.com/petergoldstein/dalli/releases/tag/v4.3.7
+    - https://rubygems.org/gems/dalli/versions/3.2.13
+    - https://github.com/petergoldstein/dalli/releases/tag/v3.2.13
+    - https://rubygems.org/gems/dalli/versions/5.2.1
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.2.1
+    - https://rubygems.org/gems/dalli/versions/5.1.3
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.1.3
+    - https://rubygems.org/gems/dalli/versions/5.0.9
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.0.9
+    - https://rubygems.org/gems/dalli/versions/4.3.6
+    - https://github.com/petergoldstein/dalli/releases/tag/v4.3.6
+    - https://rubygems.org/gems/dalli/versions/3.2.12
+    - https://github.com/petergoldstein/dalli/releases/tag/v3.2.12
+notes: |
+  - No CVE in GHSA.
+     - "A CVE has been requested through GitHub but not yet
+        assigned, so the entry has no cve: field."
+  - No CVSS score in GHSA; GitHub severity is low.
