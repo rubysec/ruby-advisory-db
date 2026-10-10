@@ -1,0 +1,66 @@
+---
+gem: css_parser
+ghsa: w3mx-4vv9-hjpg
+url: https://github.com/premailer/css_parser/security/advisories/GHSA-w3mx-4vv9-hjpg
+title: Arbitrary local-file read via attacker-controlled `@import`
+  into `load_file!` (the `base_dir` branch of `add_block!`) -
+  incomplete fix of GHSA-9pmc-p236-855h
+date: 2026-10-07
+description: |
+  ## Summary
+
+  When css_parser parses CSS that contains an @import rule and the caller
+  has supplied a :base_dir option (but not a :base_uri), the
+  attacker-controlled import path is passed directly into load_file!,
+  which does File.expand_path(file_name, base_dir) followed by File.read
+  with no path containment, no traversal guard, and no allow_file_uris
+  gate. An attacker who controls CSS content can therefore cause the
+  library to read an arbitrary local file — either by absolute path
+  (@import "/etc/…") or by ../ traversal escaping base_dir — and the
+  file's content is merged into the parser's ruleset. To the extent
+  the loose CSS grammar turns that content into selectors/declarations,
+  it is surfaced to the consumer.
+
+  This is the base_dir sibling of the SSRF/file:// issue fixed as
+  GHSA-9pmc-p236-855h / CVE-2026-53727. That advisory and its fix only
+  closed the file://-via-base_uri arm of the same @import handler;
+  the base_dir arm and load_file! itself were left untouched, and the
+  fix's own docstring incorrectly assumes load_file! only ever receives
+  caller-supplied paths.
+
+  The primary downstream consumer, Premailer, reaches this arm
+  automatically for local-file / HTML-file input (it sets @base_dir
+  from the file's directory while leaving @base_url nil), so an
+  attacker-supplied local email/HTML file causes Premailer to read
+  a file outside the email directory and inline its content into
+  the returned HTML.
+
+  ## IMPACT
+
+  An attacker who controls CSS content (a submitted stylesheet, an
+  email/HTML template processed server-side by Premailer from a
+  local file, etc.) can:
+
+  * Read arbitrary local files by absolute path or ../ traversal,
+    bounded by process file permissions.
+
+  * Use the always-executed File.read (visible via loaded_uris /
+    circular_reference_check) as a file-existence / read oracle
+    even when content is not fully surfaced.
+
+  * Exfiltrate file content through the CSS-parse channel: files
+    that the loose CSS grammar turns into selectors/declarations (CSS,
+    many config/.env-style/JSON-ish files) leak strongly; arbitrary
+    binary content leaks only partially.
+cvss_v3: 5.3
+patched_versions:
+  - ">= 3.3.0"
+related:
+  url:
+    - https://rubygems.org/gems/css_parser/versions/3.3.0
+    - https://github.com/premailer/css_parser/blob/master/CHANGELOG.md#version-330
+    - https://github.com/premailer/css_parser/compare/v3.2.0...v3.3.0
+    - https://github.com/premailer/css_parser/security/advisories/GHSA-w3mx-4vv9-hjpg
+notes: |
+  - No CVE value in GHSA URL.
+  - cvss_v3 from GHSA URL.
