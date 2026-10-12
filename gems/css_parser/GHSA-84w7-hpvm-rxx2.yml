@@ -4,7 +4,7 @@ ghsa: 84w7-hpvm-rxx2
 url: https://github.com/premailer/css_parser/security/advisories/GHSA-84w7-hpvm-rxx2
 title: ReDoS - expand_shorthand! regex (RE_FUNCTIONS) backtracks
   exponentially on an unclosed CSS function value
-date: 2021-09-20
+date: 2026-09-20
 description: |
   ## SUMMARY
 
