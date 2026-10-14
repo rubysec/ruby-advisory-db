@@ -1,0 +1,31 @@
+---
+engine: truffleruby
+ghsa: 93gp-836g-85f2
+url: https://github.com/truffleruby/truffleruby/security/advisories/GHSA-93gp-836g-85f2
+title: Dependency Confusion — Unclaimed RubyGem `deep-bench`
+  Referenced in TruffleRuby Documentation
+date: 2026-06-12
+description: |
+  The truffleruby repository references the RubyGem deep-bench in its
+  contributor documentation with an explicit gem install instruction.
+  This gem name is not registered on RubyGems.org — the name is
+  unclaimed and available for anyone to register.
+
+  Any developer following the official documentation and running
+  `gem install deep-bench` would execute arbitrary code from the public
+  RubyGems registry if an attacker registers a malicious gem under that name.
+
+  As of 10/14/2026, there is now a page:`deep-bench` under
+  * https://rubygems.org/gems/deep-bench/versions/0.0.1.pre
+patched_versions:
+  - ">= 0.0.1.pre"
+related:
+  url:
+    - https://rubygems.org/gems/deep-bench/versions/0.0.1.pre
+    - https://github.com/truffleruby/truffleruby/blob/master/bench/benchmark-interface/README.md
+    - https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610
+    - https://www.oracle.com/corporate/security-practices/assurance/vulnerability/reporting.html
+    - https://github.com/truffleruby/truffleruby/security/advisories/GHSA-93gp-836g-85f2
+notes: |
+  - "Low" severity on Repo GHSA URL.
+  - No CVE in Repo GHSA URL.
