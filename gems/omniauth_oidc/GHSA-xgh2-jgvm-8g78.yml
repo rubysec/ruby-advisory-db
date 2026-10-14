@@ -1,0 +1,50 @@
+---
+gem: omniauth_oidc
+ghsa: xgh2-jgvm-8g78
+url: https://github.com/msuliq/omniauth_oidc/security/advisories/GHSA-xgh2-jgvm-8g78
+title: Unsigned ID tokens (alg none) accepted, allowing authentication
+  bypass in the id_token flow
+date: 2026-10-14
+description: |
+  ### Impact
+
+  omniauth_oidc 1.0.0 and 1.0.1 verified an ID token with whichever
+  signing algorithm the token's own header named, unless
+  `client_signing_alg` was configured. Because the header is controlled
+  by whoever produces the token, an unsigned token with `"alg": "none"`
+  passed signature verification.
+
+  Applications that use `response_type: "id_token"` (the implicit flow)
+  are affected. In that flow the ID token arrives in the callback
+  request parameters, so an attacker can start a login in their own
+  browser to obtain a valid `state` and `nonce`, then send the callback
+  an unsigned ID token carrying the victim's `sub`. The callback
+  completes with the victim's identity, which allows full account
+  takeover in the host application.
+
+  Applications that use the default authorization code flow
+  (`response_type: "code"`) are not exploitable this way, because the
+  ID token is obtained directly from the provider's token endpoint.
+
+  Versions before 1.0.0 used a different JWT library that rejects
+  `alg: none` when a key is supplied, and are not affected.
+
+  ### Patches
+
+  Fixed in 1.1.0. The accepted algorithms now come only from
+  configuration, and `none` is always rejected.
+
+  ### Workarounds
+
+  Set `client_signing_alg` to the algorithm your provider signs ID
+  tokens with (for example `client_signing_alg: "RS256"`), or use the
+  default `response_type: "code"` flow.
+cvss_v3: 9.1
+unaffected_versions:
+  - "< 1.0.0"
+patched_versions:
+  - ">= 1.1.0"
+related:
+  url:
+    - https://github.com/msuliq/omniauth_oidc/blob/main/CHANGELOG.md
+    - https://rubygems.org/gems/omniauth_oidc/versions/1.1.0
