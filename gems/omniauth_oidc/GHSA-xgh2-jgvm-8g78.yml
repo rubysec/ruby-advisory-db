@@ -48,7 +48,7 @@ related:
   url:
     - https://github.com/msuliq/omniauth_oidc/blob/main/CHANGELOG.md#110---2026-10-14
     - https://rubygems.org/gems/omniauth_oidc/versions/1.1.0
-    - https://github.com/advisories/GHSA-xgh2-jgvm-8g78
+    - https://github.com/msuliq/omniauth_oidc/security/advisories/GHSA-xgh2-jgvm-8g78
 notes: |
   No CVE
   cvss_v3 from GHSA URL.
