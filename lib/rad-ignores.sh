@@ -292,7 +292,7 @@ rm -f gems/nokogiri/CVE-2026-79770.yml
 rm -f gems/nokogiri/CVE-2026-79771.yml
 rm -f gems/nokogiri/CVE-2026-79772.yml
 
-# 10/20/2026: Use GHSA prefix (GHSA-6wmf-3r64-vcwv.yml) over CVE.G
+# 10/20/2026: Use GHSA prefix (GHSA-6wmf-3r64-vcwv.yml) over CVE.
 rm -f gems/crass/CVE-2026-61845.yml
 
 # 9/4/2026: More duplicates and withdrawns
