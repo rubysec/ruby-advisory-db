@@ -1,0 +1,22 @@
+---
+gem: pghero
+ghsa: 5287-hmjh-qmqq
+url: https://github.com/ankane/pghero/security/advisories/GHSA-5287-hmjh-qmqq
+title: Insecure direct object reference (IDOR)
+date: 2026-10-20
+description: |
+  An authenticated user can kill connections and certain Postgres backend
+  processes for other databases on the same instance if the PgHero database
+  user has privileges to do so.
+patched_versions:
+  - ">= 4.1.0"
+cvss_v3: 6.5
+related:
+  url:
+    - https://rubygems.org/gems/pghero/versions/4.1.0
+    - https://github.com/ankane/pghero/blob/master/CHANGELOG.md#410-2026-10-20
+    - https://github.com/ankane/pghero/compare/v4.0.1...v4.1.0
+    - https://github.com/ankane/pghero/security/advisories/GHSA-5287-hmjh-qmqq
+notes: |
+  - cvss_v3 from project GHSA
+  - No CVE
