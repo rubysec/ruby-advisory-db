@@ -1,0 +1,50 @@
+---
+gem: view_component
+ghsa: 8qw7-6phv-7q6p
+url: https://github.com/ViewComponent/view_component/security/advisories/GHSA-8qw7-6phv-7q6p
+title: ViewComponent - Incomplete fix for CVE-2026-54497 — slot and
+  with_content state still leak across reused component instances
+date: 2026-08-26
+description: |
+  ## Summary
+
+  CVE-2026-54497 was fixed by having render_in call __vc_reset_render_state!,
+  which clears exactly three ivars (@__vc_controller, @__vc_helpers,
+  @__vc_request) on every render so a reused ViewComponent::Base instance
+  can't leak the previous request's controller/helpers/request. The
+  fix's own comment admits it deliberately leaves two other pieces of
+  render-scoped state untouched: @__vc_set_slots (populated by with_<slot>
+  setters) and @__vc_content_set_by_with_content (populated by with_content),
+  reasoning that these are "populated by callers before render_in runs."
+  That reasoning only holds for the intended one-instance-per-render
+  usage pattern — it breaks down in exactly the reuse/aliasing scenario
+  the CVE fix was written for, because these two ivars hold the actual
+  content/data being rendered (often user- or session-specific), not
+  just framework plumbing.
+
+  ## IMPACT
+
+  Any application that follows the common ViewComponent idiom of
+  pre-populating a component with request/user data via
+  with_content/with_<slot> and then ends up reusing that same instance
+  across two different requests/users — due to caching, pooling,
+  memoization, or the aliasing pattern the vendor's own fix commit
+  explicitly anticipated — leaks the first user's data to the second,
+  despite the CVE-2026-54497 fix having run.
+
+  ## CREDIT
+
+  Yazan Balawneh, Cystack.ps
+cvss_v3: 6.8
+patched_versions:
+  - ">= 4.14.0"
+related:
+  url:
+    - https://github.com/ViewComponent/view_component/blob/main/docs/CHANGELOG.md#4140
+    - https://github.com/ViewComponent/view_component/compare/v4.13.0...v4.14.0
+    - https://github.com/ViewComponent/view_component/pull/2691
+    - https://github.com/ViewComponent/view_component/security/advisories/GHSA-8qw7-6phv-7q6p
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 from GHSA URL.
+  - Note that gem name in view_component and repo name is ViewComponent.
