@@ -20,7 +20,13 @@ description: |
   Crass by itself only mis-tokenizes input. The security impact is on
   CSS sanitizers that use Crass to make allow/deny decisions and then
   re-serialize the CSS. Exploitation requires a sanitizer that doesn't
-  reject bad URL tokens wherever they occur.
+  reject bad URL tokens wherever they occur. Confirmed examples:
+
+  - Sanitize (all versions through 7.0.0): Sanitize::CSS.properties,
+    style attributes, Sanitize::CSS.stylesheet, and <style> elements.
+  - Loofah (Loofah::HTML5::Scrub.scrub_css, used for style attributes),
+    and therefore rails-html-sanitizer (sanitize_css, and sanitize when
+    style is a permitted attribute).
 cvss_v4: 5.3
 patched_versions:
   - ">= 1.0.8"
