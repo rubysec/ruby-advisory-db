@@ -1,0 +1,42 @@
+---
+gem: crass
+ghsa: pq4g-8rxf-4g29
+url: https://github.com/rgrove/crass/security/advisories/GHSA-pq4g-8rxf-4g29
+title: Incorrect tokenization of bad URLs enables CSS sanitizer bypass
+date: 2026-10-21
+description: |
+  ## Summary
+
+  Crass's tokenizer didn't terminate a bad URL token at a ) that followed
+  an escaped backslash (\\). As a result, Crass consumed more input as
+  part of the bad URL than a spec-compliant browser does. CSS sanitizers
+  that parse untrusted CSS with Crass and re-emit it could be tricked
+  into passing through declarations, style rules, or at-rules (including
+  @import) that the sanitizer would otherwise have removed, but that
+  a browser would then parse and apply.
+
+  ## Impact
+
+  Crass by itself only mis-tokenizes input. The security impact is on
+  CSS sanitizers that use Crass to make allow/deny decisions and then
+  re-serialize the CSS. Exploitation requires a sanitizer that doesn't
+  reject bad URL tokens wherever they occur. Confirmed examples:
+
+  - Sanitize (all versions through 7.0.0): Sanitize::CSS.properties,
+    style attributes, Sanitize::CSS.stylesheet, and <style> elements.
+  - Loofah (Loofah::HTML5::Scrub.scrub_css, used for style attributes),
+    and therefore rails-html-sanitizer (sanitize_css, and sanitize when
+    style is a permitted attribute).
+cvss_v4: 5.3
+patched_versions:
+  - ">= 1.0.8"
+related:
+  url:
+    - https://rubygems.org/gems/crass/versions/1.0.8
+    - https://github.com/rgrove/crass/blob/v1.0.8/HISTORY.md#108-2026-10-21
+    - https://github.com/rgrove/crass/compare/v1.0.7...v1.0.8
+    - https://drafts.csswg.org/css-syntax-3/#consume-remnants-of-bad-url
+    - https://github.com/rgrove/crass/security/advisories/GHSA-pq4g-8rxf-4g29
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v4 from GHSA URL.
