@@ -48,3 +48,5 @@ notes: |
   - No CVE in GHSA URL.
   - cvss_v3 from GHSA URL.
   - Note that gem name in view_component and repo name is ViewComponent.
+  - GHSA affected range is "<= 4.12.0", but 4.13.0 is also vulnerable;
+    the fix shipped in 4.14.0 per the view_component CHANGELOG.
