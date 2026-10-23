@@ -30,7 +30,6 @@ related:
     - https://github.com/rgrove/crass/blob/v1.0.8/HISTORY.md#108-2026-10-21
     - https://github.com/rgrove/crass/compare/v1.0.7...v1.0.8
     - https://drafts.csswg.org/css-syntax-3/#consume-remnants-of-bad-url
-    - https://osv.dev/vulnerability/GHSA-6wmf-3r64-vcwv
     - https://github.com/rgrove/crass/security/advisories/GHSA-pq4g-8rxf-4g29
 notes: |
   - No CVE in GHSA URL.
