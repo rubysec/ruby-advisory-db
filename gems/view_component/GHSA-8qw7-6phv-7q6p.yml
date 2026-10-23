@@ -4,7 +4,7 @@ ghsa: 8qw7-6phv-7q6p
 url: https://github.com/ViewComponent/view_component/security/advisories/GHSA-8qw7-6phv-7q6p
 title: ViewComponent - Incomplete fix for CVE-2026-54497 — slot and
   with_content state still leak across reused component instances
-date: 2026-08-26
+date: 2026-08-28
 description: |
   ## Summary
 
