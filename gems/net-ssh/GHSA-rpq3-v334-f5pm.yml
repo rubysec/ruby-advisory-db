@@ -18,7 +18,7 @@ description: |
   least half a year) and be locked in the C call, needing to manually
   terminate the corresponding ruby process.
 patched_versions:
-  - "~> 7.3.5"
+  - "~> 7.3.5, >= 7.4.0"
   - ">= 8.0.0.rc2"
 related:
   url:

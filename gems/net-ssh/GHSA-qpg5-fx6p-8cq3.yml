@@ -71,7 +71,7 @@ description: |
   own documentation; this collapses the second into the first.
 cvss_v3: 8.0
 patched_versions:
-  - "~> 7.3.5"
+  - "~> 7.3.5, >= 7.4.0"
   - ">= 8.0.0.rc2"
 related:
   url:
