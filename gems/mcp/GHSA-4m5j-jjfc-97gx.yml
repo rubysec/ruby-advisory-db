@@ -1,0 +1,49 @@
+---
+gem: mcp
+ghsa: 4m5j-jjfc-97gx
+url: https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-4m5j-jjfc-97gx
+title: OAuth discovery security check allows SSRF to private hosts over HTTPS
+date: 2026-08-14
+description: |
+  ## SUMMARY
+
+  The OAuth client validates the server-controlled resource_metadata
+  URL before fetching it, but the check only requires HTTPS. It does
+  not block private, link-local, or cloud-metadata addresses.
+  A server can return 401 WWW-Authenticate: Bearer
+  resource_metadata="https://169.254.169.254/..." or an internal HTTPS
+  URL, and the client issues a GET to it during discovery. This is a
+  server-side request forgery against internal HTTPS services and
+  cloud metadata endpoints from the client's network position.
+
+  The check also reads only the dotted-decimal spelling of an address,
+  so the same destinations stay reachable through the numeric forms
+  the resolver accepts.
+
+  ## Impact
+
+  Server-side request forgery (CWE-918), limited to HTTPS targets. A
+  server the client connects to can make the client send GET requests
+  to internal HTTPS services and cloud metadata endpoints it can route
+  to but the attacker cannot. The request fires automatically during
+  OAuth discovery, before the user approves anything. The response
+  is schema-validated, so this is closer to a blind SSRF than a direct
+  read of the target's body, but it still allows reaching internal
+  HTTPS services, probing reachability, and triggering GET-based side
+  effects. HTTP to non-loopback hosts is already blocked, so the gap
+  is specifically HTTPS to private and metadata addresses.
+
+  A suggested fix is to extend the check so it also rejects URLs whose
+  host resolves to loopback, link-local, private, or cloud-metadata
+  ranges, and ideally require the URL to share an origin with the MCP
+  server. The scheme check alone does not prevent SSRF.
+patched_versions:
+  - ">= 1.2.0"
+related:
+  url:
+    - https://rubygems.org/gems/mcp/versions/1.2.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/releases/tag/v1.2.0
+    - https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-4m5j-jjfc-97gx
+notes: |
+  - No CVE from GHSA URL.
+  - "moderate" severity on GHSA URL, but no cvss numbers.

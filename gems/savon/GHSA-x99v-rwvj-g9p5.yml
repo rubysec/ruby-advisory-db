@@ -1,0 +1,39 @@
+---
+gem: savon
+ghsa: x99v-rwvj-g9p5
+url: https://github.com/savonrb/savon/security/advisories/GHSA-x99v-rwvj-g9p5
+title: WSDL operation named client overwrites Savon::Model internal
+  client accessor, causing unbounded recursion and SystemStackError
+date: 2026-09-09
+description: |
+  ## SUMMARY
+
+  Savon::Model#all_operations generates a class-level method for every
+  operation named in the WSDL. A WSDL operation named client normalizes
+  to the Ruby method name :client, which overwrites Savon::Model's own
+  internal client accessor, and since the generated method body itself
+  calls client.call ..., the method now calls itself forever and the
+  Ruby process dies with an unhandled SystemStackError.
+
+  ## Impact
+
+  An application that builds a Savon::Model from a WSDL it does not
+  fully control, calls all_operations, and later touches model.client
+  crashes with an unhandled SystemStackError. SystemStackError is not
+  a StandardError, so ordinary rescue blocks do not catch it and the
+  failure usually takes the worker process down. Availability only;
+  no confidentiality or integrity effect.
+patched_versions:
+  - ">= 2.17.5"
+related:
+  url:
+    - https://rubygems.org/gems/savon/versions/2.17.5
+    - https://github.com/savonrb/savon/releases/tag/v2.17.5
+    - https://github.com/savonrb/savon/blob/main/CHANGELOG.md#2175---2026-09-09
+    - https://github.com/savonrb/savon/security/advisories/GHSA-x99v-rwvj-g9p5
+notes: |
+  - No CVE from GHSA URL.
+  - GHSA URL has "Moderate" severity, but no cvss numbers.
+  - From GHSA URL: "Confirmed [vulnerability] in shipped releases
+    v2.17.1, v2.17.2 and v2.17.4, and on main HEAD
+    544bcaacd5b635f5cc888e2b9acaf55ee40be4e3."

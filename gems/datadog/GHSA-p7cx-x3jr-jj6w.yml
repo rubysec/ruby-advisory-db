@@ -1,0 +1,37 @@
+---
+gem: datadog
+ghsa: p7cx-x3jr-jj6w
+url: https://github.com/DataDog/dd-trace-rb/security/advisories/GHSA-p7cx-x3jr-jj6w
+title: ReDOS in URL query string obfuscation
+date: 2026-10-13
+description: |
+  ## SUMMARY
+
+  A regular expression used to obfuscate URL query strings can consume
+  excessive CPU when processing certain attacker-controlled input.
+  This can stall request processing and cause denial of service in
+  applications using affected HTTP tracing integrations.
+
+  ## Impact
+
+  Regular expression denial of service (ReDoS) affecting applications
+  that process attacker-controlled URL query strings through the
+  vulnerable obfuscation pattern. Successful exploitation can cause
+  excessive CPU consumption, prolonged request latency, and service
+  unavailability.
+
+  The vulnerable processing is enabled by default for affected HTTP
+  integrations that include query strings in URL span tags.
+cvss_v4: 8.7
+patched_versions:
+  - ">= 2.45.0"
+related:
+  url:
+    - https://rubygems.org/gems/datadog/versions/2.45.0
+    - https://github.com/DataDog/dd-trace-rb/releases/tag/v2.45.0
+    - https://github.com/DataDog/dd-trace-rb/pull/6441
+    - https://github.com/DataDog/dd-trace-rb/security/advisories/GHSA-p7cx-x3jr-jj6w
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
+  - date from rubygems.org URL.
