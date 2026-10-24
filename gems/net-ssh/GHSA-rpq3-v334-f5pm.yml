@@ -1,0 +1,33 @@
+---
+gem: net-ssh
+ghsa: rpq3-v334-f5pm
+url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-rpq3-v334-f5pm
+title: Parsing a specifically crafted ed25519 ssh key will lock net/ssh in DOS
+date: 2026-10-05
+description: |
+  ## Summary
+
+  When a crafted ed25519 private key is loaded which contains an insane
+  number of rounds, it will lock net/ssh in an infinite CPU-time consuming
+  loop for a very long time trying to load the key. That the key itself
+  is not a real ssh key does not matter in this regard.
+
+  ## Impact
+
+  The resulting ruby process will hang for several days (estimated at
+  least half a year) and be locked in the C call, needing to manually
+  terminate the corresponding ruby process.
+patched_versions:
+  - "~> 7.3.5, >= 7.4.0"
+  - ">= 8.0.0.rc2"
+related:
+  url:
+    - https://rubygems.org/gems/net-ssh/versions/8.0.0.rc2
+    - https://github.com/net-ssh/net-ssh/compare/v8.0.0.rc1...v8.0.0.rc2
+    - https://rubygems.org/gems/net-ssh/versions/7.3.5
+    - https://github.com/net-ssh/net-ssh/compare/v7.3.4...v7.3.5
+    - https://github.com/net-ssh/net-ssh/security/advisories/GHSA-rpq3-v334-f5pm
+notes: |
+  - date from rubygems.org URL.
+  - No CVE in GHSA URL.
+  - GHSA URL has "moderate" severity but no number.
