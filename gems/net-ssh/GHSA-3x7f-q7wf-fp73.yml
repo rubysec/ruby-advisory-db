@@ -42,7 +42,7 @@ description: |
   net-sftp API as a result of this vulnerability (though no patch
   is needed in net-sftp itself).
 patched_versions:
-  - "~> 7.3.5"
+  - "~> 7.3.5, >= 7.4.0"
   - ">= 8.0.0.rc2"
 related:
   url:
