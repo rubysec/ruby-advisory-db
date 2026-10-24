@@ -1,0 +1,32 @@
+---
+gem: net-ssh
+ghsa: pfqh-p9vh-wx4p
+url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-pfqh-p9vh-wx4p
+title: Pre-auth unbounded transport packet_size leads to memory exhaustion
+date: 2026-10-05
+description: |
+  ## Summary
+
+  net-ssh's transport packet reader trusts the 4-byte wire packet length
+  without capping it against RFC 4253 §6.1 (35000 bytes). Pre-KEX
+  (plaintext), a malicious server can declare an arbitrarily large
+  packet length and stream data, causing unbounded client memory
+  growth before authentication.
+
+  ## Credit
+
+  Reported by zhangph (afldl), 2026-07.
+patched_versions:
+  - "~> 7.3.5"
+  - ">= 8.0.0.rc2"
+related:
+  url:
+    - https://rubygems.org/gems/net-ssh/versions/8.0.0.rc2
+    - https://github.com/net-ssh/net-ssh/compare/v8.0.0.rc1...v8.0.0.rc2
+    - https://rubygems.org/gems/net-ssh/versions/7.3.5
+    - https://github.com/net-ssh/net-ssh/compare/v7.3.4...v7.3.5
+    - https://github.com/net-ssh/net-ssh/security/advisories/GHSA-pfqh-p9vh-wx4p
+notes: |
+  - date from rubygems.org URL.
+  - No CVE in GHSA URL.
+  - GHSA URL has "moderate" severity but no number.

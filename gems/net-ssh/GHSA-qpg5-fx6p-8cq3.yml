@@ -1,0 +1,86 @@
+---
+gem: net-ssh
+ghsa: qpg5-fx6p-8cq3
+url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-qpg5-fx6p-8cq3
+title: Using port forwarding silently enables server access to
+  the local SSH agent | pkg:gem/net-ssh@8.0.0.beta3
+date: 2026-10-05
+description: |
+
+  Improper authorization in net-ssh: Service::Forward#initialize
+  registers server-initiated auth-agent channel handlers unconditionally,
+  so ordinary port forwarding exposes the local SSH agent
+
+  ## Summary
+
+  Net::SSH::Service::Forward#initialize registers channel handlers for
+  the server-initiated channel types auth-agent and auth-agent@openssh.com
+  at the moment the forwarding service is instantiated, alongside the
+  expected forwarded-tcpip handler. Nothing in that registration, and
+  nothing in auth_agent_channel itself, consults options[:forward_agent]
+  or the service's own @agent_forwarded flag. A consumer that uses
+  ordinary TCP or UNIX-socket forwarding with the default forward_agent:
+  false therefore still accepts an auth-agent@openssh.com channel opened
+  by the remote server, connects to the local SSH agent, and relays raw
+  agent protocol to that server.
+
+  In a realistic consuming application, the attacker is the SSH server
+  (malicious or compromised): it controls the channel_type of the
+  CHANNEL_OPEN packets it sends, and Connection::Session#channel_open
+  dispatches any channel type that has a registered handler. No prior
+  auth-agent-req from the client is required, and no client code ever
+  asked for agent forwarding.
+
+  Related paths, for contrast:
+
+  * Client-side opt-in guard in Channel#do_open_confirmation — checks
+    connection.options[:forward_agent] before the client sends an enable
+    request (lib/net/ssh/channel.rb:534).
+
+  * The vulnerable path: incoming auth-agent / auth-agent@openssh.com
+    handlers registered independently of that guard — unguarded,
+    lib/net/ssh/service/forward.rb:25-35.
+
+  * A client that never instantiates the forwarding service — the
+    same server request is refused with CHANNEL_OPEN_FAILURE code 3,
+    "unknown channel type auth-agent@openssh.com" (observed in the
+    verification negative control).
+
+  The documented design intent is that agent forwarding is an explicit
+  opt-in: lib/net/ssh/service/forward.rb:277-289 states that agent
+  forwarding is enabled when the connection was created with
+  :forward_agent => true, while the README documents ssh.forward.local
+  independently. Port forwarding is not documented as authorizing
+  agent forwarding.
+
+  ## Impact
+
+  A malicious or compromised SSH server gains a live relay to the client's
+  local ssh-agent. It can enumerate the victim's loaded identities and
+  request signatures over attacker-chosen data, which lets it authenticate
+  onward to other hosts as the victim — using keys the victim's application
+  never intended to expose to that server. This happens while the
+  application's configuration says agent forwarding is off.
+
+  The delta versus safe behaviour: with forward_agent false and no
+  forwarding service instantiated, a server that opens an auth-agent@openssh.com
+  channel gets CHANNEL_OPEN_FAILURE and never touches the agent. Merely
+  calling ssh.forward.local (or another forwarding API) converts that
+  refusal into a working agent relay. Port forwarding and agent forwarding
+  are separate capabilities in the SSH ecosystem and in this library's
+  own documentation; this collapses the second into the first.
+cvss_v3: 8.0
+patched_versions:
+  - "~> 7.3.5"
+  - ">= 8.0.0.rc2"
+related:
+  url:
+    - https://rubygems.org/gems/net-ssh/versions/8.0.0.rc2
+    - https://github.com/net-ssh/net-ssh/compare/v8.0.0.rc1...v8.0.0.rc2
+    - https://rubygems.org/gems/net-ssh/versions/7.3.5
+    - https://github.com/net-ssh/net-ssh/compare/v7.3.4...v7.3.5
+    - https://github.com/net-ssh/net-ssh/security/advisories/GHSA-qpg5-fx6p-8cq3
+notes: |
+  - date from rubygems.org URL.
+  - No CVE in GHSA URL.
+  - cvss_v3 from GHSA URL.

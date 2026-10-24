@@ -1,0 +1,32 @@
+---
+gem: net-ssh
+ghsa: r75w-7fhp-84w8
+url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-r75w-7fhp-84w8
+title: Pre-auth unbounded banner/identification buffering DoS
+date: 2026-10-05
+description: |
+  ## Summary
+
+  Net::SSH::Transport::ServerVersion#read! appends each received byte
+  to @version (@version << b) until \n, then copies to @header
+  (@header << @version). No maximum line length or total byte cap is
+  enforced. A malicious server sending a long identification line
+  without LF causes unbounded client memory growth pre-authentication.
+
+  ## Credit
+
+  Reported by zhangph (afldl), 2026-07.
+patched_versions:
+  - "~> 7.3.5"
+  - ">= 8.0.0.rc2"
+related:
+  url:
+    - https://rubygems.org/gems/net-ssh/versions/8.0.0.rc2
+    - https://github.com/net-ssh/net-ssh/compare/v8.0.0.rc1...v8.0.0.rc2
+    - https://rubygems.org/gems/net-ssh/versions/7.3.5
+    - https://github.com/net-ssh/net-ssh/compare/v7.3.4...v7.3.5
+    - https://github.com/net-ssh/net-ssh/security/advisories/GHSA-r75w-7fhp-84w8
+notes: |
+  - date from rubygems.org URL.
+  - No CVE in GHSA URL.
+  - GHSA URL has "moderate" severity but no number.

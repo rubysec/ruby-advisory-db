@@ -1,0 +1,61 @@
+---
+gem: net-ssh
+ghsa: 3x7f-q7wf-fp73
+url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-3x7f-q7wf-fp73
+title: Shell injection via unescaped substitution in ProxyCommand
+  and ProxyJump command templates in net-ssh
+date: 2026-10-05
+description: |
+  ## Summary
+
+  AI Disclosure: I discovered this vulnerability using Claude to scan
+  the repository, and have verified its work myself. This vulnerability
+  report was drafted with help from Claude, and heavily revised by me.
+
+  Shell command injection is possible in Net::SSH::Proxy::Command and
+  Net::SSH::Proxy::Jump. When an application configures a proxy and
+  passes an attacker-influenced host, port, or remote_user to
+  Net::SSH.start (or jump string to Proxy::Jump.new), shell metacharacters
+  in those values are interpreted by /bin/sh, allowing arbitrary
+  command execution on the SSH client machine with the same privileges
+  as the Ruby process.
+
+  This is similar to OpenSSH's CVE-2023-51385 (ProxyCommand/%h/%n command
+  injection), which OpenSSH 9.6 fixed by rejecting hostnames/usernames
+  containing shell metacharacters.
+
+  net-ssh does no similar validation or escaping on these values.
+
+  ## Impact
+
+  This is hopefully not a common use-case / configuration that would be
+  abusable in production applications, but it seems worth fixing regardless.
+
+  This exploit allows arbitrary command execution on the client running
+  net-ssh. Requires that the application (1) configures a Proxy::Command
+  or Proxy::Jump and (2) passes attacker-influenced host/port/remote_user
+  (or jump string) without the client's own additional sanitization.
+  net-ssh is a transitive dependency of Capistrano, Chef, Vagrant, etc,
+  which seem the most likely to be exposed to a vulnerability like this.
+
+  ## net-sftp Too:
+
+  net-sftp is also affected: Net::SFTP.start(host, user, ssh_options)
+  forwards host and ssh_options (including :proxy) verbatim to
+  Net::SSH.start, so the same injection is reachable through the
+  net-sftp API as a result of this vulnerability (though no patch
+  is needed in net-sftp itself).
+patched_versions:
+  - "~> 7.3.5"
+  - ">= 8.0.0.rc2"
+related:
+  url:
+    - https://rubygems.org/gems/net-ssh/versions/8.0.0.rc2
+    - https://github.com/net-ssh/net-ssh/compare/v8.0.0.rc1...v8.0.0.rc2
+    - https://rubygems.org/gems/net-ssh/versions/7.3.5
+    - https://github.com/net-ssh/net-ssh/compare/v7.3.4...v7.3.5
+    - https://github.com/net-ssh/net-ssh/security/advisories/GHSA-3x7f-q7wf-fp73
+notes: |
+  - date from rubygems.org URL.
+  - No CVE in GHSA URL.
+  - GHSA URL has "moderate" severity but no number.
