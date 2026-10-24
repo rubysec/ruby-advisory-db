@@ -8,10 +8,6 @@ date: 2026-10-05
 description: |
   ## Summary
 
-  AI Disclosure: I discovered this vulnerability using Claude to scan
-  the repository, and have verified its work myself. This vulnerability
-  report was drafted with help from Claude, and heavily revised by me.
-
   Shell command injection is possible in Net::SSH::Proxy::Command and
   Net::SSH::Proxy::Jump. When an application configures a proxy and
   passes an attacker-influenced host, port, or remote_user to
