@@ -1,0 +1,45 @@
+---
+gem: ransack
+ghsa: j3f8-w227-4hh8
+url: https://github.com/activerecord-hackery/ransack/security/advisories/GHSA-j3f8-w227-4hh8
+title: Ransack - quadratic-time parsing of a single search key
+  enables unauthenticated CPU-exhaustion DoS
+date: 2026-09-22
+description: |
+  ## SUMMARY
+
+  A single Ransack search key is parsed in time quadratic in the number
+  of _-separated segments it contains. The number of segments is
+  attacker-controlled (it is just the length of the key in the query
+  string), and Rack does not limit the length of an individual parameter
+  key, so one crafted request can burn seconds of CPU on a web worker.
+  A handful of concurrent requests exhausts the worker pool, giving
+  an unauthenticated, low-complexity denial of service on any endpoint
+  that calls ransack.
+
+  This is the same class of issue as GHSA-vxc9-rm8f-p56j (crafted params
+  -> resource exhaustion), on a different code path.
+
+  ## Impact
+
+  Unauthenticated denial of service via CPU exhaustion against any
+  application exposing a Ransack search endpoint (the common case).
+  Low attack complexity, no privileges, availability impact only.
+
+  ## Credit
+
+  Found during a security audit of the project.
+patched_versions:
+  - "~> 4.4.3"
+  - "~> 5.0.2"
+  - ">= 6.0.0"
+related:
+  url:
+    - https://rubygems.org/gems/ransack/versions/5.0.1
+    - https://github.com/activerecord-hackery/ransack/releases/tag/v5.0.1
+    - https://rubygems.org/gems/ransack/versions/4.4.2
+    - https://github.com/activerecord-hackery/ransack/releases/tag/v4.4.2
+    - https://github.com/activerecord-hackery/ransack/security/advisories/GHSA-j3f8-w227-4hh8
+notes: |
+  - GHSA URL had "High" severity.
+  - No CVE in GHSA URL.
