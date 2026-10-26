@@ -1,0 +1,46 @@
+---
+gem: sanitize
+ghsa: wgw9-qhqg-8hv5
+url: https://github.com/rgrove/sanitize/security/advisories/GHSA-wgw9-qhqg-8hv5
+title: CSS property and URL allowlists can be bypassed via
+  CSS nesting in stylesheets
+date: 2026-10-21
+description: |
+  ## SUMMARY
+
+  When Sanitize is configured to allow <style> elements, when
+  Sanitize::CSS#stylesheet or Sanitize::CSS#tree! is used to sanitize
+  a stylesheet directly, or when the output of Sanitize::CSS#properties
+  is embedded inside a style rule in a stylesheet, an attacker can
+  bypass Sanitize's CSS property allowlist and URL protocol allowlist.
+  This is possible because Sanitize doesn't parse stylesheets the way
+  browsers that implement CSS Nesting (current versions of all major
+  browsers) do.
+
+  ## Impact
+
+  Because the attacker also controls the selector that the smuggled
+  declarations apply to, an attacker could:
+
+  Apply arbitrary CSS properties to elements on the page, such as
+  overlaying content to mislead users into clicking something (UI redressing).
+
+  Cause the user's browser to load resources from URLs that the CSS
+  protocol allowlist was meant to block. Combined with attribute
+  selectors, this could be used to exfiltrate data from the page,
+  such as the values of form inputs.
+
+  This issue does not allow script execution.
+cvss_v4: 5.3
+unaffected_versions:
+  - "< 3.0.0"
+patched_versions:
+  - ">= 7.0.1"
+related:
+  url:
+    - https://rubygems.org/gems/sanitize/versions/7.0.1
+    - https://github.com/rgrove/sanitize/blob/main/CHANGELOG.md#701-2026-10-21
+    - https://github.com/rgrove/sanitize/security/advisories/GHSA-wgw9-qhqg-8hv5
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
