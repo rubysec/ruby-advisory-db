@@ -1,0 +1,33 @@
+---
+gem: net-ssh
+ghsa: ggxh-cfwq-5xqc
+url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-ggxh-cfwq-5xqc
+title: Pre-auth unbounded KEX packet queue leads to memory exhaustion
+date: 2026-10-05
+description: |
+  ## Summary
+
+  Net::SSH::Transport::Session#poll_message pushes every packet received
+  during key exchange that is not on the "allowed during KEX" list into
+  an unbounded @queue (Array), with no size cap. A malicious server
+  that completes KEXINIT (putting net-ssh into pending KEX) and then
+  floods non-allowed packet types causes the client to queue all of
+  them — a pre-authentication memory-exhaustion DoS.
+
+  ## Credit
+
+  Reported by zhangph (afldl), 2026-07.
+patched_versions:
+  - "~> 7.3, >= 7.3.5"
+  - ">= 8.0.0.rc2"
+related:
+  url:
+    - https://rubygems.org/gems/net-ssh/versions/8.0.0.rc2
+    - https://github.com/net-ssh/net-ssh/compare/v8.0.0.rc1...v8.0.0.rc2
+    - https://rubygems.org/gems/net-ssh/versions/7.3.5
+    - https://github.com/net-ssh/net-ssh/compare/v7.3.4...v7.3.5
+    - https://github.com/net-ssh/net-ssh/security/advisories/GHSA-ggxh-cfwq-5xqc
+notes: |
+  - date from rubygems.org URL.
+  - No CVE in GHSA URL.
+  - GHSA URL has "moderate" severity but no number.

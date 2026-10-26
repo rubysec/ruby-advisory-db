@@ -1,0 +1,61 @@
+---
+gem: net-ssh
+ghsa: vxj5-fg65-x765
+url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-vxj5-fg65-x765
+title: net-ssh - SSH host-certificate authentication bypass — @cert-authority
+  verifier skips valid_principals / validity window / cert type /
+  critical options, so any CA-signed cert impersonates any host
+  trusting that CA (CWE-295)
+date: 2026-10-04
+description: |
+  ## SUMMARY
+
+  net-ssh's host-certificate verifier
+  (Net::SSH::HostKeyEntries::CertAuthority#matches_key?)
+
+  checks exactly two things when a server presents an OpenSSH certificate
+  (*-cert-v01@openssh.com) under a @cert-authority trusted-CA entry:
+  (1) the cert is self-consistently signed (signature_valid?), and
+  (2) its embedded signature_key equals the trusted CA key. It performs none
+  of the checks OpenSSH applies in sshkey_cert_check_authority:
+
+  * valid_principals is never matched against the target host/IP,
+  * the validity window (valid_after / valid_before) is never checked,
+  * the cert type is never verified to be a HOST cert (a :user cert
+    is accepted),
+  * critical_options are never enforced.
+
+  Those fields are parsed by Certificate.read_certblob but never read
+  by the verifier. The practical consequence: anyone who holds any
+  certificate signed by a CA the victim trusts for host H can impersonate
+  H — even if their cert was issued for a different principal, is expired,
+  or is a user certificate. This is an authentication bypass (not a DoS):
+  after matches_key? returns true the exchange-hash signature is verified
+  against the cert's underlying public key, which the attacker possesses
+  (it is their cert), so the attacker is authenticated as H and owns the
+  post-auth channel (capturing any credentials the client sends).
+
+  Reachable by default: *-cert-v01@openssh.com types head
+  DEFAULT_ALGORITHMS[:host_key] and @cert-authority host-certificate
+  trust is a documented, supported feature.
+
+  ## Credit
+
+  Reported by zhangph (GitHub afldl), 2026-08.
+cvss_v3: 8.1
+unaffected_versions:
+  - "< 6.3.0"
+patched_versions:
+  - "~> 7.3, >= 7.3.4"
+  - ">= 8.0.0.beta3"
+related:
+  url:
+    - https://rubygems.org/gems/net-ssh/versions/8.0.0.beta3
+    - https://github.com/net-ssh/net-ssh/compare/v7.3.3...v8.0.0.beta3
+    - https://rubygems.org/gems/net-ssh/versions/7.3.4
+    - https://github.com/net-ssh/net-ssh/compare/v7.3.3...v7.3.4
+    - https://github.com/net-ssh/net-ssh/security/advisories/GHSA-vxj5-fg65-x765
+notes: |
+  - date from rubygems.org URL.
+  - No CVE in GHSA URL.
+  - cvss_v3 from GHSA URL.
