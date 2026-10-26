@@ -3,7 +3,7 @@ gem: net-ssh
 ghsa: qpg5-fx6p-8cq3
 url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-qpg5-fx6p-8cq3
 title: Using port forwarding silently enables server access to
-  the local SSH agent | pkg:gem/net-ssh@8.0.0.beta3
+  the local SSH agent
 date: 2026-10-05
 description: |
 
