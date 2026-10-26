@@ -1,0 +1,56 @@
+---
+gem: avo
+ghsa: x65r-p6hf-94hv
+url: https://github.com/avo-hq/avo/security/advisories/GHSA-x65r-p6hf-94hv
+title: Missing authorization on Avo association show endpoint
+  exposes related records
+date: 2026-10-22
+description: |
+  ## SUMAMRY
+
+  GET /resources/:resource_name/:id/:related_name/:related_id shows
+  one record through its parent, for example /resources/users/42/orders/7.
+  That route checked no policy: not the related resource's show?, not
+  its policy scope, and not the parent's view_<association>?. A signed-in
+  Avo user who could open a parent record could open every record
+  associated with it, including records the related resource's policy
+  denied them. has_one fields on show pages load their content through
+  the same route.
+
+  This affects apps that authorize with a policy client: avo-authorization
+  on Avo 4, avo-pro on Avo 3. Without one, Avo runs no policies, by design.
+
+  The route has lacked this check since avo 2.12.0.
+
+  ## Impact
+
+  The prerequisite is an authenticated Avo session with a configured
+  authorization provider (for example Pundit policies, the documented
+  and expected production setup where explicit_authorization defaults
+  to true). Within that setup, an attacker needs only scope access to
+  a parent record, which is the normal baseline for any authenticated
+  user (for example their own user record). From there they can request
+  the show view of any record associated with that parent, even when
+  the related resource's show? policy would otherwise deny access.
+  The demonstrated capability is unauthorized read of all show-visible
+  fields of the related record. The severity of the exposure depends
+  on the sensitivity of fields configured on the related resource (for
+  example tokens, financial fields, or personal data), since those
+  fields are rendered in the show view. This is a read-only exposure;
+  it does not by itself allow modification of data.
+cvss_v3: 6.5
+unaffected_versions:
+  - "< 2.12.0"
+patched_versions:
+  - "~> 3.33.2"
+  - ">= 4.3.4"
+related:
+  url:
+    - https://rubygems.org/gems/avo/versions/4.3.4
+    - https://github.com/avo-hq/avo/releases/tag/v4.3.4
+    - https://rubygems.org/gems/avo/versions/3.33.2
+    - https://github.com/avo-hq/avo/releases/tag/v3.33.2
+    - https://github.com/avo-hq/avo/security/advisories/GHSA-x65r-p6hf-94hv
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 from GHSA URL.

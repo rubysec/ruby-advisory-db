@@ -1,0 +1,43 @@
+---
+gem: ransack
+ghsa: vxc9-rm8f-p56j
+url: https://github.com/activerecord-hackery/ransack/security/advisories/GHSA-vxc9-rm8f-p56j
+title: Ransack has a memory-exhaustion DoS via unbounded
+  attribute position field in query params
+date: 2026-09-22
+description: |
+  ## SUMMARY
+
+  Ransack has a memory-exhaustion DoS via unbounded attribute
+  position field in query params
+
+  ## Impact
+
+  This is (assuming any Ransack-using endpoint is accessible without
+  auth, or any endpoint that performs a query before checking auth)
+  an unauthenticated, low-complexity denial of service attack via
+  memory exhaustion.
+
+  Any application that exposes a Ransack-backed search endpoint to
+  untrusted input (which would be most of them) is affected. A single
+  crafted request crashes the worker process serving it, and the
+  attack depends on very minimal knowledge of the schema, and is not
+  mitigated by any Rails best practices (strong params, ransack
+  attribute whitelisting, etc.) that I am aware of.
+
+  All versions of Ransack since the initial release until the patch
+  which mitigates it are vulnerable to this problem.
+cvss_v3: 7.5
+patched_versions:
+  - "~> 4.4.2"
+  - ">= 5.0.1"
+related:
+  url:
+    - https://rubygems.org/gems/ransack/versions/5.0.1
+    - https://github.com/activerecord-hackery/ransack/releases/tag/v5.0.1
+    - https://rubygems.org/gems/ransack/versions/4.4.2
+    - https://github.com/activerecord-hackery/ransack/releases/tag/v4.4.2
+    - https://github.com/activerecord-hackery/ransack/security/advisories/GHSA-vxc9-rm8f-p56j
+notes: |
+  - cvss_v3 from GHSA URL.
+  - No CVE in GHSA URL.

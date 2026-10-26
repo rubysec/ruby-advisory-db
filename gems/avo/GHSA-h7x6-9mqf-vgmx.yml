@@ -1,0 +1,53 @@
+---
+gem: avo
+ghsa: h7x6-9mqf-vgmx
+url: https://github.com/avo-hq/avo/security/advisories/GHSA-h7x6-9mqf-vgmx
+title: Global Avo.configuration.locale mutation via
+  params[:set_locale] (process-wide state poisoning)
+date: 2026-10-22
+description: |
+  ## SUMAMRY
+
+  ?set_locale= wrote the request's value into Avo.configuration.locale,
+  a setting shared by every request the Ruby process serves. It did
+  so before Avo's authenticate block ran.
+
+  * An unknown locale (?set_locale=zz) was stored, and every later Avo
+    request from every user raised I18n::InvalidLocale (HTTP 500) until
+    the process restarted.
+
+  * A valid locale changed the admin language for every user.
+
+  * In apps that authenticate through config.authenticate_with rather
+    than a route constraint, both worked without signing in.
+
+  ## Impact
+
+  * Persistent corruption of the application-wide locale setting. The most
+    direct fallout is that translation lookups using Avo.configuration.locale
+    (rather than per-request I18n.locale) return missing-translation strings
+    or fall back unpredictably for every user.
+
+  * More importantly, this is a confidentiality-and-integrity-grade bug
+    pattern: query string params should not write to global singletons.
+    Any future code that reads Avo.configuration.locale (e.g. for caching
+    keys, log routing, default behavior) inherits the corruption automatically.
+
+  * Combining locale corruption with params[:force_locale] (set_force_locale)
+    and other I18n.with_locale paths can be used to force missing-translation
+    behavior for other admins (denial-of-service of the UI for the
+    attacker's chosen scope).
+cvss_v3: 8.2
+patched_versions:
+  - "~> 3.33.1"
+  - ">= 4.3.1"
+related:
+  url:
+    - https://rubygems.org/gems/avo/versions/4.3.1
+    - https://github.com/avo-hq/avo/releases/tag/v4.3.1
+    - https://rubygems.org/gems/avo/versions/3.33.1
+    - https://github.com/avo-hq/avo/releases/tag/v3.33.1
+    - https://github.com/avo-hq/avo/security/advisories/GHSA-h7x6-9mqf-vgmx
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 from GHSA URL.
