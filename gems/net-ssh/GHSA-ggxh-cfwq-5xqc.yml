@@ -18,7 +18,7 @@ description: |
 
   Reported by zhangph (afldl), 2026-07.
 patched_versions:
-  - "~> 7.3.5, >= 7.4.0"
+  - "~> 7.3, >= 7.3.5"
   - ">= 8.0.0.rc2"
 related:
   url:
