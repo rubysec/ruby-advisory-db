@@ -6,7 +6,6 @@ title: Using port forwarding silently enables server access to
   the local SSH agent
 date: 2026-10-05
 description: |
-
   Improper authorization in net-ssh: Service::Forward#initialize
   registers server-initiated auth-agent channel handlers unconditionally,
   so ordinary port forwarding exposes the local SSH agent
