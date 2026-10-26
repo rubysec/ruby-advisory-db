@@ -20,8 +20,8 @@ description: |
   excessive CPU consumption, prolonged request latency, and service
   unavailability.
 
-  The vulnerable processing is enabled by default for affected HTTP
-  integrations that include query strings in URL span tags.
+  Only Ruby versions below 3.2 are affected, and the query obfuscation
+  feature is disabled by default.
 cvss_v4: 8.7
 patched_versions:
   - ">= 2.45.0"
