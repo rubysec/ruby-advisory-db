@@ -37,6 +37,8 @@ description: |
   host resolves to loopback, link-local, private, or cloud-metadata
   ranges, and ideally require the URL to share an origin with the MCP
   server. The scheme check alone does not prevent SSRF.
+unaffected_versions:
+  - "< 0.17.0"
 patched_versions:
   - ">= 1.2.0"
 related:
