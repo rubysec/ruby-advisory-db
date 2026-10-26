@@ -39,8 +39,6 @@ description: |
   server. The scheme check alone does not prevent SSRF.
 unaffected_versions:
   - "< 0.17.0"
-unaffected_versions:
-  - "< 0.17.0"
 patched_versions:
   - ">= 1.2.0"
 related:
