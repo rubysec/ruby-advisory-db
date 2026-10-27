@@ -1,0 +1,42 @@
+---
+gem: sqlite3
+ghsa: 4fqr-96q8-xrfx
+url: https://github.com/sparklemotion/sqlite3-ruby/security/advisories/GHSA-4fqr-96q8-xrfx
+title: Possible SQL query truncation when a string is 4 GiB or larger
+date: 2026-10-26
+description: |
+  sqlite3-ruby cast Ruby string lengths (long) to int before passing
+  them to SQLite. On 64-bit platforms, a string of 4 GiB (2^32 bytes)
+  or larger had its length wrap, so SQLite saw only the first length
+  mod 2^32 bytes. An attacker who controls the length of a SQL string
+  could truncate the query, for example dropping a trailing WHERE
+  clause. The affected paths are:
+
+  * the SQL passed to Database#prepare, #execute, and related methods
+  * String and Blob values passed to Statement#bind_param and related methods
+  * String and Blob values returned from SQL functions and aggregates
+    defined in Ruby (Database#create_function, #create_aggregate, and
+    related methods)
+
+  ## AFTER PATCH
+
+  sqlite3 v2.10.2 raises RangeError when any of these strings is
+  longer than INT_MAX bytes.
+
+  ## Credit
+
+  This issue was responsibly reported by Luke Jahnke from elttam.
+cvss_v3: 4.8
+patched_versions:
+  - ">= 2.10.2"
+related:
+  url:
+    - https://rubygems.org/gems/sqlite3/versions/2.10.2
+    - https://github.com/sparklemotion/sqlite3-ruby/releases/tag/v2.10.2
+    - https://github.com/sparklemotion/sqlite3-ruby/pull/762
+    - https://github.com/sparklemotion/sqlite3-ruby/blob/main/CHANGELOG.md#2102--2026-10-26
+    - https://github.com/sparklemotion/sqlite3-ruby/security/advisories/GHSA-4fqr-96q8-xrfx
+notes: |
+  - cvss_v3 from GHSA URL.
+  - No CVE in GHSA URL.
+  - NOTE: gem name is "sqlite3" and repo name is "sqlite3-ruby".
