@@ -1,0 +1,63 @@
+---
+gem: alchemy_cms
+ghsa: v6px-36qm-x844
+url: https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-v6px-36qm-x844
+title: Client-Side Code Execution via CSV Formula Injection in Resource Exports
+date: 2026-09-04
+description: |
+  Alchemy's admin resource CSV exports
+  (app/views/alchemy/admin/resources/index.csv.erb) write every exported
+  attribute value into the file without neutralizing spreadsheet formula
+  characters (<%== csv %>). A single template backs the CSV export of every
+  Alchemy resource, so the vector is not limited to tag names: any
+  attribute a lower-privileged user can edit is exported verbatim,
+  including attributes of custom resources that host applications
+  register with Alchemy.
+
+  Tag names are the most accessible instance. Author- and Editor-level
+  users freely set tags on elements, pictures and attachments, and
+  Gutentag stores them verbatim. When an Administrator downloads a
+  resource export, every cell beginning with =, +, -, @, TAB (0x09),
+  CR (0x0D), LF (0x0A) or the full-width variants ＝, ＋, －, ＠
+  becomes a live formula the moment the file is opened in Excel,
+  LibreOffice, or any compatible engine.
+
+  ## Impact
+
+  A low-privileged content editor achieves formula execution in the
+  spreadsheet application of privileged users — outside the CMS, but
+  reached entirely through it.
+
+  Scored tier (no consent required). Plain formulas evaluate silently
+  on open. Formulas of the WEBSERVICE and HYPERLINK class can exfiltrate
+  workbook contents — administrator-exported CMS data — to an
+  attacker-controlled host with no dialog.
+
+  Conditional escalation (not reflected in the score). DDE payloads
+  such as =CMD|'/C calc.exe'!A0 (comma-free, since tag lists split on
+  commas) can launch operating-system commands, but only where the
+  victim accepts the linking prompt and DDE has not been disabled by
+  policy. Modern Office restricts DDE by default, so this tier is
+  deliberately excluded from the CVSS score.
+
+  Server-side impact: none. The application only stores and streams
+  bytes; the serving path performs no evaluation.
+
+  Blast radius. Every staff member who exports and opens resource data.
+  Exports regenerate on demand, so a payload persists until the
+  offending record is corrected.
+cvss_v3: 7.6
+unaffected_versions:
+  - "< 2.6.0"
+patched_versions:
+  - ">= 8.3.9"
+related:
+  url:
+    - https://rubygems.org/gems/alchemy_cms/versions/8.3.9
+    - https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v8.3.9
+    - https://github.com/AlchemyCMS/alchemy_cms/pull/4222
+    - https://github.com/AlchemyCMS/alchemy_cms/commit/66affd7af9b1e3963235ab257383e2023f2d97b8
+    - https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-v6px-36qm-x844
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 from GHSA URL.
