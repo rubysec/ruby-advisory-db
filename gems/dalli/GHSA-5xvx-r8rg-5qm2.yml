@@ -1,0 +1,70 @@
+---
+gem: dalli
+ghsa: 5xvx-r8rg-5qm2
+url: https://github.com/petergoldstein/dalli/security/advisories/GHSA-5xvx-r8rg-5qm2
+title: A quiet block, an interrupted get_multi, or a value containing CR/LF
+  can return another key's value
+date: 2026-10-28
+description: |
+  Three ways a connection can get out of step with memcached, so that a
+  request reads the reply meant for a different request. Reads can then
+  return another key's value, which can expose one user's cached data to
+  another.
+
+  1. A `quiet` (or `multi`) block on one thread or fiber. memcached still
+     replies to a quiet request that fails, for example an `add` of a key
+     that already exists. If another thread or fiber uses the same
+     `Dalli::Client` while the block is open, its next request reads that
+     reply as its own. This happens with the default options and a client
+     shared across threads or fibers. Clients on 5.2 with
+     `defer_drain: true` aren't affected. It affects every supported line,
+     with both protocols; with the binary protocol (3.2 and 4.3) the
+     connection stays out of step even after the block ends.
+
+  2. A pipelined `get_multi` interrupted by a non-network exception (its
+     block raising or breaking, `Timeout.timeout`, or a value that can't be
+     deserialized). A later `get_multi` large enough to use the interleaved
+     path parses the old replies first and leaves its own on the
+     connection. It affects 4.3 and later.
+
+  3. A value containing CR/LF, on 3.2 with `protocol: :meta`. 3.2's meta
+     protocol read a value up to the first CRLF instead of by its size, so
+     a stored value containing a crafted reply was returned for a later
+     read of a different key, possibly with flags that cause it to be
+     deserialized (Marshal by default). It affects 3.2.0 to 3.2.14 with
+     `protocol: :meta`.
+
+  ### Workarounds
+
+  - Don't share a client across threads or fibers while using
+    `quiet`/`multi`; use a connection pool. On 5.2, `defer_drain: true`
+    avoids the first issue.
+  - Avoid raising or breaking out of a `get_multi` block, and avoid
+    wrapping `get_multi` in `Timeout.timeout`.
+  - On 3.2, use the binary protocol (the default).
+patched_versions:
+  - "~> 3.2.15"
+  - "~> 4.3.9"
+  - "~> 5.0.12"
+  - "~> 5.1.6"
+  - ">= 5.2.4"
+related:
+  url:
+    - https://github.com/petergoldstein/dalli/security/advisories/GHSA-5xvx-r8rg-5qm2
+    - https://github.com/petergoldstein/dalli/commit/322a496
+    - https://github.com/petergoldstein/dalli/commit/0a34a51
+    - https://rubygems.org/gems/dalli/versions/5.2.4
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.2.4
+    - https://rubygems.org/gems/dalli/versions/5.1.6
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.1.6
+    - https://rubygems.org/gems/dalli/versions/5.0.12
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.0.12
+    - https://rubygems.org/gems/dalli/versions/4.3.9
+    - https://github.com/petergoldstein/dalli/releases/tag/v4.3.9
+    - https://rubygems.org/gems/dalli/versions/3.2.15
+    - https://github.com/petergoldstein/dalli/releases/tag/v3.2.15
+notes: |
+  - No CVE in GHSA.
+     - "A CVE has been requested through GitHub but not yet
+        assigned, so the entry has no cve: field."
+  - No CVSS score in GHSA; GitHub severity is high.
