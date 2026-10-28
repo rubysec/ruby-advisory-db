@@ -1,0 +1,63 @@
+---
+gem: dalli
+ghsa: r47x-6p6r-mvcp
+url: https://github.com/petergoldstein/dalli/security/advisories/GHSA-r47x-6p6r-mvcp
+title: Keys created by incr or decr can forge get_multi replies
+date: 2026-10-27
+description: |
+  With the meta protocol, Dalli sends keys containing whitespace, control
+  characters or non-ASCII characters base64-encoded. When `incr` or `decr`
+  is called with an initial value and the key doesn't exist yet, memcached
+  (verified with 1.6.45) creates the item under the decoded, raw key bytes
+  and later echoes those raw bytes in `mg` replies. Dalli's pipelined
+  `get_multi` parser trusted that echoed key, so a key containing CRLF
+  split the reply header and the rest of the key was parsed as further
+  replies. With a crafted key in the same `get_multi` batch, the block form
+  of `get_multi`, `get_multi_cas`, and multi-server `get_multi` returned an
+  attacker-chosen value for another requested key, which may then be
+  deserialized with the configured serializer (Marshal by default).
+
+  Preconditions: an attacker-controlled key passed to `incr` or `decr` with
+  an initial value, and later fetched with `get_multi` together with other
+  keys. Rails' MemCacheStore escapes such characters in keys before they
+  reach Dalli.
+
+  Affected: the meta protocol, 3.2.0 and later and 4.x with
+  `protocol: :meta`, and all of 5.x.
+
+  The fixed versions create such counters with an add instead of
+  auto-create. The new opt-in `verify_reply_keys` option makes multi-gets
+  ignore replies for keys they didn't request, guarding against items
+  created by earlier versions or other clients.
+
+  ### Workarounds
+
+  Keep untrusted input out of keys passed to `incr`/`decr` with an initial
+  value (for example, hash it), or don't pass an initial value.
+unaffected_versions:
+  - "< 3.2.0"
+patched_versions:
+  - "~> 3.2.14"
+  - "~> 4.3.8"
+  - "~> 5.0.11"
+  - "~> 5.1.5"
+  - ">= 5.2.3"
+related:
+  url:
+    - https://github.com/petergoldstein/dalli/security/advisories/GHSA-r47x-6p6r-mvcp
+    - https://github.com/petergoldstein/dalli/commit/738215b
+    - https://rubygems.org/gems/dalli/versions/5.2.3
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.2.3
+    - https://rubygems.org/gems/dalli/versions/5.1.5
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.1.5
+    - https://rubygems.org/gems/dalli/versions/5.0.11
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.0.11
+    - https://rubygems.org/gems/dalli/versions/4.3.8
+    - https://github.com/petergoldstein/dalli/releases/tag/v4.3.8
+    - https://rubygems.org/gems/dalli/versions/3.2.14
+    - https://github.com/petergoldstein/dalli/releases/tag/v3.2.14
+notes: |
+  - No CVE in GHSA.
+     - "A CVE has been requested through GitHub but not yet
+        assigned, so the entry has no cve: field."
+  - No CVSS score in GHSA; GitHub severity is high.
