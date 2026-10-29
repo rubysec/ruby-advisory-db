@@ -1,0 +1,47 @@
+---
+gem: rubyntlm
+ghsa: cx24-f932-rr55
+url: https://github.com/WinRb/rubyntlm/security/advisories/GHSA-cx24-f932-rr55
+title: NTLMv2 authentication bypass - Type3#password? ignores its
+  password argument and verifies every message against the
+  empty password
+date: 2026-09-09
+description: |
+  Type3#password? ignores its password argument on the NTLMv2 path
+  and verifies the message against a blank password instead.
+
+  An application using password? to check NTLMv2 credentials will
+  accept any client that sends an empty password for a username it
+  knows, and will reject that account's real password. Knowing a
+  valid username is enough to authenticate as that user.
+
+  ## Impact
+
+  Authentication bypass (CWE-303). An application verifying NTLMv2
+  credentials with Type3#password? can be authenticated to by anyone
+  who knows a valid username. The application doesn't have to misuse
+  the API — password? is public, documented, and the only server-side
+  check the gem offers.
+
+  I couldn't identify a caller in the ecosystem. rack-ntlm's README
+  says it only verifies that the user exists in AD and doesn't bind
+  as that user, and ruby_smb does its own comparison with
+  Net::NTLM.ntlm_hash. The only caller inside the gem is
+  blank_password?, which passes '' and is unaffected.
+
+  Anyone who had adopted the API would likely have noticed early, since
+  real passwords are rejected as well as empty ones being accepted.
+cvss_v4: 9.3
+unaffected_versions:
+  - "< 0.5.0"
+patched_versions:
+  - ">= 0.6.6"
+related:
+  url:
+    - https://rubygems.org/gems/rubyntlm/versions/0.6.6
+    - https://github.com/WinRb/rubyntlm/releases/tag/v0.6.6
+    - https://github.com/winrb/rubyntlm/blob/main/CHANGELOG.md#066-2026-09-09
+    - https://github.com/WinRb/rubyntlm/security/advisories/GHSA-cx24-f932-rr55
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v4 from GHSA URL.
