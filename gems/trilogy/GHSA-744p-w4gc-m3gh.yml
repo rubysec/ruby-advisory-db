@@ -1,0 +1,36 @@
+---
+gem: trilogy
+ghsa: 744p-w4gc-m3gh
+url: https://github.com/trilogy-libraries/trilogy/security/advisories/GHSA-744p-w4gc-m3gh
+title: SQL injection through `Trilogy#escape` with multibyte encodings
+date: 2026-10-29
+description: |
+  Trilogy#escape produces unsafe output for Strings in Shift_JIS,
+  Windows-31J, Big5, GBK or GB18030. In those encodings, the continuation
+  byte of a multi byte character can be in the ASCII range. escape was
+  intended for strict ASCII supersets and did not handle this correctly,
+  which allowed SQL injection.
+
+  ## Impact
+
+  Unauthenticated SQL injection in applications that escape
+  attacker-influenced Strings with Trilogy#escape. Ruby on Rails and
+  other Rack applications using the Trilogy adapter are likely affected.
+
+  ##  Credit
+
+  Discovered by Anthropic's OSS Scanner, as vulnerability ANT-2026-9KOHJMNW
+cvss_v4: 9.3
+patched_versions:
+  - ">= 2.13.2"
+related:
+  url:
+    - https://rubygems.org/gems/trilogy/versions/2.13.2
+    - https://github.com/trilogy-libraries/trilogy/compare/v2.13.1...v2.13.2
+    - https://github.com/anthropics/oss-scanner
+    - https://greg.molnar.io/blog/sql-injection-in-the-trilogy-mysql-adapter
+    - https://discuss.rubyonrails.org/t/ghsa-744p-w4gc-m3gh-sql-injection-through-trilogy-escape-with-multibyte-encodings/91797
+    - https://github.com/trilogy-libraries/trilogy/security/advisories/GHSA-744p-w4gc-m3gh
+notes: |
+  - cvss_v4 from GHSA URL.
+  - No CVE in GHSA URL.
