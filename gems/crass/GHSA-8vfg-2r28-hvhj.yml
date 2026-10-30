@@ -1,5 +1,6 @@
 ---
 gem: crass
+cve: 2026-61848
 ghsa: 8vfg-2r28-hvhj
 url: https://github.com/rgrove/crass/security/advisories/GHSA-8vfg-2r28-hvhj
 title: Non-ASCII characters cause superlinear CPU consumption
@@ -17,9 +18,14 @@ patched_versions:
   - ">= 1.0.7"
 related:
   url:
+    - https://www.cve.org/CVERecord?id=CVE-2026-61848
     - https://rubygems.org/gems/crass/versions/1.0.7
     - https://github.com/rgrove/crass/releases/tag/v1.0.7
     - https://github.com/rgrove/crass/blob/v1.0.7/HISTORY.md#107-2026-06-25
+    - http://github.com/rgrove/crass/commit/da29664648bf80a97a6439e030a4814291c9afa5
+    - https://advisories.gitlab.com/gem/crass/CVE-2026-61848
     - https://github.com/rgrove/crass/security/advisories/GHSA-8vfg-2r28-hvhj
+    - https://github.com/advisories/GHSA-8vfg-2r28-hvhj
 notes: |
-  - No CVE, but not published so no non-GHSA cvss values.
+  - cvss_v4 from GHSA URL.
+  - CVE from GHSA URL, reserved but not published.

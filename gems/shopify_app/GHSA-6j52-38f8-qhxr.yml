@@ -1,5 +1,6 @@
 ---
 gem: shopify_app
+cve: 2026-63414
 ghsa: 6j52-38f8-qhxr
 url: https://github.com/Shopify/shopify_app/security/advisories/GHSA-6j52-38f8-qhxr
 title: Token exchange shop context confusion may allow cross-shop
@@ -32,18 +33,27 @@ description: |
     parameter for bootstrap or routing use cases only.
   * Token-exchange requests are rejected with `401 Unauthorized` when
     the requested shop does not match the authenticated shop.
+
+  ## Credit
+
+  This issue was responsibly reported by Hackerone researcher
+  [leqtuer](https://hackerone.com/leqtuer?type=user).
+cvss_v4: 7.6
 unaffected_versions:
   - "< 22.1.0"
 patched_versions:
   - ">= 23.0.3"
 related:
   url:
+    - https://www.cve.org/CVERecord?id=CVE-2026-63414
     - https://rubygems.org/gems/shopify_app/versions/23.0.3
     - https://github.com/Shopify/shopify_app/blob/v23.0.3/CHANGELOG.md#2303-june-24-2026
     - https://github.com/Shopify/shopify_app/releases/tag/v23.0.3
     - https://github.com/Shopify/shopify_app/pull/2081
+    - https://advisories.gitlab.com/gem/shopify_app/CVE-2026-63414
     - https://github.com/Shopify/shopify_app/security/advisories/GHSA-6j52-38f8-qhxr
+    - https://github.com/advisories/GHSA-6j52-38f8-qhxr
 notes: |
-  - GHSA has "High" severity.
+  - cvss_v4 from GHSA URL.
   - date from CHANGELOG.md
-  - no CVE
+  - CVE from GHSA URL - it is reserved but not published.
