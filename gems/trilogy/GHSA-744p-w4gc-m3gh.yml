@@ -5,9 +5,9 @@ url: https://github.com/trilogy-libraries/trilogy/security/advisories/GHSA-744p-
 title: SQL injection through `Trilogy#escape` with multibyte encodings
 date: 2026-10-29
 description: |
-  Trilogy#escape produces unsafe output for Strings in Shift_JIS,
+  `Trilogy#escape` produces unsafe output for Strings in Shift_JIS,
   Windows-31J, Big5, GBK or GB18030. In those encodings, the continuation
-  byte of a multi byte character can be in the ASCII range. escape was
+  byte of a multi byte character can be in the ASCII range. `escape` was
   intended for strict ASCII supersets and did not handle this correctly,
   which allowed SQL injection.
 
