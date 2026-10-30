@@ -29,6 +29,7 @@ related:
     - https://github.com/trilogy-libraries/trilogy/compare/v2.13.1...v2.13.2
     - https://github.com/anthropics/oss-scanner
     - https://greg.molnar.io/blog/sql-injection-in-the-trilogy-mysql-adapter
+    - https://www.cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1424    
     - https://discuss.rubyonrails.org/t/ghsa-744p-w4gc-m3gh-sql-injection-through-trilogy-escape-with-multibyte-encodings/91797
     - https://github.com/trilogy-libraries/trilogy/security/advisories/GHSA-744p-w4gc-m3gh
 notes: |
