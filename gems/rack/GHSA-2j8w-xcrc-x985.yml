@@ -33,8 +33,9 @@ description: |
   receive the CVE-2026-34835 change and returns the raw value from
   every host method.
 cvss_v3: 4.8
+unaffected_versions:
+  - "< 3.0.0.beta1"
 patched_versions:
-  - "~> 2.2.25"
   - "~> 3.1.23"
   - ">= 3.2.8"
 related:
