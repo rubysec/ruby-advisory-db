@@ -1,0 +1,32 @@
+---
+gem: addressable
+ghsa: 8gmh-2hhj-2hv9
+url: https://github.com/sporkmonger/addressable/security/advisories/GHSA-8gmh-2hhj-2hv9
+title: Addressable URI normalization resolves some dotted
+  path segments to the wrong path
+date: 2026-10-30
+description: |
+  Addressable::URI.normalize_path resolves some paths containing ..
+  segments to a different path than RFC 3986 does. When a path climbs
+  above the root before any other .. is resolved, the segments that
+  later .. segments should remove are instead kept:
+  /../../public/x/../../secret normalizes to /public/x/secret instead
+  of /secret. URI#normalize, URI#join, URI#== and URI#=== all use
+  this normalization. An application that checks a normalized Addressable
+  path against an allowlist, but sends the original URI to something
+  that resolves it according to RFC 3986, can be made to allow a
+  request for a path outside the allowlist.
+cvss_v3: 4.8
+unaffected_versions:
+  - "< 2.2.5"
+patched_versions:
+  - ">= 2.9.1"
+related:
+  url:
+    - https://rubygems.org/gems/addressable/versions/2.9.1
+    - https://github.com/sporkmonger/addressable/blob/main/CHANGELOG.md#v2.9.1
+    - https://github.com/sporkmonger/addressable/compare/addressable-2.9.0...addressable-2.9.1
+    - https://github.com/sporkmonger/addressable/security/advisories/GHSA-8gmh-2hhj-2hv9
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 in GHSA URL.

@@ -1,0 +1,51 @@
+---
+gem: addressable
+ghsa: 9f42-57jx-vpp3
+url: https://github.com/sporkmonger/addressable/security/advisories/GHSA-9f42-57jx-vpp3
+title: Regular Expression Denial of Service in Addressable
+  templates with multiple variables
+date: 2026-10-30
+description: |
+  Within the URI template implementation in Addressable, templates
+  that put several variables in one expression generate regular
+  expressions vulnerable to excessive backtracking:
+
+  1. Expressions with any operator other than + and # (e.g., {/owner,repo,ref},
+     {.a,b}, {a,b,c}, {;a,b,c}). The values are joined by an optional
+     separator, so a run of characters can be divided among the variables
+     in O(n^k) ways for k variables.
+  2. Expressions with the + or # operators and many variables (e.g.,
+     {+v1,v2,v3,v4,v5,v6,v7,v8,v9,v10}). A failing match is exponential
+     in the number of variables.
+  3. Several single-variable expressions next to each other (e.g.,
+     {+a}{+b}{+c} or {a}{b}{c}), which are polynomial in the input length.
+
+  When Template#match or Template#extract is called with a maliciously
+  crafted URI, this can result in uncontrolled resource consumption,
+  leading to denial of service. A three-variable path template such
+  as http://example.com/repos{/owner,repo,ref} needs about 2 KB of
+  input to occupy a thread for many seconds.
+
+  Users of the URI parsing capabilities in Addressable but not the
+  URI template matching capabilities are unaffected. Users who only
+  call Template#expand are unaffected.
+
+  ## Credits
+
+  Reported by Matthew Mongeau (@halogenandtoast), Ruby Central Gem Security.
+cvss_v3: 5.9
+unaffected_versions:
+  - "< 2.3.0"
+patched_versions:
+  - ">= 2.9.1"
+related:
+  url:
+    - https://rubygems.org/gems/addressable/versions/2.9.1
+    - https://github.com/sporkmonger/addressable/blob/main/CHANGELOG.md#v2.9.1
+    - https://github.com/sporkmonger/addressable/compare/addressable-2.9.0...addressable-2.9.1
+    - https://github.com/advisories/GHSA-j82w-28jv-3pmj
+    - https://github.com/advisories/GHSA-h27x-rffw-24p4
+    - https://github.com/sporkmonger/addressable/security/advisories/GHSA-9f42-57jx-vpp3
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 in GHSA URL.
