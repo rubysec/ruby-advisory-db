@@ -1,0 +1,39 @@
+---
+gem: addressable
+ghsa: 4w5q-wg7v-w6gp
+url: https://github.com/sporkmonger/addressable/security/advisories/GHSA-4w5q-wg7v-w6gp
+title: Regular Expression Denial of Service in Addressable templates
+  with several exploded variables
+date: 2026-10-30
+description: |
+  Within the URI template implementation in Addressable, expressions
+  with several exploded variables (e.g., {+a*,b*}, {+a*,b*,c*},
+  {/a*,b*}, {?a*,b*}) generate regular expressions vulnerable to
+  excessive backtracking. A run of members can be divided among the
+  exploded variables in O(n^k) ways for k variables. When Template#match
+  or Template#extract is called with a maliciously crafted URI, this
+  can result in uncontrolled resource consumption, leading to denial
+  of service. With 2.9.0, {+a*,b*,c*} takes over 12 seconds to reject
+  1 KB of input on MRI Ruby 3.2.
+
+  Users of the URI parsing capabilities in Addressable but not the
+  URI template matching capabilities are unaffected. Users who only
+  call Template#expand are unaffected.
+
+  ## Credits
+
+  Reported by Daniel Coles (@manus-pi).
+cvss_v3: 5.9
+unaffected_versions:
+  - "< 2.3.0"
+patched_versions:
+  - ">= 2.9.1"
+related:
+  url:
+    - https://rubygems.org/gems/addressable/versions/2.9.1
+    - https://github.com/sporkmonger/addressable/blob/main/CHANGELOG.md#v2.9.1
+    - https://github.com/sporkmonger/addressable/compare/addressable-2.9.0...addressable-2.9.1
+    - https://github.com/sporkmonger/addressable/security/advisories/GHSA-4w5q-wg7v-w6gp
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 in GHSA URL.
