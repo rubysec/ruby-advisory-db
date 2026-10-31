@@ -1,0 +1,54 @@
+---
+gem: trilogy
+ghsa: 744p-w4gc-m3gh
+url: https://github.com/trilogy-libraries/trilogy/security/advisories/GHSA-744p-w4gc-m3gh
+title: SQL injection through `Trilogy#escape` with multibyte encodings
+date: 2026-10-29
+description: |
+  `Trilogy#escape` produces unsafe output for Strings in Shift_JIS,
+  Windows-31J, Big5, GBK or GB18030. In those encodings, the continuation
+  byte of a multi byte character can be in the ASCII range. `escape` was
+  intended for strict ASCII supersets and did not handle this correctly,
+  which allowed SQL injection.
+
+  ## Details
+
+  Applications are affected in two cases:
+
+  1. On any connection charset, including the default `utf8mb4`, when
+     an attacker can influence the encoding of a String the application
+     escapes.
+  2. On connections configured with `encoding: sjis`, `cp932`, `big5`,
+     `gbk` or `gb18030`. These connection encodings never worked
+     correctly, are no longer supported, and now raise `ArgumentError`.
+
+  ## Impact
+
+  Unauthenticated SQL injection in applications that escape
+  attacker-influenced Strings with `Trilogy#escape`. Ruby on Rails and
+  other Rack applications using the Trilogy adapter are likely affected.
+
+  ## Workarounds
+
+  Applications unable to upgrade may be able to avoid this issue by
+  enforcing the encoding of all strings passed to `Trilogy#escape` and
+  `Trilogy#query`.
+
+  ## Credit
+
+  Discovered by Anthropic's OSS Scanner, as vulnerability ANT-2026-9KOHJMNW
+cvss_v4: 9.3
+patched_versions:
+  - ">= 2.13.2"
+related:
+  url:
+    - https://rubygems.org/gems/trilogy/versions/2.13.2
+    - https://github.com/trilogy-libraries/trilogy/compare/v2.13.1...v2.13.2
+    - https://github.com/anthropics/oss-scanner
+    - https://greg.molnar.io/blog/sql-injection-in-the-trilogy-mysql-adapter
+    - https://www.cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1424
+    - https://discuss.rubyonrails.org/t/ghsa-744p-w4gc-m3gh-sql-injection-through-trilogy-escape-with-multibyte-encodings/91797
+    - https://github.com/trilogy-libraries/trilogy/security/advisories/GHSA-744p-w4gc-m3gh
+notes: |
+  - cvss_v4 from GHSA URL.
+  - No CVE in GHSA URL.
