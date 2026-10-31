@@ -1,0 +1,35 @@
+---
+gem: wasmtime
+ghsa: c9f2-f4vx-xq68
+url: https://github.com/bytecodealliance/wasmtime-rb/security/advisories/GHSA-c9f2-f4vx-xq68
+title: Externref results may be stale references
+date: 2026-10-27
+description: |
+  Ruby values returned from Wasmtime through externrefs from function
+  results or hostcall arguments may be invalid references. This is due
+  to not making the Ruby garbage collector aware that the Ruby value
+  referenced by the externref is still in use.
+
+  ## Impact
+
+  Using an externref returned from a Wasm function or an externref
+  provided as an argument to a hostcall could trigger a segmentation
+  fault crashing the host process.
+cvss_v3: 7.5
+patched_versions:
+  - "~> 36.0.1"
+  - "~> 48.0.2"
+  - ">= 49.0.3"
+related:
+  url:
+    - https://rubygems.org/gems/wasmtime/versions/36.0.1
+    - https://rubygems.org/gems/wasmtime/versions/48.0.2
+    - https://rubygems.org/gems/wasmtime/versions/49.0.3
+    - https://github.com/bytecodealliance/wasmtime-rb/releases/tag/v36.0.1
+    - https://github.com/bytecodealliance/wasmtime-rb/releases/tag/v48.0.2
+    - https://github.com/bytecodealliance/wasmtime-rb/releases/tag/v49.0.3
+    - https://github.com/bytecodealliance/wasmtime-rb/security/advisories/GHSA-c9f2-f4vx-xq68
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
+  - date from GHSA URL.
