@@ -1,0 +1,45 @@
+---
+gem: rack
+ghsa: wvg4-6p58-3gh3
+url: https://github.com/rack/rack/security/advisories/GHSA-wvg4-6p58-3gh3
+title: Rack::Static `header_rules` bypass via unnormalized
+  dot segments in the request path
+date: 2026-10-30
+description: |
+  Rack::Static normalizes the request path with Utils.clean_path_info
+  when deciding which file to serve, but matches header_rules against
+  a path that is only URL-decoded. A request containing dot segments,
+  raw or percent-encoded, is served the normalized target file while
+  the header rules for that file's location are not applied.
+
+  This allows an attacker to receive a protected static file without
+  the security headers configured for it.
+
+  ## Impact
+
+  Applications that use Rack::Static header_rules to attach
+  security-relevant headers to particular paths or file types are
+  affected. An unauthenticated attacker who knows the path of a
+  protected file can request it through a dot segment path and
+  receive it without those headers, for example without
+  Content-Disposition: attachment or a restrictive Content-Security-Policy
+  that prevents uploaded HTML from rendering inline. The file itself
+  is served unchanged. Applications that do not use path-specific
+  header_rules are not affected.
+cvss_v3: 5.3
+patched_versions:
+  - "~> 2.2.25"
+  - "~> 3.1.23"
+  - ">= 3.2.8"
+related:
+  url:
+    - https://rubygems.org/gems/rack/versions/3.2.8
+    - https://github.com/rack/rack/blob/main/CHANGELOG.md#328---2026-10-30
+    - https://rubygems.org/gems/rack/versions/3.1.23
+    - https://github.com/rack/rack/blob/main/CHANGELOG.md#3123---2026-10-30
+    - https://rubygems.org/gems/rack/versions/2.2.25
+    - https://github.com/rack/rack/blob/main/CHANGELOG.md#2225---2026-10-30
+    - https://github.com/rack/rack/security/advisories/GHSA-wvg4-6p58-3gh3
+notes: |
+  - cvss_v3 from GHSA URL.
+  - No CVE in GHSA URL.

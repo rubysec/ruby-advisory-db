@@ -1,0 +1,43 @@
+---
+gem: rack
+ghsa: 5v64-555j-wjxm
+url: https://github.com/rack/rack/security/advisories/GHSA-5v64-555j-wjxm
+title: Multipart parser retains parsed data in its scan buffer,
+  allowing denial of service via memory exhaustion.
+date: 2026-10-30
+description: |
+  Rack::Multipart::Parser reads the request body in chunks of
+  rack.multipart.buffer_size (1 MiB by default) into an internal
+  scan buffer. Parsed bytes are only discarded from that buffer
+  when a chunk ends inside a part body. A request whose parts are
+  sized so that every chunk ends inside, or immediately after, a
+  part's headers is never compacted, so the buffer grows to the
+  size of the request.
+
+  This results in a denial of service condition through memory
+  exhaustion for applications that parse multipart requests.
+
+  ## Impact
+
+  Any application that parses multipart requests with Rack is affected
+  in its default configuration. An unauthenticated attacker can cause
+  a single request to hold memory proportional to its size for the
+  duration of parsing, exhausting worker memory. The attack requires
+  only a well-formed multipart body.
+cvss_v3: 7.5
+patched_versions:
+  - "~> 2.2.25"
+  - "~> 3.1.23"
+  - ">= 3.2.8"
+related:
+  url:
+    - https://rubygems.org/gems/rack/versions/3.2.8
+    - https://github.com/rack/rack/blob/main/CHANGELOG.md#328---2026-10-30
+    - https://rubygems.org/gems/rack/versions/3.1.23
+    - https://github.com/rack/rack/blob/main/CHANGELOG.md#3123---2026-10-30
+    - https://rubygems.org/gems/rack/versions/2.2.25
+    - https://github.com/rack/rack/blob/main/CHANGELOG.md#2225---2026-10-30
+    - https://github.com/rack/rack/security/advisories/GHSA-5v64-555j-wjxm
+notes: |
+  - cvss_v3 from GHSA URL.
+  - No CVE in GHSA URL.
