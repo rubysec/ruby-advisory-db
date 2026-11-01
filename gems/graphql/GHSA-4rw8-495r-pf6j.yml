@@ -1,0 +1,23 @@
+---
+gem: graphql
+ghsa: 4rw8-495r-pf6j
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-4rw8-495r-pf6j
+title: Execution::Next renders objects whose authorized? check failed
+date: 2026-10-29
+description: |
+  In some cases, GraphQL::Execution::Next rendered results for objects
+  whose .authorized? hooks indicated that the object was unauthorized.
+cvss_v3: 7.5
+unaffected_versions:
+  - "< 2.5.20"
+patched_versions:
+  - ">= 2.6.14"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.14
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2614-29-oct-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-4rw8-495r-pf6j
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_V3 from GHSA URL
+  - NOTE: gem name is "graphql" and repo name is "graphql-ruby".

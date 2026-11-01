@@ -1,0 +1,26 @@
+---
+gem: graphql
+ghsa: q3cc-p5hm-55wj
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-q3cc-p5hm-55wj
+title: Interpreter runtime renders results from objects whose
+  `.authorized?` checks had failed
+date: 2026-10-29
+description: |
+  The legacy interpreter (Execution::Interpreter) renders the original,
+  unauthorized object when authorized? raises GraphQL::UnauthorizedError
+  and Schema.unauthorized_object returns a replacement.
+  Returning false correctly renders the replacement.
+cvss_v3: 6.5
+unaffected_versions:
+  - "< 1.10.0"
+patched_versions:
+  - ">= 2.6.14"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.14
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2614-29-oct-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-q3cc-p5hm-55wj
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_V3 from GHSA URL
+  - NOTE: gem name is "graphql" and repo name is "graphql-ruby".

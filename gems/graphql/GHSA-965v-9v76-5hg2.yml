@@ -1,0 +1,30 @@
+---
+gem: graphql
+ghsa: 965v-9v76-5hg2
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-965v-9v76-5hg2
+title: Execution::Next reuses Relay scoped authorization for
+  unrelated child fields, disclosing protected data
+date: 2026-10-14
+description: |
+  Starting in GraphQL-Ruby 2.5.21, when using Execution::Next, connection
+  fields whose type implemented def self.scoped(...) and used
+  reauthorize_scoped_objects(false) would wrongly skip authorization
+  on extra fields attached to the connections *Edge type.
+
+  Schemas that don't use Execution::Next are not affected. Connections
+  that don't use def self.scoped and reauthorize_scoped_objects(false)
+  are not affected. Edge types that don't have extra, application-specific
+  fields are not affected.
+unaffected_versions:
+  - "< 2.5.21"
+patched_versions:
+  - ">= 2.6.12"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.12
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2612-14-oct-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-965v-9v76-5hg2
+notes: |
+  - No CVE from GHSA URL.
+  - "High" Severity in GHSA URL
+  - NOTE: gem name is "graphql" and repo name is "graphql-ruby".

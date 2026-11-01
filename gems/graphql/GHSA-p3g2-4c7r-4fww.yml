@@ -1,0 +1,28 @@
+---
+gem: graphql
+ghsa: p3g2-4c7r-4fww
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-p3g2-4c7r-4fww
+title: Wrong type can be loaded from ID when `loads:` is an Object
+  and not used elsewhere in the schema
+date: 2026-09-21
+description: |
+  When an argument uses loads: and references an Object type which
+  is not used as a return type of any fields in the schema (or as a
+  member of an Interface or Union type which is returned by the schema),
+  GraphQL-Ruby didn't properly check that the application object
+  loaded from the provided ID was resolved to the same type referenced
+  by loads:.
+unaffected_versions:
+  - "< 2.1.2"
+patched_versions:
+  - ">= 2.6.11"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.11
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2611-21-sep-2026
+    - https://github.com/rmosolgo/graphql-ruby/pull/5745
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-p3g2-4c7r-4fww
+notes: |
+  - No CVE from GHSA URL.
+  - "High" Severity in GHSA URL
+  - NOTE: gem name is "graphql" and repo name is "graphql-ruby".
