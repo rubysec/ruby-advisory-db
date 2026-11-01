@@ -1,0 +1,46 @@
+---
+gem: fluentd
+ghsa: g69w-f42r-xp35
+url: https://github.com/fluent/fluentd/security/advisories/GHSA-g69w-f42r-xp35
+title: Out-of-Memory DoS via Object Allocation
+  Amplification in `in_http` ndjson parsing
+date: 2026-09-28
+description: |
+  Fluentd's in_http plugin allows receiving logs via HTTP requests.
+  It was discovered that the parsing logic for ndjson (Newline
+  Delimited JSON) parameters is vulnerable to an object allocation
+  amplification attack, which can lead to a Denial of Service (DoS)
+  due to memory exhaustion (OOM).
+
+  When processing ndjson payloads, the plugin eagerly splits the
+  entire decompressed payload into an array of strings in memory.
+  An attacker can craft a highly compressed HTTP request containing
+  millions of extremely short lines. While the raw decompressed byte
+  size successfully passes the configured decompression_size_limit,
+  the overhead of allocating millions of individual Ruby string
+  objects causes the actual memory consumption to drastically exceed
+  the intended limits. This massive object-count amplification
+  rapidly exhausts system memory, causing the Fluentd worker
+  process to be killed by the operating system.
+
+  ## Impact
+
+  This vulnerability allows for an unauthenticated remote Denial of
+  Service (DoS).
+  By sending crafted, highly compressible payloads to the in_http
+  endpoint, an attacker can continuously crash the Fluentd worker
+  processes. Although the Fluentd supervisor automatically restarts
+  crashed workers, repeated malicious requests can sustain the
+  outage, resulting in dropped logs and severe backpressure to
+  upstream systems.
+cvss_v3: 7.5
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://rubygems.org/gems/fluentd/versions/1.19.4
+    - https://github.com/fluent/fluentd/blob/master/CHANGELOG.md#release-v1194---20260928
+    - https://github.com/fluent/fluentd/security/advisories/GHSA-g69w-f42r-xp35
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.

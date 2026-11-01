@@ -1,0 +1,44 @@
+---
+gem: fluentd
+ghsa: x455-r5cg-h9p9
+url: https://github.com/fluent/fluentd/security/advisories/GHSA-x455-r5cg-h9p9
+title: Incomplete Fix for CVE-2026-44160 - DoS via Unbounded
+  Decompression in Buffer Chunk Streaming
+date: 2026-09-28
+description: |
+  Fluentd supports buffer compression (e.g., <compress gzip> or
+  <compress zstd>) to reduce the on-disk footprint of buffered data.
+  It was discovered that the previous mitigation for decompression
+  bombs (CVE-2026-44160) is incomplete.
+
+  While the decompression_size_limit introduced in the previous fix
+  is properly enforced for string-based data reads, the streaming
+  IO decompression path (specifically Buffer::Chunk#open and #write_to)
+  bypasses this limit entirely. If buffer compression is enabled, an
+  attacker can send highly compressible payloads. These payloads
+  bypass buffer chunk limits because they are evaluated based on
+  their tiny compressed size. However, when the chunk is flushed to
+  an output IO (such as a file, socket, or standard output) or
+  triggers the automatic error-backup path (backup_chunk), it
+  expands to an unbounded size without any limitation.
+
+  ## Impact
+
+  This vulnerability allows for an unauthenticated remote Denial of
+  Service (DoS).
+  By injecting highly repetitive, highly compressible data into a
+  Fluentd instance with buffer compression enabled, an attacker can
+  cause massive data amplification during the buffer flush phase.
+  This results in severe memory exhaustion (OOM) or total disk space
+  depletion, crashing the Fluentd worker and disrupting log routing.
+cvss_v3: 2.9
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://rubygems.org/gems/fluentd/versions/1.19.4
+    - https://github.com/fluent/fluentd/blob/master/CHANGELOG.md#release-v1194---20260928
+    - https://github.com/fluent/fluentd/security/advisories/GHSA-x455-r5cg-h9p9
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
