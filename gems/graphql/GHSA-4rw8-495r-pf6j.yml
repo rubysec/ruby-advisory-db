@@ -18,6 +18,6 @@ related:
     - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2614-29-oct-2026
     - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-4rw8-495r-pf6j
 notes: |
-  - No CVE  from GHSA URL.
+  - No CVE from GHSA URL.
   - cvss_V3 from GHSA URL
   - NOTE: gem name is "graphql" and repo name is "graphql-ruby".
