@@ -1,0 +1,50 @@
+---
+gem: addressable
+ghsa: j82w-28jv-3pmj
+url: https://github.com/sporkmonger/addressable/security/advisories/GHSA-j82w-28jv-3pmj
+title: Regular Expression Denial of Service in Addressable
+  templates with certain exploded expressions
+date: 2026-10-30
+description: |
+  Within the URI template implementation in Addressable, templates
+  using the * (explode) modifier with the /, ., ;, ? or & operators
+  (e.g., {/segments*}, {.ext*}, {;params*}, {?query*}) generate
+  regular expressions vulnerable to catastrophic backtracking. When
+  Template#match or Template#extract is called with a maliciously
+  crafted URI that starts with the operator's leading character,
+  matching takes exponential time, leading to uncontrolled resource
+  consumption and denial of service. An input under 60 bytes is
+  enough to occupy a thread for minutes.
+
+  GHSA-h27x-rffw-24p4 (CVE-2026-35611) reported this pattern as
+  fully remediated in 2.9.0. The 2.9.0 fix only made the joiner
+  between exploded members mandatory for templates without an operator,
+  and its regression specs used inputs that never start with the
+  operator's leading character, so the vulnerable part of the
+  expression was never reached. This issue was originally reported
+  in #364 by @ebenoist in 2019 but insufficiently investigated.
+
+  Users of the URI parsing capabilities in Addressable but not the
+  URI template matching capabilities are unaffected. Users who
+  only call Template#expand are unaffected.
+
+  ## Credits
+
+  Reported independently by @ebenoist, @andrewstellman, and
+  then @halogenandtoast.
+cvss_v3: 5.9
+unaffected_versions:
+  - "< 2.3.0"
+patched_versions:
+  - ">= 2.9.1"
+related:
+  url:
+    - https://rubygems.org/gems/addressable/versions/2.9.1
+    - https://github.com/sporkmonger/addressable/blob/main/CHANGELOG.md#v2.9.1
+    - https://github.com/sporkmonger/addressable/compare/addressable-2.9.0...addressable-2.9.1
+    - https://github.com/sporkmonger/addressable/issues/364
+    - https://github.com/advisories/GHSA-h27x-rffw-24p4
+    - https://github.com/sporkmonger/addressable/security/advisories/GHSA-j82w-28jv-3pmj
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 in GHSA URL.

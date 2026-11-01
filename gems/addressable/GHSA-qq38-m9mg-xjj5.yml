@@ -1,0 +1,37 @@
+---
+gem: addressable
+ghsa: qq38-m9mg-xjj5
+url: https://github.com/sporkmonger/addressable/security/advisories/GHSA-qq38-m9mg-xjj5
+title: Denial of service in Addressable URI path normalization
+date: 2026-10-30
+description: |
+  Addressable::URI.normalize_path takes time quadratic in the number
+  of nested dot segments in a path (e.g., "/" + "a/" * n + "../" * n,
+  which for n = 3 is /a/a/a/../../../), because it removes one dot
+  segment per pass over the whole path. URI#normalize, URI#normalized_path,
+  URI#==, URI#=== and URI#join all call it. Normalizing, comparing or
+  joining a URI taken from user input can result in uncontrolled
+  resource consumption, leading to denial of service. On 2.9.0,
+  normalizing a 34 KB path takes about 3.5 seconds on MRI Ruby 4.0,
+  and the cost grows with the square of the path length.
+
+  This affects every Ruby implementation, including MRI Ruby 3.2 and
+  later. URI.parse by itself is unaffected, as is code that never
+  normalizes, compares, or joins URIs from untrusted sources.
+
+  ## Credits
+
+  Reported by Matthew Mongeau (@halogenandtoast), Ruby Central Gem
+  Security, who also suggested the single-pass approach used in the fix.
+cvss_v3: 5.9
+patched_versions:
+  - ">= 2.9.1"
+related:
+  url:
+    - https://rubygems.org/gems/addressable/versions/2.9.1
+    - https://github.com/sporkmonger/addressable/blob/main/CHANGELOG.md#v2.9.1
+    - https://github.com/sporkmonger/addressable/compare/addressable-2.9.0...addressable-2.9.1
+    - https://github.com/sporkmonger/addressable/security/advisories/GHSA-qq38-m9mg-xjj5
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 in GHSA URL.

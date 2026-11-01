@@ -1,0 +1,48 @@
+---
+gem: addressable
+ghsa: 539f-xcgw-2gjg
+url: https://github.com/sporkmonger/addressable/security/advisories/GHSA-539f-xcgw-2gjg
+title: Addressable display_uri can show misleading hosts
+  containing bidi and invisible characters
+date: 2026-10-30
+description: |
+  Addressable::IDNA.to_unicode decodes Punycode labels (labels beginning
+  with xn--) that contain characters which change how text is displayed
+  without being visible themselves. These include bidirectional controls
+  such as U+202E RIGHT-TO-LEFT OVERRIDE and U+2066–U+2069, zero-width
+  characters, and other invisible format characters.
+  Addressable::URI#display_uri uses to_unicode, so it can display a
+  host whose characters appear reordered or which looks identical to
+  a different host. For example, the host of http://xn--abcmoc-dm0c.com/
+  is displayed as abc, U+202E, moc.com, and the override makes
+  everything after abc render right to left.
+
+  Parsing, host, normalized_host and any connection made from the URI
+  are not affected. Only the displayed form is. Applications that
+  show display_uri to users (link previews, chat and email clients,
+  admin interfaces) can be used to make a malicious domain look
+  like a trusted one.
+
+  In the pure-Ruby IDNA implementation, all such characters are
+  decoded, including those that IDNA's nameprep profile prohibits.
+  In the native IDNA implementation, used when libidn and the idn-ruby
+  gem are installed, libidn rejects most of them, but not characters
+  added to Unicode after version 3.2, such as U+061C and U+2066–U+2069.
+
+  ## Credits
+
+  Reported by @andrewstellman.
+cvss_v3: 3.1
+unaffected_versions:
+  - "< 2.0.0"
+patched_versions:
+  - ">= 2.9.1"
+related:
+  url:
+    - https://rubygems.org/gems/addressable/versions/2.9.1
+    - https://github.com/sporkmonger/addressable/blob/main/CHANGELOG.md#v2.9.1
+    - https://github.com/sporkmonger/addressable/compare/addressable-2.9.0...addressable-2.9.1
+    - https://github.com/sporkmonger/addressable/security/advisories/GHSA-539f-xcgw-2gjg
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 in GHSA URL.

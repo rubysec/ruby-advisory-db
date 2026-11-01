@@ -1,0 +1,42 @@
+---
+gem: rack
+ghsa: p8x9-v4hv-2w4g
+url: https://github.com/rack/rack/security/advisories/GHSA-p8x9-v4hv-2w4g
+title: Multipart boundary guard skips a leading empty or quoted
+  `boundary` parameter, allowing parser differentials and WAF bypass
+date: 2026-10-30
+description: |
+  The guard added for CVE-2026-26961 (GHSA-vgpv-f759-9wx3), which
+  rejects multipart requests with more than one boundary parameter,
+  only inspects the part of the Content-Type header after the boundary
+  it extracts. A Content-Type whose first boundary parameter is empty
+  or begins with a quote, semicolon, or comma is skipped by the
+  extraction pattern, so a second boundary parameter is accepted
+  silently and Rack parses the body with a boundary that a conforming
+  parser would not derive from the header.
+
+  ## Impact
+
+  As with CVE-2026-26961, an attacker can craft a multipart request that
+  a web application firewall or other inspecting proxy in front of a
+  Rack application interprets differently from Rack, so form fields
+  and file uploads reach the application without inspection. Rack
+  itself grants no capability beyond that of a well-formed request with
+  the same body. All supported versions, including 2.2, are affected.
+cvss_v3: 3.7
+patched_versions:
+  - "~> 2.2.25"
+  - "~> 3.1.23"
+  - ">= 3.2.8"
+related:
+  url:
+    - https://rubygems.org/gems/rack/versions/3.2.8
+    - https://github.com/rack/rack/blob/main/CHANGELOG.md#328---2026-10-30
+    - https://rubygems.org/gems/rack/versions/3.1.23
+    - https://github.com/rack/rack/blob/main/CHANGELOG.md#3123---2026-10-30
+    - https://rubygems.org/gems/rack/versions/2.2.25
+    - https://github.com/rack/rack/blob/main/CHANGELOG.md#2225---2026-10-30
+    - https://github.com/rack/rack/security/advisories/GHSA-p8x9-v4hv-2w4g
+notes: |
+  - cvss_v3 from GHSA URL.
+  - No CVE in GHSA URL.
