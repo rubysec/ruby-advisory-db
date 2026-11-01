@@ -1,0 +1,58 @@
+---
+gem: wasmtime
+ghsa: 76hq-g43j-f2rr
+url: https://github.com/bytecodealliance/wasmtime-rb/security/advisories/GHSA-76hq-g43j-f2rr
+title: "Data race in WASI when calling functions with `gvl: false`"
+date: 2026-10-27
+description: |
+  ### Impact
+
+  `Extern#to_func(gvl: false)` releases Ruby's Global VM Lock (GVL) for
+  the whole duration of a WebAssembly call. Two WASI host paths that run
+  during such a call access Ruby objects without re-acquiring the GVL:
+
+  - Writes to stdout/stderr captured with `WasiConfig#set_stdout_buffer`
+    or `WasiConfig#set_stderr_buffer`, which append to the Ruby `String`
+    buffer;
+  - The block given to `WasiConfig#socket_addr_check`, which is called to
+    allow or deny socket operations.
+
+  A guest can trigger these paths, for example by writing to stdout. If
+  another Ruby thread runs while the call is in progress, the
+  unsynchronized access to the Ruby heap is undefined behavior. In
+  practice it has been observed to corrupt the buffer's contents and to
+  crash the host process with a segmentation fault.
+
+  Only embeddings that call exports with the opt-in `gvl: false` option
+  *and* use an output buffer or `socket_addr_check` are affected. Calls
+  that keep the GVL (the default) are not affected, and neither are WASI
+  outputs sent to a file or inherited from the host.
+
+  ### Patches
+
+  Versions 49.0.3 and 48.0.2 fix this by re-acquiring the GVL before
+  touching Ruby objects.
+
+  ### Workarounds
+
+  Don't use `gvl: false` when the store's WASI configuration uses
+  `set_stdout_buffer`, `set_stderr_buffer` or `socket_addr_check`.
+  Instead, call those functions with the GVL held (the default), or send
+  WASI output to a file.
+cvss_v3: 7.5
+unaffected_versions:
+  - "< 46.0.0"
+patched_versions:
+  - "~> 48.0.2"
+  - ">= 49.0.3"
+related:
+  url:
+    - https://rubygems.org/gems/wasmtime/versions/48.0.2
+    - https://rubygems.org/gems/wasmtime/versions/49.0.3
+    - https://github.com/bytecodealliance/wasmtime-rb/releases/tag/v48.0.2
+    - https://github.com/bytecodealliance/wasmtime-rb/releases/tag/v49.0.3
+    - https://github.com/bytecodealliance/wasmtime-rb/security/advisories/GHSA-76hq-g43j-f2rr
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
+  - date from GHSA URL.
