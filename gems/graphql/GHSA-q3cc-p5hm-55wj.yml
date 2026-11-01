@@ -9,7 +9,7 @@ description: |
   The legacy interpreter (Execution::Interpreter) renders the original,
   unauthorized object when authorized? raises GraphQL::UnauthorizedError
   and Schema.unauthorized_object returns a replacement.
-  Returningfalse` correctly renders the replacement.
+  Returning false correctly renders the replacement.
 cvss_v3: 6.5
 unaffected_versions:
   - "< 1.10.0"
