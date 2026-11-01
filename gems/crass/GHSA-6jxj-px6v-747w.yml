@@ -1,5 +1,6 @@
 ---
 gem: crass
+cve: 2026-61846
 ghsa: 6jxj-px6v-747w
 url: https://github.com/rgrove/crass/security/advisories/GHSA-6jxj-px6v-747w
 title: Deeply nested CSS blocks and functions can trigger a
@@ -17,9 +18,13 @@ patched_versions:
   - ">= 1.0.7"
 related:
   url:
+    - https://www.cve.org/CVERecord?id=CVE-2026-61846
     - https://rubygems.org/gems/crass/versions/1.0.7
     - https://github.com/rgrove/crass/releases/tag/v1.0.7
     - https://github.com/rgrove/crass/blob/v1.0.7/HISTORY.md#107-2026-06-25
+    - https://github.com/rgrove/crass/commit/cf68287356ec6e20d51cfc4a2d0c3912b7334e99
+    - https://advisories.gitlab.com/gem/crass/CVE-2026-61846
     - https://github.com/rgrove/crass/security/advisories/GHSA-6jxj-px6v-747w
+    - https://github.com/advisories/GHSA-6jxj-px6v-747w
 notes: |
-  - No CVE, but not published so no non-GHSA cvss values.
+  - CVE from GHSA URL, reserved but not published.

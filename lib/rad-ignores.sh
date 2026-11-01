@@ -298,6 +298,15 @@ rm -f gems/crass/CVE-2026-61845.yml
 # 10/24/2026: "Disputed" @ https://nvd.nist.gov/vuln/detail/cve-2018-18260
 rm -f gems/camaleon_cms/CVE-2018-18260.yml
 
+# 10/29/2026: Use GHSA prefix over CVE.
+rm -f gems/crass/CVE-2026-116695.yml
+
+# 10/30/2026: Used GHSA prefix over CVE.
+rm -f gems/shopify_app/CVE-2026-63414.yml \
+      gems/crass/CVE-2026-61846.yml \
+      gems/crass/CVE-2026-61847.yml \
+      gems/crass/CVE-2026-61848.yml
+
 # 9/4/2026: More duplicates and withdrawns
 # nokogiri  | https://github.com/advisories/GHSA-5jhf-fpp7-v2pv (duplicate)
 # nokogiri  | https://github.com/advisories/GHSA-xqqh-3w52-q8p7 (duplicate)
