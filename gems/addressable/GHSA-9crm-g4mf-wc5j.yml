@@ -1,0 +1,48 @@
+---
+gem: addressable
+ghsa: 9crm-g4mf-wc5j
+url: https://github.com/sporkmonger/addressable/security/advisories/GHSA-9crm-g4mf-wc5j
+title: Addressable display_uri can show misleading hosts with
+  invalid Punycode A-labels
+date: 2026-10-30
+description: |
+  Addressable::IDNA.to_unicode, in the pure-Ruby IDNA implementation,
+  decodes Punycode labels (labels beginning with xn--) that are not
+  valid A-labels. Those labels are returned in decoded form, when
+  they should be returned unchanged. That includes:
+
+  * labels that decode to only ASCII characters, e.g. xn--google-
+    decodes to google;
+  * labels that decode to text that doesn't convert back to the same
+    label (RFC 3490 §4.2), e.g. text that isn't in normalized form.
+
+  Addressable::URI#display_uri uses to_unicode, so for
+  https://xn--google-.example.org/ it displays the host google.example.org,
+  while #host, #normalized_host and any connection made from the URI
+  use xn--google-.example.org. An attacker who controls a domain can
+  therefore have a URI displayed as a host they don't control.
+  Applications that compare the result of to_unicode against a list
+  of trusted names can likewise treat two different hosts as the same.
+
+  The native IDNA implementation, used when libidn and the idn-ruby
+  gem are installed, is not affected. to_ascii and normalized_host
+  are not affected.
+
+  ## Credits
+
+  Reported by @tonghuaroot.
+cvss_v3: 4.3
+unaffected_versions:
+  - "< 2.0.0"
+patched_versions:
+  - ">= 2.9.1"
+related:
+  url:
+    - https://rubygems.org/gems/addressable/versions/2.9.1
+    - https://github.com/sporkmonger/addressable/blob/main/CHANGELOG.md#v2.9.1
+    - https://github.com/sporkmonger/addressable/compare/addressable-2.9.0...addressable-2.9.1
+    - https://github.com/advisories/GHSA-mc76-5925-c5p6
+    - https://github.com/sporkmonger/addressable/security/advisories/GHSA-9crm-g4mf-wc5j
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v3 in GHSA URL.
