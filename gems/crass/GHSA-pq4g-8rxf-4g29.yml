@@ -1,5 +1,6 @@
 ---
 gem: crass
+cve: 2026-116695
 ghsa: pq4g-8rxf-4g29
 url: https://github.com/rgrove/crass/security/advisories/GHSA-pq4g-8rxf-4g29
 title: Incorrect tokenization of bad URLs enables CSS sanitizer bypass
@@ -32,11 +33,15 @@ patched_versions:
   - ">= 1.0.8"
 related:
   url:
+    - https://nvd.nist.gov/vuln/detail/CVE-2026-116695
     - https://rubygems.org/gems/crass/versions/1.0.8
     - https://github.com/rgrove/crass/blob/v1.0.8/HISTORY.md#108-2026-10-21
     - https://github.com/rgrove/crass/compare/v1.0.7...v1.0.8
+    - https://github.com/rgrove/crass/commit/689fc45c632fdf3803b2f4e844ffc9cca3b08f34
     - https://drafts.csswg.org/css-syntax-3/#consume-remnants-of-bad-url
+    - https://advisories.gitlab.com/gem/crass/CVE-2026-116695
+    - https://osv.dev/vulnerability/GHSA-pq4g-8rxf-4g29
     - https://github.com/rgrove/crass/security/advisories/GHSA-pq4g-8rxf-4g29
+    - https://github.com/advisories/GHSA-pq4g-8rxf-4g29
 notes: |
-  - No CVE in GHSA URL.
   - cvss_v4 from GHSA URL.
