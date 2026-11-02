@@ -1,0 +1,93 @@
+---
+gem: resque
+ghsa: r5h4-xh93-f339
+url: https://github.com/resque/resque/security/advisories/GHSA-r5h4-xh93-f339
+title: CSRF in resque-web
+date: 2026-10-16
+description: |
+  ### Summary
+
+  resque-web (`Resque::Server`) does not verify that state-changing
+  requests come from its own origin. If an authenticated resque-web
+  user visits a malicious page, that page can make the user's browser
+  clear failed jobs, retry or remove failed jobs, or delete whole
+  queues.
+
+  ### Details
+
+  Sinatra enables rack-protection by default, but its default reaction
+  to a bad `Origin` is to drop the Rack session and let the request
+  through. resque-web doesn't keep its login in a Sinatra session, so
+  that reaction protects nothing.
+
+  Which setups are exposed depends on how resque-web is authenticated:
+
+  - **HTTP basic auth** (`Resque::Server.use Rack::Auth::Basic`, as the
+    README recommends): browsers resend cached credentials on
+    cross-site requests, so every action below is exposed.
+  - **Host app session cookie with `SameSite=Lax`** (the Rails
+    default): cross-site POSTs are blocked by the browser, but the GET
+    actions below are still exposed.
+  - **Cookies with `SameSite=None` or no SameSite attribute**: every
+    action is exposed.
+
+  State-changing POST routes:
+
+  - `/queues/:id/remove`, `/queues/:id/remove-job`
+  - `/failed/clear`, `/failed/clear_retried`, `/failed/:queue/clear`
+  - `/failed/requeue/all`, `/failed/:queue/requeue/all`
+
+  State-changing GET routes (an `<img>` tag is enough to trigger these):
+
+  - `/failed/requeue/:index`, `/failed/:queue/requeue/:index`
+  - `/failed/remove/:index`, `/failed/:queue/remove/:index`
+
+  Plugins that add routes to `Resque::Server` (for example
+  resque-scheduler, resque-cleaner, resque-retry and resque-status)
+  inherit the same exposure on their POST routes.
+
+  ### Impact
+
+  An attacker who can get a resque-web user to visit a page can change
+  queue state with that user's access: they can delete pending jobs,
+  wipe the failed job history, or requeue failed jobs. Requeued jobs
+  run again, which matters when a job has side effects (charging a
+  card, sending email). The attacker cannot read anything; this is an
+  integrity issue, not a disclosure.
+
+  ### Patches
+
+  3.2.0 rejects any non-GET/HEAD request whose `Sec-Fetch-Site` header
+  is not `same-origin` or `none`. For browsers that don't send
+  `Sec-Fetch-Site`, it falls back to rejecting a request whose `Origin`
+  host doesn't match the request host. Requests that send neither
+  header (scripts, curl) are unaffected. The single-job retry and
+  remove actions are now POST-only. The check runs on `Resque::Server`
+  itself, so it also covers plugin routes.
+
+  ### Workarounds
+
+  Upgrade. If you can't upgrade yet, add this filter to your app before
+  it serves resque-web. It only covers browsers that send
+  `Sec-Fetch-Site`, which all current browsers do:
+
+  ```ruby
+  Resque::Server.before do
+    site = request.env['HTTP_SEC_FETCH_SITE']
+    mutating = !request.safe? || request.path_info.match?(%r{\A/failed/(.+/)?(requeue|remove)/\d+/?\z})
+    halt 403 if mutating && site && !%w[same-origin none].include?(site)
+  end
+  ```
+
+  ### References
+
+  https://github.com/resque/resque/pull/1980
+cvss_v4: 6.9
+patched_versions:
+  - ">= 3.2.0"
+related:
+  url:
+    - https://github.com/resque/resque/security/advisories/GHSA-r5h4-xh93-f339
+    - https://github.com/resque/resque/pull/1980
+notes: |
+    - A CVE has been requested for this GHSA and can be added once assigned.

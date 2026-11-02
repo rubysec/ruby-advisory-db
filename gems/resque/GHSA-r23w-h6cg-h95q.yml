@@ -1,0 +1,65 @@
+---
+gem: resque
+ghsa: r23w-h6cg-h95q
+url: https://github.com/resque/resque/security/advisories/GHSA-r23w-h6cg-h95q
+title: >-
+  Stored XSS in resque-web through queue names, worker IDs, and job
+  payloads
+date: 2026-09-09
+description: |
+  ### Impact
+
+  Values read back out of Redis were rendered into resque-web without
+  escaping, in both text nodes and `href` attributes. Anyone able to
+  enqueue a job (or otherwise write to Redis) can store markup that
+  executes when an operator loads the admin UI.
+
+  The affected surfaces:
+
+  - **Queue names** — `/queues`, `/queues/:id`, and the queue sidebar
+    on every page that renders it
+  - **Worker IDs** (`hostname:pid:queues`) — `/workers`,
+    `/workers/:id`, `/working`
+  - **Job class names and payload data** — the shared job class
+    partial, used by the queues, workers, working and failed pages
+  - **Failed job details** (worker, queue, exception) — `/failed`
+  - **Redis key names and values** — `/stats/keys` and
+    `/stats/keys/:key`
+  - **`/stats.txt`** — built a plaintext metrics feed but declared
+    `Content-Type: text/html`, so a queue name containing markup
+    executed on that endpoint
+
+  Queue names are not validated, so enqueueing to a crafted queue name
+  is enough:
+
+  ```ruby
+  Resque.push(%q{"><svg onload=alert(document.domain)>}, 'class' => 'Job', 'args' => [])
+  ```
+
+  That payload executes immediately on /queues, /stats/keys, and
+  /stats.txt. It also reaches /workers and /working once a worker is
+  registered on that queue, and /failed once a job fails on it.
+
+  ### Patches
+
+  v3.0.2
+
+  ### Workarounds
+
+  Restrict who can enqueue jobs and which queue names they can enqueue
+  to, and restrict write access to the Redis instance backing Resque.
+  Access to `/stats/keys` and `/stats.txt` can be blocked at the proxy
+  as a partial mitigation.
+
+  ### References
+
+  https://github.com/resque/resque/pull/1946
+cvss_v4: 5.1
+patched_versions:
+  - ">= 3.0.2"
+related:
+  url:
+    - https://github.com/resque/resque/security/advisories/GHSA-r23w-h6cg-h95q
+    - https://github.com/resque/resque/pull/1946
+notes: |
+    - A CVE has been requested for this GHSA and can be added once assigned.

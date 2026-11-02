@@ -1,0 +1,44 @@
+---
+gem: resque-scheduler
+ghsa: g7vm-3ppj-xxrj
+url: https://github.com/resque/resque-scheduler/security/advisories/GHSA-g7vm-3ppj-xxrj
+title: >-
+  Stored XSS in resque-scheduler requeue page through schedule names
+  and parameters
+date: 2026-10-11
+description: |
+  ### Summary
+
+  The page shown when queueing a parameterized schedule rendered the
+  schedule name and its `parameters` keys, descriptions and defaults
+  without escaping, both as text and inside HTML attributes. An
+  application that builds dynamic schedules from user input lets that
+  input run as script in an operator's browser.
+
+  Fixed in: https://github.com/resque/resque-scheduler/pull/831
+
+  ### Details
+
+  Clicking "Queue now" on `/schedule` for a schedule that defines
+  `parameters` posts to `/schedule/requeue`. That renders a form built
+  from the schedule's name and parameter definitions. The schedule list
+  on `/schedule` itself was already escaped, so the payload only runs
+  once the operator clicks through.
+
+  ### Impact
+
+  Script runs in the operator's browser with their resque-web session.
+  It can do anything the operator can do there: read job arguments,
+  delete queues, clear delayed and failed jobs, and queue scheduled jobs
+  with chosen parameters. When resque-web is mounted inside a Rails app,
+  it runs on the app's origin, so it has the operator's session there as
+  well.
+cvss_v4: 2.0
+patched_versions:
+  - ">= 5.0.1"
+related:
+  url:
+    - https://github.com/resque/resque-scheduler/security/advisories/GHSA-g7vm-3ppj-xxrj
+    - https://github.com/resque/resque-scheduler/pull/831
+notes: |
+    - A CVE has been requested for this GHSA and can be added once assigned.
