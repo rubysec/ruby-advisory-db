@@ -1,0 +1,51 @@
+---
+gem: fluentd
+ghsa: 5hq3-r276-rfr5
+url: https://github.com/fluent/fluentd/security/advisories/GHSA-5hq3-r276-rfr5
+title: Incomplete Fix for CVE-2026-44024 - Path Traversal Bypass
+  via Bare `..` Tag in Output Plugins
+date: 2026-09-28
+description: |
+  Fluentd allows dynamically constructing file paths using the ${tag}
+  placeholder.
+  It was discovered that the previous path traversal mitigation
+  (CVE-2026-44024) introduced in v1.19.3 is incomplete.
+
+  Specifically, the validation logic fails to detect a bare .. (two
+  dots without a trailing separator) when provided as the tag value.
+  When this tag is substituted into a configured path template (e.g.,
+  /path/to/${tag}/output), the surrounding path separators in the
+  template complete the traversal sequence (e.g., /path/to/../output),
+  successfully bypassing the intended directory restrictions.
+  Furthermore, the secondary post-substitution validation is
+  inherently skipped when the buffer is configured to group by
+  tag only (<buffer tag>).
+
+  If a Fluentd instance is configured to receive logs from untrusted
+  sources and uses the ${tag} placeholder in file configurations
+  (such as the path parameter in the out_file plugin), an attacker
+  can exploit this bypass. This vulnerability allows an attacker
+  to write arbitrary files or overwrite existing files on the
+  system with attacker-controlled content.
+
+  ## Impact
+
+  This vulnerability allows for Arbitrary File Write, which can be
+  directly escalated to full Remote Code Execution (RCE).
+  An attacker could achieve RCE by overwriting critical system files
+  (such as cron jobs or SSH keys), injecting executable plugins, or
+  modifying configuration files.
+  The impact is Critical as it can lead to full system compromise
+  without any authentication, depending on the Fluentd configuration
+  and the privileges of the Fluentd process.
+cvss_v3: 7.5
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://rubygems.org/gems/fluentd/versions/1.19.4
+    - https://github.com/fluent/fluentd/blob/master/CHANGELOG.md#release-v1194---20260928
+    - https://github.com/fluent/fluentd/security/advisories/GHSA-5hq3-r276-rfr5
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.

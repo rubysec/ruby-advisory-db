@@ -1,0 +1,44 @@
+---
+gem: fluentd
+ghsa: h3xv-5jpx-r4j2
+url: https://github.com/fluent/fluentd/security/advisories/GHSA-h3xv-5jpx-r4j2
+title: Out-of-Memory DoS via Unbounded TCP/TLS Connection
+  Buffer in `in_syslog`
+date: 2026-09-28
+description: |
+  Fluentd's in_syslog plugin allows receiving syslog messages over
+  UDP, TCP, and TLS. It was discovered that the plugin is vulnerable
+  to an unauthenticated remote memory exhaustion (OOM) attack
+  when configured to use TCP or TLS transport.
+
+  While the message_length_limit parameter correctly bounds payload
+  sizes for UDP inputs, the TCP and TLS handlers append incoming
+  data to an unbounded per-connection buffer before parsing. An
+  attacker can exploit this missing validation by establishing a
+  TCP/TLS connection and continuously streaming bytes without
+  sending the configured delimiter (Traditional Framing), or by
+  declaring a massive frame length but never completing the payload
+  (Octet-Count Framing). In both scenarios, Fluentd buffers the
+  incomplete data indefinitely, allowing a single connection to
+  exhaust system memory and crash the worker process.
+
+  ## Impact
+
+  This vulnerability allows for an unauthenticated remote Denial of
+  Service (DoS).
+  By sending crafted, unterminated, or malformed streams to the
+  in_syslog TCP/TLS endpoint, an attacker can rapidly exhaust system
+  memory. This results in the operating system killing the Fluentd
+  worker process (OOM Killer), leading to dropped logs, service
+  outages, and severe backpressure to upstream systems.
+cvss_v3: 7.5
+patched_versions:
+  - ">= 1.19.4"
+related:
+  url:
+    - https://rubygems.org/gems/fluentd/versions/1.19.4
+    - https://github.com/fluent/fluentd/blob/master/CHANGELOG.md#release-v1194---20260928
+    - https://github.com/fluent/fluentd/security/advisories/GHSA-h3xv-5jpx-r4j2
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
