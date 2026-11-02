@@ -1,0 +1,49 @@
+---
+gem: loofah
+ghsa: h6v6-rg66-fqj4
+url: https://github.com/flavorjones/loofah/security/advisories/GHSA-h6v6-rg66-fqj4
+title: "Mutation XSS in Loofah HTML5 scrubbers through unescaped attribute
+  values"
+date: 2026-11-02
+description: |
+  ## Summary
+
+  Loofah's HTML5 scrubbers could emit output that a browser parses into
+  different markup, allowing mutation XSS. Nokogiri < 1.19.5 did not escape `<`
+  and `>` in attribute values. When the output contained certain MathML, a
+  browser treated markup inside an allowed attribute as live HTML. The `:strip`
+  scrubber is affected in every browser. The `:prune` and `:escape` scrubbers
+  are affected in WebKit browsers such as Safari.
+
+  Nokogiri 1.19.5 escapes `<` and `>` in attribute values, as the HTML standard
+  requires. Loofah 2.25.3 requires Nokogiri >= 1.19.5.
+
+  ## Impact
+
+  Applications that sanitize untrusted HTML with Loofah's HTML5 API
+  (`Loofah.html5_fragment`, `Loofah.html5_document` and the `scrub_html5_*`
+  methods) and display the result to other people are affected, including with
+  the default allowlist.
+
+  Not affected: Loofah's HTML4 API (including `Loofah::Helpers.sanitize`), the
+  `:whitewash` scrubber, rails-html-sanitizer's default configuration, and
+  JRuby.
+
+  ## Mitigation
+
+  Upgrade to Loofah >= 2.25.3, or upgrade Nokogiri to >= 1.19.5.
+cvss_v3: 6.1
+unaffected_versions:
+  - "< 2.21.0"
+patched_versions:
+  - ">= 2.25.3"
+related:
+  url:
+    - https://rubygems.org/gems/loofah/versions/2.25.3
+    - https://github.com/flavorjones/loofah/releases/tag/v2.25.3
+    - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2253--2026-11-01
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-4p39-36wj-23h4
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-h6v6-rg66-fqj4
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA

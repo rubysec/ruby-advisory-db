@@ -1,0 +1,50 @@
+---
+gem: loofah
+ghsa: 345x-3rq2-jfrm
+url: https://github.com/flavorjones/loofah/security/advisories/GHSA-345x-3rq2-jfrm
+title: "SVG `<textPath>` and `<mpath>` bypass local-reference restriction in
+  Loofah"
+date: 2026-11-02
+description: |
+  ## Summary
+
+  Loofah restricts `href` and `xlink:href` on certain SVG elements to
+  same-document references. Two elements escaped the restriction:
+
+  - `<textPath>`: `SVG_ALLOW_LOCAL_HREF` listed it in lowercase as `textpath`,
+    but the HTML5 parser names the element `textPath` inside `<svg>`, so the
+    check never matched on the HTML5 path.
+  - `<mpath>`: absent from `SVG_ALLOW_LOCAL_HREF`, so its references were never
+    restricted on either path.
+
+  `rails-html-sanitizer` reuses this safelist in its `PermitScrubber`, so it is
+  affected too.
+
+  ## Impact
+
+  An external `href` or `xlink:href` on `<textPath>` or `<mpath>` survives
+  sanitization. Firefox fetches the URL when rendering the content, which leaks
+  the viewer's IP address, user agent, and referrer, and can reach hosts
+  routable only from the viewer's network. Chrome and WebKit do not fetch
+  external references on these elements. The impact is a network request to an
+  attacker-chosen URL, not script execution.
+
+  Applications that sanitize user-supplied SVG, directly or inside HTML, with
+  Loofah's default allowlist or with `rails-html-sanitizer` with SVG elements
+  permitted are affected.
+
+  ## Mitigation
+
+  Upgrade to Loofah >= 2.25.3.
+cvss_v3: 4.7
+patched_versions:
+  - ">= 2.25.3"
+related:
+  url:
+    - https://rubygems.org/gems/loofah/versions/2.25.3
+    - https://github.com/flavorjones/loofah/releases/tag/v2.25.3
+    - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2253--2026-11-01
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-345x-3rq2-jfrm
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA

@@ -1,0 +1,48 @@
+---
+gem: nokogiri
+platform: jruby
+ghsa: v995-44v6-5fqm
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-v995-44v6-5fqm
+title: "Possible SSRF on JRuby when resolving external DTDs or entities with
+  `NONET` set"
+date: 2026-11-02
+description: |
+  ### Summary
+
+  On JRuby, the `NONET` parse option did not block an external DTD or entity
+  whose system identifier used a short-form IPv4 host, such as `http://127.1/`
+  or `http://169.254.43518/`, or was an absolute path such as `/x.dtd` in a
+  document parsed from a network URL. An application that parses untrusted XML
+  with `DTDLOAD`, `DTDVALID` or `NOENT` could be made to send network requests,
+  potentially enabling SSRF.
+
+  Nokogiri 1.19.5 applies the `XML::Schema` check from
+  [GHSA-8678-w3jw-xfc2](https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-8678-w3jw-xfc2):
+  with `NONET` set, only local resources are loaded.
+
+  Only JRuby is affected. Default parse options are not affected.
+
+  ### Severity
+
+  The Nokogiri maintainers have evaluated this as low severity (CVSS 3.7).
+
+  ### Mitigation
+
+  Upgrade to Nokogiri 1.19.5 or later, or do not enable `DTDLOAD`, `DTDVALID` or
+  `NOENT` for untrusted input.
+
+  ### Credit
+
+  This issue was responsibly reported by @arpitjain099.
+cvss_v3: 3.7
+patched_versions:
+  - ">= 1.19.5"
+related:
+  url:
+    - https://rubygems.org/gems/nokogiri/versions/1.19.5
+    - https://github.com/sparklemotion/nokogiri/releases/tag/v1.19.5
+    - https://github.com/sparklemotion/nokogiri/blob/main/CHANGELOG.md#v1195--2026-11-01
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-v995-44v6-5fqm
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA

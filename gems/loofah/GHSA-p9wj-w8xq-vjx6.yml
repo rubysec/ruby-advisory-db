@@ -1,0 +1,57 @@
+---
+gem: loofah
+ghsa: p9wj-w8xq-vjx6
+url: https://github.com/flavorjones/loofah/security/advisories/GHSA-p9wj-w8xq-vjx6
+title: "Loofah allowed_uri? treats javascript&#x3a alert(1) as safe"
+date: 2026-11-02
+description: |
+  ## Summary
+
+  `Loofah::HTML5::Scrub.allowed_uri?` returns `true` for a `javascript:` or
+  `vbscript:` URI whose scheme is split by a numeric character reference without
+  a trailing semicolon, followed by a character that `allowed_uri?` strips, such
+  as a space or tab. A browser ends the reference at that character and reads
+  `javascript&#x3a alert(1)` as `javascript: alert(1)`.
+
+  ## Details
+
+  `allowed_uri?` strips control characters and whitespace before it decodes
+  numeric character references. Removing the character that ends a
+  semicolon-less reference lets the reference run on into the following text, so
+  `&#x3a alert` decodes as `&#x3aa` (U+03AA) instead of a colon, and no scheme
+  is detected. The same applies to decimal references and to references that
+  encode a scheme letter, as in `&#x6a\tavascript:alert(1)`.
+
+  Loofah's default `sanitize()` path is **not** affected, because Nokogiri
+  decodes the entity during parsing before Loofah evaluates the URI. This issue
+  affects only callers of the public `allowed_uri?` string-level helper that
+  pass it HTML-encoded strings.
+
+  ## Impact
+
+  Applications that validate a user-controlled URL with
+  `Loofah::HTML5::Scrub.allowed_uri?` and then render the approved value into an
+  `href` or another browser-interpreted URI attribute may be vulnerable to
+  cross-site scripting. `Rails::HTML::Sanitizer.allowed_uri?` re-exports the
+  same helper.
+
+  ## Mitigation
+
+  Upgrade to Loofah >= 2.25.3.
+
+  ## Credit
+
+  Responsibly reported by GitHub user @manus-pi.
+unaffected_versions:
+  - "< 2.25.0"
+patched_versions:
+  - ">= 2.25.3"
+related:
+  url:
+    - https://rubygems.org/gems/loofah/versions/2.25.3
+    - https://github.com/flavorjones/loofah/releases/tag/v2.25.3
+    - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2253--2026-11-01
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-p9wj-w8xq-vjx6
+notes: |
+  - No CVE.
+  - No CVSS score on GHSA
