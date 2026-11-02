@@ -1,0 +1,53 @@
+---
+gem: resque
+ghsa: 5r7x-x5pm-94xj
+url: https://github.com/resque/resque/security/advisories/GHSA-5r7x-x5pm-94xj
+title: Reflected XSS through the request path in the resque-web poll link
+date: 2026-09-09
+description: |
+  ### Impact
+
+  The "Live Poll!!" link rendered on the `/overview` and `/workers`
+  pages interpolated the raw request path into an `href` attribute
+  without escaping it.
+
+  Browsers do not percent-encode apostrophes in a URL path, so an
+  apostrophe reaches `PATH_INFO` literally and breaks out of the
+  single-quoted attribute:
+
+  ```
+  /overview/x'onmouseover='alert(document.domain)
+  /workers/x'onmouseover='alert(document.domain)
+  ```
+
+  Which renders as:
+
+  ```html
+  <a href='/overview/x'onmouseover='alert(document.domain).poll' rel='poll'>Live Poll!!</a>
+  ```
+
+  No prior access to the application is required — a single crafted
+  link is enough.
+
+  ### Patches
+
+  v3.0.2
+
+  ### Workarounds
+
+  No known workarounds at this time. It is recommended to not click
+  on 3rd party or untrusted links to the resque-web interface until
+  you have patched your application.
+
+  ### References
+
+  https://github.com/resque/resque/pull/1946
+cvss_v4: 5.1
+patched_versions:
+  - ">= 3.0.2"
+related:
+  url:
+    - https://github.com/resque/resque/security/advisories/GHSA-5r7x-x5pm-94xj
+    - https://github.com/resque/resque/pull/1946
+notes: |
+    - A CVE has been requested for this GHSA and can be added once assigned.

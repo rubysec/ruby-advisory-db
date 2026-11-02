@@ -1,0 +1,48 @@
+---
+gem: resque-scheduler
+ghsa: 56gg-9g3j-m653
+url: https://github.com/resque/resque-scheduler/security/advisories/GHSA-56gg-9g3j-m653
+title: Stored XSS in resque-scheduler web UI through job class and queue names
+date: 2026-10-11
+description: |
+  ### Summary
+
+  Job class names and queue names read back out of Redis were rendered
+  into the resque-scheduler web UI without escaping, in both text nodes
+  and `value` attributes. Anyone able to enqueue a job (or otherwise
+  write to Redis) can store markup that executes when an operator views
+  the delayed jobs pages.
+
+  ### Details
+
+  The affected surfaces:
+
+  - **`/delayed/:timestamp`**: the job class of every delayed job at
+    that timestamp
+  - **`/delayed/search` results**: the job class of matching delayed
+    jobs, both as text and inside the hidden `klass` input of the
+    "Cancel Job" form, plus the queue and class of matching queued and
+    working jobs
+
+  Neither the class nor the queue name is validated when a job is
+  enqueued, so any string an application passes through ends up in the
+  page as-is.
+
+  Fixed in https://github.com/resque/resque-scheduler/pull/830
+
+  ### Impact
+
+  Script runs in the operator's browser with their resque-web session.
+  It can do anything the operator can do there: read job arguments,
+  delete queues, clear delayed and failed jobs, and queue scheduled
+  jobs. When resque-web is mounted inside a Rails app, it runs on the
+  app's origin, so it has the operator's session there as well.
+cvss_v4: 5.1
+patched_versions:
+  - ">= 5.0.1"
+related:
+  url:
+    - https://github.com/resque/resque-scheduler/security/advisories/GHSA-56gg-9g3j-m653
+    - https://github.com/resque/resque-scheduler/pull/830
+notes: |
+    - A CVE has been requested for this GHSA and can be added once assigned.

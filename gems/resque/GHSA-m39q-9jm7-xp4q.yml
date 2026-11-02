@@ -1,0 +1,38 @@
+---
+gem: resque
+ghsa: m39q-9jm7-xp4q
+url: https://github.com/resque/resque/security/advisories/GHSA-m39q-9jm7-xp4q
+title: Reflected XSS in the resque-web stats/keys endpoint
+date: 2026-09-09
+description: |
+  ### Impact
+
+  The following paths in resque-web have been found to be vulnerable
+  to reflected XSS:
+
+  ```
+  /stats/keys/<img src=x onerror=alert(document.domain)>
+  ```
+
+  ### Patches
+
+  v3.0.1
+
+  ### Workarounds
+
+  No known workarounds at this time. It is recommended to not click
+  on 3rd party or untrusted links to the resque-web interface until
+  you have patched your application.
+
+  ### References
+
+  https://github.com/resque/resque/pull/1942
+cvss_v3: 6.3
+patched_versions:
+  - ">= 3.0.1"
+related:
+  url:
+    - https://github.com/resque/resque/security/advisories/GHSA-m39q-9jm7-xp4q
+    - https://github.com/resque/resque/pull/1942
+notes: |
+    - A CVE has been requested for this GHSA and can be added once assigned.
