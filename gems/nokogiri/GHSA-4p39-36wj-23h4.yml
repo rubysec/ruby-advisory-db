@@ -1,0 +1,60 @@
+---
+gem: nokogiri
+ghsa: 4p39-36wj-23h4
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-4p39-36wj-23h4
+title: "Possible Mutation XSS when serializing `noscript` content in
+  `Nokogiri::HTML5` documents"
+date: 2026-11-02
+description: |
+  ### Summary
+
+  Nokogiri's HTML5 serializer did not escape text inside `noscript` elements, or
+  `<` and `>` inside attribute values. When a document parsed with the default
+  options is serialized, a browser with scripting enabled can parse the output
+  into markup that Nokogiri's parser never produced. This is a mutation XSS for
+  applications that sanitize untrusted HTML with `Nokogiri::HTML5`, allow
+  `noscript` elements, and send the serialized output to browsers.
+
+  Nokogiri 1.19.5 escapes both, as the HTML standard's serialization algorithm
+  requires. Text inside `noscript` is still emitted unescaped for documents
+  parsed with `parse_noscript_content_as_text: true`.
+
+  Only the C extension (CRuby and TruffleRuby) is affected. JRuby does not
+  implement `Nokogiri::HTML5`.
+
+  ### Severity
+
+  The Nokogiri maintainers have evaluated this as low severity (CVSS 2.3,
+  `CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N`).
+  Exploitation requires an application that allows `noscript` in sanitized HTML.
+  Loofah and rails-html-sanitizer do not allow it by default, and Sanitize
+  always removes it.
+
+  ### Mitigation
+
+  Upgrade to Nokogiri 1.19.5 or later.
+
+  Applications that sanitize HTML and allow `noscript` should parse with
+  `parse_noscript_content_as_text: true` (available since Nokogiri 1.17.0), or
+  remove `noscript` elements. This is the workaround for earlier versions, and
+  it is recommended on every version: some content inside `noscript` is
+  serialized unchanged, as the standard requires.
+
+  ### Credit
+
+  This issue was responsibly reported by @a-zara-n.
+cvss_v4: 2.3
+unaffected_versions:
+  - "< 1.12.0"
+patched_versions:
+  - ">= 1.19.5"
+related:
+  url:
+    - https://rubygems.org/gems/nokogiri/versions/1.19.5
+    - https://github.com/sparklemotion/nokogiri/releases/tag/v1.19.5
+    - https://github.com/sparklemotion/nokogiri/blob/main/CHANGELOG.md#v1195--2026-11-01
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-h6v6-rg66-fqj4
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-4p39-36wj-23h4
+notes: |
+  - No CVE.
+  - cvss_v4 from GHSA

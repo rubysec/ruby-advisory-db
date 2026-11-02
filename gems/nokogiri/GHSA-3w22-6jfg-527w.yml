@@ -1,0 +1,55 @@
+---
+gem: nokogiri
+ghsa: 3w22-6jfg-527w
+url: https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-3w22-6jfg-527w
+title: "Use-After-Free in Nokogiri when replacing an attribute value"
+date: 2026-11-02
+description: |
+  ### Summary
+
+  Nokogiri's CRuby native extension could leave a Ruby wrapper pointing to freed
+  memory when replacing the value of an existing XML attribute via
+  `Nokogiri::XML::Node#[]=` or `Nokogiri::XML::Node#lang=`. If Ruby code had
+  already accessed the attribute's child nodes, replacing the value could free
+  those native child nodes while their wrappers remained reachable. Using one of
+  those child nodes afterwards could cause an invalid read and a possible
+  segfault.
+
+  This is the same class of issue as
+  [GHSA-phwj-rprq-35pp](https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-phwj-rprq-35pp),
+  which was fixed for `Attr#value=` in Nokogiri 1.19.4.
+
+  Nokogiri 1.19.5 preserves all already-wrapped attribute child nodes before
+  replacing the attribute value.
+
+  JRuby is not affected.
+
+  ### Severity
+
+  The Nokogiri maintainers have evaluated this as low severity. Reaching it
+  requires an unusual API-usage pattern that does not arise during normal use.
+  The application must directly access an attribute's child nodes and then
+  replace that same attribute's value via `Node#[]=` or `Node#lang=`. Nokogiri
+  1.19.5 makes this pattern safe with no change to the public API.
+
+  ### Mitigation
+
+  Upgrade to Nokogiri 1.19.5 or later.
+
+  As a workaround, avoid accessing attribute child nodes directly via
+  `Attr#children` or similar before replacing the same attribute's value.
+
+  ### Credit
+
+  This issue was responsibly reported by zx (@manus-pi).
+patched_versions:
+  - ">= 1.19.5"
+related:
+  url:
+    - https://rubygems.org/gems/nokogiri/versions/1.19.5
+    - https://github.com/sparklemotion/nokogiri/releases/tag/v1.19.5
+    - https://github.com/sparklemotion/nokogiri/blob/main/CHANGELOG.md#v1195--2026-11-01
+    - https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-3w22-6jfg-527w
+notes: |
+  - No CVE.
+  - No CVSS score on GHSA

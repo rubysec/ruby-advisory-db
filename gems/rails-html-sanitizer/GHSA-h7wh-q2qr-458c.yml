@@ -1,0 +1,70 @@
+---
+gem: rails-html-sanitizer
+framework: rails
+ghsa: h7wh-q2qr-458c
+url: https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-h7wh-q2qr-458c
+title: "Possible XSS via shared scrubber state in concurrent
+  rails-html-sanitizer calls"
+date: 2026-11-02
+description: |
+  ## Summary
+
+  `Rails::HTML::SafeListSanitizer` (both the HTML4 and HTML5 variants) shares
+  one `Rails::HTML::PermitScrubber` across every `sanitize` call on the same
+  instance, assigning its `tags` and `attributes` on each call without
+  synchronization. Two concurrent `sanitize` calls with different `tags:` or
+  `attributes:` options can interleave, so one call is scrubbed with the other
+  call's allowlist.
+
+  - Versions affected: `< 1.7.2`
+  - Not affected: none
+  - Fixed versions: `1.7.2`
+
+  ## Impact
+
+  Action View memoizes a single `SafeListSanitizer` per helper module and uses
+  it for every `sanitize` call in the process, so in a multi-threaded server
+  (for example Puma) all requests share the same `PermitScrubber`. If any code
+  path calls `sanitize` with a more permissive allowlist, an attacker who can
+  trigger that path concurrently with another request can cause the other
+  request to be sanitized with the permissive allowlist. If the permissive
+  allowlist admits `script` or an event-handler attribute, the strict call emits
+  it unchanged, which is a cross-site scripting vector when the strict output is
+  stored or rendered to other users.
+
+  Applications are affected only if they run more than one thread per process
+  and some `sanitize` call passes `tags:` or `attributes:` options that differ
+  from another call's, including a call that passes no options and so uses the
+  defaults. Applications that use a single configuration everywhere, pass their
+  own `scrubber:`, or run single-threaded are not affected.
+
+  ## Workarounds
+
+  Use the same allowlist for every `sanitize` call, or pass a `scrubber:` built
+  per call (`Rails::HTML::PermitScrubber.new` with `tags=` and `attributes=`
+  set) instead of `tags:` and `attributes:` options.
+
+  ## References
+
+  - [CWE-362: Concurrent Execution using Shared Resource with Improper
+    Synchronization ('Race
+    Condition')](https://cwe.mitre.org/data/definitions/362.html)
+  - [CWE-79: Improper Neutralization of Input During Web Page Generation
+    ('Cross-site Scripting')](https://cwe.mitre.org/data/definitions/79.html)
+  - [rails/rails-html-sanitizer#228](https://github.com/rails/rails-html-sanitizer/issues/228)
+
+  ## Credit
+
+  Reported by hiumee via HackerOne.
+cvss_v3: 4.7
+patched_versions:
+  - ">= 1.7.2"
+related:
+  url:
+    - https://rubygems.org/gems/rails-html-sanitizer/versions/1.7.2
+    - https://github.com/rails/rails-html-sanitizer/releases/tag/v1.7.2
+    - https://github.com/rails/rails-html-sanitizer/blob/main/CHANGELOG.md#v172--2026-11-02
+    - https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-h7wh-q2qr-458c
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA

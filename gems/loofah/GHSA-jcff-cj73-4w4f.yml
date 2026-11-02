@@ -1,0 +1,61 @@
+---
+gem: loofah
+ghsa: jcff-cj73-4w4f
+url: https://github.com/flavorjones/loofah/security/advisories/GHSA-jcff-cj73-4w4f
+title: "Loofah allowed_uri? treats data:text&sol;html as safe text/plain"
+date: 2026-11-02
+description: |
+  ## Summary
+
+  `Loofah::HTML5::Scrub.allowed_uri?` returns `true` for a `data:` URI whose
+  mediatype is written with the HTML5 named character reference `&sol;` in place
+  of the solidus. Loofah reads that mediatype as malformed and falls back to the
+  allowed `text/plain`, while a browser decodes the reference and reads the same
+  URI as `text/html`.
+
+  ## Details
+
+  `allowed_uri?` decodes HTML entities with `CGI.unescapeHTML`, which handles
+  numeric character references but not HTML5 named character references. `&sol;`
+  therefore survives normalization, so the mediatype carries no `/`, fails the
+  MIME grammar, and falls back to the allowed `text/plain` under the WHATWG rule
+  for a malformed mediatype.
+
+  `&colon;`, `&sol;`, `&Tab;` and `&NewLine;` are the only named character
+  references in the HTML5 table that decode to characters that change how a URI
+  parses (U+003A, U+002F, U+0009 and U+000A; there is no named reference for
+  U+000D), so this closes the set.
+
+  Loofah's default `sanitize()` path is **not** affected, because Nokogiri
+  decodes the entity during parsing before Loofah evaluates the URI. This issue
+  affects only callers of the public `allowed_uri?` string-level helper that
+  pass it HTML-encoded strings.
+
+  ## Impact
+
+  Applications that validate a user-controlled URL with
+  `Loofah::HTML5::Scrub.allowed_uri?` and then render the approved value into an
+  `href` or another browser-interpreted URI attribute may be vulnerable to
+  cross-site scripting. `Rails::HTML::Sanitizer.allowed_uri?` re-exports the
+  same helper.
+
+  ## Mitigation
+
+  Upgrade to Loofah >= 2.25.3.
+
+  ## Credit
+
+  Responsibly reported by GitHub user @ngpestelos.
+unaffected_versions:
+  - "< 2.25.2"
+patched_versions:
+  - ">= 2.25.3"
+related:
+  url:
+    - https://rubygems.org/gems/loofah/versions/2.25.3
+    - https://github.com/flavorjones/loofah/releases/tag/v2.25.3
+    - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2253--2026-11-01
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-jcff-cj73-4w4f
+notes: |
+  - No CVE.
+  - No CVSS score on GHSA

@@ -1,0 +1,72 @@
+---
+gem: rails-html-sanitizer
+framework: rails
+ghsa: cpgf-5mjf-73p7
+url: https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-cpgf-5mjf-73p7
+title: "Possible regular expression denial of service with certain
+  configurations of rails-html-sanitizer"
+date: 2026-11-02
+description: |
+  ## Summary
+
+  `Rails::HTML::PermitScrubber` restricts the `href` and `xlink:href` attributes
+  of SVG reference elements to local references. That check matched the
+  attribute value against `/^\s*[^#\s].*/m`. In Ruby `^` anchors to every line
+  start and `\s` matches newlines, so an all-whitespace value made the engine
+  rescan the value from each of its line starts, taking time quadratic in its
+  length.
+
+  - Versions affected: `>= 1.0.3, < 1.7.2`
+  - Not affected: `< 1.0.3`
+  - Fixed versions: `1.7.2`
+
+  CRuby 3.1 and earlier, and JRuby, are affected. CRuby 3.2 added linear-time
+  regexp matching, which makes the pattern linear. JRuby's regexp engine does
+  not.
+
+  ## Impact
+
+  An attacker who supplies HTML to be sanitized can consume CPU out of
+  proportion to the input size, by sending an SVG reference element whose `href`
+  or `xlink:href` is a long run of whitespace.
+
+  Applications are affected only when the allowed tags are overridden to include
+  an SVG reference element such as `use`, along with `href` or `xlink:href` in
+  the allowed attributes. The default allowed tags include no SVG elements, so
+  the default configuration is not affected. Applications that use Loofah
+  directly are exposed through its own copy of the check, fixed in Loofah
+  2.25.3.
+
+  ## Workarounds
+
+  On CRuby, run 3.2 or later, which matches the pattern in linear time.
+  Alternatively, remove the SVG reference elements from the overridden allowed
+  tags.
+
+  ## References
+
+  - [GHSA-mf2j-8f84-cc9q: the same flaw in
+    Loofah](https://github.com/flavorjones/loofah/security/advisories/GHSA-mf2j-8f84-cc9q)
+  - [CWE-1333: Inefficient Regular Expression
+    Complexity](https://cwe.mitre.org/data/definitions/1333.html)
+  - [Ruby 3.2.0 release
+    notes](https://www.ruby-lang.org/en/news/2022/12/25/ruby-3-2-0-released/)
+
+  ## Credit
+
+  Reported by scyoon through the Rails HackerOne program.
+cvss_v3: 5.3
+unaffected_versions:
+  - "< 1.0.3"
+patched_versions:
+  - ">= 1.7.2"
+related:
+  url:
+    - https://rubygems.org/gems/rails-html-sanitizer/versions/1.7.2
+    - https://github.com/rails/rails-html-sanitizer/releases/tag/v1.7.2
+    - https://github.com/rails/rails-html-sanitizer/blob/main/CHANGELOG.md#v172--2026-11-02
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-mf2j-8f84-cc9q
+    - https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-cpgf-5mjf-73p7
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA

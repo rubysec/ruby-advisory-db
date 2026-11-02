@@ -1,0 +1,57 @@
+---
+gem: loofah
+ghsa: mf2j-8f84-cc9q
+url: https://github.com/flavorjones/loofah/security/advisories/GHSA-mf2j-8f84-cc9q
+title: "Regular expression denial of service in Loofah's SVG local-reference
+  check"
+date: 2026-11-02
+description: |
+  ## Summary
+
+  Loofah's HTML5 sanitizer restricts the `href` and `xlink:href` attributes of
+  SVG reference elements to local references. That check matched the attribute
+  value against `/^\s*[^#\s].*/m`. In Ruby `^` anchors to every line start and
+  `\s` matches newlines, so an all-whitespace value made the engine rescan the
+  value from each of its line starts, taking time quadratic in its length.
+
+  CRuby 3.1 and earlier, and JRuby, are affected. CRuby 3.2 added linear-time
+  regexp matching, which makes the pattern linear. JRuby's regexp engine does
+  not.
+
+  ## Impact
+
+  An attacker who supplies HTML to be sanitized can consume CPU out of
+  proportion to the input size, by sending an SVG reference element whose `href`
+  or `xlink:href` is a long run of whitespace.
+
+  The default safelist allows the elements in `SVG_ALLOW_LOCAL_HREF`, so no
+  configuration change is required.
+
+  ## Mitigation
+
+  Upgrade to Loofah >= 2.25.3. Applications on CRuby that cannot upgrade should
+  run CRuby 3.2 or later, which matches the pattern in linear time.
+
+  ## References
+
+  - [CWE-1333: Inefficient Regular Expression
+    Complexity](https://cwe.mitre.org/data/definitions/1333.html)
+  - [Ruby 3.2.0 release
+    notes](https://www.ruby-lang.org/en/news/2022/12/25/ruby-3-2-0-released/)
+
+  ## Credit
+
+  Reported by scyoon through the Rails HackerOne program.
+cvss_v3: 5.3
+patched_versions:
+  - ">= 2.25.3"
+related:
+  url:
+    - https://rubygems.org/gems/loofah/versions/2.25.3
+    - https://github.com/flavorjones/loofah/releases/tag/v2.25.3
+    - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2253--2026-11-01
+    - https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-cpgf-5mjf-73p7
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-mf2j-8f84-cc9q
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA

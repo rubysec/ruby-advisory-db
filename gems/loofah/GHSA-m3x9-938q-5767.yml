@@ -1,0 +1,49 @@
+---
+gem: loofah
+ghsa: m3x9-938q-5767
+url: https://github.com/flavorjones/loofah/security/advisories/GHSA-m3x9-938q-5767
+title: "CSS url() sanitization bypass via escaped parentheses in Loofah"
+date: 2026-11-02
+description: |
+  ## Summary
+
+  `Loofah::HTML5::Scrub.scrub_css` rejected any property whose top-level Crass
+  tokens included a `:url` or `:bad_url`, and left `url` out of the allowed CSS
+  functions. Both checks ran only against the first parse of the `style`
+  attribute. When `scrub_css` rebuilt each property it emitted identifiers with
+  their CSS escapes decoded, so parentheses written as escapes — `url\28 …\29` —
+  hid the `url` token from the checks, and the rebuilt value was re-parsed into
+  a live `url()` that nothing checked again. An escaped property name, six-digit
+  escapes, escaped comments and escaped quotes all reached the same place.
+
+  ## Impact
+
+  A sanitized `style` attribute could make a viewer's browser issue a request to
+  an attacker-chosen URL. `list-style` fetches on render with no interaction,
+  `cursor` on hover. That leaks the viewer's IP address, user agent and access
+  timing, and can reach hosts routable only from the viewer's network. No script
+  survives sanitization and the attacker cannot read the response, so the
+  request itself is the whole impact.
+
+  Applications that sanitize user-supplied HTML with Loofah's default allowlist
+  and display it to other people are affected.
+
+  ## Mitigation
+
+  Upgrade to Loofah >= 2.25.3.
+
+  ## Credit
+
+  Reported by NotAFlightRisk through GitHub's private vulnerability reporting.
+cvss_v3: 4.7
+patched_versions:
+  - ">= 2.25.3"
+related:
+  url:
+    - https://rubygems.org/gems/loofah/versions/2.25.3
+    - https://github.com/flavorjones/loofah/releases/tag/v2.25.3
+    - https://github.com/flavorjones/loofah/blob/main/CHANGELOG.md#2253--2026-11-01
+    - https://github.com/flavorjones/loofah/security/advisories/GHSA-m3x9-938q-5767
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA
