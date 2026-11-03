@@ -1,5 +1,6 @@
 ---
 gem: crass
+cve: 2026-61845
 ghsa: 6wmf-3r64-vcwv
 url: https://github.com/rgrove/crass/security/advisories/GHSA-6wmf-3r64-vcwv
 title: Large numeric exponents cause CPU and memory denial of service
@@ -19,9 +20,12 @@ patched_versions:
   - ">= 1.0.7"
 related:
   url:
+    - https://www.cve.org/CVERecord?id=CVE-2026-61845
     - https://rubygems.org/gems/crass/versions/1.0.7
     - https://github.com/rgrove/crass/releases/tag/v1.0.7
     - https://github.com/rgrove/crass/blob/v1.0.7/HISTORY.md#107-2026-06-25
+    - https://advisories.gitlab.com/gem/crass/CVE-2026-61845
     - https://github.com/rgrove/crass/security/advisories/GHSA-6wmf-3r64-vcwv
+    - https://github.com/advisories/GHSA-6wmf-3r64-vcwv
 notes: |
-  - No CVE, but not published so no non-GHSA cvss values.
+  - CVE from GHSA URL.
