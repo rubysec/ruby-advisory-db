@@ -4,7 +4,7 @@ ghsa: 58rx-96gf-w92x
 url: https://github.com/activerecord-hackery/ransack/security/advisories/GHSA-58rx-96gf-w92x
 title: Ransack - sort_link and sort_url take url_for options from
   request params, allowing reflected XSS and open redirect
-date: 2025-10-25
+date: 2026-10-25
 description: |
   ## Impact
 
