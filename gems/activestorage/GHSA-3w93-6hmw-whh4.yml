@@ -1,0 +1,72 @@
+---
+gem: activestorage
+framework: rails
+ghsa: 3w93-6hmw-whh4
+url: https://github.com/rails/rails/security/advisories/GHSA-3w93-6hmw-whh4
+title: "Unsigned Content-Type in Active Storage GCS direct uploads with
+  cache_control"
+date: 2026-11-04
+description: |
+  ### Impact
+
+  When a GCS service is configured with the `cache_control` option,
+  `ActiveStorage::Service::GCSService#url_for_direct_upload` signs direct-upload
+  URLs with V4, and the V4 signature covers only the `Cache-Control` and `Host`
+  headers. A direct-upload client can therefore send a `Content-Type` of its
+  choosing, and can omit the declared `Content-MD5`, without invalidating the
+  URL. GCS stores the supplied content type as object metadata, which takes
+  precedence over the `response-content-type` that Active Storage sets on
+  download URLs, so an uploaded object could be served as inline HTML under the
+  application's bucket path on `storage.googleapis.com`. Script in such an
+  object runs on the storage origin rather than the application's, but could
+  register a Service Worker scoped to the bucket path and read or replace a
+  victim's later responses for signed URLs in that bucket.
+
+  Applications that use the GCS service with `cache_control` configured and
+  accept direct uploads are affected. GCS services without `cache_control` sign
+  with V2 and are not affected.
+
+  ### Details
+
+  The fixed releases sign every GCS direct-upload URL with V2, which binds an
+  empty `Content-Type` and the declared `Content-MD5`. The configured
+  `Cache-Control` is still returned by `headers_for_direct_upload` and sent by
+  the client, but it is no longer part of the signature, and direct-upload URLs
+  for these services are no longer limited to V4's seven-day maximum expiry. See
+  the Active Storage CHANGELOG.
+
+  ### Workarounds
+
+  Removing the `cache_control` option from the GCS service configuration makes
+  Active Storage sign direct uploads with V2.
+
+  ### Releases
+
+  The fixed releases are available at the normal locations.
+
+  Patches for those who cannot upgrade at once:
+  - 8.1:
+    https://github.com/rails/rails/commit/8d93f6a872e9550a91bf0e4fce50083a235ef3b1.patch
+  - 8.0:
+    https://github.com/rails/rails/commit/ddc08ba61a8001e7402864c62e466cf732fc7614.patch
+
+  ### Credit
+
+  This issue was responsibly reported by HackerOne researcher
+  [thepo1es](https://hackerone.com/thepo1es).
+cvss_v3: 4.7
+patched_versions:
+  - "~> 8.0.5, >= 8.0.5.2"
+  - ">= 8.1.4.1"
+related:
+  url:
+    - https://rubygems.org/gems/activestorage/versions/8.1.4.1
+    - https://github.com/rails/rails/releases/tag/v8.1.4.1
+    - https://rubygems.org/gems/activestorage/versions/8.0.5.2
+    - https://github.com/rails/rails/releases/tag/v8.0.5.2
+    - https://github.com/rails/rails/commit/8d93f6a872e9550a91bf0e4fce50083a235ef3b1
+    - https://github.com/rails/rails/commit/ddc08ba61a8001e7402864c62e466cf732fc7614
+    - https://github.com/rails/rails/security/advisories/GHSA-3w93-6hmw-whh4
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA

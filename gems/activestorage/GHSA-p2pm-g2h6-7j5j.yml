@@ -1,0 +1,62 @@
+---
+gem: activestorage
+framework: rails
+ghsa: p2pm-g2h6-7j5j
+url: https://github.com/rails/rails/security/advisories/GHSA-p2pm-g2h6-7j5j
+title: "Possible DoS vulnerability in Active Storage filename handling"
+date: 2026-11-04
+description: |
+  ### Impact
+
+  `ActiveStorage::Filename#base` and `#extension_with_delimiter`, and therefore
+  `#extension`, pass the stored filename unmodified to `File.basename` and
+  `File.extname`, which raise `ArgumentError` when the name contains a NUL byte.
+  Active Storage stores the client-supplied filename verbatim, so a user who is
+  permitted to upload an attachment could persist such a filename on databases
+  that accept NUL bytes in string columns, such as SQLite and MySQL/MariaDB.
+  Each subsequent request that builds a variant or preview of the blob, opens
+  it, or renders it as an Action Text attachment then raises, possibly resulting
+  in a persistent DoS vulnerability for the pages that display the blob until it
+  is purged or its filename is corrected. Applications that use PostgreSQL are
+  not affected, because PostgreSQL rejects the row.
+
+  ### Details
+
+  `Filename#base` and `#extension_with_delimiter` now derive from
+  `Filename#sanitized`, the form that `Filename#to_s` and the
+  `Content-Disposition` header already use. For a filename that `#sanitized`
+  changes, such as one containing a NUL byte, an invalid byte sequence, a path
+  separator or another replaced character, the base and extension now agree with
+  `#to_s`; the variant format inferred from such a name may change, and an
+  existing variant may be regenerated once. Stored filenames are not modified,
+  and no data migration is required.
+
+  ### Releases
+
+  The fixed releases are available at the normal locations.
+
+  Patches for those who cannot upgrade at once:
+  - 8.1:
+    https://github.com/rails/rails/commit/60f22af88b71eae251f112d8c0237a08a8832692.patch
+  - 8.0:
+    https://github.com/rails/rails/commit/9b0d4bef2211a2c08cab2e0ea17fa1d0efd5d47a.patch
+
+  ### Credit
+
+  This issue was found by the Anthropic OSS Scanner (ANT-2026-UQM5Z4YL).
+cvss_v3: 4.3
+patched_versions:
+  - "~> 8.0.5, >= 8.0.5.2"
+  - ">= 8.1.4.1"
+related:
+  url:
+    - https://rubygems.org/gems/activestorage/versions/8.1.4.1
+    - https://github.com/rails/rails/releases/tag/v8.1.4.1
+    - https://rubygems.org/gems/activestorage/versions/8.0.5.2
+    - https://github.com/rails/rails/releases/tag/v8.0.5.2
+    - https://github.com/rails/rails/commit/60f22af88b71eae251f112d8c0237a08a8832692
+    - https://github.com/rails/rails/commit/9b0d4bef2211a2c08cab2e0ea17fa1d0efd5d47a
+    - https://github.com/rails/rails/security/advisories/GHSA-p2pm-g2h6-7j5j
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA
