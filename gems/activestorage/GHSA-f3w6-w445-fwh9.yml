@@ -1,0 +1,121 @@
+---
+gem: activestorage
+framework: rails
+ghsa: f3w6-w445-fwh9
+url: https://github.com/rails/rails/security/advisories/GHSA-f3w6-w445-fwh9
+title: "Possible arbitrary file write and read in Active Storage image analysis"
+date: 2026-11-04
+description: |
+  ### Impact
+
+  A Rails application that processes attachments with ImageMagick may allow an
+  unauthenticated attacker to write arbitrary files on the server and, when
+  attachments are stored with the Disk service, to read arbitrary files readable
+  by the application process. Those files typically include `secret_key_base`
+  and credentials for external systems, which may in turn allow escalation to
+  remote code execution or lateral movement to those systems.
+
+  ### Details
+
+  ImageMagick selects a coder from the content of the file it is given, and some
+  coders act on files named inside the image rather than on the image itself.
+  Active Storage constrained none of ImageMagick's coders, and the ImageMagick
+  analyzer runs when a file is attached, so an attacker who can upload a crafted
+  file may be able to invoke one. Attaching the upload is sufficient; no
+  variant, preview, or `analyze` call is required. One specific attack chain has
+  been reported to us, but we do not assume it is the only one that exists.
+
+  The fixed versions ship an ImageMagick security policy and prepend its
+  directory to `MAGICK_CONFIGURE_PATH` through `MiniMagick.cli_env`, so every
+  ImageMagick process that MiniMagick spawns applies it. The policy denies the
+  `MSL` scripting coder, the coders that read or delete files other than the
+  image, fetch remote or local references, or display to a screen, every coder
+  backed by Ghostscript together with the `gs` delegate, and `@filename`
+  indirection. ImageMagick applies every `policy.xml` on its search path, so the
+  shipped policy adds to the host's policy rather than replacing it. The policy
+  applies to every ImageMagick command that MiniMagick runs, not only those of
+  Active Storage. See the `activestorage` CHANGELOG and "ImageMagick Security
+  Policy" in the Active Storage guide.
+
+  ### Affected applications
+
+  An application is affected if it meets all of these requirements:
+  - Uses ImageMagick for Active Storage image processing. This is
+    `config.active_storage.variant_processor = :mini_magick`, which is the
+    default for applications on `load_defaults 6.1` or earlier.
+  - Runs ImageMagick under a security policy that does not already deny the
+    coders involved. The policies that Debian and Ubuntu package do not.
+  - Allows file uploads from untrusted users.
+
+  ### Mitigation
+
+  - Upgrade to a fixed version of `activestorage`.
+  - An application whose variant processor is `:mini_magick` must use
+    mini_magick `>= 5.1`, which applying the policy requires. With an older
+    mini_magick, such an application raises an exception during boot.
+  - An application that renders PostScript or PDF through ImageMagick must
+    re-allow the `gs` delegate and the coders it uses in the host's
+    `policy.xml`.
+  - An application that replaces `MiniMagick.cli_env` after boot, clears the
+    environment with `MiniMagick.cli_prefix`, or installs its own
+    `MiniMagick::Shell` does not receive the shipped policy and must carry its
+    rules in ImageMagick's system policy. GraphicsMagick does not read
+    ImageMagick policies.
+  - If attachments are stored with the Disk service, change `secret_key_base`
+    and every secret readable by the application process, including the master
+    key and everything `config/credentials.yml.enc` holds, storage and database
+    credentials, and third-party tokens. Do not retain an exposed secret as a
+    fallback.
+
+  ### Workarounds
+
+  Copy the rules of the policy that the fixed versions ship,
+  `activestorage/lib/active_storage/image_magick/policy.xml`, into ImageMagick's
+  system policy, for example `/etc/ImageMagick-7/policy.xml`. At a minimum, deny
+  the `MSL` coder, the Ghostscript coders, and the `gs` delegate:
+
+  ```xml
+  <policy domain="coder" rights="none" pattern="MSL"/>
+  <policy domain="delegate" rights="none" pattern="gs"/>
+  <policy domain="coder" rights="none" pattern="{PS,PS2,PS3,EPS,EPS2,EPS3,EPI,EPSF,EPSI,EPT,EPT2,EPT3,PDF,AI,EPDF,PDFA,POCKETMOD,XPS,PCL}"/>
+  ```
+
+  ### Releases
+
+  The fixed releases are available at the normal locations.
+
+  Patches for those who cannot upgrade at once:
+  - 8.1:
+    https://github.com/rails/rails/commit/468aa9a93fc98f5476b6821770f4ccfcb7f7d328
+  - 8.0:
+    https://github.com/rails/rails/commit/ea8c40121ce53a3d0255cd4eb6d13bfe3bc01776
+
+  ### Versions affected
+
+  - activestorage < 8.0.5.2
+  - activestorage >= 8.1, < 8.1.4.1
+
+  ### Credit
+
+  This issue was responsibly reported by HackerOne researcher
+  [ryotak](https://hackerone.com/ryotak).
+
+  ### References
+
+  - ImageMagick [security policy](https://imagemagick.org/security-policy/)
+cvss_v3: 9.8
+patched_versions:
+  - "~> 8.0.5, >= 8.0.5.2"
+  - ">= 8.1.4.1"
+related:
+  url:
+    - https://rubygems.org/gems/activestorage/versions/8.1.4.1
+    - https://github.com/rails/rails/releases/tag/v8.1.4.1
+    - https://rubygems.org/gems/activestorage/versions/8.0.5.2
+    - https://github.com/rails/rails/releases/tag/v8.0.5.2
+    - https://github.com/rails/rails/commit/468aa9a93fc98f5476b6821770f4ccfcb7f7d328
+    - https://github.com/rails/rails/commit/ea8c40121ce53a3d0255cd4eb6d13bfe3bc01776
+    - https://github.com/rails/rails/security/advisories/GHSA-f3w6-w445-fwh9
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA

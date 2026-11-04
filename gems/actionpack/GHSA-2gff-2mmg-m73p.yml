@@ -1,0 +1,99 @@
+---
+gem: actionpack
+framework: rails
+ghsa: 2gff-2mmg-m73p
+url: https://github.com/rails/rails/security/advisories/GHSA-2gff-2mmg-m73p
+title: "Possible IP spoofing in Action Dispatch RemoteIp"
+date: 2026-11-04
+description: |
+  ### Impact
+
+  Since Rails 8.1.0, `ActionDispatch::RemoteIp` derives `request.remote_ip` from
+  `Rack::Request#forwarded_for`, which under Rack 3 reads the RFC 7239
+  `Forwarded` header in preference to `X-Forwarded-For`. When a reverse proxy
+  appends the client address to `X-Forwarded-For` but passes a client-supplied
+  `Forwarded` header through unchanged, `request.remote_ip` returns an address
+  chosen by the client, and the IP spoofing check does not raise, because it
+  compares only `Client-Ip` with the forwarded addresses. An unauthenticated
+  attacker could therefore spoof `request.remote_ip`, possibly bypassing
+  IP-based access controls and rate limits keyed on the client address
+  (including the default `by:` of `rate_limit`), and falsifying the client
+  address in logs.
+
+  ### Details
+
+  The 8.1.0 change
+  ([2d084af8](https://github.com/rails/rails/commit/2d084af8444a7b6b868c7cbb256172007871e78d))
+  switched `ActionDispatch::RemoteIp` from reading `X-Forwarded-For` directly to
+  Rack's `forwarded_for`, in order to reuse Rack's port handling. Rails
+  continues to honor `Forwarded`, the standard header.
+
+  In the fixed releases, when `config.action_dispatch.ip_spoofing_check` is
+  enabled (the default), `ActionDispatch::RemoteIp` also compares the first
+  untrusted client address in `Forwarded` with the first untrusted client
+  address in `X-Forwarded-For`, as exact strings, and raises
+  `ActionDispatch::RemoteIp::IpSpoofAttackError` when both headers are present
+  and the addresses differ. Deployments whose proxies report the client address
+  inconsistently between the two headers will receive this error after
+  upgrading. See the `actionpack` CHANGELOG.
+
+  ### Affected applications
+
+  An application is affected if it meets all of these requirements:
+  - Runs Rails 8.1.0 through 8.1.4 with Rack 3. Under Rack 2.2, `forwarded_for`
+    reads only `X-Forwarded-For`.
+  - Is served behind a proxy that does not remove or overwrite a client-supplied
+    `Forwarded` header.
+  - Relies on `request.remote_ip` for access control, rate limiting, or
+    auditing.
+
+  The fix detects a spoofed `Forwarded` header only when the proxy also sets
+  `X-Forwarded-For`. An application whose proxy passes a client-supplied
+  `Forwarded` header through and sets no `X-Forwarded-For` remains exposed after
+  upgrading, and should configure the proxy to remove or overwrite `Forwarded`,
+  or apply the workaround below.
+
+  ### Mitigation
+
+  - Upgrade to a fixed version of `actionpack`.
+  - Configure reverse proxies to remove or overwrite any client-supplied
+    `Forwarded` header.
+
+  ### Workarounds
+
+  Applications whose proxies set `X-Forwarded-For` can make Rack ignore the
+  `Forwarded` header, restoring the client address resolution of Rails 8.0, by
+  setting `Rack::Request.forwarded_priority = [:x_forwarded]` in an initializer.
+  This setting is available in Rack 3.0.0 and later, and it also causes Rack to
+  ignore `Forwarded` when determining the request scheme, host, and port.
+
+  ### Releases
+
+  The fixed releases are available at the normal locations.
+
+  Patches for those who cannot upgrade at once:
+  - 8.1:
+    https://github.com/rails/rails/commit/2a01a5ac521184419d9a92fa2c25e102e68cd227.patch
+
+  ### Versions affected
+
+  - actionpack >= 8.1, < 8.1.4.1
+
+  ### Credit
+
+  This issue was responsibly reported by HackerOne researcher
+  [luryus](https://hackerone.com/luryus).
+cvss_v3: 7.4
+unaffected_versions:
+  - "< 8.1.0"
+patched_versions:
+  - ">= 8.1.4.1"
+related:
+  url:
+    - https://rubygems.org/gems/actionpack/versions/8.1.4.1
+    - https://github.com/rails/rails/releases/tag/v8.1.4.1
+    - https://github.com/rails/rails/commit/2a01a5ac521184419d9a92fa2c25e102e68cd227
+    - https://github.com/rails/rails/security/advisories/GHSA-2gff-2mmg-m73p
+notes: |
+  - No CVE.
+  - cvss_v3 from GHSA
