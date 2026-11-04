@@ -1,0 +1,60 @@
+---
+gem: ransack
+ghsa: 58rx-96gf-w92x
+url: https://github.com/activerecord-hackery/ransack/security/advisories/GHSA-58rx-96gf-w92x
+title: Ransack - sort_link and sort_url take url_for options from
+  request params, allowing reflected XSS and open redirect
+date: 2026-10-25
+description: |
+  ## Impact
+
+  sort_link and sort_url build the link by passing every request parameter
+  to url_for, removing only host. url_for reads several keys as URL
+  structure rather than as query parameters, so a crafted query string
+  controls the link that every sort link on the page renders.
+
+  ### Reflected XSS.
+
+  url_for prepends script_name and original_script_name to the path
+  without validating them. A link such as
+
+  * https://victim.example/posts?script_name=javascript:alert(document.domain)//
+
+  makes the page's sort links render as
+  href="javascript:alert(document.domain)//posts?q%5Bs%5D=title+asc".
+  A victim who opens the attacker's link and then clicks a sort link
+  runs the attacker's script in the application's origin.
+
+  ### Open redirect.
+
+  A value-less ?only_path arrives as nil, which skips ActionView's
+  only_path: true default. protocol, domain, subdomain, port, user
+  and password then point the sort links at another origin. Through
+  a routing proxy (sort_link([:main_app, @q], ...)) a full URL is
+  built anyway, so only_path is not needed.
+
+  Errors. use_route switches the link to another named route, and a
+  non-hash _recall raises TypeError, so the page returns a 500.
+
+  Any page that renders sort_link or sort_url is affected with the
+  default setup, and the attacker needs no account. The victim has
+  to open the crafted link and then click a sort link. The search
+  itself is unaffected.
+cvss_v3: 6.1
+patched_versions:
+  - "~> 4.4.4"
+  - "~> 5.0.3"
+  - ">= 6.0.1"
+related:
+  url:
+    - https://rubygems.org/gems/ransack/versions/6.0.1
+    - https://github.com/activerecord-hackery/ransack/releases#release-v6.0.1
+    - https://rubygems.org/gems/ransack/versions/5.0.3
+    - https://github.com/activerecord-hackery/ransack/releases#release-v5.0.3
+    - https://rubygems.org/gems/ransack/versions/4.4.4
+    - https://github.com/activerecord-hackery/ransack/releases#release-v4.4.4
+    - https://github.com/advisories/GHSA-r5jw-62xg-j433
+    - https://github.com/activerecord-hackery/ransack/security/advisories/GHSA-58rx-96gf-w92x
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
