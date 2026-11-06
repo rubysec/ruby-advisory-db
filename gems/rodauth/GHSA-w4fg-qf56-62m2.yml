@@ -1,5 +1,6 @@
 ---
 gem: rodauth
+cve: 2026-82469
 ghsa: w4fg-qf56-62m2
 url: https://github.com/jeremyevans/rodauth/security/advisories/GHSA-w4fg-qf56-62m2
 title: jwt_refresh route doesn't require refresh token to
@@ -22,15 +23,22 @@ description: |
   tokens without access to a valid refresh token. They would allow
   an attacker to convert temporary access to an account into permanent
   access, until there was a token clearing event for the account.
+cvss_v3: 5.4
 cvss_v4: 5.1
 patched_versions:
   - ">= 2.47.0"
 related:
   url:
+    - https://nvd.nist.gov/vuln/detail/CVE-2026-82469
     - https://rubygems.org/gems/rodauth/versions/2.47.0
     - https://github.com/jeremyevans/rodauth/discussions/514
     - https://rodauth.jeremyevans.net/rdoc/files/doc/release_notes/2_47_0_txt.html
+    - https://github.com/advisories/GHSA-mhhp-hxcr-939w
     - https://github.com/jeremyevans/rodauth/security/advisories/GHSA-w4fg-qf56-62m2
 notes: |
   - No CVE from GHSA URL.
-  - cvss_v4 from GHSA URL.
+  - cvss_v4 from nvd.nist.gov and GHSA URLs.
+  - cvss_v3 from nvd.nist.gov URL.
+  - Feedback: "Seems CVEs were assigned meanwhile -
+    GHSA-w4fg-qf56-62m2 is CVE-2026-82469"
+    - https://github.com/advisories/GHSA-mhhp-hxcr-939w

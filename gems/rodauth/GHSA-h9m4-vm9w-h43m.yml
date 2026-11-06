@@ -1,5 +1,6 @@
 ---
 gem: rodauth
+cve: 2026-82467
 ghsa: h9m4-vm9w-h43m
 url: https://github.com/jeremyevans/rodauth/security/advisories/GHSA-h9m4-vm9w-h43m
 title: Return to path support allows redirects to remote
@@ -27,15 +28,22 @@ description: |
   it can result in difficult to detect phishing attempts, where the
   user ends up on an attacker controlled website after going through
   a legitimate authentication flow in the application using Rodauth.
+cvss_v3: 4.7
 cvss_v4: 4.9
 patched_versions:
   - ">= 2.47.0"
 related:
   url:
+    - https://nvd.nist.gov/vuln/detail/CVE-2026-82467
     - https://rubygems.org/gems/rodauth/versions/2.47.0
     - https://github.com/jeremyevans/rodauth/discussions/514
     - https://rodauth.jeremyevans.net/rdoc/files/doc/release_notes/2_47_0_txt.html
+    - https://github.com/advisories/GHSA-mg2m-xp22-59vc
     - https://github.com/jeremyevans/rodauth/security/advisories/GHSA-h9m4-vm9w-h43m
 notes: |
   - No CVE from GHSA URL.
-  - cvss_v4 from GHSA URL.
+  - cvss_v4 from nvd.nist.gov and GHSA URLs.
+  - cvss_v3 from nvd.nist.gov URL.
+  - Feedback: "Seems CVEs were assigned meanwhile -
+    GHSA-h9m4-vm9w-h43m is CVE-2026-82467"
+    - https://github.com/advisories/GHSA-mg2m-xp22-59vc
