@@ -1,0 +1,33 @@
+---
+gem: alchemy_cms
+ghsa: x84w-hjc5-6pqw
+url: https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-x84w-hjc5-6pqw
+title: Stored XSS via unvalidated URL schemes in menu nodes
+  and linkable ingredients
+date: 2026-11-09
+description: |
+  Alchemy::Node validated its url with a pattern that accepted any URI
+  scheme, and the linkable ingredients (Link, Text, Picture) never
+  validated their url at all. A user with permission to edit menus or
+  element content could therefore store a javascript: url, which the
+  menu template and the ingredient view components render as the href
+  of an <a> element. Activating such a link executes the stored script
+  in the site's origin, with the privileges of whoever clicked it.
+cvss_v3: 5.4
+patched_versions:
+  - ">= 8.4.0"
+related:
+  url:
+    - https://rubygems.org/gems/alchemy_cms/versions/8.4.0
+    - https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v8.4.0
+    - https://github.com/AlchemyCMS/alchemy_cms/pull/4416
+    - https://github.com/AlchemyCMS/alchemy_cms/pull/4233
+    - https://github.com/AlchemyCMS/alchemy_cms/pull/4234
+    - https://github.com/AlchemyCMS/alchemy-devise/pull/312
+    - https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-x84w-hjc5-6pqw
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
+  - See commit below: "Note that alchemy-devise moved into alchemy_cms"
+    - See README at https://github.com/AlchemyCMS/alchemy-devise
+    - https://github.com/AlchemyCMS/alchemy-devise/commit/fbc106641d0e312b3c5f9c09c6ae191a211534ce

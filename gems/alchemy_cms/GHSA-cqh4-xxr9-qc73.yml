@@ -1,0 +1,40 @@
+---
+gem: alchemy_cms
+ghsa: cqh4-xxr9-qc73
+url: https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-cqh4-xxr9-qc73
+title: CSRF protection bypassed in admin controllers when
+  current_user_method memoizes the user
+date: 2026-11-09
+description: |
+  Since 8.4.0, Alchemy::BaseController loads the current user in a
+  before_action that runs before the CSRF check. With the default
+  null_session forgery strategy, a forged cross-site request still
+  runs as the signed-in user in apps whose current_user_method memoizes
+  the user (for example the Rails 8 authentication generator or
+  @current_user ||= ...). An attacker can make a signed-in editor or
+  admin change content in the Alchemy admin by getting them to
+  visit a malicious page.
+
+  ## Impact
+
+  Cross-site request forgery against the Alchemy admin. An attacker who
+  gets a signed-in Alchemy user to visit a malicious page can perform
+  any state-changing admin action that user is allowed to do: edit,
+  publish or delete pages and elements, manage attachments and pictures,
+  and, for admins, manage sites, languages and users where the host
+  app exposes that. Only apps whose current_user_method memoizes the
+  user are affected. Devise-based apps appear to be safe.
+cvss_v3: 6.5
+unaffected_versions:
+  - "<= 8.3.10"
+patched_versions:
+  - ">= 8.4.3"
+related:
+  url:
+    - https://rubygems.org/gems/alchemy_cms/versions/8.4.3
+    - https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v8.4.3
+    - https://github.com/AlchemyCMS/alchemy_cms/compare/v8.4.2...v8.4.3
+    - https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-cqh4-xxr9-qc73
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
