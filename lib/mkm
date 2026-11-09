@@ -1,0 +1,79 @@
+USAGESTR="[. [ ghsa-num [ gem-name [ cve-num [ user+repo-name ] ] ] ] where '.' is template only."
+if [ "X$1X" == "XX" ] ; then
+    echo "$(basename $0) ${USAGESTR}"
+    exit
+fi
+
+cat << EOFTEMPLATE > /tmp/$$_TEMPLATE1 
+---
+engine: ++- put one of the "rubies" value here
+gem: ++GEM++ - Put gem name here.
+library: ++ - Put "rubygems" if "rubygem-update" gem.
+framework: ++ - only "rails" if one of the "rails gems
+platform: ++ - only "jruby" literal
+cve: ++CVE++
+osvdb: ++ - legacy - probably just delete field
+ghsa: ++GHSA++
+url: ++ Put CVE or GHSA URL here
+title: ++
+date: yyyy-mm-dd ++
+description: |
+  ++
+cvss_v2: #.# ++
+cvss_v3: #.# ++
+cvss_v4: #.# ++
+unaffected_versions:
+  - "~> ++UNAFFECTED-RANGE++"
+patched_versions:
+  - ">= ++PATCH-VERSION++"
+related:
+  url:
+    - ++ Put CVE-RELATED URL(s) here.
+    - ++ Put https://rubygems.org/gems URL with Patch Version here.
+    - ++ Put CODE-RELATED URL(s) here.
+    - ++ Put EXTERNAL-RELATED URLs here.
+    - ++ Put GHSA-RELATED URLs here. 
+notes: |
+======================================================================
+  - Legend
+    - "++" means to replace words with specifics.
+  - More details:
+    - CVE-RELATED
+      - https://nvd.nist.gov/vuln/detail/++CVE++
+      - https://www.cve.org/CVERecord?id=++CVE++
+      - https://www.cve.org/CVERecord/SearchResults?query=++CVE++
+      - CVE is reserved, but not published.
+    - https://rubygems.org/gems/++GEM++/versions/++PATCHVERSION++
+    - CODE-RELATED
+      - https://github.com/++USERandREPO++/releases/tag/++PATCHVERSION++
+      - https://github.com/++USERandREPO++/blob/master/CHANGELOG.md
+      - https://github.com/++USERandREPO++/pull/++PRNUM++
+      - https://github.com/++USERandREPO++/pull/++PRUM++/changes/++COMMITHASH++
+    - EXTERNAL-RELATED URLs
+    - GHSA-RELATED
+      - https://github.com/++USERandREPO++/security/advisories/++GHSA++
+      - https://github.com/advisories/++GHSA++
+EOFTEMPLATE
+
+if [ "X$1X" == "X.X" ] ; then
+    cat /tmp/$$_TEMPLATE1  
+else
+    if [ "X$2X" == "XX" ] ; then
+        sed -e "s,++GHSA++,$1,g" /tmp/$$_TEMPLATE1 
+    else
+        if [ "X$3X" == "XX" ] ; then
+            sed -e "s,++GHSA++,$1,g" -e "s,++GEM++.*,$2,g" /tmp/$$_TEMPLATE1 
+        else
+            if [ "X$4X" == "XX" ] ; then
+                sed -e "s,++GHSA++,$1,g" \
+                    -e "s,++GEM++.*,$2,g" \
+                    -e "s,++CVE++,$3,g" /tmp/$$_TEMPLATE1 
+            else
+                sed -e "s,++GHSA++,$1,g" \
+                    -e "s,++GEM++.*,$2,g" \
+                    -e "s,++CVE++,$3,g" \
+                    -e "s,++USERandREPO++,$4,g" /tmp/$$_TEMPLATE1 
+            fi        
+        fi
+    fi
+fi
