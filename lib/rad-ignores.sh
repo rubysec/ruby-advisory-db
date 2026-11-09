@@ -211,7 +211,6 @@ rm -f gems/kobako/CVE-2026-55107.yml
 # #......................................................................
 # # Redhat
 # GHSA-3fcg-qm7h-hhpw (red hat #3)
-# GHSA-gphm-f2cq-m9pv (red hat #2)
 # GHSA-w5v4-7h7x-xfvq (red hat #1)
 # GHSA-h459-7mrx-8pvc - CVE-2014-0241 (Red hat plugin, not ruby lang)
 # GHSA-f29j-vf7h-f9g9 - CVE-2013-1945 (Red hat/Ruby 1.9.3)
