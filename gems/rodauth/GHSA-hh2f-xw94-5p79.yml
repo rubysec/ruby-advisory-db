@@ -42,9 +42,5 @@ related:
     - https://github.com/advisories/GHSA-8928-x2p4-43mr
     - https://github.com/jeremyevans/rodauth/security/advisories/GHSA-hh2f-xw94-5p79
 notes: |
-  - No CVE from GHSA URL.
   - cvss_v4 from nvd.nist.gov and GHSA URLs.
   - cvss_v3 from nvd.nist.gov URL.
-  - Feedback: "Seems CVEs were assigned meanwhile -
-    GHSA-hh2f-xw94-5p79 is CVE-2026-82468"
-    - https://github.com/advisories/GHSA-8928-x2p4-43mr
