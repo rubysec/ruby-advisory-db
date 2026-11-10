@@ -1,0 +1,43 @@
+---
+gem: alchemy_cms
+ghsa: pfx8-f77c-5gp5
+url: https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-pfx8-f77c-5gp5
+title: CSS Injection via Unescaped Cookie in AlchemyCMS Admin Layout
+date: 2026-11-09
+description: |
+  The admin layout wrote the value of the alchemy-elements-window-width
+  cookie into the style attribute of the admin <body> without checking it:
+
+  <%= content_tag :body, id: 'alchemy',
+    class: alchemy_body_class,
+    style: cookies["alchemy-elements-window-width"] &&
+    "--elements-window-width: #{cookies["alchemy-elements-window-width"]}px" do %>
+
+  The admin JavaScript sets this cookie to the width the user dragged
+  the elements window to. A cookie value like 1; background:
+  url(//attacker.example) ends the custom property and adds further
+  CSS declarations to the body's inline style.
+
+  ## Impact
+
+  Rails escapes the attribute value, so the cookie cannot add HTML or
+  script, only CSS declarations on the <body> element. With those an
+  attacker can change how the admin interface looks, for example hide
+  or cover parts of it, or load a background image from a server they
+  control and learn when the page was opened. Inline styles have no
+  selectors, so CSS techniques that read form values or other page
+  content do not apply.
+cvss_v3: 3.1
+unaffected_versions:
+  - "<= 7.4.0"
+patched_versions:
+  - ">= 8.4.3"
+related:
+  url:
+    - https://rubygems.org/gems/alchemy_cms/versions/8.4.3
+    - https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v8.4.3
+    - https://github.com/AlchemyCMS/alchemy_cms/compare/v8.4.2...v8.4.3
+    - https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-pfx8-f77c-5gp5
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.

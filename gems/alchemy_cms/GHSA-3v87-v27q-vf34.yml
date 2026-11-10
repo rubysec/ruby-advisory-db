@@ -1,0 +1,61 @@
+---
+gem: alchemy_cms
+ghsa: 3v87-v27q-vf34
+url: https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-3v87-v27q-vf34
+title: Mass-assignment in ingredients_attributes enables STI type
+  confusion and polymorphic-association tampering, leading to
+  stored XSS and Author -> Admin privilege escalation
+date: 2026-11-09
+description: |
+  Alchemy::Admin::ElementsController' permitted nested ingredient
+  attributes with an open hash (ingredients_attributes: {}), and
+  Alchemy::Element accepted them for every ingredient column. A
+  user allowed to edit elements, which in the default role set
+  includes author, the lowest content role, could send a modified
+  PATCH /admin/elements/:id request and:
+
+  * change an ingredient's STI type, for example turn a Text ingredient
+    into an Html ingredient, whose view renders its value unescaped;
+  * point an ingredient's polymorphic related_object at a record of
+    any model in the application;
+  * create ingredients of any type and role that the element's
+    definition does not declare;
+  * replace an ingredient's whole data store.
+
+  No crafted code is needed. The request is an ordinary authenticated
+  form submission, and type and related_object_type only have to name
+  classes that already exist, such as Alchemy::Ingredients::Html.
+
+  ## Impact
+
+  Changing the type gives an author a way to store markup that is
+  rendered unescaped, both on the public site and in the admin page
+  preview where editors and administrators review drafts. A script
+  stored this way runs with the privileges of whoever views the page,
+  so an administrator reviewing an author's draft can have actions
+  performed in their session.
+
+  This adds the most risk on sites that deliberately keep authors
+  from storing HTML, by using only text-like ingredients or by
+  configuring a sanitizer for Richtext ingredients. Richtext
+  ingredients without a sanitizer setting render their HTML as
+  entered, so on sites using them authors can already store markup.
+
+  Pointing related_object at an unrelated record mostly breaks
+  rendering of that ingredient. It exposes data only where the
+  ingredient's view renders something of the related record, for
+  example its to_s.
+cvss_v3: 5.4
+unaffected_versions:
+  - "<= 6.0.0"
+patched_versions:
+  - ">= 8.4.3"
+related:
+  url:
+    - https://rubygems.org/gems/alchemy_cms/versions/8.4.3
+    - https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v8.4.3
+    - https://github.com/AlchemyCMS/alchemy_cms/compare/v8.4.2...v8.4.3
+    - https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-3v87-v27q-vf34
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
