@@ -41,9 +41,5 @@ related:
     - https://github.com/advisories/GHSA-mg2m-xp22-59vc
     - https://github.com/jeremyevans/rodauth/security/advisories/GHSA-h9m4-vm9w-h43m
 notes: |
-  - No CVE from GHSA URL.
   - cvss_v4 from nvd.nist.gov and GHSA URLs.
   - cvss_v3 from nvd.nist.gov URL.
-  - Feedback: "Seems CVEs were assigned meanwhile -
-    GHSA-h9m4-vm9w-h43m is CVE-2026-82467"
-    - https://github.com/advisories/GHSA-mg2m-xp22-59vc
