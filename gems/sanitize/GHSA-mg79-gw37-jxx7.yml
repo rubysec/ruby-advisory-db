@@ -1,0 +1,48 @@
+---
+gem: sanitize
+ghsa: mg79-gw37-jxx7
+url: https://github.com/rgrove/sanitize/security/advisories/GHSA-mg79-gw37-jxx7
+title: Raw text elements inside `<template>` inside `<select>` may allow XSS
+date: 2026-11-02
+description: |
+  When Sanitize is configured to allow <select> elements and at least
+  one raw text element, such as <style>, <xmp>, <noembed>, <noframes>,
+  or <plaintext>, an attacker can use a <template> element to smuggle
+  arbitrary HTML, including scripts, past Sanitize in browsers that
+  use legacy <select> parsing rules.
+
+  This is possible because the HTML parser allows raw text elements
+  inside a <template> element inside a <select> element, but legacy
+  <select> parsing rules ignore raw text elements' start tags after
+  Sanitize removes the <template> element.
+  This affects Sanitize 3.0.0 through 7.0.1 and is fixed in Sanitize 7.0.2.
+
+  Sanitize's built-in DEFAULT, RESTRICTED, BASIC, and RELAXED configs
+  aren't affected, but a config that adds select to the RELAXED config's
+  allowed elements is affected, since RELAXED allows <style> elements.
+
+  ## Impact
+
+  A config is affected if it allows the <select> element and at least
+  one of the <style>, <xmp>, <noembed>, <noframes>, or <plaintext>
+  elements, and doesn't include template in remove_contents (or
+  set remove_contents: true).
+
+  Browsers that use legacy <select> parsing rules are affected.
+  Browsers that implement customizable <select> parsing rules
+  aren't affected.
+cvss_v4: 5.3
+unaffected_versions:
+  - "< 3.0.0"
+patched_versions:
+  - ">= 7.0.2"
+related:
+  url:
+    - https://rubygems.org/gems/sanitize/versions/7.0.2
+    - https://github.com/rgrove/sanitize/blob/main/CHANGELOG.md#702-2026-11-02
+    - https://github.com/rgrove/sanitize/security/advisories/GHSA-mg79-gw37-jxx7
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
+  - date from rubygems.org URL.
+  - See 1 "GHSA" reference in CHANGELOG URL.
