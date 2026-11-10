@@ -36,9 +36,5 @@ related:
     - https://github.com/advisories/GHSA-mhhp-hxcr-939w
     - https://github.com/jeremyevans/rodauth/security/advisories/GHSA-w4fg-qf56-62m2
 notes: |
-  - No CVE from GHSA URL.
   - cvss_v4 from nvd.nist.gov and GHSA URLs.
   - cvss_v3 from nvd.nist.gov URL.
-  - Feedback: "Seems CVEs were assigned meanwhile -
-    GHSA-w4fg-qf56-62m2 is CVE-2026-82469"
-    - https://github.com/advisories/GHSA-mhhp-hxcr-939w
