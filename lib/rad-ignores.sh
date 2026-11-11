@@ -306,6 +306,29 @@ rm -f gems/shopify_app/CVE-2026-63414.yml \
       gems/crass/CVE-2026-61847.yml \
       gems/crass/CVE-2026-61848.yml
 
+# 11/11/2026: Duplicates of existing advisories based on this analysis:
+# https://gist.github.com/jasnow/42de658436d1fb32011893b6d99c9ca9
+rm -f \
+	gems/actionmailbox/CVE-2026-126068.yml \
+	gems/actionpack/CVE-2026-126067.yml \
+	gems/actionpack/CVE-2026-126073.yml \
+	gems/actionpack/CVE-2026-126076.yml \
+	gems/actionpack/CVE-2026-126083.yml \
+	gems/activestorage/CVE-2026-126071.yml \
+	gems/activestorage/CVE-2026-126074.yml \
+	gems/activestorage/CVE-2026-126085.yml \
+	gems/activestorage/CVE-2026-126186.yml \
+	gems/activesupport/CVE-2026-126075.yml \
+	gems/activesupport/CVE-2026-126080.yml \
+	gems/nokogiri/CVE-2026-126062.yml \
+	gems/nokogiri/CVE-2026-126063.yml \
+	gems/nokogiri/CVE-2026-126064.yml \
+	gems/omniauth/CVE-2026-63183.yml \
+	gems/rack/CVE-2026-125108.yml \
+	gems/rack/CVE-2026-125109.yml \
+	gems/rack/CVE-2026-125110.yml \
+	gems/rack/CVE-2026-125111.yml
+
 # 9/4/2026: More duplicates and withdrawns
 # nokogiri  | https://github.com/advisories/GHSA-5jhf-fpp7-v2pv (duplicate)
 # nokogiri  | https://github.com/advisories/GHSA-xqqh-3w52-q8p7 (duplicate)
