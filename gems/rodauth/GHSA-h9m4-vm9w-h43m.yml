@@ -1,0 +1,45 @@
+---
+gem: rodauth
+cve: 2026-82467
+ghsa: h9m4-vm9w-h43m
+url: https://github.com/jeremyevans/rodauth/security/advisories/GHSA-h9m4-vm9w-h43m
+title: Return to path support allows redirects to remote
+   protocol-relative URLs
+date: 2026-08-24
+description: |
+  ## Impact
+
+  If you are not using the confirm_password feature and you are not
+  using the login_return_to_requested_location? or
+  two_factor_auth_return_to_requested_location? configuration methods
+  (the default), there is no impact.
+
+  If you are using the confirm_password feature or you are using the
+  login_return_to_requested_location? or
+  two_factor_auth_return_to_requested_location? configuration methods,
+  an attacker who can convince a user to access a path of the attacker's
+  choosing on the application using Rodauth can get Rodauth to redirect
+  to an attacker-chosen protocol-relative URL after completing the
+  action (such as logging in, performing two factor authentication,
+  or confirming their password). Whether this protocol-relative URL
+  will be redirected to depends on factors such as the user's browser.
+
+  This does not allow the attacker any access to the application, but
+  it can result in difficult to detect phishing attempts, where the
+  user ends up on an attacker controlled website after going through
+  a legitimate authentication flow in the application using Rodauth.
+cvss_v3: 4.7
+cvss_v4: 4.9
+patched_versions:
+  - ">= 2.47.0"
+related:
+  url:
+    - https://nvd.nist.gov/vuln/detail/CVE-2026-82467
+    - https://rubygems.org/gems/rodauth/versions/2.47.0
+    - https://github.com/jeremyevans/rodauth/discussions/514
+    - https://rodauth.jeremyevans.net/rdoc/files/doc/release_notes/2_47_0_txt.html
+    - https://github.com/advisories/GHSA-mg2m-xp22-59vc
+    - https://github.com/jeremyevans/rodauth/security/advisories/GHSA-h9m4-vm9w-h43m
+notes: |
+  - cvss_v4 from nvd.nist.gov and GHSA URLs.
+  - cvss_v3 from nvd.nist.gov URL.

@@ -1,0 +1,30 @@
+---
+gem: rodauth
+ghsa: 26qw-xq5q-hv9w
+url: https://github.com/jeremyevans/rodauth/security/advisories/GHSA-26qw-xq5q-hv9w
+title: otp feature allows replay of OTP code for
+   a later time step accepted due to drift
+date: 2026-11-02
+description: |
+  The fix for GHSA-hhvg-6qmv-58vc does not cover OTP codes for a later
+  time step accepted due to otp_drift. Such a code can be reused
+  once the 30 second check in otp_update_last_use passes.
+
+  ## Impact
+
+  Replay of an already used OTP code (CWE-294) with the default otp_drift.
+  Exploiting it requires the password and a used code for a later time
+  step than the server's (from an authenticator whose clock was ahead),
+  replayed starting 30 seconds after its use (for 30 to 60 seconds).
+  Setting otp_drift nil avoids it.
+cvss_v4: 2.1
+patched_versions:
+  - ">= 2.50.0"
+related:
+  url:
+    - https://rubygems.org/gems/rodauth/versions/2.50.0
+    - https://rodauth.jeremyevans.net/rdoc/files/doc/release_notes/2_50_0_txt.html
+    - https://github.com/jeremyevans/rodauth/security/advisories/GHSA-26qw-xq5q-hv9w
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.

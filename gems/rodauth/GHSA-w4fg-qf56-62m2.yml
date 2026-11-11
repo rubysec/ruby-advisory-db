@@ -1,0 +1,40 @@
+---
+gem: rodauth
+cve: 2026-82469
+ghsa: w4fg-qf56-62m2
+url: https://github.com/jeremyevans/rodauth/security/advisories/GHSA-w4fg-qf56-62m2
+title: jwt_refresh route doesn't require refresh token to
+  create new access token
+date: 2026-08-27
+description: |
+  ## Impact
+
+  If you are not using the jwt_refresh feature, there is no impact.
+
+  If you are using the jwt_refresh feature, and are setting
+  allow_refresh_with_expired_jwt_access_token? true in your Rodauth
+  configuration, and an attacker gets access to a expired access token,
+  they can use that expired access token to create valid access tokens
+  without access to a valid access token or valid refresh token.
+
+  Note that without allow_refresh_with_expired_jwt_access_token? true
+  being set, if the attacker gets access to a valid access token, they
+  can use that valid access token to create additional valid access
+  tokens without access to a valid refresh token. They would allow
+  an attacker to convert temporary access to an account into permanent
+  access, until there was a token clearing event for the account.
+cvss_v3: 5.4
+cvss_v4: 5.1
+patched_versions:
+  - ">= 2.47.0"
+related:
+  url:
+    - https://nvd.nist.gov/vuln/detail/CVE-2026-82469
+    - https://rubygems.org/gems/rodauth/versions/2.47.0
+    - https://github.com/jeremyevans/rodauth/discussions/514
+    - https://rodauth.jeremyevans.net/rdoc/files/doc/release_notes/2_47_0_txt.html
+    - https://github.com/advisories/GHSA-mhhp-hxcr-939w
+    - https://github.com/jeremyevans/rodauth/security/advisories/GHSA-w4fg-qf56-62m2
+notes: |
+  - cvss_v4 from nvd.nist.gov and GHSA URLs.
+  - cvss_v3 from nvd.nist.gov URL.
