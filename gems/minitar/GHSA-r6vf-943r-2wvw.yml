@@ -1,0 +1,45 @@
+---
+gem: minitar
+ghsa: r6vf-943r-2wvw
+url: https://github.com/halostatue/minitar/security/advisories/GHSA-r6vf-943r-2wvw
+title: minitar path traversal vulnerability on Windows with
+  a maliciously crafted tarball
+date: 2026-11-11
+description: |
+  On Windows, a maliciously crafted tarball can
+  write files outside of the extraction directory.
+
+  ## Impact
+
+  Path traversal (CWE-22). A crafted tar archive can cause files to
+  be created or overwritten outside the extraction directory.
+
+  Applications and scripts running on Windows Ruby (platforms where
+  File::ALT_SEPARATOR is "\\", such as mswin and mingw) that extract
+  tar archives from sources they don't fully control, using
+  Minitar.unpack, Minitar::Input#extract_entry, or Minitar::Input#each.
+  Platforms where File::ALT_SEPARATOR is nil, including Linux, macOS,
+  and the BSDs, are not affected, because \ is not a separator there
+  and is extracted as a literal filename character.
+
+  A crafted archive can cause files to be created or overwritten
+  outside the destination directory, limited to locations the extracting
+  process can write to. Exploitation requires a user or process to
+  extract the attacker-supplied archive. Further impact depends on
+  what is writable and what the overwritten files are used for.
+cvss_v3: 4.4
+unaffected_versions:
+  - "< 1.1.1"
+patched_versions:
+  - "~> 1.1.1"
+  - ">= 1.2.0"
+related:
+  url:
+    - https://rubygems.org/gems/minitar/versions/1.2.0
+    - https://github.com/halostatue/minitar/blob/main/CHANGELOG.md#120--2026-11-11
+    - https://rubygems.org/gems/minitar/versions/1.1.1
+    - https://github.com/halostatue/minitar/blob/main/CHANGELOG.md#111--2026-11-11
+    - https://github.com/halostatue/minitar/security/advisories/GHSA-r6vf-943r-2wvw
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
