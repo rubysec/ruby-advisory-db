@@ -291,6 +291,16 @@ rm -f gems/nokogiri/CVE-2026-79770.yml
 rm -f gems/nokogiri/CVE-2026-79771.yml
 rm -f gems/nokogiri/CVE-2026-79772.yml
 
+# 9/4/2026: More duplicates and withdrawns
+# nokogiri  | https://github.com/advisories/GHSA-5jhf-fpp7-v2pv (duplicate)
+# nokogiri  | https://github.com/advisories/GHSA-xqqh-3w52-q8p7 (duplicate)
+# nokogiri  | https://github.com/advisories/GHSA-rh9x-7xjc-vwx2 (duplicate)
+# paperclip | https://github.com/advisories/GHSA-phmw-pv3f-vvx7 (withdrawn)
+# sprockets | https://github.com/advisories/GHSA-r4x3-g983-9g48 (withdrawn)
+
+# 9/9/2026: 
+# Rubygmems | https://github.com/advisories/GHSA-mq4m-44x6-6r2v (not a gem)
+
 # 10/20/2026: Use GHSA prefix (GHSA-6wmf-3r64-vcwv.yml) over CVE.
 rm -f gems/crass/CVE-2026-61845.yml
 
@@ -329,12 +339,31 @@ rm -f \
 	gems/rack/CVE-2026-125110.yml \
 	gems/rack/CVE-2026-125111.yml
 
-# 9/4/2026: More duplicates and withdrawns
-# nokogiri  | https://github.com/advisories/GHSA-5jhf-fpp7-v2pv (duplicate)
-# nokogiri  | https://github.com/advisories/GHSA-xqqh-3w52-q8p7 (duplicate)
-# nokogiri  | https://github.com/advisories/GHSA-rh9x-7xjc-vwx2 (duplicate)
-# paperclip | https://github.com/advisories/GHSA-phmw-pv3f-vvx7 (withdrawn)
-# sprockets | https://github.com/advisories/GHSA-r4x3-g983-9g48 (withdrawn)
-
-# 9/9/2026: 
-# Rubygmems | https://github.com/advisories/GHSA-mq4m-44x6-6r2v (not a gem)
+# 11/13/2026: Duplicates of existing advisories based on this analysis:
+rm -f \
+       gems/actionpack/CVE-2026-126072.yml \
+       gems/actionpack/CVE-2026-126077.yml \
+       gems/actionpack/CVE-2026-126081.yml \
+\
+       gems/actionview/CVE-2026-126069.yml \
+       gems/actionview/CVE-2026-126070.yml \
+       gems/actionview/CVE-2026-126078.yml \
+       gems/actionview/CVE-2026-126079.yml \
+\
+       gems/activestorage/CVE-2026-122006.yml \
+       gems/activestorage/CVE-2026-126084.yml \
+       gems/activestorage/CVE-2026-126188.yml \
+\
+       gems/addressable/CVE-2026-126348.yml \
+       gems/addressable/CVE-2026-126349.yml \
+       gems/addressable/CVE-2026-126350.yml \
+       gems/addressable/CVE-2026-126351.yml \
+       gems/addressable/CVE-2026-126352.yml \
+       gems/addressable/CVE-2026-126354.yml \
+\
+       gems/loofah/CVE-2026-126203.yml \
+       gems/loofah/CVE-2026-126205.yml \
+       gems/loofah/CVE-2026-126206.yml \
+       gems/loofah/CVE-2026-126207.yml \
+       gems/loofah/CVE-2026-126208.yml \
+       gems/loofah/CVE-2026-126209.yml
