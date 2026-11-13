@@ -1,0 +1,63 @@
+---
+gem: puma
+ghsa: jm4r-w4xx-qxw7
+url: https://github.com/puma/puma/security/advisories/GHSA-jm4r-w4xx-qxw7
+title: Graceful shutdown waits indefinitely on trickled request bodies
+date: 2026-11-13
+description: |
+  ## Impact
+
+  Puma servers running in single mode with the default force_shutdown_after
+  :forever can be prevented from shutting down or restarting by an
+  unauthenticated client.
+
+  When Puma begins a graceful shutdown, it hands any request that is
+  still being received to the thread pool so that it can finish. The
+  thread pool then waits for that request with no deadline. Puma's
+  read timeout restarts every time a byte arrives, so an attacker who
+  sends a POST with a large Content-Length and then trickles one body
+  byte every few seconds can keep that request "in progress" for as
+  long as they like. The same works with chunked bodies and with
+  trickled headers. Puma stops accepting new connections, but the
+  process does not exit until the attacker closes the socket.
+
+  This delays or blocks deploys, restarts, and operational recovery.
+  Process supervisors that eventually send SIGKILL will end the
+  process, but any other in-flight requests are lost when they do.
+  Many trickling connections can be used together; each holds a
+  file descriptor but uses very little memory.
+
+  Deployments using Puma's default single-mode configuration are affected.
+
+  Unaffected:
+
+  * Cluster mode (workers N) bounds the delay: the master kills a
+    stuck worker after worker_shutdown_timeout (30 seconds by default).
+
+  * A finite force_shutdown_after bounds the delay.
+
+  * Deployments behind a proxy that buffers request bodies before
+    forwarding them are not affected. For example, nginx's default
+    proxy_request_buffering on keeps a trickled body from reaching Puma.
+
+  ## Acknowledgements
+
+  Thanks to Zheng Yu of depthfirst (@cla7aye15I4nd) for reporting
+  this issue and providing a proposed fix.
+cvss_v4: 6.9
+unaffected_versions:
+  - "< 5.0.0"
+patched_versions:
+  - "~> 7.2.2"
+  - ">= 8.0.3"
+related:
+  url:
+    - https://rubygems.org/gems/puma/versions/8.0.3
+    - https://github.com/puma/puma/blob/main/History.md#803--2026-11-13
+    - https://rubygems.org/gems/puma/versions/7.2.2
+    - https://github.com/puma/puma/blob/main/History.md#722--2026-11-13
+    - https://github.com/puma/puma/security/advisories/GHSA-jm4r-w4xx-qxw7
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
+  - No gap between 7.2.2 and 8.0.0 releases.

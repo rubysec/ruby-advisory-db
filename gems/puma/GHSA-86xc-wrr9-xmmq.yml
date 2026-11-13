@@ -1,0 +1,54 @@
+---
+gem: puma
+ghsa: 86xc-wrr9-xmmq
+url: https://github.com/puma/puma/security/advisories/GHSA-86xc-wrr9-xmmq
+title: pumactl does not verify the TLS identity of SSL control servers
+date: 2026-11-13
+description: |
+  ## Impact
+
+  An attacker on the network path between pumactl and a Puma control
+  server reached over ssl:// can steal the control token and use it
+  to stop, restart, or inspect Puma.
+
+  pumactl support for ssl:// control URLs was added in v4.3.0 (#2052).
+
+  When pumactl connects to an ssl:// control URL, it accepts any TLS
+  certificate. It should check that a trusted authority issued the
+  certificate and that the certificate matches the hostname in the URL.
+  An attacker who can intercept or redirect the connection can present
+  their own certificate, and pumactl then sends them the control token.
+
+  With the token, the attacker can send authenticated commands to the
+  real control server, including stop, restart, and stats.
+
+  Only deployments that run pumactl against an ssl:// control URL
+  are affected, for example:
+
+    * pumactl --control-url 'ssl://control.example.com:9293'
+      --control-token "$PUMA_CONTROL_TOKEN" stats
+
+  Puma's default configuration is not affected. The control server
+  is off by default, and unix:// control URLs are not affected.
+
+  ## Acknowledgements
+
+  Thanks to @ahmedehab-nopr for reporting this issue.
+cvss_v4: 8.3
+unaffected_versions:
+  - "< 4.3.0"
+patched_versions:
+  - "~> 7.2.2"
+  - ">= 8.0.3"
+related:
+  url:
+    - https://rubygems.org/gems/puma/versions/8.0.3
+    - https://github.com/puma/puma/blob/main/History.md#803--2026-11-13
+    - https://rubygems.org/gems/puma/versions/7.2.2
+    - https://github.com/puma/puma/blob/main/History.md#722--2026-11-13
+    - https://github.com/puma/puma/pull/2052
+    - https://github.com/puma/puma/security/advisories/GHSA-86xc-wrr9-xmmq
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
+  - No gap between 7.2.2 and 8.0.0 releases.

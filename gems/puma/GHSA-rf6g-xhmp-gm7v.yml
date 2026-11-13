@@ -1,0 +1,59 @@
+---
+gem: puma
+ghsa: rf6g-xhmp-gm7v
+url: https://github.com/puma/puma/security/advisories/GHSA-rf6g-xhmp-gm7v
+title: Accept loop retries without pausing when out of file
+  descriptors, flooding the log
+date: 2026-11-13
+description: |
+  ## Impact
+
+  An unauthenticated client can make Puma:
+
+  1. write log lines as fast as it can...
+  2. ...which eventually may fill the disk...
+  3. ...and when the disk fills, Puma will stop accepting connections.
+
+  The client can do this by opening enough idle connections to use up
+  the process's file descriptors.
+
+  When accept fails because the process is out of file descriptors
+  (EMFILE), the connection stays in the listen backlog, so the listening
+  socket stays readable. Puma logs the error and calls accept again
+  at once, with no pause. Each attempt fails the same way and writes
+  another "Listen loop" error line. An attacker who opens about as
+  many idle connections as the file descriptor limit, and sends
+  nothing on them, keeps Puma in this loop. The attacker reconnects
+  when Puma closes idle connections after first_data_timeout, so
+  the loop does not end.
+
+  If the log destination then raises an error, such as ENOSPC when
+  the disk is full, that error escapes the listen loop and ends
+  the thread that accepts connections.
+
+  Deployments that accept connections directly from clients are
+  affected, including the default configuration.
+
+  Deployments behind a reverse proxy or load balancer that limits
+  connections to Puma are not affected, because the client cannot
+  open enough connections to Puma itself.
+
+  ## Acknowledgements
+
+  Found by Puma's maintainers during an internal security review.x
+cvss_v4: 8.7
+patched_versions:
+  - "~> 7.2.2"
+  - ">= 8.0.3"
+related:
+  url:
+    - https://rubygems.org/gems/puma/versions/8.0.3
+    - https://github.com/puma/puma/blob/main/History.md#803--2026-11-13
+    - https://rubygems.org/gems/puma/versions/7.2.2
+    - https://github.com/puma/puma/blob/main/History.md#722--2026-11-13
+    - https://github.com/puma/puma/pull/2052
+    - https://github.com/puma/puma/security/advisories/GHSA-rf6g-xhmp-gm7v
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
+  - No gap between 7.2.2 and 8.0.0 releases.

@@ -1,0 +1,70 @@
+---
+gem: puma
+ghsa: x646-wp7c-h9mg
+url: https://github.com/puma/puma/security/advisories/GHSA-x646-wp7c-h9mg
+title: Client that stops reading a TLS or file response holds
+  a worker thread indefinitely
+date: 2026-11-13
+description: |
+  ## Impact
+
+  An unauthenticated client can hold a Puma worker thread indefinitely
+  when Puma sends it a TLS response, or a file response larger than
+  64 KB. With enough connections, it can take the server offline.
+
+  The client sends a request and then stops reading the response.
+  Puma's write timeout (10 seconds) should then free the worker
+  thread. In two cases it never fires, and the thread stays blocked
+  until the client disconnects:
+
+  * TLS: MiniSSL::Socket#write_nonblock performs a blocking write.
+    This has been the case since v3.9.0 (#1274).
+
+  * File bodies over 64 KB, on any bind: Puma sends File bodies, and
+    bodies that respond to to_path, with IO.copy_stream, which has no
+    write timeout. This has been the case since v6.0.0 (#2896).
+    Rack::Files, Rails static file serving, and Rails send_file return
+    these bodies.
+
+  An attacker who opens max_threads such connections per worker leaves
+  no threads to serve requests. The attack needs very little bandwidth
+  and no CPU on the server.
+
+  Two kinds of deployment are affected:
+
+  * Deployments where Puma terminates TLS itself, with an ssl://
+    bind or ssl_bind:
+
+    * ssl_bind "0.0.0.0", "9292", cert: "/path/to/cert.pem", key:
+      "/path/to/key.pem"
+
+  * Applications that serve a file larger than 64 KB through Puma, on
+    any bind. Puma's default configuration is affected in this case.
+
+  Deployments behind a proxy that buffers responses are not affected
+  for files that fit in the proxy's buffer. nginx buffers by default
+  (proxy_buffering on), up to 1 GB per response in a temporary file.
+
+  ## Acknowledgements
+
+  Thanks to @wtn and @SounLabs, who reported this issue
+  independently, and to @wtn for the fix.
+cvss_v4: 8.7
+unaffected_versions:
+  - "< 3.9.0"
+patched_versions:
+  - ">= 7.2.2"
+  - ">= 8.0.3"
+related:
+  url:
+    - https://rubygems.org/gems/puma/versions/8.0.3
+    - https://github.com/puma/puma/blob/main/History.md#803--2026-11-13
+    - https://rubygems.org/gems/puma/versions/7.2.2
+    - https://github.com/puma/puma/blob/main/History.md#722--2026-11-13
+    - https://github.com/puma/puma/pull/1274
+    - https://github.com/puma/puma/pull/2896
+    - https://github.com/puma/puma/security/advisories/GHSA-x646-wp7c-h9mg
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
+  - No gap between 7.2.2 and 8.0.0 releases.

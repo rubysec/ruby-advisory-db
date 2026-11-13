@@ -1,0 +1,50 @@
+---
+gem: puma
+ghsa: m5xw-3hrw-qcmf
+url: https://github.com/puma/puma/security/advisories/GHSA-m5xw-3hrw-qcmf
+title: Reactor timeout queue loses order, letting a slow client
+  keep other connections open past their timeout
+date: 2026-11-13
+description: |
+  ## Impact
+
+  An unauthenticated client can stop Puma from closing other connections
+  when their first_data_timeout or persistent_timeout expires.
+
+  The reactor keeps waiting connections in a queue sorted by deadline.
+  Puma sorted the queue only when new connections arrived, but it
+  extended a connection's deadline every time that connection sent
+  data. A client that connects and then sends about one byte per
+  timeout interval, without completing its request, stays at the
+  front of the queue with a deadline that is always in the future.
+  Every expired connection behind it stays open for as long as the
+  client keeps sending, or until a new connection arrives and causes a sort.
+
+  Connections held this way cost Puma one file descriptor and a small
+  amount of memory each. Puma does not crash, and the effect ends
+  when the slow client stops or new traffic arrives.
+  This bug was introduced in v5.0.3 by the reactor refactor (#2279).
+
+  The default configuration is affected.
+
+  ## Acknowledgements
+
+  Thanks to @0xMigoo for the report and the controlled proof of
+  concept that isolated the missing sort.
+cvss_v4: 6.9
+unaffected_versions:
+  - "< 5.0.3"
+patched_versions:
+  - ">= 7.2.2"
+  - ">= 8.0.3"
+related:
+  url:
+    - https://rubygems.org/gems/puma/versions/8.0.3
+    - https://github.com/puma/puma/blob/main/History.md#803--2026-11-13
+    - https://rubygems.org/gems/puma/versions/7.2.2
+    - https://github.com/puma/puma/blob/main/History.md#722--2026-11-13
+    - https://github.com/puma/puma/security/advisories/GHSA-m5xw-3hrw-qcmf
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
+  - No gap between 7.2.2 and 8.0.0 releases.
