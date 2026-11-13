@@ -1,0 +1,23 @@
+---
+gem: lockbox
+ghsa: 586r-mm5q-xhg2
+url: https://github.com/ankane/lockbox/security/advisories/GHSA-586r-mm5q-xhg2
+title: Insecure hybrid cryptography
+date: 2026-11-10
+description: |
+  With hybrid cryptography, an attacker who obtains the encryption key can use
+  it to decrypt data (acting as symmetric encryption rather than asymmetric).
+patched_versions:
+  - ">= 2.3.0"
+unaffected_versions:
+  - "< 0.1.1"
+cvss_v3: 4.9
+related:
+  url:
+    - https://rubygems.org/gems/lockbox/versions/2.3.0
+    - https://github.com/ankane/lockbox/blob/master/CHANGELOG.md#230-2026-11-10
+    - https://github.com/ankane/lockbox/compare/v2.2.0...v2.3.0
+    - https://github.com/ankane/lockbox/security/advisories/GHSA-586r-mm5q-xhg2
+notes: |
+  - cvss_v3 from project GHSA
+  - No CVE
