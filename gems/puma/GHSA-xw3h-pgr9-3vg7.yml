@@ -1,0 +1,60 @@
+---
+gem: puma
+ghsa: xw3h-pgr9-3vg7
+url: https://github.com/puma/puma/security/advisories/GHSA-xw3h-pgr9-3vg7
+title: Reactor blocks on `100 Continue` writes to clients that
+  stop reading, stalling other connections
+date: 2026-11-13
+description: |
+  ## Impact
+
+  An unauthenticated client with one connection per worker process can
+  stop Puma from serving every connection that waits in the reactor,
+  for as long as it holds that connection open.
+
+  Each Puma worker has one reactor thread, which holds connections
+  waiting for more data: keep-alive connections between requests,
+  requests that arrive in more than one read, and TLS connections
+  still in the handshake. When a request with Expect: 100-continue
+  completes its headers on the reactor thread, Puma writes the
+  HTTP/1.1 100 Continue interim response with a blocking write and
+  no timeout. An attacker pipelines a request for a large response
+  before the Expect: 100-continue request and does not read that
+  response. The server's send buffer for the connection fills, and
+  the reactor thread blocks on the 25-byte interim write until the
+  attacker reads or closes. The 408 Request Timeout response and
+  error responses for requests that fail to parse in the reactor
+  were written from the reactor thread in the same way.
+
+  While the reactor thread is blocked, Puma does not read from or
+  time out any connection in the reactor on that worker. Requests
+  that arrive complete in a single read are still served, so the
+  server appears to hang only for some clients.
+
+  The default configuration is affected (queue_requests is on by
+  default) when Puma is directly reachable by clients and the
+  application has a route whose response size the client can
+  influence. A reverse proxy in front of Puma that buffers
+  responses prevents the attack.
+
+  ## Acknowledgements
+
+  Thanks to @wtn for the report, the TCP and Unix socket proofs
+  of concept, the note about the 408 path, and the original fix.
+cvss_v4: 8.2
+unaffected_versions:
+  - "< 3.8.0"
+patched_versions:
+  - ">= 7.2.2"
+  - ">= 8.0.3"
+related:
+  url:
+    - https://rubygems.org/gems/puma/versions/8.0.3
+    - https://github.com/puma/puma/blob/main/History.md#803--2026-11-13
+    - https://rubygems.org/gems/puma/versions/7.2.2
+    - https://github.com/puma/puma/blob/main/History.md#722--2026-11-13
+    - https://github.com/puma/puma/security/advisories/GHSA-xw3h-pgr9-3vg7
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
+  - No gap between 7.2.2 and 8.0.0 releases.
