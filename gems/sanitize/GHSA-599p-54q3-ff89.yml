@@ -1,0 +1,63 @@
+---
+gem: sanitize
+ghsa: 599p-54q3-ff89
+url: https://github.com/rgrove/sanitize/security/advisories/GHSA-599p-54q3-ff89
+title: Namespace confusion after removing `<math>` or `<svg>`
+  elements may allow XSS
+date: 2026-11-02
+description: |
+  When Sanitize is configured to allow certain elements, such as
+  <textarea>, <title>, <xmp>, <noembed>, <noframes>, or <select>,
+  and isn't configured to remove the contents of <math> and <svg>
+  elements (which it does by default), an attacker can use a MathML
+  or SVG element to smuggle arbitrary HTML, including scripts, past Sanitize.
+
+  This is possible because these elements are parsed as foreign elements
+  when Sanitize sees them, but browsers parse them as HTML elements
+  after Sanitize removes their <math> or <svg> ancestor.
+  This affects Sanitize 3.0.0 through 7.0.1 and is fixed in Sanitize 7.0.2.
+
+  Sanitize's built-in DEFAULT, RESTRICTED, BASIC, and RELAXED configs
+  aren't affected.
+
+  ## Impact
+
+  An attacker who can submit HTML that's sanitized with an affected
+  config can inject arbitrary HTML, including JavaScript that executes
+  in the context of the site that displays the sanitized HTML
+  (cross-site scripting).
+
+  A config is affected if it doesn't remove the contents of both
+  <math> and <svg> elements, and it also meets the conditions of
+  at least one variant:
+
+  * remove_contents: By default, remove_contents includes math and
+    svg, so this only applies to configs that set remove_contents to
+    false or to a list of elements that doesn't include both math and svg.
+
+  * Variants 1–3: The config allows at least one of the <textarea>,
+    <title>, <xmp>, <noembed>, or <noframes> elements, and either
+    allows at least one attribute on an element that can appear
+    inside it without exiting foreign content, such as <a> or the
+    text content element itself (Variant 1), sets allow_comments: true
+    (Variant 2), or allows at least one of the <xmp>, <noembed>,
+    <noframes>, or <plaintext> elements (Variant 3).
+
+  * Variant 4: The config allows the <select> element and at least
+    one of the <xmp>, <noembed>, <noframes>, or <plaintext> elements.
+cvss_v4: 5.3
+unaffected_versions:
+  - "< 3.0.0"
+patched_versions:
+  - ">= 7.0.2"
+related:
+  url:
+    - https://rubygems.org/gems/sanitize/versions/7.0.2
+    - https://github.com/rgrove/sanitize/blob/main/CHANGELOG.md#702-2026-11-02
+    - https://github.com/whatwg/html/pull/6362
+    - https://github.com/sparklemotion/nokogiri/pull/3741
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
+  - date from rubygems.org URL.
+  - See 3 "GHSA" references in CHANGELOG URL.
