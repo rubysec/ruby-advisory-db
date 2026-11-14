@@ -1,5 +1,6 @@
 ---
 gem: addressable
+cve: 2026-126351
 ghsa: qq38-m9mg-xjj5
 url: https://github.com/sporkmonger/addressable/security/advisories/GHSA-qq38-m9mg-xjj5
 title: Denial of service in Addressable URI path normalization
@@ -28,10 +29,11 @@ patched_versions:
   - ">= 2.9.1"
 related:
   url:
+    - https://www.cve.org/CVERecord?id=CVE-2026-126351
     - https://rubygems.org/gems/addressable/versions/2.9.1
     - https://github.com/sporkmonger/addressable/blob/main/CHANGELOG.md#v2.9.1
     - https://github.com/sporkmonger/addressable/compare/addressable-2.9.0...addressable-2.9.1
     - https://github.com/sporkmonger/addressable/security/advisories/GHSA-qq38-m9mg-xjj5
 notes: |
-  - No CVE in GHSA URL.
+  - CVE from GHSA URL.
   - cvss_v3 in GHSA URL.

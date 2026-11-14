@@ -1,5 +1,6 @@
 ---
 gem: addressable
+cve: 2026-126350
 ghsa: j82w-28jv-3pmj
 url: https://github.com/sporkmonger/addressable/security/advisories/GHSA-j82w-28jv-3pmj
 title: Regular Expression Denial of Service in Addressable
@@ -39,6 +40,7 @@ patched_versions:
   - ">= 2.9.1"
 related:
   url:
+    - https://www.cve.org/CVERecord?id=CVE-2026-126350
     - https://rubygems.org/gems/addressable/versions/2.9.1
     - https://github.com/sporkmonger/addressable/blob/main/CHANGELOG.md#v2.9.1
     - https://github.com/sporkmonger/addressable/compare/addressable-2.9.0...addressable-2.9.1
@@ -46,5 +48,5 @@ related:
     - https://github.com/advisories/GHSA-h27x-rffw-24p4
     - https://github.com/sporkmonger/addressable/security/advisories/GHSA-j82w-28jv-3pmj
 notes: |
-  - No CVE in GHSA URL.
+  - CVE from GHSA URL.
   - cvss_v3 in GHSA URL.
