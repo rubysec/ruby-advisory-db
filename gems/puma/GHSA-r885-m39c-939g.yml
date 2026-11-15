@@ -1,0 +1,59 @@
+---
+gem: puma
+ghsa: r885-m39c-939g
+url: https://github.com/puma/puma/security/advisories/GHSA-r885-m39c-939g
+title: ssl_cipher_filter values containing `+` are decoded
+  to a wider cipher list
+date: 2026-11-13
+description: |
+  ## Impact
+
+  Puma servers that set an ssl_cipher_filter containing + accept TLS
+  cipher suites that the filter is meant to exclude. Any client that
+  can reach the SSL listener can negotiate those suites.
+
+  Support for ssl_cipher_filter in ssl:// bind URLs was added in
+  v3.12.0 (#1478), and in the ssl_bind DSL in v4.0.0 (#1676).
+
+  In an OpenSSL cipher string, + means "both": AES+SHA selects suites
+  that are AES and SHA. Puma decodes the query of a bind URL as HTML
+  form data, where + means a space, and a space in a cipher string
+  means "either". So the filter !aNULL:AES+SHA, which is the example
+  in Puma's README, reaches OpenSSL as !aNULL:AES SHA: every AES
+  suite plus every SHA suite. On OpenSSL 3.x that is 94 suites in
+  place of 27, including suites without forward secrecy.
+
+  Puma logs nothing, and the startup output shows the filter as written,
+  so operators cannot see that their filter is not applied. The filter
+  only gets wider: explicit exclusions such as !aNULL or !3DES still apply.
+
+  Deployments that set ssl_cipher_filter with a + are affected, in either form:
+
+  * ssl_bind "0.0.0.0", "9292", ssl_cipher_filter: "!aNULL:AES+SHA",
+    cert: "...", key: "..."
+
+  * puma -b 'ssl://0.0.0.0:9292?key=...&cert=...&ssl_cipher_filter=!aNULL:AES+SHA'
+
+  The default configuration is not affected. Filters without +,
+  ssl_ciphersuites (TLS 1.3), and JRuby's ssl_cipher_list are not affected.
+
+  ## Acknowledgements
+
+  Thanks to @b84330808 for reporting this issue.
+cvss_v4: 6.3
+unaffected_versions:
+  - "< 3.12.0"
+patched_versions:
+  - "~> 7.2.2"
+  - ">= 8.0.3"
+related:
+  url:
+    - https://rubygems.org/gems/puma/versions/8.0.3
+    - https://github.com/puma/puma/blob/main/History.md#803--2026-11-13
+    - https://rubygems.org/gems/puma/versions/7.2.2
+    - https://github.com/puma/puma/blob/main/History.md#722--2026-11-13
+    - https://github.com/puma/puma/security/advisories/GHSA-r885-m39c-939g
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
+  - No gap between 7.2.2 and 8.0.0 releases.
