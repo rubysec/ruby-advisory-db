@@ -28,8 +28,6 @@ description: |
   extract the attacker-supplied archive. Further impact depends on
   what is writable and what the overwritten files are used for.
 cvss_v3: 4.4
-unaffected_versions:
-  - "< 1.1.1"
 patched_versions:
   - "~> 1.1.1"
   - ">= 1.2.0"
