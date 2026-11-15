@@ -333,13 +333,12 @@ rm -f \
 	gems/nokogiri/CVE-2026-126062.yml \
 	gems/nokogiri/CVE-2026-126063.yml \
 	gems/nokogiri/CVE-2026-126064.yml \
-	gems/omniauth/CVE-2026-63183.yml \
 	gems/rack/CVE-2026-125108.yml \
 	gems/rack/CVE-2026-125109.yml \
 	gems/rack/CVE-2026-125110.yml \
 	gems/rack/CVE-2026-125111.yml
 
-# 11/13/2026: Duplicates of existing advisories based on this analysis:
+# 11/13/2026: Duplicates of existing advisories:
 rm -f \
        gems/actionpack/CVE-2026-126072.yml \
        gems/actionpack/CVE-2026-126077.yml \
@@ -367,3 +366,9 @@ rm -f \
        gems/loofah/CVE-2026-126207.yml \
        gems/loofah/CVE-2026-126208.yml \
        gems/loofah/CVE-2026-126209.yml
+
+# 11/14/2026: Duplicates of existing advisories:
+rm -f \
+       gems/sqlite3/CVE-2026-128084.yml \
+       gems/rails-html-sanitizer/CVE-2026-128068.yml \
+       gems/rails-html-sanitizer/CVE-2026-128069.yml
