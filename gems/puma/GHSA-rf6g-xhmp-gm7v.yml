@@ -40,7 +40,7 @@ description: |
 
   ## Acknowledgements
 
-  Found by Puma's maintainers during an internal security review.x
+  Found by Puma's maintainers during an internal security review.
 cvss_v4: 8.7
 patched_versions:
   - "~> 7.2.2"
