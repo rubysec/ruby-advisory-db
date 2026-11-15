@@ -11,7 +11,7 @@ patched_versions:
   - ">= 2.3.0"
 unaffected_versions:
   - "< 0.1.1"
-cvss_v3: 4.9
+cvss_v3: 7.5
 related:
   url:
     - https://rubygems.org/gems/lockbox/versions/2.3.0
