@@ -46,7 +46,6 @@ related:
     - https://github.com/puma/puma/blob/main/History.md#803--2026-11-13
     - https://rubygems.org/gems/puma/versions/7.2.2
     - https://github.com/puma/puma/blob/main/History.md#722--2026-11-13
-    - https://github.com/puma/puma/pull/2052
     - https://github.com/puma/puma/security/advisories/GHSA-86xc-wrr9-xmmq
 notes: |
   - No CVE from GHSA URL.
