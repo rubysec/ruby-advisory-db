@@ -1,0 +1,47 @@
+---
+gem: net-ssh
+ghsa: hjwv-j52r-xcg7
+url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-hjwv-j52r-xcg7
+title: net-ssh - @revoked known_hosts entries are treated as
+  valid pinned host keys — revoked host key accepted
+date: 2026-11-06
+description: |
+  Net::SSH's known_hosts parser (Net::SSH::KnownHosts#keys_for) reads
+  the OpenSSH @marker field but only special-cases @cert-authority.
+  A line marked @revoked, which is the standard OpenSSH way to
+  permanently retire a compromised host key, falls into the default
+  branch and is loaded as a regular, trusted HostKeyEntries::PubKey
+  pin. Every built-in host-key verifier (:always, :accept_new, and
+  the default :accept_new_or_local_tunnel) then matches a server
+  that presents exactly that revoked key and accepts it, even under
+  the strictest verifier. A revoked key is one the operator already
+  knows is compromised, and here it authenticates the host anyway.
+  The revocation entry quietly turns into an authorization entry.
+  OpenSSH's hostfile.c/check_host_key returns HOST_REVOKED for the
+  same line and ssh(1) aborts with "Host key ... was revoked", and
+  ssh_config(5) says keys on a @revoked line "must always be refused".
+
+  ## Impact
+
+  Host authentication bypass that opens a full SSH MITM. The attacker
+  can read and inject session plaintext (commands, output, uploaded
+  data), capture credentials sent over password auth, and take over
+  deploy-tool command channels, since Capistrano, Kamal, and sshkit
+  all sit on net-ssh. A server the operator explicitly distrusted
+  is accepted as the real host, so everything the user does over
+  that connection is exposed.
+cvss_v3: 7.4
+unaffected_versions:
+  - "< 6.3.0.beta1"
+patched_versions:
+  - "~> 7.3.9"
+  - ">= 8.1.1"
+related:
+  url:
+    - https://rubygems.org/gems/net-ssh/versions/8.1.1
+    - https://rubygems.org/gems/net-ssh/versions/7.3.9
+    - https://github.com/net-ssh/net-ssh/blob/master/CHANGES.txt
+    - https://github.com/net-ssh/net-ssh/security/advisories/GHSA-hjwv-j52r-xcg7
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL
