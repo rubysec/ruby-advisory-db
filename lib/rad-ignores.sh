@@ -316,12 +316,11 @@ rm -f gems/shopify_app/CVE-2026-63414.yml \
       gems/crass/CVE-2026-61847.yml \
       gems/crass/CVE-2026-61848.yml
 
-# 11/6/2026: GHSA-wgv4-95jc-33jm appears to be a dupliate of GHSA-f3w6-w445-fwh9.
-rm -f gems/activestorage/CVE-2026-122006.yml
-
-# 11/10/2026: https://www.cve.org/CVERecord?id=CVE-2026-126082 is a 
-#    duplicate of CVE-2026-126082 which is referenced in
-#    https://github.com/rails/rails/security/advisories/GHSA-f3w6-w445-fwh9
+# 11/12/2026: CVE-2026-126082 was rejected as a duplicate of CVE-2026-122006,
+#    which is in gems/activestorage/GHSA-f3w6-w445-fwh9.yml. Ignore it in case
+#    a stale copy of the GitHub advisory database still carries it.
+#    https://www.cve.org/CVERecord?id=CVE-2026-126082
+rm -f gems/activestorage/CVE-2026-126082.yml
 
 # 9/4/2026: More duplicates and withdrawns
 # nokogiri  | https://github.com/advisories/GHSA-5jhf-fpp7-v2pv (duplicate)
