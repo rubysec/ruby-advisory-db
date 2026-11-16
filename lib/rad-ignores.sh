@@ -322,15 +322,6 @@ rm -f gems/shopify_app/CVE-2026-63414.yml \
 #    https://www.cve.org/CVERecord?id=CVE-2026-126082
 rm -f gems/activestorage/CVE-2026-126082.yml
 
-# 9/4/2026: More duplicates and withdrawns
-# nokogiri  | https://github.com/advisories/GHSA-5jhf-fpp7-v2pv (duplicate)
-# nokogiri  | https://github.com/advisories/GHSA-xqqh-3w52-q8p7 (duplicate)
-# nokogiri  | https://github.com/advisories/GHSA-rh9x-7xjc-vwx2 (duplicate)
-# paperclip | https://github.com/advisories/GHSA-phmw-pv3f-vvx7 (withdrawn)
-# sprockets | https://github.com/advisories/GHSA-r4x3-g983-9g48 (withdrawn)
-
-# 9/9/2026: 
-# Rubygmems | https://github.com/advisories/GHSA-mq4m-44x6-6r2v (not a gem)
 # 11/11/2026: Duplicates of existing advisories based on this analysis:
 # https://gist.github.com/jasnow/42de658436d1fb32011893b6d99c9ca9
 rm -f \
