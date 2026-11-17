@@ -316,6 +316,12 @@ rm -f gems/shopify_app/CVE-2026-63414.yml \
       gems/crass/CVE-2026-61847.yml \
       gems/crass/CVE-2026-61848.yml
 
+# 11/12/2026: CVE-2026-126082 was rejected as a duplicate of CVE-2026-122006,
+#    which is in gems/activestorage/GHSA-f3w6-w445-fwh9.yml. Ignore it in case
+#    a stale copy of the GitHub advisory database still carries it.
+#    https://www.cve.org/CVERecord?id=CVE-2026-126082
+rm -f gems/activestorage/CVE-2026-126082.yml
+
 # 11/11/2026: Duplicates of existing advisories based on this analysis:
 # https://gist.github.com/jasnow/42de658436d1fb32011893b6d99c9ca9
 rm -f \
