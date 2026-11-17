@@ -1,0 +1,47 @@
+---
+gem: puma
+platform: jruby
+ghsa: rhww-p99c-hgj9
+url: https://github.com/puma/puma/security/advisories/GHSA-rhww-p99c-hgj9
+title: JRuby HTTP parser lets request headers change the request
+  path and query string, bypassing proxy URL rules
+date: 2026-11-16
+description: |
+  ## Impact
+
+  On JRuby, an unauthenticated client can use request headers to
+  change Rack env keys that Puma should build only from the request
+  line, such as QUERY_STRING and PATH_INFO.
+
+  If an application behind a proxy, WAF, or other firewall that makes
+  decisions based on the request line, this could be abused so that
+  the app can receive a different path or query. Examples might include
+  rules like: "only certain IPs can reach /admin", "URLs must be
+  correctly signed", or "URLs must not match this pattern of a known attacker".
+
+  Examples:
+
+  * GET /search?q=x with Query-String: &role=admin: WAF sees the query
+    string as q=x, but Rack parses the params as {"q"=>"x, ", "role"=>"admin"}.
+
+  * GET http://example.com/public HTTP/1.1 (absolute-form) with
+    Request-Path: /admin: WAF or proxy sees /public, but Rack thinks
+   PATH_INFO is /admin.
+cvss_v4: 6.3
+unaffected_versions:
+  - "< 8.0.0"
+patched_versions:
+  - "~> 8.0.4"
+  - ">= 8.1.2"
+related:
+  url:
+    - https://rubygems.org/gems/puma/versions/8.1.2-java
+    - https://github.com/puma/puma/blob/main/History.md#812--2026-11-17
+    - https://rubygems.org/gems/puma/versions/8.0.4-java
+    - https://github.com/puma/puma/blob/main/History.md#804--2026-11-17
+    - https://github.com/puma/puma/pull/3838
+    - https://github.com/puma/puma/security/advisories/GHSA-9hf4-67fc-4vf4
+    - https://github.com/puma/puma/security/advisories/GHSA-rhww-p99c-hgj9
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
