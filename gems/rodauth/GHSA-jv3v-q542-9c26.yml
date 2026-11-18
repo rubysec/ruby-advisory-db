@@ -1,0 +1,64 @@
+---
+gem: rodauth
+ghsa: jv3v-q542-9c26
+url: https://github.com/jeremyevans/rodauth/security/advisories/GHSA-jv3v-q542-9c26
+title: WebAuthn authentication challenges are not bound to a session
+  or single-use, so a captured passkey assertion (signCount 0) can
+  be replayed indefinitely to log in via webauthn_login
+date: 2026-11-16
+description: |
+  WebAuthn assertions can be replayed: authentication challenges are
+  not bound to the session and are not single-use
+
+  ## Summary
+
+  Rodauth's webauthn feature issues a random authentication challenge
+  and sends it to the client together with an HMAC (webauthn_auth_challenge /
+  webauthn_auth_challenge_hmac). On submission, valid_webauthn_credential_auth?
+  accepts any challenge whose HMAC is valid, taken from the request
+  parameters. The challenge is not stored server-side, not bound to
+  the session or account, has no expiry, and is not consumed after use.
+
+  So the only thing stopping a previously used assertion from being
+  accepted again is the WebAuthn signature counter. The WebAuthn spec
+  lets authenticators always report signCount = 0, and synced passkeys
+  (iCloud Keychain, Google Password Manager, most password-manager
+  passkeys) do. For those credentials, webauthn-ruby's valid_sign_count?
+  returns true for 0 → 0, so the counter check does nothing.
+
+  Result: with webauthn_login (passwordless) enabled, anyone who obtains
+  one previously submitted /webauthn-login POST body (assertion +
+  challenge + challenge HMAC) can log in as that user. They can do it
+  from a fresh, unauthenticated session, as many times as they like,
+  with no time limit. Logging out or changing the password does not
+  stop it. Only removing the WebAuthn key does.
+
+  ## Impact
+
+  Full account takeover of any account that uses a synced passkey (or
+  any authenticator reporting signCount 0) on an app with webauthn_login
+  (or webauthn_autofill) enabled. The attacker needs one previously
+  submitted assertion request body. Ways to get one include application
+  or reverse-proxy request-body logs, APM/error-tracking breadcrumbs,
+  a debugging proxy, or a one-time script injection on the origin.
+  Once obtained, the value works as a permanent password-equivalent:
+  no expiry, it survives logout and password change, and it can be
+  used any number of times.
+
+  ## Credit
+
+  This issue was found with automated analysis (access-control
+  review) and manually verified.
+cvss_v3: 7.4
+unaffected_versions:
+  - "< 2.0.0"
+patched_versions:
+  - ">= 2.51.0"
+related:
+  url:
+    - https://rubygems.org/gems/rodauth/versions/2.51.0
+    - https://rodauth.jeremyevans.net/rdoc/files/doc/release_notes/2_51_0_txt.html
+    - https://github.com/jeremyevans/rodauth/security/advisories/GHSA-jv3v-q542-9c26
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL

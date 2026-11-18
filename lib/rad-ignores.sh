@@ -378,3 +378,6 @@ rm -f \
        gems/sqlite3/CVE-2026-128084.yml \
        gems/rails-html-sanitizer/CVE-2026-128068.yml \
        gems/rails-html-sanitizer/CVE-2026-128069.yml
+
+# 11/18/2026: Ruby-Central/cfp-app software/NOT A GEM or language/Unreviewed
+# https://github.com/advisories/GHSA-rwg8-28hv-mwx6
