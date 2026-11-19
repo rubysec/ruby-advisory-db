@@ -1,0 +1,52 @@
+---
+gem: dalli
+ghsa: fxmv-ww9m-pm6h
+url: https://github.com/petergoldstein/dalli/security/advisories/GHSA-fxmv-ww9m-pm6h
+title: Malformed meta value replies can desynchronize Dalli connections
+date: 2026-11-17
+description: |
+  Affected Dalli meta-protocol clients can accept a value reply whose
+  declared length is not followed by CRLF. The leftover bytes can be
+  interpreted as a later request's reply on the same connection.
+
+  The meta response processors in the 5.2, 5.1, 5.0, 4.3 and 3.2 lines
+  call `chomp!("\r\n")` after reading the declared value length plus two
+  bytes, without requiring that call to succeed. The single-value path
+  returns nil and completes the request; the pipelined path accepts the
+  value and advances by the declared length. Dalli 5.3.0 and newer reject
+  this mismatch and close the connection. The binary protocol in 4.3 and
+  3.2 is not affected by this defect.
+
+  A malformed server or proxy reply can leave a meta-protocol connection
+  out of step, so that a later request receives a value intended for a
+  different request. The attacker must be able to alter server reply
+  framing; ordinary writes of a correctly framed memcached value have not
+  been shown to trigger this. Affected applications use Dalli 5.2 or older
+  with the meta protocol, which 5.x uses by default. Versions before
+  3.2.15 are not affected by this defect.
+
+  ### Workaround
+
+  Use only trusted memcached servers and intermediaries, and restrict
+  access to the memcached connection, until you can upgrade.
+unaffected_versions:
+  - "< 3.2.15"
+patched_versions:
+  - "~> 3.2.17"
+  - "~> 4.3.12"
+  - "~> 5.0.16"
+  - "~> 5.1.10"
+  - "~> 5.2.10"
+  - ">= 5.3.0"
+related:
+  url:
+    - https://github.com/petergoldstein/dalli/security/advisories/GHSA-fxmv-ww9m-pm6h
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.2.10
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.1.10
+    - https://github.com/petergoldstein/dalli/releases/tag/v5.0.16
+    - https://github.com/petergoldstein/dalli/releases/tag/v4.3.12
+    - https://github.com/petergoldstein/dalli/releases/tag/v3.2.17
+notes: |
+  No CVE has been assigned in GHSA, and it has no CVSS score; GitHub
+  severity is medium. 5.3.0 and newer were never affected: they already
+  checked the value terminator.
