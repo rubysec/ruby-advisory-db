@@ -1,0 +1,46 @@
+---
+gem: gemstash
+library: rubygems
+ghsa: 7frx-567x-v3r6
+url: https://github.com/rubygems/gemstash/security/advisories/GHSA-7frx-567x-v3r6
+title: Private dependencies API returns private gem metadata
+  without authentication when :protected_fetch is enabled
+date: 2026-11-19
+description: |
+  ## Summary
+
+  With :protected_fetch: true, Gemstash requires a fetch API key to
+  download private gems (/private/gems/<name>-<version>.gem), gemspecs
+  (/private/quick/Marshal.4.8/...) and the specs indexes
+  (/private/specs.4.8.gz and friends). The private dependencies API
+  doesn't check it. GET /private/api/v1/dependencies?gems=... and GET
+  /private/api/v1/dependencies.json?gems=... return the versions,
+  platforms and runtime dependencies of any private gem to an
+  unauthenticated client.
+
+  ## Impact
+
+  Any client that can reach the server can enumerate the private catalog
+  without a key. The client asks for a gem name and gets every indexed
+  version, its platform, and the names and requirements of its runtime
+  dependencies. Each response names further gems to ask about, so
+  following them maps out the private gems and their internal dependencies.
+  That's useful reconnaissance for dependency-confusion or typosquatting
+  attacks against the organization. Gem contents and gemspecs stay protected.
+
+  This doesn't fall under the SECURITY.md exclusion for unauthenticated
+  downloads while :protected_fetch is off: it happens with :protected_fetch on.
+cvss_v4: 6.9
+unaffected_versions:
+  - "< 1.1.0"
+patched_versions:
+  - ">= 2.9.0"
+related:
+  url:
+    - https://rubygems.org/gems/gemstash/versions/2.9.0
+    - https://github.com/rubygems/gemstash/releases/tag/v2.9.0
+    - https://github.com/rubygems/gemstash/compare/v2.8.2...v2.9.0
+    - https://github.com/rubygems/gemstash/security/advisories/GHSA-7frx-567x-v3r6
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v4 from GHSA URL.

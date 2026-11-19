@@ -1,0 +1,39 @@
+---
+gem: gemstash
+library: rubygems
+ghsa: 27cp-f4p8-8qwv
+url: https://github.com/rubygems/gemstash/security/advisories/GHSA-27cp-f4p8-8qwv
+title: Gemstash vulnerable to unauthenticated remote code execution
+  via unsafe deserialization of upstream dependency responses
+date: 2026-11-19
+description: |
+  ## Summary
+
+  Gemstash lets any unauthenticated client choose the upstream gem
+  server, and it loads that server's dependency response with Marshal.load.
+  An attacker who can reach a gemstash server over HTTP can execute
+  code as the gemstash process. All releases from 1.0.0.pre.1 through
+  2.8.2 are affected in their default configuration.
+
+  ## Impact
+
+  Unauthenticated remote code execution (CWE-502) with the privileges
+  of the user running gemstash. The attacker can read and modify
+  everything that process can: cached gems, private gems, API keys,
+  and any credentials in the gemstash configuration. Because gemstash
+  serves gems to developer, CI, and deploy machines, the attacker
+  can also alter the gems it serves and extend the compromise to
+  those systems. Any client that can reach the server can exploit
+  it, including clients on an internal network.
+cvss_v4: 10.0
+patched_versions:
+  - ">= 2.9.0"
+related:
+  url:
+    - https://rubygems.org/gems/gemstash/versions/2.9.0
+    - https://github.com/rubygems/gemstash/releases/tag/v2.9.0
+    - https://github.com/rubygems/gemstash/compare/v2.8.2...v2.9.0
+    - https://github.com/rubygems/gemstash/security/advisories/GHSA-27cp-f4p8-8qwv
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v4 from GHSA URL.

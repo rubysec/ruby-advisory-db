@@ -1,0 +1,37 @@
+---
+gem: gemstash
+library: rubygems
+ghsa: xfw4-3v4j-82mr
+url: https://github.com/rubygems/gemstash/security/advisories/GHSA-xfw4-3v4j-82mr
+title: Gemstash lets any client choose the upstream it fetches
+  from (SSRF, open redirect)
+date: 2026-11-19
+description: |
+  ## Summary
+
+  Gemstash fetches from, or redirects to, whichever gem source a client
+  names, with the X-Gemfile-Source header that Bundler sends when
+  Gemstash is used as a mirror, or with an /upstream/<url>/ or
+  /redirect/<url>/ path prefix. The URL is not checked. Anyone who
+  can reach a Gemstash server can make it send GET requests to any
+  host the server can reach and read the response, or build a URL
+  on the server that redirects to any site.
+
+  ## Impact
+
+  SSRF with the response returned to the client: loopback services,
+  the internal network, cloud metadata endpoints. Open redirect from
+  the Gemstash origin. Attacker-chosen content stored under a gem
+  name. TLS silently dropped on a redirected download.
+cvss_v4: 7.8
+patched_versions:
+  - ">= 2.9.0"
+related:
+  url:
+    - https://rubygems.org/gems/gemstash/versions/2.9.0
+    - https://github.com/rubygems/gemstash/releases/tag/v2.9.0
+    - https://github.com/rubygems/gemstash/compare/v2.8.2...v2.9.0
+    - https://github.com/rubygems/gemstash/security/advisories/GHSA-xfw4-3v4j-82mr
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v4 from GHSA URL.

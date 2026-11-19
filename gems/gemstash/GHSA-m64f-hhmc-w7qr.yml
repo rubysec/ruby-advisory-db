@@ -1,0 +1,57 @@
+---
+gem: gemstash
+library: rubygems
+ghsa: m64f-hhmc-w7qr
+url: https://github.com/rubygems/gemstash/security/advisories/GHSA-m64f-hhmc-w7qr
+title: Rejected push to a yanked private gem version overwrites
+  the stored .gem and gemspec, bypassing yank
+date: 2026-11-19
+description: |
+  ## Summary
+
+  Gemstash::GemPusher#serve writes the uploaded .gem and gemspec to
+  storage before it checks the database to see whether the version
+  may be pushed. When the version has been yanked, the database check
+  correctly raises YankedVersionError and the client gets 422. By
+  then the attacker's bytes have already replaced the stored files
+  and the storage indexed flag is set back to true. Nothing rolls this back.
+
+  The private fetch endpoints decide whether a version is yanked from
+  that storage flag, not from the database. So after the rejected
+  push, GET /private/gems/<name>-<version>.gem and GET
+  /private/quick/Marshal.4.8/<name>-<version>.gemspec.rz serve the
+  attacker's content for a version that maintainers yanked. The
+  original content can't be restored through the API either, because
+  every later push of that version is also rejected.
+
+  ## Impact
+
+  Anyone holding an API key with push permission can replace the content
+  served for any yanked version of any private gem. They don't need
+  yank permission or ownership of the gem, because gemstash keys
+  aren't scoped per gem. The server returns 422 Version already
+  exists, so the overwrite doesn't show up in client output or
+  request logs as a successful push.
+
+  Yank is the documented way to pull a bad release, for example one
+  that leaked a secret or contained malicious code. Unyank was removed
+  in 2.0.0, so a yanked version is meant to stay dead. With this bug,
+  a yanked version comes back serving attacker-chosen code to any
+  client or mirror that fetches it by its direct URL. The real content
+  can't be put back through the API afterwards.
+
+  This doesn't depend on :protected_fetch being off. With
+  :protected_fetch: true, any client holding a fetch key gets
+  the attacker's bytes (shown below).
+cvss_v4: 5.3
+patched_versions:
+  - ">= 2.9.0"
+related:
+  url:
+    - https://rubygems.org/gems/gemstash/versions/2.9.0
+    - https://github.com/rubygems/gemstash/releases/tag/v2.9.0
+    - https://github.com/rubygems/gemstash/compare/v2.8.2...v2.9.0
+    - https://github.com/rubygems/gemstash/security/advisories/GHSA-m64f-hhmc-w7qr
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v4 from GHSA URL.
