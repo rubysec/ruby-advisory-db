@@ -1,0 +1,45 @@
+---
+engine: ruby
+ghsa: 7x2q-68qv-6p8x
+url: https://github.com/ruby/ruby/security/advisories/GHSA-7x2q-68qv-6p8x
+title: Double free in regular expression compilation
+date: 2026-11-18
+description: |
+  ## Summary
+
+  Ruby has a double free in its regular expression engine. Compiling a crafted
+  regular expression pattern may allow remote code execution in applications
+  that compile attacker-controlled patterns. The Ruby team is aware of PoCs that
+  prove this flaw can be used to trigger RCE in some scenarios.
+
+  ## Details
+
+  When parsing a character class intersection (`&&`) in a regular expression
+  pattern, Ruby could free the same buffer twice.
+
+  ## Patches
+
+  Upgrade to Ruby 3.3.14, 3.4.13 or 4.0.10.
+
+  ## Credits
+
+  Thanks to Stephan Lipp (Ada Logics) and Anthropic for reporting this issue.
+patched_versions:
+  - "~> 3.3.14"
+  - "~> 3.4.13"
+  - ">= 4.0.10"
+related:
+  ghsa:
+    - 34m4-m9fh-gqp5
+    - 87fm-7w84-j2px
+    - wpqw-5qxg-m68r
+    - 3p8q-wmhx-vm2w
+    - 7whj-cfh7-xgm4
+    - pvgc-g7gj-pv6h
+  url:
+    - https://www.ruby-lang.org/en/news/2026/11/18/multiple-vulnerabilities-in-regexp-and-string/
+    - https://github.com/ruby/ruby/security/advisories/GHSA-7x2q-68qv-6p8x
+notes: |
+  - CVE ID requested but not yet assigned at time of publication.
+  - No CVSS score published yet; GitHub advisory severity is "critical".
+  - One of seven Regexp/String vulnerabilities announced together.

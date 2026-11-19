@@ -1,0 +1,46 @@
+---
+engine: ruby
+ghsa: wpqw-5qxg-m68r
+url: https://github.com/ruby/ruby/security/advisories/GHSA-wpqw-5qxg-m68r
+title: Out-of-bounds read in case-insensitive regular expression matching
+date: 2026-11-18
+description: |
+  ## Summary
+
+  Ruby has an out-of-bounds read in its regular expression engine. Matching
+  against a crafted regular expression pattern may allow remote code execution
+  in applications that use attacker-controlled patterns. The Ruby team is aware
+  of PoCs that prove this flaw can lead to memory corruption in an
+  attacker-controlled way.
+
+  ## Details
+
+  In case-insensitive matching, Ruby could read out of bounds, which can lead to
+  memory corruption.
+
+  ## Patches
+
+  Upgrade to Ruby 3.3.14, 3.4.13 or 4.0.10.
+
+  ## Credits
+
+  Thanks to Stephan Lipp (Ada Logics) and Anthropic for reporting this issue.
+patched_versions:
+  - "~> 3.3.14"
+  - "~> 3.4.13"
+  - ">= 4.0.10"
+related:
+  ghsa:
+    - 34m4-m9fh-gqp5
+    - 7x2q-68qv-6p8x
+    - 87fm-7w84-j2px
+    - 3p8q-wmhx-vm2w
+    - 7whj-cfh7-xgm4
+    - pvgc-g7gj-pv6h
+  url:
+    - https://www.ruby-lang.org/en/news/2026/11/18/multiple-vulnerabilities-in-regexp-and-string/
+    - https://github.com/ruby/ruby/security/advisories/GHSA-wpqw-5qxg-m68r
+notes: |
+  - CVE ID requested but not yet assigned at time of publication.
+  - No CVSS score published yet; GitHub advisory severity is "high".
+  - One of seven Regexp/String vulnerabilities announced together.

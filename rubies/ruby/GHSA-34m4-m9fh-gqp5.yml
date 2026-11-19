@@ -1,0 +1,46 @@
+---
+engine: ruby
+ghsa: 34m4-m9fh-gqp5
+url: https://github.com/ruby/ruby/security/advisories/GHSA-34m4-m9fh-gqp5
+title: Heap buffer overflow in case conversion of strings
+date: 2026-11-18
+description: |
+  ## Summary
+
+  Ruby has a one-byte heap-based buffer overflow in the case conversion of
+  strings. Changing the case of a crafted string may allow remote code
+  execution. The Ruby team is aware of PoCs that prove this flaw can be used to
+  trigger RCE in some scenarios.
+
+  ## Details
+
+  When changing the case of a string in some single-byte encodings, such as
+  ISO-8859-1 and Windows-1252, Ruby could write one byte past the end of the
+  output buffer.
+
+  ## Patches
+
+  Upgrade to Ruby 3.3.14, 3.4.13 or 4.0.10.
+
+  ## Credits
+
+  Thanks to Stephan Lipp (Ada Logics) and Anthropic for reporting this issue.
+patched_versions:
+  - "~> 3.3.14"
+  - "~> 3.4.13"
+  - ">= 4.0.10"
+related:
+  ghsa:
+    - 7x2q-68qv-6p8x
+    - 87fm-7w84-j2px
+    - wpqw-5qxg-m68r
+    - 3p8q-wmhx-vm2w
+    - 7whj-cfh7-xgm4
+    - pvgc-g7gj-pv6h
+  url:
+    - https://www.ruby-lang.org/en/news/2026/11/18/multiple-vulnerabilities-in-regexp-and-string/
+    - https://github.com/ruby/ruby/security/advisories/GHSA-34m4-m9fh-gqp5
+notes: |
+  - CVE ID requested but not yet assigned at time of publication.
+  - No CVSS score published yet; GitHub advisory severity is "critical".
+  - One of seven Regexp/String vulnerabilities announced together.

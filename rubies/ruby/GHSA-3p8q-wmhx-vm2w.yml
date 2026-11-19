@@ -1,0 +1,46 @@
+---
+engine: ruby
+ghsa: 3p8q-wmhx-vm2w
+url: https://github.com/ruby/ruby/security/advisories/GHSA-3p8q-wmhx-vm2w
+title: Heap buffer overflow in regular expression compilation
+date: 2026-11-18
+description: |
+  ## Summary
+
+  Ruby has an integer overflow in its regular expression engine, which causes a
+  heap-based buffer overflow. Compiling a crafted regular expression pattern may
+  allow remote code execution in applications that compile attacker-controlled
+  patterns. The Ruby team is aware of PoCs that prove this flaw can be used to
+  trigger RCE in some scenarios.
+
+  ## Details
+
+  When compiling a regular expression, the size of the compiled program could
+  overflow, and Ruby could write past the end of a heap buffer.
+
+  ## Patches
+
+  Upgrade to Ruby 3.3.14, 3.4.13 or 4.0.10.
+
+  ## Credits
+
+  Thanks to aphantom (https://hackerone.com/aphantom) for reporting this issue.
+patched_versions:
+  - "~> 3.3.14"
+  - "~> 3.4.13"
+  - ">= 4.0.10"
+related:
+  ghsa:
+    - 34m4-m9fh-gqp5
+    - 7x2q-68qv-6p8x
+    - 87fm-7w84-j2px
+    - wpqw-5qxg-m68r
+    - 7whj-cfh7-xgm4
+    - pvgc-g7gj-pv6h
+  url:
+    - https://www.ruby-lang.org/en/news/2026/11/18/multiple-vulnerabilities-in-regexp-and-string/
+    - https://github.com/ruby/ruby/security/advisories/GHSA-3p8q-wmhx-vm2w
+notes: |
+  - CVE ID requested but not yet assigned at time of publication.
+  - No CVSS score published yet; GitHub advisory severity is "critical".
+  - One of seven Regexp/String vulnerabilities announced together.
