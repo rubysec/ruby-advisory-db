@@ -5,7 +5,7 @@ url: https://github.com/jeremyevans/rodauth/security/advisories/GHSA-jv3v-q542-9
 title: WebAuthn authentication challenges are not bound to a session
   or single-use, so a captured passkey assertion (signCount 0) can
   be replayed indefinitely to log in via webauthn_login
-date: 2026-11-16
+date: 2026-11-17
 description: |
   WebAuthn assertions can be replayed: authentication challenges are
   not bound to the session and are not single-use
