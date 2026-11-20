@@ -1,0 +1,46 @@
+---
+engine: ruby
+ghsa: 7whj-cfh7-xgm4
+url: https://github.com/ruby/ruby/security/advisories/GHSA-7whj-cfh7-xgm4
+title: Heap buffer overflow in Regexp#to_s
+date: 2026-11-18
+description: |
+  ## Summary
+
+  Ruby has a heap-based buffer overflow in `Regexp#to_s`. Converting a crafted
+  regular expression to a string may allow information disclosure or remote code
+  execution in applications that compile attacker-controlled patterns. The Ruby
+  team is aware of PoCs that prove this flaw can be used to trigger RCE in some
+  scenarios.
+
+  ## Details
+
+  When converting a regular expression to a string, Ruby could write past the
+  end of a heap buffer.
+
+  ## Patches
+
+  Upgrade to Ruby 3.3.14, 3.4.13 or 4.0.10.
+
+  ## Credits
+
+  Thanks to Stephan Lipp (Ada Logics) and Anthropic for reporting this issue.
+patched_versions:
+  - "~> 3.3.14"
+  - "~> 3.4.13"
+  - ">= 4.0.10"
+related:
+  ghsa:
+    - 34m4-m9fh-gqp5
+    - 7x2q-68qv-6p8x
+    - 87fm-7w84-j2px
+    - wpqw-5qxg-m68r
+    - 3p8q-wmhx-vm2w
+    - pvgc-g7gj-pv6h
+  url:
+    - https://www.ruby-lang.org/en/news/2026/11/18/multiple-vulnerabilities-in-regexp-and-string/
+    - https://github.com/ruby/ruby/security/advisories/GHSA-7whj-cfh7-xgm4
+notes: |
+  - CVE ID requested but not yet assigned at time of publication.
+  - No CVSS score published yet; GitHub advisory severity is "high".
+  - One of seven Regexp/String vulnerabilities announced together.

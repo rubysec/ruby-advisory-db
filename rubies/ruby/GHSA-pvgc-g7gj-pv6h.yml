@@ -1,0 +1,43 @@
+---
+engine: ruby
+ghsa: pvgc-g7gj-pv6h
+url: https://github.com/ruby/ruby/security/advisories/GHSA-pvgc-g7gj-pv6h
+title: Out-of-bounds read in case-insensitive backreference matching
+date: 2026-11-18
+description: |
+  ## Summary
+
+  Ruby has an out-of-bounds read in its regular expression engine. Matching a
+  crafted string may disclose memory contents or crash the process.
+
+  ## Details
+
+  When matching a case-insensitive backreference, Ruby could read past the end
+  of the subject string.
+
+  ## Patches
+
+  Upgrade to Ruby 3.3.14, 3.4.13 or 4.0.10.
+
+  ## Credits
+
+  Thanks to Hiroya Fujinami and Hiroshi SHIBATA for reporting this issue.
+patched_versions:
+  - "~> 3.3.14"
+  - "~> 3.4.13"
+  - ">= 4.0.10"
+related:
+  ghsa:
+    - 34m4-m9fh-gqp5
+    - 7x2q-68qv-6p8x
+    - 87fm-7w84-j2px
+    - wpqw-5qxg-m68r
+    - 3p8q-wmhx-vm2w
+    - 7whj-cfh7-xgm4
+  url:
+    - https://www.ruby-lang.org/en/news/2026/11/18/multiple-vulnerabilities-in-regexp-and-string/
+    - https://github.com/ruby/ruby/security/advisories/GHSA-pvgc-g7gj-pv6h
+notes: |
+  - CVE ID requested but not yet assigned at time of publication.
+  - No CVSS score published yet; GitHub advisory severity is "medium".
+  - One of seven Regexp/String vulnerabilities announced together.
