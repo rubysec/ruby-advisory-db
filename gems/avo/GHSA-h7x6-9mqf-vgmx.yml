@@ -39,7 +39,7 @@ description: |
     attacker's chosen scope).
 cvss_v3: 8.2
 patched_versions:
-  - "~> 3.33.1"
+  - ">= 3.33.1, < 4.0.0.beta.1"
   - ">= 4.3.1"
 related:
   url:
