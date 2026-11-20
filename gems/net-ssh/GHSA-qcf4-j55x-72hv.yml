@@ -1,0 +1,42 @@
+---
+gem: net-ssh
+ghsa: qcf4-j55x-72hv
+url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-qcf4-j55x-72hv
+title: Net::SSH::Proxy::HTTPS disables TLS certificate verification
+  by default (CWE-295)
+date: 2026-11-08
+description: |
+  Net::SSH::Proxy::HTTPS exists specifically so that proxy authentication
+  credentials are sent over an encrypted channel rather than in plaintext
+  (per its own class documentation: "This has the advantage that proxy
+  authentication information is not sent in plaintext.").
+
+  However, when a caller does not pass an explicit :ssl_context, the class
+  builds a bare OpenSSL::SSL::SSLContext.new. That default context has
+  verify_mode == VERIFY_NONE, no trust store, and no hostname verification.
+  The code then calls SSLSocket#connect on it. As a result the TLS
+  handshake to the proxy accepts any certificate, including a self-signed
+  certificate issued for an unrelated hostname.
+
+  A network attacker able to intercept the connection to the proxy (the
+  classic threat model TLS is meant to defend against) can therefore
+  impersonate the proxy, complete the handshake, and capture the
+  Proxy-Authorization: Basic credentials that the client sends in the
+  CONNECT request. Because the class's documented purpose is to keep
+  those credentials confidential, the insecure default silently defeats
+  the one guarantee the class offers.
+cvss_v3: 6.5
+unaffected_versions:
+  - "< 4.0.0.beta4"
+patched_versions:
+  - "~> 7.3.10"
+  - ">= 8.1.2"
+related:
+  url:
+    - https://rubygems.org/gems/net-ssh/versions/8.1.2
+    - https://rubygems.org/gems/net-ssh/versions/7.3.10
+    - https://github.com/net-ssh/net-ssh/blob/master/CHANGES.txt
+    - https://github.com/net-ssh/net-ssh/security/advisories/GHSA-qcf4-j55x-72hv
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL

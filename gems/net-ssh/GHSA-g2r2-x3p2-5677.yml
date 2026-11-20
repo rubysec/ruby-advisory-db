@@ -1,0 +1,32 @@
+---
+gem: net-ssh
+ghsa: g2r2-x3p2-5677
+url: https://github.com/net-ssh/net-ssh/security/advisories/GHSA-g2r2-x3p2-5677
+title: Incomplete fix of GHSA-3x7f-q7wf-fp73 - Net::SSH::Proxy::Jump
+  still interpolates hops after the first comma into the shell command
+date: 2026-10-26
+description: |
+  The fix shipped for GHSA-3x7f-q7wf-fp73 in net-ssh 7.3.5 and 8.0.0.rc2
+  validates the user and host of every jump, and escapes the other
+  fields it inserts into the ssh command. It does not escape extra_jumps.
+  Everything after the first comma is copied raw into -J and executed
+  by /bin/sh through IO.popen.
+
+  The bypass needs two hops. The shell syntax has to be in the second
+  hop. The same characters on a single hop are parsed as a URI path
+  and never placed in the command.
+unaffected_versions:
+  - "< 7.3.5"
+  - "< 8.0.0.rc2"
+patched_versions:
+  - "~> 7.3.8"
+  - ">= 8.0.4"
+related:
+  url:
+    - https://rubygems.org/gems/net-ssh/versions/8.0.4
+    - https://rubygems.org/gems/net-ssh/versions/7.3.8
+    - https://github.com/net-ssh/net-ssh/blob/master/CHANGES.txt
+    - https://github.com/net-ssh/net-ssh/security/advisories/GHSA-g2r2-x3p2-5677
+notes: |
+  - No CVE from GHSA URL.
+  - "Moderate" severity from GHSA URL
