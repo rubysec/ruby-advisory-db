@@ -42,7 +42,7 @@ cvss_v3: 6.5
 unaffected_versions:
   - "< 2.12.0"
 patched_versions:
-  - "~> 3.33.2"
+  - ">= 3.33.2, < 4.0.0.beta.1"
   - ">= 4.3.4"
 related:
   url:
