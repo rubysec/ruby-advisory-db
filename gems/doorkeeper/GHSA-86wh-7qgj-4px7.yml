@@ -1,0 +1,31 @@
+---
+gem: doorkeeper
+ghsa: 86wh-7qgj-4px7
+url: https://github.com/doorkeeper-gem/doorkeeper/security/advisories/GHSA-86wh-7qgj-4px7
+title: Open redirect in the authorization endpoint's deny path
+date: 2026-09-24
+description: |
+  DELETE /oauth/authorize (the "deny" action of
+  Doorkeeper::AuthorizationsController) builds and sends its access_denied
+  error response without validating client_id, redirect_uri or response_type
+  first. An authenticated resource owner can therefore be redirected — or
+  form_post-submitted — to an arbitrary, unregistered URI supplied in then
+  request, and a missing redirect_uri raises an unhandled exception (HTTP 500).
+cvss_v3: 4.7
+unaffected_versions:
+  - "< 0.1.0"
+patched_versions:
+  - "~> 5.9.9"
+  - ">= 6.0.0.rc2"
+related:
+  url:
+    - https://rubygems.org/gems/doorkeeper/versions/6.0.0.rc2
+    - https://github.com/doorkeeper-gem/doorkeeper/releases/tag/v6.0.0.rc2
+    - https://rubygems.org/gems/doorkeeper/versions/5.9.9
+    - https://github.com/doorkeeper-gem/doorkeeper/releases/tag/v5.9.9
+    - https://github.com/doorkeeper-gem/doorkeeper/pull/1910
+    - https://github.com/doorkeeper-gem/doorkeeper/pull/1816
+    - https://github.com/doorkeeper-gem/doorkeeper/security/advisories/GHSA-86wh-7qgj-4px7
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.

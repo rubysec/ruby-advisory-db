@@ -1,0 +1,34 @@
+---
+gem: doorkeeper
+ghsa: q735-3ffp-vv6j
+url: https://github.com/doorkeeper-gem/doorkeeper/security/advisories/GHSA-q735-3ffp-vv6j
+title: Authorized-applications endpoints act on a nil resource owner
+date: 2026-09-24
+description: |
+  Doorkeeper::AuthorizedApplicationsController guards its actions with
+  before_action :authenticate_resource_owner!, but that helper merely
+  evaluates the configured resource_owner_authenticator and ignores its
+  return value. When the authenticator returns nil without halting the
+  request — which is what Doorkeeper's own default authenticator does —
+  the actions proceed with current_resource_owner == nil. Since nil
+  matches every record whose resource_owner_id is NULL, an
+  unauthenticated caller can list and revoke all client_credentials
+  tokens issued by the server.
+cvss_v3: 6.5
+unaffected_versions:
+  - "< 0.2.0"
+patched_versions:
+  - "~> 5.9.9"
+  - ">= 6.0.0.rc2"
+related:
+  url:
+    - https://rubygems.org/gems/doorkeeper/versions/6.0.0.rc2
+    - https://github.com/doorkeeper-gem/doorkeeper/releases/tag/v6.0.0.rc2
+    - https://rubygems.org/gems/doorkeeper/versions/5.9.9
+    - https://github.com/doorkeeper-gem/doorkeeper/releases/tag/v5.9.9
+    - https://github.com/doorkeeper-gem/doorkeeper/issues/1448
+    - https://github.com/advisories/GHSA-h5m9-42h9-vcq6
+    - https://github.com/doorkeeper-gem/doorkeeper/security/advisories/GHSA-q735-3ffp-vv6j
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
