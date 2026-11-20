@@ -1,0 +1,28 @@
+---
+gem: graphql
+ghsa: 8wfw-p943-3jjp
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-8wfw-p943-3jjp
+title: 'Execution::Next ignores analysis errors, variable errors,
+  and unknown operation name errors when `validate: false`'
+date: 2026-11-09
+description: |
+  With validate: false, Schema.execute_next (or use
+  GraphQL::Execution::Next, as_default: true) runs queries that analysis
+  or variable validation rejected. max_complexity, max_depth and other
+  analyzer errors, invalid or missing variables, and unknown operation
+  names are all ignored. (The legacy interpreter enforces all of
+  them with validate: false.)
+cvss_v3: 5.9
+unaffected_versions:
+  - "< 2.5.21"
+patched_versions:
+  - ">= 2.6.15"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.15
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2615-9-nov-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-8wfw-p943-3jjp
+notes: |
+  - gem name is graphql and repo name is graphql-ruby.
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.

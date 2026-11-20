@@ -1,0 +1,24 @@
+---
+gem: graphql
+ghsa: wqwf-8p4q-mwqj
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-wqwf-8p4q-mwqj
+title: Exponential time when calculating complexity
+date: 2026-11-17
+description: |
+  When max_complexity is set, a small, valid crafted query can cause
+  the complexity analyzer take exponential time. The work happens
+  outside validate_timeout, the query is not rejected and max_depth
+  does not prevent it.
+unaffected_versions:
+  - "<= 2.3.0"
+patched_versions:
+  - ">= 2.6.16"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.16
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2616-17-nov-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-wqwf-8p4q-mwqj
+notes: |
+  - gem name is graphql and repo name is graphql-ruby.
+  - No CVE from GHSA URL.
+  - "High" Severity from GHSA URL.

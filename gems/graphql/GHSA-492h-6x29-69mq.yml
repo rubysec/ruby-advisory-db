@@ -1,0 +1,25 @@
+---
+gem: graphql
+ghsa: 492h-6x29-69mq
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-492h-6x29-69mq
+title: Authorization - `.authorized?` skipped after crafted connection cursors
+date: 2026-11-17
+description: |
+  When a schema has at least one connection whose node type uses
+  reauthorize_scoped_objects(false), a client using crafted inputs
+  can skip authorized? on an unrelated object in the same query.
+
+  GraphQL::Execution::Next is not affected.
+unaffected_versions:
+  - "<= 2.0.18"
+patched_versions:
+  - ">= 2.6.16"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.16
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2616-17-nov-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-492h-6x29-69mq
+notes: |
+  - gem name is graphql and repo name is graphql-ruby.
+  - No CVE from GHSA URL.
+  - "High" Severity from GHSA URL.
