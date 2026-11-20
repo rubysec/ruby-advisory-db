@@ -1,0 +1,34 @@
+---
+gem: gemstash
+library: rubygems
+ghsa: xg28-cqw2-pggq
+url: https://github.com/rubygems/gemstash/security/advisories/GHSA-xg28-cqw2-pggq
+title: Gemstash caches and serves unvalidated dependency data from an upstream
+date: 2026-11-19
+description: |
+  ## Summary
+
+  The dependency data Gemstash fetches from an upstream with
+  /api/v1/dependencies.json is cached and handed to clients, as JSON
+  or as a Marshal dump Gemstash builds. It was cached and passed on
+  as it came: entries of any shape, with any extra fields, and
+  entries for gems that were never requested were all accepted and cached.
+
+  ## Impact
+
+  Limited: the cache is kept per gem source, so only clients using that
+  same source see the data, and JSON cannot produce Ruby objects. It
+  still lets an upstream plant arbitrary structures and unrequested
+  gems into the Gemstash cache and into what its clients deserialize.
+cvss_v4: 6.3
+patched_versions:
+  - ">= 2.9.0"
+related:
+  url:
+    - https://rubygems.org/gems/gemstash/versions/2.9.0
+    - https://github.com/rubygems/gemstash/releases/tag/v2.9.0
+    - https://github.com/rubygems/gemstash/compare/v2.8.2...v2.9.0
+    - https://github.com/rubygems/gemstash/security/advisories/GHSA-xg28-cqw2-pggq
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v4 from GHSA URL.

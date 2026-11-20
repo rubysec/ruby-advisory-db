@@ -1,0 +1,36 @@
+---
+gem: gemstash
+library: rubygems
+ghsa: v438-gm7r-2pgf
+url: https://github.com/rubygems/gemstash/security/advisories/GHSA-v438-gm7r-2pgf
+title: Gemstash serves upstream content as HTML (stored XSS)
+date: 2026-11-19
+description: |
+  ## Summary
+
+  Gemstash replayed the Content-Type an upstream sent with a gem or
+  gemspec on every request for the stored file, and served spec
+  indexes with no content type of its own, so Sinatra's default
+  text/html applied to whatever the upstream returned. Because
+  clients choose the upstream, anyone could have Gemstash serve
+  HTML from a server they control, on the Gemstash origin.
+
+  ## Impact
+
+  Attacker-chosen script runs in the browser of anyone who opens such
+  a URL, on the Gemstash origin that also serves private gems and the
+  dependency API. Gemstash has no browser sessions, which limits what
+  the script can reach. A gem stored this way stays poisoned until
+  it is deleted from the base path.
+cvss_v4: 5.1
+patched_versions:
+  - ">= 2.9.0"
+related:
+  url:
+    - https://rubygems.org/gems/gemstash/versions/2.9.0
+    - https://github.com/rubygems/gemstash/releases/tag/v2.9.0
+    - https://github.com/rubygems/gemstash/compare/v2.8.2...v2.9.0
+    - https://github.com/rubygems/gemstash/security/advisories/GHSA-v438-gm7r-2pgf
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v4 from GHSA URL.

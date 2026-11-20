@@ -1,0 +1,28 @@
+---
+gem: gemstash
+library: rubygems
+ghsa: wgrc-4g2v-9qxv
+url: https://github.com/rubygems/gemstash/security/advisories/GHSA-wgrc-4g2v-9qxv
+title: Gem push reads the whole request body into memory before
+  checking the API key
+date: 2026-11-19
+description: |
+  ## Summary
+
+  POST /private/api/v1/gems reads the entire request body into memory
+  before checking the API key. An unauthenticated client can make the
+  server allocate memory in proportion to the size of the upload,
+  and the request is only rejected with a 401 afterwards. There is
+  no limit on the body size.
+cvss_v4: 6.9
+patched_versions:
+  - ">= 2.9.0"
+related:
+  url:
+    - https://rubygems.org/gems/gemstash/versions/2.9.0
+    - https://github.com/rubygems/gemstash/releases/tag/v2.9.0
+    - https://github.com/rubygems/gemstash/compare/v2.8.2...v2.9.0
+    - https://github.com/rubygems/gemstash/security/advisories/GHSA-wgrc-4g2v-9qxv
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v4 from GHSA URL.

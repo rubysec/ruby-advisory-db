@@ -1,0 +1,34 @@
+---
+gem: gemstash
+library: rubygems
+ghsa: c927-fwqw-cm2g
+url: https://github.com/rubygems/gemstash/security/advisories/GHSA-c927-fwqw-cm2g
+title: Gemstash holds upstream responses of any size in memory (DoS)
+date: 2026-11-19
+description: |
+  ## Summary
+
+  Every response from an upstream gem source is read into memory in
+  full before it is checked, stored or passed on, and nothing limits
+  its size. Because a client chooses the upstream by default, anyone
+  who can reach a Gemstash server can point it at a server that
+  answers with a very large or endless body.
+
+  ## Impact
+
+  A handful of concurrent requests exhaust the memory of the Gemstash
+  process and take the server down, stopping installs, builds and
+  deploys that depend on it. With trusted upstreams only, a single
+  oversized gem has the same effect.
+cvss_v4: 8.7
+patched_versions:
+  - ">= 2.9.0"
+related:
+  url:
+    - https://rubygems.org/gems/gemstash/versions/2.9.0
+    - https://github.com/rubygems/gemstash/releases/tag/v2.9.0
+    - https://github.com/rubygems/gemstash/compare/v2.8.2...v2.9.0
+    - https://github.com/rubygems/gemstash/security/advisories/GHSA-c927-fwqw-cm2g
+notes: |
+  - No CVE in GHSA URL.
+  - cvss_v4 from GHSA URL.
