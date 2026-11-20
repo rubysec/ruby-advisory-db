@@ -1,0 +1,24 @@
+---
+gem: graphql
+ghsa: wc34-88mf-j95m
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-wc34-88mf-j95m
+title: Bypass max_complexity (in "legacy" mode)
+date: 2026-11-09
+description: |
+  With the default complexity_cost_calculation_mode (:legacy), a
+  client can bypass max_complexity by adding one connection field
+  by using crafted inputs. The query runs at a cost far above the limit.
+cvss_v3: 7.5
+unaffected_versions:
+  - "< 2.0.0"
+patched_versions:
+  - ">= 2.6.15"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.15
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2615-9-nov-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-wc34-88mf-j95m
+notes: |
+  - gem name is graphql and repo name is graphql-ruby.
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.

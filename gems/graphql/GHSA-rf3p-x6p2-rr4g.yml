@@ -1,0 +1,24 @@
+---
+gem: graphql
+ghsa: rf3p-x6p2-rr4g
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-rf3p-x6p2-rr4g
+title: Execution::Next skips class-level Resolver/Mutation
+  .authorized?, so guarded resolvers run unauthorized
+date: 2026-11-09
+description: |
+  With Execution::Next, class-level .authorized? hooks of Resolvers
+  (and Mutations) were not called. (Instance method #authorized?
+  hooks were properly called.)
+unaffected_versions:
+  - "< 2.5.21"
+patched_versions:
+  - ">= 2.6.15"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.15
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2615-9-nov-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-rf3p-x6p2-rr4g
+notes: |
+  - gem name is graphql and repo name is graphql-ruby.
+  - No CVE from GHSA URL.
+  - "High" Severity from GHSA URL.
