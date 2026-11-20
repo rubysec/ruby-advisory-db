@@ -1,0 +1,53 @@
+---
+gem: rack-protection
+ghsa: vvhm-j6m8-64cw
+url: https://github.com/sinatra/sinatra/security/advisories/GHSA-vvhm-j6m8-64cw
+title: rack-protection - a missing Referer is treated as same-origin,
+  allowing a bypass of JsonCsrf, RemoteToken and RemoteReferrer
+date: 2026-11-17
+description: |
+  ## Summary
+
+  Rack::Protection::JsonCsrf, Rack::Protection::RemoteToken and
+  Rack::Protection::RemoteReferrer decide whether a request is
+  same-origin by comparing the host of the Referer header with the
+  host of the request. With the default allow_empty_referrer: true,
+  a request without a Referer header was treated as if it came from
+  the application itself. A cross-site page can make the browser
+  leave the header out, for example with <meta name="referrer"
+  content="no-referrer">, and so get past these protections.
+
+  ## Impact
+
+  The impact is limited by other protections and by current browsers:
+
+  * Rack::Protection::HttpOrigin is enabled by default and still rejects
+    cross-site unsafe requests whenever the browser sends an Origin
+    header, which current browsers do for cross-site form posts, also
+    when the referrer is suppressed (the header is then null). The
+    bypass of RemoteToken and RemoteReferrer therefore matters for
+    applications that use them without HttpOrigin, and for browsers
+    that do not send Origin.
+
+  * Reading a JSON response through a <script> element is not possible
+    in current browsers. Rack::Protection::XSSHeader, enabled by
+    default, also sends X-Content-Type-Options: nosniff, which makes
+    browsers refuse to run a JSON response as a script.
+
+  Applications using Sinatra get Rack::Protection with JsonCsrf,
+  HttpOrigin and XSSHeader enabled by default, and RemoteToken when
+  sessions are enabled.
+cvss_v3: 3.1
+patched_versions:
+  - ">= 4.2.2"
+related:
+  url:
+    - https://rubygems.org/gems/rack-protection/versions/4.2.2
+    - https://github.com/sinatra/sinatra/compare/v4.2.1...v4.2.2
+    - https://github.com/sinatra/sinatra/blob/main/rack-protection/lib/rack/protection/json_csrf.rb
+    - https://github.com/sinatra/sinatra/blob/main/rack-protection/lib/rack/protection/remote_token.rb
+    - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-Site
+    - https://github.com/sinatra/sinatra/security/advisories/GHSA-vvhm-j6m8-64cw
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.

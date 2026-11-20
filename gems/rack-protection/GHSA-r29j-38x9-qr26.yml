@@ -1,0 +1,56 @@
+---
+gem: rack-protection
+ghsa: r29j-38x9-qr26
+url: https://github.com/sinatra/sinatra/security/advisories/GHSA-r29j-38x9-qr26
+title: rack-protection - HostAuthorization permits unrelated hosts
+  that end with a leading-dot permitted host
+date: 2026-11-17
+description: |
+  ## Summary
+
+  Rack::Protection::HostAuthorization lets an entry in permitted_hosts
+  start with a dot to permit a domain and all its subdomains. The
+  pattern built for such an entry did not require a dot before the
+  domain, so .example.org also permitted any host that merely ends
+  in example.org, such as evilexample.org. An attacker can register
+  such a domain and get requests with that host past the protection.
+
+  Sinatra's default permitted_hosts in the development environment
+  contain .localhost and .test, so a Sinatra application in
+  development accepted hosts like evil.contest without any configuration.
+
+  ## Impact
+
+  HostAuthorization is the protection against DNS rebinding and other
+  attacks that rely on an unexpected Host header. For an affected
+  application it could be bypassed with a domain the attacker controls:
+
+  * DNS rebinding: a page on the attacker's domain can, after the
+    domain is rebound to the address of the application, send requests
+    to it and read the responses from the victim's browser. This is
+    the relevant attack for applications that are not reachable from
+    the internet, such as one running on a developer's machine. A
+    Sinatra application in the development environment is affected
+    by default, through .test and .localhost.
+
+  * Host header attacks: an application that uses the request host to
+    build URLs, for example in redirects or in links sent by email,
+    will use the attacker's host.
+
+  Applications are affected when permitted_hosts contains an entry
+  with a leading dot. In environments other than development Sinatra's
+  permitted_hosts is empty by default, which permits any host, so those
+  applications are affected only when they have configured such an entry.
+patched_versions:
+  - ">= 4.2.2"
+related:
+  url:
+    - https://rubygems.org/gems/rack-protection/versions/4.2.2
+    - https://github.com/sinatra/sinatra/compare/v4.2.1...v4.2.2
+    - https://github.com/sinatra/sinatra/blob/main/rack-protection/lib/rack/protection/host_authorization.rb
+    - https://en.wikipedia.org/wiki/DNS_rebinding
+    - https://portswigger.net/web-security/host-header
+    - https://github.com/sinatra/sinatra/security/advisories/GHSA-r29j-38x9-qr26
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
