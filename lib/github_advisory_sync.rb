@@ -460,33 +460,52 @@ module GitHub
       end
     end
 
-    def first_patched_versions_for(package)
-      first_patched_versions = []
-
-      vulnerabilities.each do |v|
-        if v['package']['name'] == package.name &&
-           v['firstPatchedVersion'] &&
-           v['firstPatchedVersion']['identifier']
-          first_patched_versions << v['firstPatchedVersion']['identifier']
-        end
-      end
-
-      first_patched_versions.sort
+    # The release lines of the package that GitHub lists a fix for, oldest first.
+    def patched_lines_for(package)
+      vulnerabilities.select { |v|
+        v['package']['name'] == package.name &&
+          v['firstPatchedVersion'] &&
+          v['firstPatchedVersion']['identifier']
+      }.sort_by { |v| Gem::Version.new(v['firstPatchedVersion']['identifier']) }
     end
 
     def patched_versions_for(package)
-      first_patched_versions = first_patched_versions_for(package)
-      patched_versions       = []
+      lines = patched_lines_for(package)
 
-      if !first_patched_versions.empty?
-        first_patched_versions[0..-2].each do |version|
-          patched_versions << "~> #{version}"
-        end
+      lines.each_with_index.map do |line, index|
+        patched   = line['firstPatchedVersion']['identifier']
+        next_line = lines[index + 1]
 
-        patched_versions << ">= #{first_patched_versions.last}"
+        next_line ? patched_until(next_line, patched) : ">= #{patched}"
       end
+    end
 
-      return patched_versions
+    # An older release line is patched until the next vulnerable range starts. "~> 3.33.1" alone
+    # stops at 3.34 and flags 3.34.0, which has the fix, when the next range only starts at 4.0.
+    def patched_until(next_line, patched)
+      operator, start = next_line['vulnerableVersionRange'].split(', ', 2).first.split(' ', 2)
+      return "~> #{patched}" unless %w[>= > =].include?(operator)
+
+      first, fixed = Gem::Version.new(start), Gem::Version.new(patched)
+
+      if first > fixed && first.release < fixed.bump
+        ">= #{patched}, #{operator == '>' ? '<=' : '<'} #{start}"
+      elsif (line = release_line_ending_at(start, patched))
+        "~> #{line}, >= #{patched}"
+      else
+        "~> #{patched}"
+      end
+    end
+
+    # "3.33" for a fix in 3.33.1 when the next range starts at 4.0. A range that starts
+    # further away (3.1 after a 2.3.18 fix) leaves 3.0 flagged, as GitHub lists no fix for it.
+    def release_line_ending_at(start, patched)
+      return if Gem::Version.new(patched).prerelease?
+
+      segments = patched.split('.')
+      (2...segments.size).map { |size| segments.first(size).join('.') }.find do |line|
+        Gem::Version.new(line).bump == Gem::Version.new(start).release
+      end
     end
 
     def create(package)
