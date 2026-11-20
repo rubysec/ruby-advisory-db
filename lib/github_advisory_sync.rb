@@ -441,9 +441,16 @@ module GitHub
         v['vulnerableVersionRange'].split(', ',2).map do |version_range|
           version_range.split(' ',2)
         end
-      }.sort_by { |((lower_op,lower_version),(upper_op,upper_version))|
-        lower_version
-      }
+      }.sort_by { |version_range| range_start(version_range) }
+    end
+
+    # A range with no lower bound ("< 1.2.3") starts below every release, wherever it ends.
+    # So does one whose start RubyGems cannot parse: GitHub's versions are free text.
+    def range_start(version_range)
+      operator, version = version_range.first
+      starts = %w[>= > =].include?(operator) && Gem::Version.correct?(version)
+
+      Gem::Version.new(starts ? version : '0')
     end
 
     def unaffected_versions_for(package)
@@ -460,52 +467,63 @@ module GitHub
       end
     end
 
-    # The release lines of the package that GitHub lists a fix for, oldest first.
-    def patched_lines_for(package)
-      vulnerabilities.select { |v|
-        v['package']['name'] == package.name &&
-          v['firstPatchedVersion'] &&
-          v['firstPatchedVersion']['identifier']
-      }.sort_by { |v| Gem::Version.new(v['firstPatchedVersion']['identifier']) }
+    def first_patched_versions_for(package)
+      versions = vulnerabilities.filter_map { |v|
+        v.dig('firstPatchedVersion', 'identifier') if v['package']['name'] == package.name
+      }
+      return versions.sort unless versions.all? { |version| Gem::Version.correct?(version) }
+
+      versions.sort_by { |version| Gem::Version.new(version) }
     end
 
     def patched_versions_for(package)
-      lines = patched_lines_for(package)
+      *older, newest = first_patched_versions_for(package)
+      return [] unless newest
 
-      lines.each_with_index.map do |line, index|
-        patched   = line['firstPatchedVersion']['identifier']
-        next_line = lines[index + 1]
+      ranges    = vulnerable_version_ranges_for(package)
+      parseable = (older + ranges.flatten(1).map(&:last)).all? { |version| Gem::Version.correct?(version) }
 
-        next_line ? patched_until(next_line, patched) : ">= #{patched}"
-      end
+      older.map { |patched|
+        parseable ? patched_until_next_range(patched, ranges) : "~> #{patched}"
+      } << ">= #{newest}"
     end
 
-    # An older release line is patched until the next vulnerable range starts. "~> 3.33.1" alone
-    # stops at 3.34 and flags 3.34.0, which has the fix, when the next range only starts at 4.0.
-    def patched_until(next_line, patched)
-      operator, start = next_line['vulnerableVersionRange'].split(', ', 2).first.split(' ', 2)
-      return "~> #{patched}" unless %w[>= > =].include?(operator)
+    # "~> 3.33.1" stops at 3.34, so it flags 3.34.0 when GitHub's next vulnerable range only starts
+    # at 4.0, and it covers 2.2.11 when the next range starts there. Follow that start instead.
+    def patched_until_next_range(patched, ranges)
+      fix = Gem::Version.new(patched)
+      later, earlier = ranges.partition { |version_range| range_start(version_range) > fix }
+      return "~> #{patched}" unless later.any? && earlier.all? { |version_range| ends_by?(version_range, fix) }
 
-      first, fixed = Gem::Version.new(start), Gem::Version.new(patched)
+      operator, start = later.first.first
+      next_start = Gem::Version.new(start)
 
-      if first > fixed && first.release < fixed.bump
+      if next_start.release < fix.bump
         ">= #{patched}, #{operator == '>' ? '<=' : '<'} #{start}"
-      elsif (line = release_line_ending_at(start, patched))
-        "~> #{line}, >= #{patched}"
+      elsif (minor_line = minor_line_ending_at(next_start, patched))
+        "~> #{minor_line}, >= #{patched}"
       else
         "~> #{patched}"
       end
     end
 
-    # "3.33" for a fix in 3.33.1 when the next range starts at 4.0. A range that starts
-    # further away (3.1 after a 2.3.18 fix) leaves 3.0 flagged, as GitHub lists no fix for it.
-    def release_line_ending_at(start, patched)
-      return if Gem::Version.new(patched).prerelease?
+    def ends_by?(version_range, version)
+      operator, upper = version_range.last
 
-      segments = patched.split('.')
-      (2...segments.size).map { |size| segments.first(size).join('.') }.find do |line|
-        Gem::Version.new(line).bump == Gem::Version.new(start).release
+      case operator
+      when '<'       then Gem::Version.new(upper) <= version
+      when '<=', '=' then Gem::Version.new(upper) < version
       end
+    end
+
+    # "3.33" for a fix in 3.33.1 when the next range starts at 4.0. A fourth segment is a backport,
+    # which a later X.Y.Z can predate: cgi 0.1.1 came out a year before the fix in 0.1.0.2.
+    def minor_line_ending_at(next_start, patched)
+      major, minor, *rest = patched.split('.')
+      return unless rest.size == 1 && !Gem::Version.new(patched).prerelease?
+
+      minor_line = "#{major}.#{minor}"
+      minor_line if Gem::Version.new(minor_line).bump == next_start.release
     end
 
     def create(package)

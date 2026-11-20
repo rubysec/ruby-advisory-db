@@ -72,60 +72,81 @@ RSpec.describe GitHub::GitHubAdvisory do
     end
   end
 
-  describe "#patched_versions_for" do
-    def patched_versions_for(gem_name, lines)
-      advisory = described_class.new({})
+  # Each line pairs a vulnerable range with its first patched version (nil when GitHub lists none).
+  def generated(field, gem_name, lines)
+    advisory = described_class.new({})
 
-      lines.each do |vulnerable_range, first_patched|
-        advisory.vulnerabilities << {
-          "package" => { "name" => gem_name },
-          "vulnerableVersionRange" => vulnerable_range,
-          "firstPatchedVersion" => { "identifier" => first_patched }
-        }
-      end
-
-      advisory.patched_versions_for(described_class::Package.new(advisory, gem_name))
+    lines.each do |vulnerable_range, first_patched|
+      advisory.vulnerabilities << {
+        "package" => { "name" => gem_name },
+        "vulnerableVersionRange" => vulnerable_range,
+        "firstPatchedVersion" => first_patched && { "identifier" => first_patched }
+      }
     end
 
-    it "keeps later minors of an older major patched when the next range starts at the next major" do
-      patched_versions = patched_versions_for(
-        "avo",
-        "< 3.33.1" => "3.33.1",
-        ">= 4.0.0.beta.1, < 4.3.1" => "4.3.1"
-      )
+    advisory.public_send("#{field}_for", described_class::Package.new(advisory, gem_name))
+  end
 
-      expect(patched_versions).to eq(["~> 3.33, >= 3.33.1", ">= 4.3.1"])
+  describe "#patched_versions_for" do
+    it "keeps later minors of an older major patched when the next range starts at the next major" do
+      expect(generated(:patched_versions, "avo", "< 3.33.1" => "3.33.1", ">= 4.0.0.beta.1, < 4.3.1" => "4.3.1"))
+        .to eq(["~> 3.33, >= 3.33.1", ">= 4.3.1"])
+    end
+
+    it "keeps a later minor flagged when a vulnerable range without a fix starts inside the major" do
+      expect(generated(:patched_versions, "avo", "< 3.33.1" => "3.33.1", "= 3.40.0" => nil,
+                                                 ">= 4.0.0.beta.1, < 4.3.1" => "4.3.1"))
+        .to eq(["~> 3.33.1", ">= 4.3.1"])
+    end
+
+    it "does not widen a four-segment fix, which later releases of the minor can predate" do
+      expect(generated(:patched_versions, "cgi", "< 0.1.0.2" => "0.1.0.2", ">= 0.2.0, < 0.2.2" => "0.2.2",
+                                                 ">= 1.0.0, < 1.0.5" => "1.0.5"))
+        .to eq(["~> 0.1.0.2", "~> 0.2, >= 0.2.2", ">= 1.0.5"])
     end
 
     it "leaves a release line flagged when GitHub lists no fix for it" do
-      patched_versions = patched_versions_for(
-        "activerecord",
-        ">= 2.3.0, < 2.3.18" => "2.3.18",
-        ">= 3.1.0, < 3.1.12" => "3.1.12",
-        ">= 3.2.0, < 3.2.13" => "3.2.13"
-      )
+      expect(generated(:patched_versions, "activerecord", ">= 2.3.0, < 2.3.18" => "2.3.18",
+                                                          ">= 3.1.0, < 3.1.12" => "3.1.12",
+                                                          ">= 3.2.0, < 3.2.13" => "3.2.13"))
+        .to eq(["~> 2.3.18", "~> 3.1.12", ">= 3.2.13"])
+    end
 
-      expect(patched_versions).to eq(["~> 2.3.18", "~> 3.1.12", ">= 3.2.13"])
+    it "keeps the prereleases of the next minor flagged" do
+      expect(generated(:patched_versions, "recurly", "< 2.0.13" => "2.0.13", ">= 2.1.0.beta1, < 2.1.11" => "2.1.11"))
+        .to eq(["~> 2.0.13", ">= 2.1.11"])
     end
 
     it "stops before a vulnerable range that starts in the same minor" do
-      patched_versions = patched_versions_for(
-        "bundler",
-        "< 2.2.10" => "2.2.10",
-        ">= 2.2.11, < 2.2.18" => "2.2.18"
-      )
+      expect(generated(:patched_versions, "bundler", "< 2.2.10" => "2.2.10", ">= 2.2.11, < 2.2.18" => "2.2.18"))
+        .to eq([">= 2.2.10, < 2.2.11", ">= 2.2.18"])
+    end
 
-      expect(patched_versions).to eq([">= 2.2.10, < 2.2.11", ">= 2.2.18"])
+    it "includes the bound itself when the next range starts after it" do
+      expect(generated(:patched_versions, "bundler", "< 2.2.10" => "2.2.10", "> 2.2.12, < 2.2.18" => "2.2.18"))
+        .to eq([">= 2.2.10, <= 2.2.12", ">= 2.2.18"])
     end
 
     it "orders release lines by version, so 2.10 comes after 2.9" do
-      patched_versions = patched_versions_for(
-        "recurly",
-        ">= 2.10.0, < 2.10.4" => "2.10.4",
-        ">= 2.9.0, < 2.9.2" => "2.9.2"
-      )
+      expect(generated(:patched_versions, "recurly", ">= 2.10.0, < 2.10.4" => "2.10.4", ">= 2.9.0, < 2.9.2" => "2.9.2"))
+        .to eq(["~> 2.9.2", ">= 2.10.4"])
+    end
 
-      expect(patched_versions).to eq(["~> 2.9.2", ">= 2.10.4"])
+    it "keeps the plain constraints when RubyGems cannot parse a version" do
+      expect(generated(:patched_versions, "avo", "< 3.33.1" => "3.33.1", ">= 4.0.0, < v4.3.1" => "v4.3.1"))
+        .to eq(["~> 3.33.1", ">= v4.3.1"])
+    end
+  end
+
+  describe "#unaffected_versions_for" do
+    it "starts at the oldest vulnerable range by version, so 1.8 comes before 1.12" do
+      expect(generated(:unaffected_versions, "ember-source", ">= 1.12.0, < 1.12.2" => "1.12.2",
+                                                             ">= 1.8.0, < 1.11.4" => "1.11.4"))
+        .to eq(["< 1.8.0"])
+    end
+
+    it "lists nothing when a vulnerable range has no lower bound" do
+      expect(generated(:unaffected_versions, "avo", "<= 0.10.1" => "0.10.2", "> 0.9.0" => nil)).to be_nil
     end
   end
 end
