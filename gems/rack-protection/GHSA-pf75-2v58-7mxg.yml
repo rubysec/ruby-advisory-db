@@ -1,0 +1,54 @@
+---
+gem: rack-protection
+ghsa: pf75-2v58-7mxg
+url: https://github.com/sinatra/sinatra/security/advisories/GHSA-pf75-2v58-7mxg
+title: rack-protection - one request makes CookieTossing reject, or
+  drop the session of, every later request
+date: 2026-11-17
+description: |
+  ## Summary
+
+  Rack::Protection::CookieTossing kept the list of bad cookies it
+  found on the middleware instance, which serves every request of
+  the application, and never cleared it. After a single request with
+  a duplicated session cookie, the middleware treated every later
+  request, from every client, as a cookie tossing attack, until
+  the process was restarted.
+
+  Only applications that have enabled the middleware are affected.
+  It is not part of the default Rack::Protection stack and
+  Sinatra does not enable it.
+
+  ## Impact
+
+  Denial of service, by anyone who can send a request to the application,
+  with a single request. What happens to the later requests depends
+  on the reaction the middleware is configured with:
+
+  * With reaction: :deny, the default of the middleware when used on
+    its own, every request is answered with 403 Forbidden.
+
+  * With reaction: :drop_session, the default when enabled through
+    Sinatra's set :protection, use: :cookie_tossing, the session of
+    every request is cleared, so nobody can stay logged in.
+
+  In addition, every later response carries Set-Cookie headers that
+  expire the collected cookie names, one per name and path segment,
+  so repeated requests make all responses grow.
+
+  The application recovers only when its processes are restarted.
+  No data is exposed.
+cvss_v3: 7.5
+unaffected_versions:
+  - "< 2.0.0"
+patched_versions:
+  - ">= 4.2.2"
+related:
+  url:
+    - https://rubygems.org/gems/rack-protection/versions/4.2.2
+    - https://github.com/sinatra/sinatra/compare/v4.2.1...v4.2.2
+    - https://github.com/sinatra/sinatra/blob/main/rack-protection/lib/rack/protection/cookie_tossing.rb
+    - https://github.com/sinatra/sinatra/security/advisories/GHSA-pf75-2v58-7mxg
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
