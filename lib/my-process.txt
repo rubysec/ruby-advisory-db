@@ -6,13 +6,15 @@
  2. RAD
 
     A. Daily Find/Share RAD advisories.
-       1. Put some common repo and run "bundle update" to see
-          new gem releases and then go review release notes.
+       1. Monitor some common Ruby and/or Rails repos.
+          Run "bundle update" to see new gem releases and
+          then go review release notes.
        2. Use tools under RAD's lib directory.
           * github_advisory_sync.rb, rad-ignores.sh
        3. Check GHSA unreviewed advisories.
           * https://github.com/advisories?query=type%3Aunreviewed+ruby
        4. Also review ruby/rails RSS feeds for gem/language news.
+       5. Subscribe to email at bottom of web page: https://railslts.com .
 
     B. Create RAD advisory files from step 1.
        * lib/mkm tool
@@ -20,4 +22,3 @@
     C. Review step 2's RAD advs. Assign others to review.
 
     D. Merge step 3's RAD advs.
-     	 
