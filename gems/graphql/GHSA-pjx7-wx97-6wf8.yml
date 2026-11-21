@@ -1,0 +1,24 @@
+---
+gem: graphql
+ghsa: pjx7-wx97-6wf8
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-pjx7-wx97-6wf8
+title: Exponential backtracking in regular expression
+date: 2026-11-09
+description: |
+  Certain query string patterns led to exponential backtracking in
+  the GraphQL-Ruby parser. This issue also affects graphql-c_parser
+  because it used the same regular expression from GraphQL-Ruby.
+cvss_v3: 7.5
+unaffected_versions:
+  - "< 1.0.1"
+patched_versions:
+  - ">= 2.6.15"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.15
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2615-9-nov-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-pjx7-wx97-6wf8
+notes: |
+  - gem name is graphql and repo name is graphql-ruby.
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.

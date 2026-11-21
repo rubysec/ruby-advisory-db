@@ -1,0 +1,26 @@
+---
+gem: graphql
+ghsa: qv9r-jc8m-v7ph
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-qv9r-jc8m-v7ph
+title: Fragment spreads can cause exponential work in validation,
+  analysis, execution and lookahead
+date: 2026-11-09
+description: |
+  A crafted configuration of fragment spreads can make graphql-ruby
+  do work that doubles with every layer of fragments. This configuration
+  doesn't require a large query or a high "complexity" score.
+  Multiple components of GraphQL-Ruby were subject to this issue.
+cvss_v3: 7.5
+unaffected_versions:
+  - "< 2.0.0"
+patched_versions:
+  - ">= 2.6.15"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.15
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2615-9-nov-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-qv9r-jc8m-v7ph
+notes: |
+  - gem name is graphql and repo name is graphql-ruby.
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.

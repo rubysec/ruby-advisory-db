@@ -1,0 +1,25 @@
+---
+gem: graphql
+ghsa: 5f8h-c2xc-j37j
+url: https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-5f8h-c2xc-j37j
+title: Crafted query strings can cause exponential backtracking in
+  the Ruby lexer on older Rubies
+date: 2026-11-17
+description: |
+  Certain invalid query constructions could result in exponential CPU
+  consumption on older Rubies (<= 3.2.x).
+  Newer Rubies are not vulnerable.
+cvss_v3: 5.3
+unaffected_versions:
+  - "<= 2.0.18"
+patched_versions:
+  - ">= 2.6.16"
+related:
+  url:
+    - https://rubygems.org/gems/graphql/versions/2.6.16
+    - https://github.com/rmosolgo/graphql-ruby/blob/master/CHANGELOG.md#2616-17-nov-2026
+    - https://github.com/rmosolgo/graphql-ruby/security/advisories/GHSA-5f8h-c2xc-j37j
+notes: |
+  - gem name is graphql and repo name is graphql-ruby.
+  - No CVE from GHSA URL.
+  - cvss_v3 from GHSA URL.
