@@ -41,6 +41,9 @@ description: |
   with a leading dot. In environments other than development Sinatra's
   permitted_hosts is empty by default, which permits any host, so those
   applications are affected only when they have configured such an entry.
+cvss_v3: 4.2
+unaffected_versions:
+  - "< 4.1.0"
 patched_versions:
   - ">= 4.2.2"
 related:
