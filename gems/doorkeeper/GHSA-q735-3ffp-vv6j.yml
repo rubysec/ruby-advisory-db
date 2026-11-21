@@ -27,7 +27,6 @@ related:
     - https://rubygems.org/gems/doorkeeper/versions/5.9.9
     - https://github.com/doorkeeper-gem/doorkeeper/releases/tag/v5.9.9
     - https://github.com/doorkeeper-gem/doorkeeper/issues/1448
-    - https://github.com/advisories/GHSA-h5m9-42h9-vcq6
     - https://github.com/doorkeeper-gem/doorkeeper/security/advisories/GHSA-q735-3ffp-vv6j
 notes: |
   - No CVE from GHSA URL.
