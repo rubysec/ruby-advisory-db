@@ -441,22 +441,23 @@ module GitHub
         v['vulnerableVersionRange'].split(', ',2).map do |version_range|
           version_range.split(' ',2)
         end
-      }.sort_by { |version_range| range_start(version_range) }
+      }.sort_by { |version_range| range_order(version_range) }
     end
 
-    # A range with no lower bound ("< 1.2.3") starts below every release, wherever it ends.
-    # So does one whose start RubyGems cannot parse: GitHub's versions are free text.
-    def range_start(version_range)
+    # A range with no lower bound ("< 1.2.3"), or with a start RubyGems cannot parse, sorts first.
+    # At the same start, ">" sorts after ">=" and "=", which cover the start itself.
+    def range_order(version_range)
       operator, version = version_range.first
       starts = %w[>= > =].include?(operator) && Gem::Version.correct?(version)
 
-      Gem::Version.new(starts ? version : '0')
+      starts ? [1, Gem::Version.new(version), operator == '>' ? 1 : 0] : [0]
     end
 
     def unaffected_versions_for(package)
       if (version_range = vulnerable_version_ranges_for(package).first)
         lower_version_range = version_range[0]
         operator, version   = lower_version_range
+        return unless Gem::Version.correct?(version.to_s)
 
         case operator
         when '>'
@@ -481,7 +482,8 @@ module GitHub
       return [] unless newest
 
       ranges    = vulnerable_version_ranges_for(package)
-      parseable = (older + ranges.flatten(1).map(&:last)).all? { |version| Gem::Version.correct?(version) }
+      versions  = older + [newest] + ranges.flatten(1).map(&:last)
+      parseable = versions.all? { |version| Gem::Version.correct?(version) }
 
       older.map { |patched|
         parseable ? patched_until_next_range(patched, ranges) : "~> #{patched}"
@@ -489,10 +491,10 @@ module GitHub
     end
 
     # "~> 3.33.1" stops at 3.34, so it flags 3.34.0 when GitHub's next vulnerable range only starts
-    # at 4.0, and it covers 2.2.11 when the next range starts there. Follow that start instead.
+    # at 4.0, and it covers 2.2.11 when a range starts there. The lowest start above the fix decides.
     def patched_until_next_range(patched, ranges)
       fix = Gem::Version.new(patched)
-      later, earlier = ranges.partition { |version_range| range_start(version_range) > fix }
+      later, earlier = ranges.partition { |version_range| starts_after?(version_range, fix) }
       return "~> #{patched}" unless later.any? && earlier.all? { |version_range| ends_by?(version_range, fix) }
 
       operator, start = later.first.first
@@ -505,6 +507,12 @@ module GitHub
       else
         "~> #{patched}"
       end
+    end
+
+    def starts_after?(version_range, version)
+      operator, start = version_range.first
+
+      %w[>= > =].include?(operator) && Gem::Version.new(start) > version
     end
 
     def ends_by?(version_range, version)
