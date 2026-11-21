@@ -20,6 +20,15 @@ description: |
   This is not present on unencrypted (UNIX, TCP) Puma binds. A plaintext
   listener closes a connection that sends more than 112 KB without
   a complete request.
+
+  ## What configurations are affected
+
+  Deployments on MRI where Puma uses ssl:// or ssl_bind:
+
+  * ssl_bind "0.0.0.0", "9292", cert: "/path/to/cert.pem", key: "/path/to/key.pem"
+
+  The default configuration, which binds plain TCP, is not affected.
+  JRuby uses a separate TLS implementation.
 cvss_v4: 6.9
 patched_versions:
   - "~> 7.2.3"
