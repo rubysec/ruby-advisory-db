@@ -15,9 +15,14 @@
           * https://github.com/advisories?query=type%3Aunreviewed+ruby
        4. Also review ruby/rails RSS feeds for gem/language news.
        5. Subscribe to email at bottom of web page: https://railslts.com .
+       6. Subscribe to GitHub repo Security page for gems of interest:
+          * Example: https://github.com/rails/rails/security/advisories
+       7. Visualping.io is free for 150 checks/month. I used them
+          for daily checks.
+       8. RSS works with some URLs.
 
     B. Create RAD advisory files from step 1.
-       * lib/mkm tool
+       * lib/mkm tool - Usage: "mkm . >> FILE.yml"
 
     C. Review step 2's RAD advs. Assign others to review.
 
