@@ -1,0 +1,49 @@
+---
+gem: puma
+ghsa: 4v6q-hvv7-49h9
+url: https://github.com/puma/puma/security/advisories/GHSA-4v6q-hvv7-49h9
+title: Memory exhaustion with SSL connections
+date: 2026-11-16
+description: |
+  ## Impact
+
+  An unauthenticated client can cause excessive memory use in a Puma
+  process with an SSL binding, with no limit, until first_data_timeout
+  closes the connection.
+
+  When OpenSSL hits a fatal error while reading a TLS record, Puma's
+  MiniSSL C extension checks SSL_want_read() before SSL_get_error(),
+  so it treats the fatal error as "need more data". Puma then keeps
+  passing everything the client sends to OpenSSL's input buffer,
+  which is never read again.
+
+  This is not present on unencrypted (UNIX, TCP) Puma binds. A plaintext
+  listener closes a connection that sends more than 112 KB without
+  a complete request.
+
+  ## What configurations are affected
+
+  Deployments on MRI where Puma uses ssl:// or ssl_bind:
+
+  * ssl_bind "0.0.0.0", "9292", cert: "/path/to/cert.pem", key: "/path/to/key.pem"
+
+  The default configuration, which binds plain TCP, is not affected.
+  JRuby uses a separate TLS implementation.
+cvss_v4: 6.9
+patched_versions:
+  - "~> 7.2.3"
+  - "~> 8.0.4"
+  - ">= 8.1.2"
+related:
+  url:
+    - https://rubygems.org/gems/puma/versions/8.1.2
+    - https://github.com/puma/puma/blob/main/History.md#812--2026-11-17
+    - https://rubygems.org/gems/puma/versions/8.0.4
+    - https://github.com/puma/puma/blob/main/History.md#804--2026-11-17
+    - https://rubygems.org/gems/puma/versions/7.2.3
+    - https://github.com/puma/puma/blob/main/History.md#723--2026-11-17
+    - https://docs.openssl.org/master/man3/SSL_get_error
+    - https://github.com/puma/puma/security/advisories/GHSA-4v6q-hvv7-49h9
+notes: |
+  - No CVE from GHSA URL.
+  - cvss_v4 from GHSA URL.
