@@ -2,13 +2,9 @@
 
 echo "In rad-ignores.sh"
 
-REPON="ruby-advisory-db"
-if [ "X`pwd |sed -e "s,.*/,,"`X" == "X${REPON}X" ] ; then
-    :
-else
-    echo "Change dir to [${REPON}] first."
-    exit
-fi
+# The rm commands below use paths relative to the repo root, so run from
+# there regardless of the caller's directory or the checkout's name.
+cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit 1
 
 # 10/26/2024, 5/25/2026: Autolab is not a Rubygem so remove it.
 # 7/13/2026: Found 10 more so added them here.
