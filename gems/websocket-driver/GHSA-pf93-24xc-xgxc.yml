@@ -1,0 +1,56 @@
+---
+gem: websocket-driver
+ghsa: pf93-24xc-xgxc
+url: https://github.com/faye/websocket-driver-ruby/security/advisories/GHSA-pf93-24xc-xgxc
+title: Message corruption and denial of service triggered by crafted
+  client message
+date: 2026-11-16
+description: |
+  ## Summary
+
+  An unauthenticated remote client can trigger message corruption and
+  denial of service by starting a draft75 or draft76 WebSocket connection
+  and sending a brief sequence of bytes. The byte sequence is parsed
+  incorrectly and can lead to duplicate messages or server crash.
+
+  ## Details
+
+  The websocket-driver library supports earlier versions of the WebSocket
+  protocol from before the RFC was standardised, particularly the draft75
+  and draft76 versions. There is a bug in the parsing of messages in these
+  versions that can lead to the server duplicating received messages or
+  crashing when a client sends a specific sequence of bytes over a
+  connection being handled by this parser. No special conditions are
+  required and the input message that triggers this behaviour is very
+  short, so an attacker can easily crash a remote server.
+
+  To mitigate this, the parser bug has been fixed, and support for draft
+  protocol versions has been disabled by default. Servers wanting to
+  continue to support these versions need to pass the option
+  "allow_drafts: true" when creating a driver instance.
+
+  ## Impact
+
+  Users running a server using websocket-driver to handle WebSocket
+  connections are vulnerable to denial of service triggered by a single
+  frame sent by an unauthenticated client. The only known mitigation is
+  to upgrade to a patched release.
+cvss_v3: 9.1
+patched_versions:
+  - ">= 0.9.0"
+related:
+  url:
+    - https://rubygems.org/gems/websocket-driver/versions/0.9.0
+    - https://github.com/faye/websocket-driver-ruby/blob/main/CHANGELOG.md#090--2026-11-16
+    - https://github.com/faye/websocket-driver-ruby/compare/0.8.2...0.9.0
+    - https://github.com/faye/websocket-driver-ruby/commit/20603e3dc87f11ab91c9519f625d9b3bdc1e6b7f
+    - https://github.com/faye/websocket-driver-ruby/commit/d2152940fae66b9093db93256db7ebff0b70247e
+    - https://github.com/faye/websocket-driver-ruby/commit/31188c15cfbbb684f0dbd65192d95da14a6e9070
+    - https://github.com/faye/websocket-driver-ruby/security/advisories/GHSA-pf93-24xc-xgxc
+notes: |
+  - NOTE: Gem name is websocket-driver but repo name is websocket-driver-ruby.
+  - date value from CHANGELOG URL.
+  - cvss_v3 from GHSA URL.
+  - GHSA URL has vulnerable_version_range "<0.9.0" and patched_versions
+    ">=0.9.0", with no lower bound, so no unaffected_versions.
+  - No CVE, so no non-GHSA cvss values.
