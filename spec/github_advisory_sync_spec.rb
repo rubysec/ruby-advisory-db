@@ -212,3 +212,42 @@ RSpec.describe GitHub::GitHubAdvisory do
     end
   end
 end
+
+RSpec.describe GitHub::GitHubAdvisorySync do
+  describe ".sync" do
+    def sync_with(results)
+      advisories = results.map do |files|
+        instance_double(GitHub::GitHubAdvisory, cve_after_year?: true, sync: files)
+      end
+      client = instance_double(GitHub::GraphQLAPIClient, all_rubygem_advisories: advisories)
+      allow(GitHub::GraphQLAPIClient).to receive(:new).and_return(client)
+
+      silence_output { described_class.sync }
+    end
+
+    def silence_output
+      original = $stdout
+      $stdout = StringIO.new
+      yield
+    ensure
+      $stdout = original
+    end
+
+    it "returns the files written when every advisory changed a file" do
+      expect(sync_with([["gems/a/CVE-1.yml"], ["gems/b/CVE-2.yml"]]))
+        .to eq(["gems/a/CVE-1.yml", "gems/b/CVE-2.yml"])
+    end
+
+    it "ignores advisories that left their files unchanged" do
+      expect(sync_with([[nil], ["gems/b/CVE-2.yml"]])).to eq(["gems/b/CVE-2.yml"])
+    end
+
+    it "returns an empty list when nothing changed" do
+      expect(sync_with([[nil], [nil]])).to eq([])
+    end
+
+    it "returns an empty list when GitHub has no advisories" do
+      expect(sync_with([])).to eq([])
+    end
+  end
+end

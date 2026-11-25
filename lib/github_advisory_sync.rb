@@ -22,7 +22,7 @@ module GitHub
       # Filter out advisories with a CVE year that is before the min_year
       gh_advisories.select! { |v| v.cve_after_year?(min_year) }
 
-      files_written = gh_advisories.filter_map(&:sync).flatten.compact!
+      files_written = gh_advisories.filter_map(&:sync).flatten.compact
 
       puts "\nSync completed"
       if files_written.empty?
