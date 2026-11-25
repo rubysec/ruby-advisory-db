@@ -6,20 +6,28 @@
  2. RAD
 
     A. Daily Find/Share RAD advisories.
-       1. Monitor some common Ruby and/or Rails repos.
-          Run "bundle update" to see new gem releases and
-          then go review release notes.
-       2. Use tools under RAD's lib directory.
+       1. Use tools under RAD's lib directory to get GHSA Review advisories.
           * github_advisory_sync.rb, rad-ignores.sh
-       3. Check GHSA unreviewed advisories.
+       2. Check for GHSA unreviewed advisories.
           * https://github.com/advisories?query=type%3Aunreviewed+ruby
+       3. To get advisories before GHSA publishs them
+          a. Daily, monitor some common Ruby and/or Rails repos.
+             FYI: "bundle update; git diff" then see review gem release notes.
+          b. Subscribe to GitHub repo Security page for gems of interest.
+             * Example: https://github.com/rails/rails/security/advisories
+          c. Subscribe to email at bottom of web page: https://railslts.com .
        4. Also review ruby/rails RSS feeds for gem/language news.
-       5. Subscribe to email at bottom of web page: https://railslts.com .
-       6. Subscribe to GitHub repo Security page for gems of interest:
-          * Example: https://github.com/rails/rails/security/advisories
-       7. Visualping.io is free for 150 checks/month. I used them
+          * Example
+            * https://www.ruby-lang.org/en/feeds/news.rss
+            * https://rubysec.com/atom.xml
+            * https://advisories.gitlab.com (Not just ruby-based)
+            * https://github.com/advisories?query=type%3Areviewed+ecosystem%3Arubygems
+            * https://rubycentral.org
+
+       5. Visualping.io is free for 150 checks/month. I used them
           for daily checks.
-       8. RSS works with some URLs.
+          * Example: https://www.ruby-lang.org/en/security
+          * https://github.com/advisories?query=type%3Areviewed+ecosystem%3Arubygems
 
     B. Create RAD advisory files from step 1.
        * lib/mkm tool - Usage: "mkm . >> FILE.yml"
